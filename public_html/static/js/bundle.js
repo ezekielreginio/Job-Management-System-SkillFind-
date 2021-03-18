@@ -82,6 +82,8 @@ var __webpack_exports__ = {};
 const {
   login
 } = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
+
+alert("skill");
 })();
 
 /******/ })()
