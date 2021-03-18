@@ -1,0 +1,10 @@
+<!-- navbar section for log in form (hidden when user is logged in)-->
+{% if not user.is_active %}
+    <a href="/accounts/login" class="btn btn-primary my-2 my-sm-0 mr-1" style="background-color: #36C7D0" name="signin-btn"
+    >Signin | Applicant</a>
+    <button class="btn btn-success my-2 my-sm-0" style="background-color: #4ACFAC" type="button" data-toggle="modal"
+    data-target="#modal-signup">For Employers</button>
+{% elif user.is_active %}
+    <a class="btn btn-success my-2 my-sm-0" style="background-color: #4ACFAC" data-toggle="modal"
+    data-target="#modal-logout" >Logout</a>
+{% endif %}

@@ -1,0 +1,41 @@
+{% extends "../base.html" %} 
+{% load widget_tweaks %}
+
+{% block login_page%}
+    <div id="logreg-forms">
+        <form action="/signup/" class="form-signup">
+            <div class="social-login">
+                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
+            </div>
+            <div class="social-login">
+                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
+            </div>
+            
+            <p style="text-align:center">OR</p>
+
+            <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">
+            <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
+            <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
+            <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required autofocus="">
+
+            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+            <div class="d-inline text-center"> <p >Already a Member? <a class="d-inline" href="/accounts/login">Login Now</a></p></div>
+        </form>
+        <br>
+            
+    </div>
+    
+{% endblock %}
+
+
+<!-- <form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <a class="button secondaryAction" href="{% url 'account_reset_password' %}"></a>
+    
+    <button class="primaryAction" type="submit">Login</button>
+</form> -->
