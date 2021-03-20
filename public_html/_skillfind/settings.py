@@ -135,6 +135,7 @@ ACCOUNT_FORMS = {
 'signup': 'app_main.forms.CustomSignupForm',
 }
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
