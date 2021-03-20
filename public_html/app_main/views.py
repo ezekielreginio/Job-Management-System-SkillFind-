@@ -7,3 +7,7 @@ def index(request):
     form_login = forms.LoginForm()
     context = {'form': form_login}
     return render(request, "index.html", context)
+
+def base(request):
+    context = {}
+    return render(request, "base.html", context)

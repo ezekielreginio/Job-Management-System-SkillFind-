@@ -93,6 +93,8 @@ AUTHENTICATION_BACKENDS = [
     
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 WSGI_APPLICATION = '_skillfind.wsgi.application'
 
 
@@ -129,6 +131,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_FORMS = {
+'signup': 'app_main.forms.CustomSignupForm',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
