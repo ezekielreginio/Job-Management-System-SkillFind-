@@ -4,8 +4,7 @@ import allauth.account.forms as forms
 # Create your views here.
 
 def index(request):
-    form_login = forms.LoginForm()
-    context = {'form': form_login}
+    context = {}
     return render(request, "index.html", context)
 
 def base(request):

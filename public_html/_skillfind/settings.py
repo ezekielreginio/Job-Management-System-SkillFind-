@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     'app_main',
+    'app_accounts',
+    'app_applicant_portfolio',
     
 ]
 
@@ -109,6 +111,9 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',   
+        'OPTIONS': {
+        'sql_mode': 'traditional',
+        },
     }
 }
 
@@ -132,8 +137,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 ACCOUNT_FORMS = {
-'signup': 'app_main.forms.CustomSignupForm',
+'signup': 'app_accounts.forms.CustomSignupForm'
 }
+
 
 
 # Internationalization
