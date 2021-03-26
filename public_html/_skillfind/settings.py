@@ -44,14 +44,17 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
     'widget_tweaks',
+    'crispy_forms',
+    
 
     'app_main',
     'app_accounts',
     'app_applicant_portfolio',
     
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1
 
@@ -135,11 +138,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-ACCOUNT_FORMS = {
-'signup': 'app_accounts.forms.CustomSignupForm'
-}
-
+'''
+This lines in settings.py will no longer require a user to add a username
+and will use email as the authentication method(AllAuth)
+'''
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 
 # Internationalization

@@ -1,21 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-# from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin 
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormView
 
+from . import forms as portfolio_forms
+from .models import Experience
+
+import datetime
+
 # Create your views here.
-@login_required
+@login_required(login_url='/login/applicant')
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_portfolio(request):
     context = {}
     return render(request, 'app_applicant_portfolio/home.html', context)
 
-# class ApplicantPortfolio(LoginRequiredMixin, UserPassesTestMixin, FormView):
-#     template_name = 'app_applicant_portfolio/home.html'
-#     view_name = 'applicant_portfolio'
-#     form_class = None
+def applicant_experience(request):
+    experience_form = portfolio_forms.ApplicantPortfolioExperience
+    if request.method == 'POST':
+        experience_form = portfolio_forms.ApplicantPortfolioExperience(request.POST)
+        if experience_form.is_valid():
+            exp_form = experience_form.save(commit=False)
+            exp_form.applicant = request.user
+            exp_form.save()
+            return redirect('/applicant/experience')
+    else:
+        try:
+            experience_list = Experience.objects.all().filter(applicant_id=request.user.id)
+        except ObjectDoesNotExist:
+            experience_list = None
 
-#     def test_func(self):
-#         return self.request.user.groups.filter(name='applicant').exists()
+        context = {'form': experience_form, 'experience_list' : experience_list}
+        return render(request, 'app_applicant_portfolio/experience.html', context)
 
-# applicant_portfolio = ApplicantPortfolio.as_view()
+

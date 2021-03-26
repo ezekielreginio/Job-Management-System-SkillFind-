@@ -1,47 +1,10 @@
 {% extends "../base.html" %} 
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
-{% block login_page%}
+{% block content%}
     <div id="logreg-forms">
-        <form method="POST" action="/signup/employer" class="form-signup">
-            <div class="social-login">
-                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
-            </div>
-            <div class="social-login">
-                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
-            </div>
-            
-            <p style="text-align:center">OR</p>
-            {% csrf_token %}
-            {% if form.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {% for field,errors in form.errors.items %}
-                        <span class="fieldWrapper">
-                            {{ errors|striptags }}
-                        </span>
-                    {% endfor %}
-                </div>
-            {% endif%}
-            
-            {{form.company_name|add_class:"form-control"}}
-            {{form.contact_person_name|add_class:"form-control"}}
-            {{form.contact_no|add_class:"form-control"}}
-            {{form.username|add_class:"form-control"}}
-            {{form.email|add_class:"form-control"}}
-            {{form.password1|add_class:"form-control"}}
-            {{form.password2|add_class:"form-control"}}
-            <input type="hidden" name="user_group" value="employer">
-
-            <!-- <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">
-            <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
-            <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
-            <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required autofocus=""> -->
-
-            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-            <div class="d-inline text-center"> <p >Already a Member? <a class="d-inline" href="/accounts/login">Login Now</a></p></div>
-        </form>
-        <br>
-            
+        {% crispy form %}
     </div>
     
 {% endblock %}

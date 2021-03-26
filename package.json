@@ -18,5 +18,8 @@
     "babel-loader": "^8.2.2",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "moment": "^2.29.1"
   }
 }

@@ -67,8 +67,12 @@
 
 #logreg-forms .form-signup input { margin-bottom: 2px;}
 
-.form-signup .social-login{
-    width:210px !important;
+.social-login-container{
+    padding-top: 20px;
+}
+
+.social-login-container .social-login{
+    width:180px !important;
     margin: 0 auto;
 }
 
@@ -106,4 +110,22 @@
         content:'Google+';
     }
     
+}
+
+#lbl-profile-name{
+    color:#1c3f94;
+}
+
+.h-100{
+    height: 100%;
+}
+
+.list-group-item:hover{
+    background-color: #E4E6EB;
+    cursor: pointer;
+    color: #1c3f94;
+}
+
+.fs-25{
+    font-size: 25px;
 }

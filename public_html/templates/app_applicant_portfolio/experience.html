@@ -1,0 +1,98 @@
+{% extends "./home.html"%}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block portfolio-content %}
+    <div class="row mb-5">
+        <div class="col-9 pt-1">
+            <i class="icon-briefcase d-inline-block fs-25"></i>
+            <h4 class="d-inline-block">Experience</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3 text-muted">
+            Experience Level
+        </div>
+        <div class="col-6">
+            Fresh Graduate/Entry Level
+        </div>
+        <div class="col-3">
+            <a href="#"><i class="icon-edit d-inline-block "></i> Edit</a>
+        </div>
+    </div>
+    <hr>
+    
+    <div class="d-none" id="div-experience-form">
+        <p>Experience Information : Kindly fill up the form that contains the information regarding your job experience/s</p>
+        <div class="container">
+            {% crispy form %}
+        </div>
+    </div>
+
+    {%if experience_list %}
+        <div id="div-experience-list">
+            <div class="row">
+                <div class="col-xs-12 ml-auto mr-2">
+                    <a href="#" class="btn btn-primary" id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
+                </div>
+            </div>
+            {% for experience in experience_list %}
+                <div class="row p-2 experience-record">
+                    <div class="col-3">
+                        <span><span class="experience-startdate" value="{{experience.start_date|date:'Y-m-d'}}">{{experience.start_date|date:'M Y'}}</span> - <span class="experience-enddate" value="{{experience.end_date|date:'Y-m-d'}}">{{experience.end_date|date:'M Y'}}</span></span>
+                        <br>
+                        <span class="experience-span text-secondary"></span>
+                    </div>
+                    <div class="col-7">
+                        <h3>{{experience.position_title}}</h3>
+                        <h5>{{experience.company_name}} | {{experience.country}}</h5>
+                        <br>
+                        <div class="row">
+                            <div class="col-4">
+                                <span class="text-secondary">Industry</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.industry}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span class="text-secondary">Specialization</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.specialization}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span class="text-secondary">Role</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.role}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span class="text-secondary">Position Level</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.position_level}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span class="text-secondary">Salary</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.currency}} {{experience.salary}}</span>
+                            </div>
+                            
+
+                        </div>
+                        <br>
+                        <p>{{experience.experience_description}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+        
+    
+{% endblock %}

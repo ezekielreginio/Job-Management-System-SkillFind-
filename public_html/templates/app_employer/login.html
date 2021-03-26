@@ -1,7 +1,7 @@
 {% extends "../base.html" %} 
 {% load widget_tweaks %}
 
-{% block login_page%}
+{% block content%}
     <div id="logreg-forms">
         <form class="form-signin" method="POST" action="{% url 'account_login' %}">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in as Employer</h1>
@@ -27,7 +27,7 @@
             <a href="#" id="forgot_pswd">Forgot password?</a>
             <hr>
             <!-- <p>Don't have an account!</p>  -->
-            <a href="/accounts/signup/company" class="btn btn-primary btn-block text-white" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</a>
+            <a href="/signup/employer" class="btn btn-primary btn-block text-white" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</a>
         </form>
 
         <form action="/reset/password/" class="form-reset d-none">
