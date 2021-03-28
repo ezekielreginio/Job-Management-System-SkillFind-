@@ -1,6 +1,25 @@
 const moment = require("moment")
+const { create_input } = require("../_global/global")
 
 if(location.href.indexOf('experience') != -1){
+
+    //Experience Level Validator:
+    if(document.getElementById("experience-level-desc").textContent == 'None'){
+        document.getElementById("experience-level").classList.add("d-none")
+        document.getElementById("experience-level-form").classList.remove("d-none")
+    }
+
+    //Edit Experience Indicator
+    if(location.href.indexOf('edit') != -1){
+        document.getElementById("div-experience-form").classList.remove("d-none")
+        try{
+            document.getElementById("div-experience-list").classList.add("d-none")
+        }
+        catch{
+            
+        }
+    }
+
     if(document.getElementById("div-experience-list") == null){
         document.getElementById("div-experience-form").classList.remove("d-none")
         document.getElementById("cancel-experience-form").classList.add("d-none")
@@ -44,5 +63,45 @@ if(location.href.indexOf('experience') != -1){
             document.getElementsByClassName("experience-span")[i].textContent = y_str + m_str
          }
     }
+
+    document.getElementById("edit-experience-level").addEventListener("click", function(){
+        document.getElementById("experience-level").classList.add("d-none")
+        document.getElementById("experience-level-form").classList.remove("d-none")
+
+        document.querySelectorAll('.custom-control-input').forEach(function(x){
+            x.addEventListener("change", function(){
+                if(x.value == "1"){
+                    document.getElementById("experience-duration").classList.remove("d-none")
+                }
+                else{
+                    document.getElementById("experience-duration").classList.add("d-none")
+                    document.getElementById("id_duration_year").value = ''
+                    document.getElementById("id_duration_month").value = ''
+                }
+                    
+            })
+        })
+    })
+
+    //Event Listeners for Delete Experience Buttons
+    let delete_btn_array = document.getElementsByClassName("delete-experience")
+    for(let i = 0; i<delete_btn_array.length; i++){
+        delete_btn_array[i].addEventListener('click', function(){
+            $("#modal-delete").modal("show")
+            document.getElementById("modal-title-delete").textContent = "Delete Experience Record"
+            document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Experience Record?"
+            let link_href = this.getAttribute("data-link")
+            document.getElementById("form-delete").setAttribute("action", link_href)
+        });
+     }
+    // document.getElementById("btn-delete-experience").addEventListener("click", function(){
+    //     $("#modal-delete").modal("show")
+    //     document.getElementById("modal-title-delete").textContent = "Delete Experience Record"
+    //     document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Experience Record?"
+    //     let link_href = this.getAttribute("data-link")
+    //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
+    // })
+    
+    
     
 }

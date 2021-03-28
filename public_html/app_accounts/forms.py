@@ -7,7 +7,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field
 
 class ApplicantSignupForm(SignupForm):
-    first_name = forms.CharField(max_length=15, required=True, strip=True)
+    first_name = forms.CharField(max_length=15, required=True, strip=True, validators=[validators.validate_alphanumeric])
     last_name = forms.CharField(max_length=15, required=True, strip=True)
     user_group = forms.CharField(max_length=15, required=True, strip=True)
 

@@ -1,6 +1,31 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/_global/global.js":
+/*!*******************************!*\
+  !*** ./src/_global/global.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "create_input": () => (/* binding */ create_input)
+/* harmony export */ });
+function create_input(type, placeholder, name, classlist, idname, required) {
+  let input_field = document.createElement("input");
+  input_field.setAttribute("type", type);
+  input_field.setAttribute("name", name);
+  input_field.setAttribute("class", classlist);
+  input_field.setAttribute("id", idname);
+  input_field.setAttribute("style", "width: 100px");
+  input_field.setAttribute("placeholder", placeholder);
+  input_field.setAttribute("required", "true");
+  return input_field;
+}
+
+/***/ }),
+
 /***/ "./src/applicant_portfolio/experience.js":
 /*!***********************************************!*\
   !*** ./src/applicant_portfolio/experience.js ***!
@@ -9,7 +34,26 @@
 
 const moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
+const {
+  create_input
+} = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
 if (location.href.indexOf('experience') != -1) {
+  //Experience Level Validator:
+  if (document.getElementById("experience-level-desc").textContent == 'None') {
+    document.getElementById("experience-level").classList.add("d-none");
+    document.getElementById("experience-level-form").classList.remove("d-none");
+  } //Edit Experience Indicator
+
+
+  if (location.href.indexOf('edit') != -1) {
+    document.getElementById("div-experience-form").classList.remove("d-none");
+
+    try {
+      document.getElementById("div-experience-list").classList.add("d-none");
+    } catch {}
+  }
+
   if (document.getElementById("div-experience-list") == null) {
     document.getElementById("div-experience-form").classList.remove("d-none");
     document.getElementById("cancel-experience-form").classList.add("d-none");
@@ -40,6 +84,58 @@ if (location.href.indexOf('experience') != -1) {
       document.getElementsByClassName("experience-span")[i].textContent = y_str + m_str;
     }
   }
+
+  document.getElementById("edit-experience-level").addEventListener("click", function () {
+    document.getElementById("experience-level").classList.add("d-none");
+    document.getElementById("experience-level-form").classList.remove("d-none");
+    document.querySelectorAll('.custom-control-input').forEach(function (x) {
+      x.addEventListener("change", function () {
+        if (x.value == "1") {
+          document.getElementById("experience-duration").classList.remove("d-none");
+        } else {
+          document.getElementById("experience-duration").classList.add("d-none");
+          document.getElementById("id_duration_year").value = '';
+          document.getElementById("id_duration_month").value = '';
+        }
+      });
+    });
+  }); //Event Listeners for Delete Experience Buttons
+
+  let delete_btn_array = document.getElementsByClassName("delete-experience");
+
+  for (let i = 0; i < delete_btn_array.length; i++) {
+    delete_btn_array[i].addEventListener('click', function () {
+      $("#modal-delete").modal("show");
+      document.getElementById("modal-title-delete").textContent = "Delete Experience Record";
+      document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Experience Record?";
+      let link_href = this.getAttribute("data-link");
+      document.getElementById("form-delete").setAttribute("action", link_href);
+    });
+  } // document.getElementById("btn-delete-experience").addEventListener("click", function(){
+  //     $("#modal-delete").modal("show")
+  //     document.getElementById("modal-title-delete").textContent = "Delete Experience Record"
+  //     document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Experience Record?"
+  //     let link_href = this.getAttribute("data-link")
+  //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
+  // })
+
+}
+
+/***/ }),
+
+/***/ "./src/applicant_portfolio/home.js":
+/*!*****************************************!*\
+  !*** ./src/applicant_portfolio/home.js ***!
+  \*****************************************/
+/***/ (() => {
+
+nav_portfolio = document.getElementsByClassName("nav-portfolio");
+
+for (var i = 0; i < nav_portfolio.length; i++) {
+  nav_portfolio[i].addEventListener("click", function () {
+    link = this.getAttribute("href");
+    window.location.replace(link);
+  });
 }
 
 /***/ }),
@@ -21575,6 +21671,10 @@ const {
 const {
   applicant_experience
 } = __webpack_require__(/*! ./applicant_portfolio/experience */ "./src/applicant_portfolio/experience.js");
+
+const {
+  applicant_portfolio
+} = __webpack_require__(/*! ./applicant_portfolio/home */ "./src/applicant_portfolio/home.js");
 })();
 
 /******/ })()

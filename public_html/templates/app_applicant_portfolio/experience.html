@@ -10,17 +10,21 @@
             <h4 class="d-inline-block">Experience</h4>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="experience-level">
         <div class="col-3 text-muted">
             Experience Level
         </div>
         <div class="col-6">
-            Fresh Graduate/Entry Level
+            <span id="experience-level-desc">{{experience_level_desc}}</span>
         </div>
         <div class="col-3">
-            <a href="#"><i class="icon-edit d-inline-block "></i> Edit</a>
+            <a href="#" id="edit-experience-level"><i class="icon-edit d-inline-block"></i> Edit</a>
         </div>
     </div>
+    <div class="d-none" id="experience-level-form">
+        {%crispy experience_level_form%}
+    </div>
+    
     <hr>
     
     <div class="d-none" id="div-experience-form">
@@ -88,6 +92,10 @@
                         </div>
                         <br>
                         <p>{{experience.experience_description}}</p>
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'experience_update' experience.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
+                        <a data-link="{% url 'experience_delete' experience.id %}" class="delete-experience" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block" ></i></a>
                     </div>
                 </div>
             {% endfor %}
