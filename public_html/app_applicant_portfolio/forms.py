@@ -97,3 +97,28 @@ class ApplicantExperienceLevel(forms.ModelForm):
                 ),
             ),
         )
+
+class ApplicantEducation(forms.ModelForm):
+    university = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
+    qualification = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
+    university_location = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
+    field_of_study = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
+    major = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
+    grade = forms.DecimalField(required=True)
+
+    class Meta:
+        model = models.Education
+        #fields = '__all__'
+        exclude = ('applicant', )
+   
+
+    def __init__(self, *args, **kwargs): #constructor
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-3 text-right'
+        self.helper.field_class = 'col-8'
+        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
+        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-education-form"))
+
+ 

@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormView
 
 from . import forms as portfolio_forms
-from .models import Experience, ExperienceLevel
+from .models import Experience, ExperienceLevel, Education
 
 import datetime
 
@@ -79,4 +79,30 @@ def applicant_experience_level(request):
     else:
         print("Invalid Access")
 
+def applicant_education(request,op=None, pk=None):
+    education_list = Education.objects.all().filter(applicant_id=request.user.id) # "SELECT * FROM Education WHERE applicant_id = ?"
+    
+    try:
+        education_instance = Education.objects.get(id=pk) #SELECT * FROM Education where id=pk
+    except Education.DoesNotExist:
+        education_instance = None
 
+    education_form = portfolio_forms.ApplicantEducation(instance=education_instance)
+    
+    if request.method == "POST":
+        if op == 'delete':
+            education_form = portfolio_forms.ApplicantEducation
+            education = Education.objects.get(id=pk)
+            education.delete()
+        else:    
+            education_list = None
+            education_form = portfolio_forms.ApplicantEducation(request.POST, instance=education_instance)
+            if education_form.is_valid():
+                educ_form = education_form.save(commit=False)
+                educ_form.applicant = request.user
+                educ_form.save()
+                
+                return redirect('education')
+
+    context = {'education_form': education_form,'education_list': education_list}
+    return render(request, 'app_applicant_portfolio/education.html', context)

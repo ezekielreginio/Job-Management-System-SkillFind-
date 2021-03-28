@@ -8,7 +8,7 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field
 
 class ApplicantSignupForm(SignupForm):
     first_name = forms.CharField(max_length=15, required=True, strip=True, validators=[validators.validate_alphanumeric])
-    last_name = forms.CharField(max_length=15, required=True, strip=True)
+    last_name = forms.CharField(max_length=15, required=True, strip=True, validators=[validators.validate_alphanumeric])
     user_group = forms.CharField(max_length=15, required=True, strip=True)
 
     def __init__(self, *args, **kwargs):

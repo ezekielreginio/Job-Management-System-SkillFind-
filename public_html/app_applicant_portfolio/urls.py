@@ -9,4 +9,8 @@ urlpatterns = [
     path('applicant/experience/edit/<str:pk>/', views.applicant_experience, name="experience_update"),
     path('applicant/experience/delete/<str:pk>/', views.applicant_experience_delete, name="experience_delete"),
     path('applicant/experiencelevel', views.applicant_experience_level, name="experience_level"),
+
+    path('applicant/education', views.applicant_education, name="education"),
+    path('applicant/education/edit/<str:pk>/', views.applicant_education, name="education_update"),
+    path('applicant/education//<str:op>/<str:pk>/', views.applicant_education, name="education_delete")
 ]

@@ -26,6 +26,50 @@ function create_input(type, placeholder, name, classlist, idname, required) {
 
 /***/ }),
 
+/***/ "./src/applicant_portfolio/education.js":
+/*!**********************************************!*\
+  !*** ./src/applicant_portfolio/education.js ***!
+  \**********************************************/
+/***/ (() => {
+
+if (location.href.indexOf('education') != -1) {
+  //Checks if the user has education data. If none, the add education form will be hidden
+  if (document.getElementById("div-education-list") == null) {
+    document.getElementById("div-education-form").classList.remove("d-none");
+  } //Check if the user is editing education record
+
+
+  if (location.href.indexOf('edit') != -1) {
+    document.getElementById("div-education-form").classList.remove("d-none");
+    document.getElementById("div-education-list").classList.add("d-none");
+  } //Event Listeners:
+  //Event Listener for Add Education Btn:
+
+
+  document.getElementById("btn-add-education").addEventListener("click", function () {
+    this.classList.add("d-none");
+    document.getElementById("div-education-form").classList.remove("d-none");
+  }); //Event Listener for Cancel Education Btn:
+
+  document.getElementById("cancel-education-form").addEventListener("click", function () {
+    location.replace("/applicant/education");
+  }); //Event Listener for Delete Education Btn:
+
+  let delete_btn_array = document.getElementsByClassName("btn-delete-education");
+
+  for (let i = 0; i < delete_btn_array.length; i++) {
+    delete_btn_array[i].addEventListener("click", function () {
+      $("#modal-delete").modal("show");
+      document.getElementById("modal-title-delete").textContent = "Delete Education Info";
+      document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Education Information?";
+      let link_href = this.getAttribute("data-link");
+      document.getElementById("form-delete").setAttribute("action", link_href);
+    });
+  }
+}
+
+/***/ }),
+
 /***/ "./src/applicant_portfolio/experience.js":
 /*!***********************************************!*\
   !*** ./src/applicant_portfolio/experience.js ***!
@@ -21669,12 +21713,16 @@ const {
 } = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
 
 const {
+  applicant_portfolio
+} = __webpack_require__(/*! ./applicant_portfolio/home */ "./src/applicant_portfolio/home.js");
+
+const {
   applicant_experience
 } = __webpack_require__(/*! ./applicant_portfolio/experience */ "./src/applicant_portfolio/experience.js");
 
 const {
-  applicant_portfolio
-} = __webpack_require__(/*! ./applicant_portfolio/home */ "./src/applicant_portfolio/home.js");
+  applicant_education
+} = __webpack_require__(/*! ./applicant_portfolio/education */ "./src/applicant_portfolio/education.js");
 })();
 
 /******/ })()

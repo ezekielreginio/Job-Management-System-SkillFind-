@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError 
 import re, datetime
 def validate_alphanumeric(value):
-    reg = re.compile("^[a-zA-Z0-9 .,-_]*$")
+    reg = re.compile("^[a-zA-Z0-9 .,-_ñ]*$")
     if not reg.match(value):
         raise ValidationError("Invalid Input, Please Try Again")
 

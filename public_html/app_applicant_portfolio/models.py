@@ -22,3 +22,15 @@ class ExperienceLevel(models.Model):
     experience_level = models.IntegerField(null=False, blank=False)
     duration_year = models.CharField(max_length=4, null=True, blank=True, default=None)
     duration_month = models.CharField(max_length=10, null=True, default=None)
+
+class Education(models.Model):
+    applicant = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    university = models.CharField(max_length=100, null=False, blank=False)
+    graduation_date = models.DateField(null=False, blank=False)
+    qualification = models.CharField(max_length=50, null=False, blank=False)
+    university_location = models.CharField(max_length=50, null=False, blank=False)
+    field_of_study = models.CharField(max_length=50, null=False, blank=False)
+    major = models.CharField(max_length=30, null=False, blank=False)
+    grade = models.DecimalField(max_digits=3, decimal_places=2, null=False, blank=False)
+    additional_information = models.TextField(max_length= 3500, null=False, blank=False)
+    
