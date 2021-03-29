@@ -1,0 +1,16 @@
+{% extends "./home.html"%}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block portfolio-content %}
+<div class="row mb-5">
+    <div class="col-9 pt-1">
+        <i class="icon-book d-inline-block fs-25"></i>
+        <h4 class="d-inline-block">My Resume</h4>
+    </div>
+</div>
+<hr>
+<div class="container pb-3 " id="div-language-form">
+    {% crispy resume_form %}
+</div>
+{% endblock %}

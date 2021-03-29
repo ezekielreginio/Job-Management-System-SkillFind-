@@ -1,5 +1,5 @@
 if(location.href.indexOf('skills') != -1){
-    //Checks if the user has skills data. If none, the add education form will be hidden
+    //Checks if the user has skills data. If none, the add language form will be hidden
     if(document.getElementById("div-skill-list") == null){
         document.getElementById("div-skill-form").classList.remove("d-none")
     }

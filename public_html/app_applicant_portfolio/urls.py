@@ -19,4 +19,10 @@ urlpatterns = [
     path('applicant/skills', views.applicant_skills, name="skills"),
     path('applicant/skills/edit/<str:pk>/', views.applicant_skills, name="skills_update"),
     path('applicant/skills/<str:op>/<str:pk>/', views.applicant_skills, name="skills_delete"),
+
+    path('applicant/languages', views.applicant_languages, name="languages"),
+    path('applicant/languages/edit/<str:pk>/', views.applicant_languages, name="languages_edit"),
+    path('applicant/languages/<str:op>/<str:pk>/', views.applicant_languages, name="languages_delete"),
+
+    path('applicant/resume', views.applicant_resume, name="resume"),
 ]
