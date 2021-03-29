@@ -121,4 +121,33 @@ class ApplicantEducation(forms.ModelForm):
         self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-education-form"))
 
- 
+class ApplicantSkill(forms.ModelForm):
+    skill = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Skill Name'}))
+    proficiency = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Proficiency'}))
+
+    class Meta:
+        model = models.Skill
+        exclude = ('applicant', )
+
+    def __init__(self, *args, **kwargs): #constructor
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_show_labels = False
+        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
+        self.helper.add_input(Button('/applicant/skills', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-education-form"))
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                Div(
+                    Div(HTML(''' <h5>Add Skill</h5> '''), css_class="col-12 pl-0"),
+                    Div(
+                        'skill', css_class="col-3 mr-2",
+                    ),
+                    Div(
+                        'proficiency', css_class="col-3",
+                    ),
+                    css_class='row',
+                ),
+            ),
+        )
