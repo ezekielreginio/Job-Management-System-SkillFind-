@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormView
 
@@ -15,6 +16,8 @@ def applicant_portfolio(request):
     context = {}
     return render(request, 'app_applicant_portfolio/home.html', context)
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_experience(request, pk=None):
     experience_form = portfolio_forms.ApplicantPortfolioExperience
     experience_level_desc = ''
@@ -57,12 +60,16 @@ def applicant_experience(request, pk=None):
     context = {'form': experience_form, 'experience_list' : experience_list, 'experience_level_desc': experience_level_desc, 'experience_level_form': experience_level_form}
     return render(request, 'app_applicant_portfolio/experience.html', context)
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_experience_delete(request, pk=None):
     if request.method == "POST":
         experience = Experience.objects.get(id=pk)
         experience.delete()
     return redirect('/applicant/experience')
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_experience_level(request):
     try:
         experience_level = ExperienceLevel.objects.get(applicant_id = request.user.id)
@@ -79,6 +86,8 @@ def applicant_experience_level(request):
     else:
         print("Invalid Access")
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_education(request,op=None, pk=None):
     education_list = Education.objects.all().filter(applicant_id=request.user.id) # "SELECT * FROM Education WHERE applicant_id = ?"
     
