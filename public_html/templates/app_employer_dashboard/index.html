@@ -18,11 +18,15 @@
         
     </div>
     <ul class="sidebar-nav">
-        <li><a href="#"><i class="icon-dashboard pr-2"></i> Dashboard</a></li>
-        <li><a href="#"><i class="icon-briefcase pr-2"></i> Jobs Panel</a></li>
+        <li id="employer-nav-dashboard"><a href="#"><i class="icon-dashboard pr-2"></i> Dashboard</a></li>
+        <li><a href="#"><i class="icon-briefcase pr-2 pl-0"></i> Jobs Panel</a></li>
         <li><a href="#"><i class="icon-bar-chart pr-2"></i>Analytics</a></li>
         <li><a href="#"><i class="icon-cogs pr-2"></i>Settings</a></li>
     </ul>
+    <hr class="hr-gray">
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-success p-2"><i class="icon-plus-sign-alt pr-3"></i>Add Job Listing</button>
+    </div>
 </div>
 
 <div id="page-content-wrapper">
@@ -31,8 +35,17 @@
             <div class="col-lg-12">
                 <div class="card bg-dark">
                     <div class="container mt-2">
-                        {% block dashboard-content%}
-                        {% endblock dashboard-content %}
+                        <div class="row mb-4">
+                            <div class="col-12 pt-1 text-white">
+                                {% block dashboard-title%}
+                                {% endblock dashboard-title %}
+                            </div>
+                        </div>
+                        
+                        <div class="container pb-2">
+                            {% block dashboard-content%}
+                            {% endblock dashboard-content %}
+                        </div>
                     </div>
                 </div>
             </div>
