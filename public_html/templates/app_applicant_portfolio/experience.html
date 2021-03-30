@@ -7,15 +7,15 @@
     <div class="row mb-5">
         <div class="col-9 pt-1">
             <i class="icon-briefcase d-inline-block fs-25"></i>
-            <h4 class="d-inline-block">Experience</h4>
+            <h4 class="d-inline-block text-white">Experience</h4>
         </div>
     </div>
     <div class="row" id="experience-level">
-        <div class="col-3 text-muted">
+        <div class="col-3 " style="color: #4ACFAC">
             Experience Level
         </div>
         <div class="col-6">
-            <span id="experience-level-desc">{{experience_level_desc}}</span>
+            <span class="text-white" id="experience-level-desc">{{experience_level_desc}}</span>
         </div>
         <div class="col-3">
             <a href="#" id="edit-experience-level"><i class="icon-edit d-inline-block"></i> Edit</a>
@@ -38,7 +38,7 @@
         <div id="div-experience-list">
             <div class="row">
                 <div class="col-xs-12 ml-auto mr-2">
-                    <a href="#" class="btn btn-primary" id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
+                    <a href="#" class="btn" style="background-color: #4ACFAC" id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
                 </div>
             </div>
             {% for experience in experience_list %}
