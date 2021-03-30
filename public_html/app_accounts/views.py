@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from allauth.account.views import SignupView,LoginView
 from django.core.exceptions import ValidationError 
 from . import forms as custom_forms
 from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 
 # Create your views here.
 class ApplicantLogin(LoginView):
@@ -18,13 +19,13 @@ def employer_login(request):
     form = custom_forms.CustomLoginForm
     errors = {}
     if request.method == "POST":
+        form = custom_forms.CustomLoginForm(request.POST)
         email = request.POST.get('login')
         password = request.POST.get('password')
-        try:
-            user = User.objects.get(email=email) #SELECT * FROM Education where id=pk
-        except User.DoesNotExist:
-            form.errors = {'error':'The e-mail address and/or password you specified are not correct.'}
-
+        if form.is_valid():
+            user = authenticate(request, username=email, password=password)
+            login(request, user)
+            return redirect("/") 
 
     context = {'form': form, 'errors': errors}
     return render(request, "app_employer/login.html", context)
