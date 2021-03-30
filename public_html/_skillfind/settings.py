@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'app_main',
     'app_accounts',
     'app_applicant_portfolio',
+    'app_employer_dashboard',
     
 ]
 

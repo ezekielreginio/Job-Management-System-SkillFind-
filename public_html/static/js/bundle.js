@@ -270,6 +270,19 @@ if (location.href.indexOf('skills') != -1) {
 
 /***/ }),
 
+/***/ "./src/employer_dashboard/index.js":
+/*!*****************************************!*\
+  !*** ./src/employer_dashboard/index.js ***!
+  \*****************************************/
+/***/ (() => {
+
+if (location.href.indexOf('employer/dashboard') != -1) {
+  document.getElementById("skillfind-logo").classList.add("logo-nav");
+  document.getElementById("collapsibleNavId").classList.add("ml-4");
+}
+
+/***/ }),
+
 /***/ "./src/login/login.js":
 /*!****************************!*\
   !*** ./src/login/login.js ***!
@@ -21817,6 +21830,10 @@ const {
 const {
   applicant_language
 } = __webpack_require__(/*! ./applicant_portfolio/language */ "./src/applicant_portfolio/language.js");
+
+const {
+  employer_dashboard
+} = __webpack_require__(/*! ./employer_dashboard/index */ "./src/employer_dashboard/index.js");
 })();
 
 /******/ })()
