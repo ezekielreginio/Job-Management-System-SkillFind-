@@ -1,6 +1,6 @@
 from .models import Employer
 from django import forms
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
 from django.contrib.auth.models import User, Group
 from Include import validators
 from crispy_forms.helper import FormHelper
@@ -77,6 +77,10 @@ class EmployerSignupForm(SignupForm):
         employer.save()
         return employer.contact_person
         
+class CustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(CustomLoginForm, self).__init__(*args, **kwargs)
 
 class CustomSignupForm(SignupForm):
     company_name = forms.CharField(max_length=50, required=False, strip=True, widget=forms.TextInput(attrs={'placeholder': 'Company Name', 'required': 'true'}), validators=[validators.validate_alphanumeric, ])
