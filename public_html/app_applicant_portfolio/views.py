@@ -176,7 +176,11 @@ def applicant_languages(request,op=None, pk=None):
 @login_required(login_url='/login/applicant')
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_resume(request,op=None, pk=None):
-    resume_file = Resume.objects.get(applicant_id=request.user.id)
+    try:
+        resume_file = Resume.objects.get(applicant_id=request.user.id)
+    except Resume.DoesNotExist:
+        resume_file = None
+
     resume_form = portfolio_forms.ApplicantResume(instance=resume_file)
     if request.method == "POST":
         resume_form = portfolio_forms.ApplicantResume(request.POST, request.FILES, instance=resume_file)
