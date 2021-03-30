@@ -15,7 +15,7 @@ class ApplicantSignup(SignupView):
     form_class = custom_forms.ApplicantSignupForm
     view_name = 'applicant_signup'
 
-def employer_login(request):
+def skillfind_login(request, level=None):
     form = custom_forms.CustomLoginForm
     errors = {}
     if request.method == "POST":
@@ -24,11 +24,15 @@ def employer_login(request):
         password = request.POST.get('password')
         if form.is_valid():
             user = authenticate(request, username=email, password=password)
-            login(request, user)
-            return redirect("/") 
+            u = User.objects.get(email=email)
+            if u.groups.filter(name=level).exists():
+                login(request, user)
+                return redirect("/") 
+            else:
+                errors = {'The e-mail address and/or password you specified are not correct .'}
 
     context = {'form': form, 'errors': errors}
-    return render(request, "app_employer/login.html", context)
+    return render(request, "app_"+level+"/login.html", context)
 
 # class EmployerLogin(LoginView):
 #     template_name = 'app_employer/login.html'
