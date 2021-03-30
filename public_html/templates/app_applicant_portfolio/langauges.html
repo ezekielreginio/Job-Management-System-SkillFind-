@@ -1,0 +1,51 @@
+{% extends "./home.html"%}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block portfolio-content %}
+<div class="row mb-5">
+    <div class="col-9 pt-1">
+        <i class="icon-cogs d-inline-block fs-25"></i>
+        <h4 class="d-inline-block">Skills</h4>
+    </div>
+</div>
+<hr>
+<div class="container pb-3 d-none" id="div-language-form">
+    {% crispy language_form %}
+</div>
+{% if language_list %}
+    <div class="mh-300" id="div-language-list">
+        <div class="row">
+            <div class="col-6">
+                <h3 class="text-secondary">My Languages</h3>
+            </div>
+            <div class="col-xs-6 ml-auto mr-2">
+                <a href="#" class="btn btn-primary" id="btn-add-language"><i class="icon-plus-sign"></i> Add Language</a>
+            </div>
+        </div>
+        <div class="row text-secondary pb-2">
+            <div class="col-4">
+                <h5>Language Name</h5>
+            </div>   
+            <div class="col-3">
+                <h5>Proficiency</h5>
+            </div> 
+        </div>
+        {% for language in language_list %}
+            <div class="row pb-1">
+                <div class="col-4">
+                    <h5>{{language.language}}</h5>
+                </div>
+                <div class="col-2">
+                    <h5>{{language.proficiency}}</h5>
+                </div>
+                <div class="col-2">
+                    <a href="{% url 'languages_edit' language.id %}" class="update-skill"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
+                    <a data-link="{% url 'languages_delete' 'delete' language.id %}" class="btn-delete-language"><i class="icon-trash fs-25 d-inline-block" ></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

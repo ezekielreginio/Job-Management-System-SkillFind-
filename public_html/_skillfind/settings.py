@@ -40,13 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    'storages',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'widget_tweaks',
     'crispy_forms',
-    
 
     'app_main',
     'app_accounts',
@@ -148,6 +147,15 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 
+#File Upload Settings:
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_APP_KEY = "r2yna14gb0wda0d"
+DROPBOX_APP_SECRET_KEY = "01791zxb7cs62hl"
+DROPBOX_APP_ACCESS_TOKEN = "L-u71KTIt0UAAAAAAAAAAWTj6W9E7Ko7RUTerWQLxQv3r7JMy_NhnebvStvkS3Nr"
+DROPBOX_OAUTH2_TOKEN = 'L-u71KTIt0UAAAAAAAAAAWTj6W9E7Ko7RUTerWQLxQv3r7JMy_NhnebvStvkS3Nr'
+DROPBOX_ROOT_PATH = "/"
+
+#MEDIA_ROOT 
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

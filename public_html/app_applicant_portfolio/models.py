@@ -33,4 +33,17 @@ class Education(models.Model):
     major = models.CharField(max_length=30, null=False, blank=False)
     grade = models.DecimalField(max_digits=3, decimal_places=2, null=False, blank=False)
     additional_information = models.TextField(max_length= 3500, null=False, blank=False)
-    
+
+class Skill(models.Model):
+    applicant = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    skill = models.CharField(max_length=30, null=False, blank=False)
+    proficiency = models.CharField(max_length=30, null=False, blank=False)
+
+class Language(models.Model):
+    applicant = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    language = models.CharField(max_length=30, null=False, blank=False)
+    proficiency = models.CharField(max_length=30, null=False, blank=False)
+
+class Resume(models.Model):
+    applicant = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
+    resume = models.FileField(upload_to='resume', null=True, blank=True)

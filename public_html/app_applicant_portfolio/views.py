@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormView
 
 from . import forms as portfolio_forms
-from .models import Experience, ExperienceLevel, Education
+from .models import Experience, ExperienceLevel, Education, Skill, Language, Resume
 
 import datetime
 
@@ -15,6 +16,8 @@ def applicant_portfolio(request):
     context = {}
     return render(request, 'app_applicant_portfolio/home.html', context)
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_experience(request, pk=None):
     experience_form = portfolio_forms.ApplicantPortfolioExperience
     experience_level_desc = ''
@@ -57,12 +60,16 @@ def applicant_experience(request, pk=None):
     context = {'form': experience_form, 'experience_list' : experience_list, 'experience_level_desc': experience_level_desc, 'experience_level_form': experience_level_form}
     return render(request, 'app_applicant_portfolio/experience.html', context)
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_experience_delete(request, pk=None):
     if request.method == "POST":
         experience = Experience.objects.get(id=pk)
         experience.delete()
     return redirect('/applicant/experience')
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_experience_level(request):
     try:
         experience_level = ExperienceLevel.objects.get(applicant_id = request.user.id)
@@ -79,6 +86,8 @@ def applicant_experience_level(request):
     else:
         print("Invalid Access")
 
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_education(request,op=None, pk=None):
     education_list = Education.objects.all().filter(applicant_id=request.user.id) # "SELECT * FROM Education WHERE applicant_id = ?"
     
@@ -91,9 +100,9 @@ def applicant_education(request,op=None, pk=None):
     
     if request.method == "POST":
         if op == 'delete':
-            education_form = portfolio_forms.ApplicantEducation
             education = Education.objects.get(id=pk)
             education.delete()
+            return redirect('education')
         else:    
             education_list = None
             education_form = portfolio_forms.ApplicantEducation(request.POST, instance=education_instance)
@@ -106,3 +115,76 @@ def applicant_education(request,op=None, pk=None):
 
     context = {'education_form': education_form,'education_list': education_list}
     return render(request, 'app_applicant_portfolio/education.html', context)
+
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
+def applicant_skills(request,op=None, pk=None):
+    skill_list = Skill.objects.all().filter(applicant_id=request.user.id)
+    
+
+    try:
+        skill_instance = Skill.objects.get(id=pk) #SELECT * FROM Education where id=pk
+    except Skill.DoesNotExist:
+        skill_instance = None
+
+    skill_form = portfolio_forms.ApplicantSkill(instance=skill_instance)
+    if request.method == "POST":
+        skill_form = portfolio_forms.ApplicantSkill(request.POST, instance=skill_instance)
+
+        if op == "delete":
+            skill = Skill.objects.get(id=pk)
+            skill.delete()
+            return redirect('skills')
+        else:
+            if skill_form.is_valid():
+                sk_form = skill_form.save(commit=False)
+                sk_form.applicant = request.user
+                sk_form.save()
+                return redirect('/applicant/skills')
+
+    context = {'skill_form': skill_form, 'skill_list': skill_list}
+    return render(request, 'app_applicant_portfolio/skills.html', context)
+
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
+def applicant_languages(request,op=None, pk=None):
+    language_list = Language.objects.all().filter(applicant_id=request.user.id)
+    try:
+        language_instance = Language.objects.get(id=pk) #SELECT * FROM Education where id=pk
+    except Language.DoesNotExist:
+        language_instance = None
+
+    language_form = portfolio_forms.ApplicantLanguage(instance=language_instance)
+
+    if request.method == "POST":
+        language_form = portfolio_forms.ApplicantLanguage(request.POST, instance=language_instance)
+
+        if op == "delete":
+            language = Language.objects.get(id=pk)
+            language.delete()
+            return redirect('languages')
+        else:
+            if language_form.is_valid():
+                lang_form = language_form.save(commit=False)
+                lang_form.applicant = request.user
+                lang_form.save()
+                return redirect('/applicant/languages')
+
+    context = {'language_form': language_form, 'language_list': language_list}
+    return render(request, 'app_applicant_portfolio/langauges.html', context)
+
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
+def applicant_resume(request,op=None, pk=None):
+    resume_file = Resume.objects.get(applicant_id=request.user.id)
+    resume_form = portfolio_forms.ApplicantResume(instance=resume_file)
+    if request.method == "POST":
+        resume_form = portfolio_forms.ApplicantResume(request.POST, request.FILES, instance=resume_file)
+        if resume_form.is_valid():
+            res_form = resume_form.save(commit=False)
+            res_form.applicant = request.user
+            res_form.save()
+            return redirect('/applicant/resume')
+
+    context = {'resume_form': resume_form}
+    return render(request, 'app_applicant_portfolio/resume.html', context)
