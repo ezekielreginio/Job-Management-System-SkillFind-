@@ -5,7 +5,7 @@
     <div id="logreg-forms">
         
         {% if request.GET.next %}
-            <form action="/login/applicant?next={{request.GET.next}}" method="POST" class="form-signin">
+            <form action="/login/applicant/?next={{request.GET.next}}" method="POST" class="form-signin">
         {%else%}
             <form class="form-signin" method="POST" action="/login/applicant/">
         {% endif %}

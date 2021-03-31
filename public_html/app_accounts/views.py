@@ -27,7 +27,10 @@ def skillfind_login(request, level=None):
             u = User.objects.get(email=email)
             if u.groups.filter(name=level).exists():
                 login(request, user)
-                return redirect("/") 
+                if request.GET.get("next"):
+                    return redirect(request.GET.get("next"))
+                else:
+                    return redirect("/") 
             else:
                 errors = {'The e-mail address and/or password you specified are not correct .'}
 

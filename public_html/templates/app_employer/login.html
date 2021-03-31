@@ -3,7 +3,11 @@
 
 {% block content%}
     <div id="logreg-forms">
-        <form class="form-signin" method="POST" action="/login/employer/">
+        {% if request.GET.next %}
+            <form action="/login/employer/?next={{request.GET.next}}" method="POST" class="form-signin">
+        {%else%}
+            <form class="form-signin" method="POST" action="/login/employer/">
+        {% endif %}
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in as Employer</h1>
             <div class="social-login">
                 <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>

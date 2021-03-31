@@ -25,7 +25,7 @@
     </ul>
     <hr class="hr-gray">
     <div class="d-flex justify-content-center">
-        <button class="btn btn-success p-2"><i class="icon-plus-sign-alt pr-3"></i>Add Job Listing</button>
+        <a href="{% url 'employer_addjob' %}" class="btn btn-success p-2"><i class="icon-plus-sign-alt pr-3"></i>Add Job Listing</a>
     </div>
 </div>
 
@@ -34,18 +34,15 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card bg-dark">
-                    <div class="container mt-2">
-                        <div class="row mb-4">
-                            <div class="col-12 pt-1 text-white">
-                                {% block dashboard-title%}
-                                {% endblock dashboard-title %}
-                            </div>
+                    <div class="row mb-4">
+                        <div class="col-12 pt-1 ml-4 text-white">
+                            {% block dashboard-title%}
+                            {% endblock dashboard-title %}
                         </div>
-                        
-                        <div class="container pb-2">
-                            {% block dashboard-content%}
-                            {% endblock dashboard-content %}
-                        </div>
+                    </div>
+                    <div class="container align-items-center">
+                        {% block dashboard-content%}
+                        {% endblock dashboard-content %}
                     </div>
                 </div>
             </div>

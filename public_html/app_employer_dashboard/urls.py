@@ -6,4 +6,5 @@ from . import views
 
 urlpatterns = [
     path('employer/dashboard', views.employer_dashboard, name="employer_dashboard"),
+    path('employer/addjob', views.employer_addjob, name="employer_addjob"),
 ]
