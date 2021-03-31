@@ -162,7 +162,14 @@ if (location.href.indexOf('experience') != -1) {
   //     let link_href = this.getAttribute("data-link")
   //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
   // })
+  //Script for CSS
 
+
+  let input_text = document.getElementsByClassName("textInput");
+
+  for (let i = 0; i < input_text.length; i++) {
+    input_text[i].classList.add("text_Input");
+  }
 }
 
 /***/ }),

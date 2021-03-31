@@ -205,3 +205,9 @@
     border-radius: 10px;
     padding: 15px 40px;
 }
+
+/* CSS For TextInputs */
+
+.text_Input{
+    background-color: #464444;
+}
