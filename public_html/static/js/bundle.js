@@ -270,6 +270,25 @@ if (location.href.indexOf('skills') != -1) {
 
 /***/ }),
 
+/***/ "./src/employer_dashboard/addjob.js":
+/*!******************************************!*\
+  !*** ./src/employer_dashboard/addjob.js ***!
+  \******************************************/
+/***/ (() => {
+
+if (location.href.indexOf('employer/addjob') != -1) {
+  let multi_checkbox = document.getElementsByClassName("custom-checkbox");
+
+  for (let i = 0; i < multi_checkbox.length; i++) {
+    multi_checkbox[i].classList.add("checkbox-border", "my-3");
+    multi_checkbox[i].addEventListener("click", function () {
+      this.firstElementChild.click();
+    });
+  }
+}
+
+/***/ }),
+
 /***/ "./src/employer_dashboard/index.js":
 /*!*****************************************!*\
   !*** ./src/employer_dashboard/index.js ***!
@@ -21835,6 +21854,10 @@ const {
 const {
   employer_dashboard
 } = __webpack_require__(/*! ./employer_dashboard/index */ "./src/employer_dashboard/index.js");
+
+const {
+  employer_addjob
+} = __webpack_require__(/*! ./employer_dashboard/addjob */ "./src/employer_dashboard/addjob.js");
 })();
 
 /******/ })()

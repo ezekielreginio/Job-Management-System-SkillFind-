@@ -5,4 +5,5 @@ const { applicant_education } = require("./applicant_portfolio/education");
 const { applicant_skill } = require("./applicant_portfolio/skill");
 const { applicant_language } = require("./applicant_portfolio/language");
 const { employer_dashboard } = require("./employer_dashboard/index");
+const { employer_addjob } = require("./employer_dashboard/addjob");
 

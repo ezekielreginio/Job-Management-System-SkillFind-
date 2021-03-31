@@ -11,13 +11,22 @@ from Include import validators
 
 import re, datetime
 class EmployerAddJobListing(forms.ModelForm):
+    CONTRACT_TYPE = (
+        ("1", "Temporary"),
+        ("2", "Contract"),
+        ("3", "Internship"),
+        ("4", "Commission"),
+        ("5", "New Grad"),
+        ("6", "Permanent"),
+    )
+
     DEMO_CHOICES =(
         ("1", "Naveen"),
         ("2", "Pranav"),
         ("3", "Isha"),
         ("4", "Saloni"),
     )
-    contract_type = forms.MultipleChoiceField(choices=DEMO_CHOICES, widget=forms.CheckboxSelectMultiple)
+    contract_type = forms.MultipleChoiceField(choices=CONTRACT_TYPE, widget=forms.CheckboxSelectMultiple)
     supplemental_pay = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     benefits = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     qualification_experience_type = forms.MultipleChoiceField(choices=DEMO_CHOICES)
