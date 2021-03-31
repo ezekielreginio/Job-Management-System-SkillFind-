@@ -210,4 +210,10 @@
 
 .text_Input{
     background-color: #464444;
+    color: white;
+}
+
+.text_Input :focus{
+    background-color: #464444;
+    color: white;
 }
