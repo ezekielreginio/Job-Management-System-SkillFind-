@@ -77,7 +77,7 @@ class ApplicantExperienceLevel(forms.ModelForm):
             Fieldset(
                 '',
                 Div(
-                    Div(HTML(""" <label for="id_experience_level_0" class="text-right requiredField">
+                    Div(HTML(""" <label for="id_experience_level_0" class="text-right text-white requiredField">
                 Experience level<span class="asteriskField">*</span> </label> """), css_class='col-3'),
                     Div('experience_level', css_class='col-8'),
                     css_class='row',
