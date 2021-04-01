@@ -109,4 +109,21 @@ if(location.href.indexOf('experience') != -1){
         
     }
     
+    let ExperienceLevel_label = document.getElementsByClassName("custom-control-label")
+    for(let i = 0; i<ExperienceLevel_label.length; i++){
+        ExperienceLevel_label[i].classList.add("exlabel")
+        
+    }
+
+    let Input_date = document.getElementsByClassName("dateinput")
+    for(let i = 0; i<Input_date.length; i++){
+        Input_date[i].classList.add("date_Input")
+        
+    }
+
+    let ex_textarea = document.getElementsByClassName("textarea")
+    for(let i = 0; i<ex_textarea.length; i++){
+        ex_textarea[i].classList.add("date_Input")
+    }
+    
 }

@@ -213,7 +213,27 @@
     color: white;
 }
 
-.text_Input :focus{
+.text_Input:focus{
     background-color: #464444;
     color: white;
 }
+
+.exlabel{
+    color: white;
+}
+
+.date_Input{
+    background-color: #464444;
+    color: white;  
+}
+
+.date_Input:focus{
+    background-color: #464444;
+    color: white;  
+}
+
+.extextarea{
+    background-color: #464444;
+    color: white;
+}
+
