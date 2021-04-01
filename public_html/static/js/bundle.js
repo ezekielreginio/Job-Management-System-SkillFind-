@@ -10,7 +10,10 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "create_input": () => (/* binding */ create_input)
+/* harmony export */   "create_input": () => (/* binding */ create_input),
+/* harmony export */   "hide": () => (/* binding */ hide),
+/* harmony export */   "show": () => (/* binding */ show),
+/* harmony export */   "swap_display": () => (/* binding */ swap_display)
 /* harmony export */ });
 function create_input(type, placeholder, name, classlist, idname, required) {
   let input_field = document.createElement("input");
@@ -22,6 +25,16 @@ function create_input(type, placeholder, name, classlist, idname, required) {
   input_field.setAttribute("placeholder", placeholder);
   input_field.setAttribute("required", "true");
   return input_field;
+}
+function hide(id) {
+  document.getElementById(id).classList.add("d-none");
+}
+function show(id) {
+  document.getElementById(id).classList.remove("d-none");
+}
+function swap_display(hide, show) {
+  document.getElementById(hide).classList.add("d-none");
+  document.getElementById(show).classList.remove("d-none");
 }
 
 /***/ }),
@@ -299,11 +312,15 @@ if (location.href.indexOf('skills') != -1) {
 /*!******************************************!*\
   !*** ./src/employer_dashboard/addjob.js ***!
   \******************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
 
 if (location.href.indexOf('employer/addjob') != -1) {
   let multi_checkbox = document.getElementsByClassName("custom-checkbox");
-  theCheckbox = document.querySelector('input');
 
   for (let i = 0; i < multi_checkbox.length; i++) {
     multi_checkbox[i].classList.add("checkbox-border", "my-3");
@@ -311,6 +328,42 @@ if (location.href.indexOf('employer/addjob') != -1) {
       if (this.firstElementChild.checked) this.firstElementChild.checked = false;else this.firstElementChild.checked = true;
     });
   }
+
+  let next_btn_list = document.getElementsByClassName("btn-next-job");
+
+  for (let i = 0; i < multi_checkbox.length; i++) {
+    try {
+      next_btn_list[i].addEventListener("click", function () {
+        this.parentElement.classList.add("d-none");
+        let next_page = this.getAttribute("data-next-page");
+        document.getElementById(next_page).classList.remove("d-none");
+      });
+    } catch (error) {}
+  } //Scripts for Add Job CSS Styling
+  //Removes Start Date Label
+
+
+  document.getElementById("div_id_start_date").firstElementChild.remove(); //Sets Start Date Placeholder
+
+  document.getElementById("div_id_start_date").setAttribute("placeholder", "YYYY/MM/DD"); //Gets job_schedule reference node
+
+  let job_schedules = document.getElementById("div_id_job_schedules"); //Creates Startdate prompt
+
+  let stardate_prompt = document.createElement('div');
+  stardate_prompt.classList.add("form-group");
+  stardate_prompt.innerHTML = `
+        <label for="" class=" requiredField">
+        Is there a planned start date for this job? <span class="asteriskField">*</span> 
+        </label>
+        <div class>
+            <div class="custom-control custom-radio checkbox-border my-3"> 
+                <input type="radio">
+                
+            </div>
+        </div>
+    `;
+  job_schedules.after(stardate_prompt);
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.hide)("id_start_date");
 }
 
 /***/ }),
