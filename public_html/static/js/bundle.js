@@ -13,8 +13,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "create_input": () => (/* binding */ create_input),
 /* harmony export */   "hide": () => (/* binding */ hide),
 /* harmony export */   "show": () => (/* binding */ show),
-/* harmony export */   "swap_display": () => (/* binding */ swap_display)
+/* harmony export */   "swap_display": () => (/* binding */ swap_display),
+/* harmony export */   "page_navigation": () => (/* binding */ page_navigation),
+/* harmony export */   "select_borders": () => (/* binding */ select_borders),
+/* harmony export */   "radio_borders": () => (/* binding */ radio_borders)
 /* harmony export */ });
+/* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validation */ "./src/_global/validation.js");
+
 function create_input(type, placeholder, name, classlist, idname, required) {
   let input_field = document.createElement("input");
   input_field.setAttribute("type", type);
@@ -35,6 +40,109 @@ function show(id) {
 function swap_display(hide, show) {
   document.getElementById(hide).classList.add("d-none");
   document.getElementById(show).classList.remove("d-none");
+}
+function page_navigation(btn_list) {
+  for (let i = 0; i < btn_list.length; i++) {
+    btn_list[i].addEventListener("click", function () {
+      let flag = false;
+      flag = (0,_validation__WEBPACK_IMPORTED_MODULE_0__.validate_form)(this.parentElement);
+      window.scrollTo(0, 0);
+
+      if (!flag) {
+        this.parentElement.classList.add("d-none");
+        let next_page = this.getAttribute("data-next-page");
+        document.getElementById(next_page).classList.remove("d-none");
+      }
+    });
+  }
+}
+function select_borders(selectboxes) {
+  for (let i = 0; i < selectboxes.length; i++) {
+    selectboxes[i].classList.add("selectbox-border", "my-3");
+    selectboxes[i].addEventListener("click", function (e) {
+      if (this.firstElementChild.checked) this.firstElementChild.checked = false;else this.firstElementChild.checked = true;
+    });
+  }
+}
+function radio_borders(selectboxes) {
+  for (let i = 0; i < selectboxes.length; i++) {
+    selectboxes[i].classList.add("selectbox-border", "my-3");
+    selectboxes[i].addEventListener("click", function (e) {
+      this.firstElementChild.checked = true;
+    });
+  }
+}
+
+/***/ }),
+
+/***/ "./src/_global/validation.js":
+/*!***********************************!*\
+  !*** ./src/_global/validation.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "validate_form": () => (/* binding */ validate_form),
+/* harmony export */   "reset_validation": () => (/* binding */ reset_validation),
+/* harmony export */   "validate_alphanumericsym": () => (/* binding */ validate_alphanumericsym),
+/* harmony export */   "isinvalid": () => (/* binding */ isinvalid)
+/* harmony export */ });
+function validate_form(form) {
+  reset_validation();
+  let flag = false;
+  let inputs = form.getElementsByTagName("input");
+  let is_invalid = "";
+
+  for (let i = 0; i < inputs.length; i++) {
+    console.log(inputs[i]);
+
+    if (inputs[i].value == "" && inputs[i].hasAttribute("required")) {
+      flag = isinvalid(inputs[i], "This is a Required Field.");
+    } else if (!inputs[i].getAttribute("type") == "checkbox") {
+      if (inputs[i].classList.contains("textInput")) {
+        let message = validate_alphanumericsym(inputs[i].value);
+        if (message != 0) flag = isinvalid(inputs[i], message);
+      }
+    } else if (inputs[i].getAttribute("type") == "checkbox" && inputs[i].getAttribute("data-required") == "True") {
+      let input_checklist = document.getElementsByName(inputs[i].getAttribute("name"));
+      let list_size = input_checklist.length;
+      i += list_size - 1;
+      let list_flag = true;
+
+      for (let j = 0; j < input_checklist.length; j++) {
+        console.log(input_checklist[j]);
+        if (input_checklist[j].checked) list_flag = false;
+      }
+
+      if (list_flag) {
+        isinvalid(input_checklist[list_size - 1].parentElement, "Please Select an Option Above");
+        flag = true;
+      }
+    }
+  }
+
+  return flag;
+}
+function reset_validation() {
+  document.querySelectorAll(".is-invalid").forEach(function (e) {
+    e.classList.remove("is-invalid");
+    e.nextSibling.remove();
+  });
+}
+function validate_alphanumericsym(value) {
+  let min_characters = /.{6,}/;
+  let pattern = /^[a-zA-Z0-9 .,-_ñ]*$/;
+  if (!value.match(min_characters)) return "Input Too Short. Minimum of six(6) Characters. Try again";else if (!value.match(pattern)) return "Invalid Input. List of Acceptable Characters: A-Z,a-z,0-9,(-.,space)";else return 0;
+}
+function isinvalid(input, message) {
+  let is_invalid = document.createElement("div");
+  is_invalid.classList.add("invalid-feedback");
+  input.classList.add("is-invalid");
+  is_invalid.textContent = message;
+  input.after(is_invalid);
+  return true;
 }
 
 /***/ }),
@@ -320,49 +428,58 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('employer/addjob') != -1) {
-  let multi_checkbox = document.getElementsByClassName("custom-checkbox");
-
-  for (let i = 0; i < multi_checkbox.length; i++) {
-    multi_checkbox[i].classList.add("checkbox-border", "my-3");
-    multi_checkbox[i].addEventListener("click", function (e) {
-      if (this.firstElementChild.checked) this.firstElementChild.checked = false;else this.firstElementChild.checked = true;
-    });
-  }
-
+  let prev_btn_list = document.getElementsByClassName("btn-prev-job");
   let next_btn_list = document.getElementsByClassName("btn-next-job");
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.page_navigation)(next_btn_list);
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.page_navigation)(prev_btn_list); // for(let i = 0; i<next_btn_list.length; i++){
+  //     next_btn_list[i].addEventListener("click", function(){
+  //         this.parentElement.classList.add("d-none")
+  //         let next_page = this.getAttribute("data-next-page") 
+  //         document.getElementById(next_page).classList.remove("d-none")
+  //     })
+  // }
 
-  for (let i = 0; i < multi_checkbox.length; i++) {
-    try {
-      next_btn_list[i].addEventListener("click", function () {
-        this.parentElement.classList.add("d-none");
-        let next_page = this.getAttribute("data-next-page");
-        document.getElementById(next_page).classList.remove("d-none");
-      });
-    } catch (error) {}
+  for (let i = 0; i < prev_btn_list.length; i++) {
+    prev_btn_list[i].addEventListener("click", function () {
+      this.parentElement.classList.add("d-none");
+      let prev_page = this.getAttribute("data-prev-page");
+      document.getElementById(prev_page).classList.remove("d-none");
+    });
   } //Scripts for Add Job CSS Styling
-  //Removes Start Date Label
+  //CSS for multi select borders
 
 
-  document.getElementById("div_id_start_date").firstElementChild.remove(); //Sets Start Date Placeholder
+  let multi_checkbox = document.getElementsByClassName("custom-checkbox");
+  let multi_radio = document.getElementsByClassName("custom-radio");
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.select_borders)(multi_checkbox);
+  let yes_opt = null;
 
-  document.getElementById("div_id_start_date").setAttribute("placeholder", "YYYY/MM/DD"); //Gets job_schedule reference node
+  for (let i = 0; i < multi_radio.length; i++) {
+    multi_radio[i].classList.add("selectbox-border", "my-3");
+    multi_radio[i].addEventListener("click", function (e) {
+      if (i == 0) yes_opt = this.firstElementChild;
+      this.firstElementChild.checked = true;
 
-  let job_schedules = document.getElementById("div_id_job_schedules"); //Creates Startdate prompt
+      if (yes_opt.checked) {
+        (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.show)("id_start_date");
+        document.getElementById("id_start_date").setAttribute("required", "");
+      } else {
+        (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.hide)("id_start_date");
+        document.getElementById("id_start_date").value = "";
+        document.getElementById("id_start_date").classList.remove("is-invalid");
+        document.getElementById("id_start_date").nextElementSibling.remove();
+        document.getElementById("id_start_date").removeAttribute("required");
+      }
+    });
+  } //Start Date CSS
 
-  let stardate_prompt = document.createElement('div');
-  stardate_prompt.classList.add("form-group");
-  stardate_prompt.innerHTML = `
-        <label for="" class=" requiredField">
-        Is there a planned start date for this job? <span class="asteriskField">*</span> 
-        </label>
-        <div class>
-            <div class="custom-control custom-radio checkbox-border my-3"> 
-                <input type="radio">
-                
-            </div>
-        </div>
-    `;
-  job_schedules.after(stardate_prompt);
+
+  document.getElementById("div_id_start_date").firstElementChild.remove();
+  document.getElementById("id_start_date").setAttribute("placeholder", "Start Date (MM/DD/YYYY)");
+  document.getElementById("id_start_date").classList.add("w-50");
+  document.getElementById("id_start_date").addEventListener("focus", function () {
+    this.setAttribute("type", "date");
+  });
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.hide)("id_start_date");
 }
 

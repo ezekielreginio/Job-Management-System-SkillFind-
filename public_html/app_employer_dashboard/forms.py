@@ -20,6 +20,11 @@ class EmployerAddJobListing(forms.ModelForm):
         ("6", "Permanent"),
     )
 
+    YES_NO = (
+        ("true", "YES"),
+        ("false", "NO"),
+    )
+
     SCHEDULES = (
         ("8 hour shift", "8 hour shift"),
         ("10 hour shift", "10 hour shift"),
@@ -47,8 +52,9 @@ class EmployerAddJobListing(forms.ModelForm):
         ("3", "Isha"),
         ("4", "Saloni"),
     )
-    contract_type = forms.MultipleChoiceField(choices=CONTRACT_TYPE, widget=forms.CheckboxSelectMultiple)
-    job_schedules = forms.MultipleChoiceField(choices=SCHEDULES, widget=forms.CheckboxSelectMultiple)
+    contract_type = forms.MultipleChoiceField(choices=CONTRACT_TYPE, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
+    job_schedules = forms.MultipleChoiceField(choices=SCHEDULES, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
+    date_prompt = forms.ChoiceField(choices=YES_NO, widget=forms.RadioSelect)
     supplemental_pay = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     benefits = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     qualification_experience_type = forms.MultipleChoiceField(choices=DEMO_CHOICES)
@@ -65,6 +71,9 @@ class EmployerAddJobListing(forms.ModelForm):
         # self.helper.form_class = 'form-horizontal'
         # self.helper.label_class = 'col-3 text-right text-white'
         # self.helper.field_class = 'col-8'
+
+        #labels
+        self.fields['date_prompt'].label = "Is there a planned start date for this job?"
         self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary d-none'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger d-none', css_id="cancel-experience-form"))
         self.helper.layout = Layout(
@@ -75,7 +84,7 @@ class EmployerAddJobListing(forms.ModelForm):
                     'location',
                     'remote',
                     'hires_needed',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p2-add-job">Next</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p2-add-job">Next Page</button> """),
                     css_class='pages-add-job',
                     css_id='p1-add-job',
                 ),
@@ -83,7 +92,10 @@ class EmployerAddJobListing(forms.ModelForm):
                     'employment_type',
                     'contract_type',
                     'job_schedules',
+                    'date_prompt',
                     'start_date',
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p1-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p3-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p2-add-job',
                 ),

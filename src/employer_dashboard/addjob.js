@@ -1,55 +1,67 @@
-import { hide } from "../_global/global";
+import { hide, select_borders, radio_borders, show, page_navigation } from "../_global/global";
 
 if(location.href.indexOf('employer/addjob') != -1){
-    let multi_checkbox = document.getElementsByClassName("custom-checkbox")
-    for(let i = 0; i<multi_checkbox.length; i++){
-        multi_checkbox[i].classList.add("checkbox-border", "my-3")
-        multi_checkbox[i].addEventListener("click", function(e){
-            if(this.firstElementChild.checked)
-                this.firstElementChild.checked = false
-            else
-                this.firstElementChild.checked = true
-        })
-    }
-
+    let prev_btn_list = document.getElementsByClassName("btn-prev-job")
     let next_btn_list = document.getElementsByClassName("btn-next-job")
-    for(let i = 0; i<multi_checkbox.length; i++){
-        try{
-            next_btn_list[i].addEventListener("click", function(){
-                this.parentElement.classList.add("d-none")
-                
-                let next_page = this.getAttribute("data-next-page") 
-                document.getElementById(next_page).classList.remove("d-none")
-            })
-        } 
-        catch (error) {
-        }     
+    
+    page_navigation(next_btn_list)
+    page_navigation(prev_btn_list)
+
+    // for(let i = 0; i<next_btn_list.length; i++){
+    //     next_btn_list[i].addEventListener("click", function(){
+    //         this.parentElement.classList.add("d-none")
+            
+    //         let next_page = this.getAttribute("data-next-page") 
+    //         document.getElementById(next_page).classList.remove("d-none")
+    //     })
+    // }
+
+    for(let i = 0; i<prev_btn_list.length; i++){
+        prev_btn_list[i].addEventListener("click", function(){
+            this.parentElement.classList.add("d-none")
+            
+            let prev_page = this.getAttribute("data-prev-page") 
+            document.getElementById(prev_page).classList.remove("d-none")
+        })
     }
 
     //Scripts for Add Job CSS Styling
 
-    //Removes Start Date Label
-    document.getElementById("div_id_start_date").firstElementChild.remove()
-    //Sets Start Date Placeholder
-    document.getElementById("div_id_start_date").setAttribute("placeholder", "YYYY/MM/DD")
+    //CSS for multi select borders
+    let multi_checkbox = document.getElementsByClassName("custom-checkbox")
+    let multi_radio = document.getElementsByClassName("custom-radio")
+    select_borders(multi_checkbox)
+    let yes_opt = null
+    for(let i = 0; i<multi_radio.length; i++){
+        multi_radio[i].classList.add("selectbox-border", "my-3")
+        multi_radio[i].addEventListener("click", function(e){
+            if(i==0)
+                yes_opt = this.firstElementChild
+            
+            this.firstElementChild.checked = true
 
-    //Gets job_schedule reference node
-    let job_schedules = document.getElementById("div_id_job_schedules")
-    //Creates Startdate prompt
-    let stardate_prompt = document.createElement('div')
-    stardate_prompt.classList.add("form-group")
-    stardate_prompt.innerHTML = `
-        <label for="" class=" requiredField">
-        Is there a planned start date for this job? <span class="asteriskField">*</span> 
-        </label>
-        <div class>
-            <div class="custom-control custom-radio checkbox-border my-3"> 
-                <input type="radio">
+            if(yes_opt.checked){
+                show("id_start_date")
+                document.getElementById("id_start_date").setAttribute("required","")
+            }
                 
-            </div>
-        </div>
-    `
+            else{
+                hide("id_start_date")
+                document.getElementById("id_start_date").value = ""
+                document.getElementById("id_start_date").classList.remove("is-invalid")
+                document.getElementById("id_start_date").nextElementSibling.remove()
+                document.getElementById("id_start_date").removeAttribute("required")
+            }
+                
+        })
+    }
 
-    job_schedules.after(stardate_prompt)
+    //Start Date CSS
+    document.getElementById("div_id_start_date").firstElementChild.remove()
+    document.getElementById("id_start_date").setAttribute("placeholder", "Start Date (MM/DD/YYYY)")
+    document.getElementById("id_start_date").classList.add("w-50")
+    document.getElementById("id_start_date").addEventListener("focus", function(){
+        this.setAttribute("type", "date")
+    })
     hide("id_start_date")
 }
