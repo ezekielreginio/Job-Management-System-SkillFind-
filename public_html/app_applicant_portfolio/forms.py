@@ -116,7 +116,7 @@ class ApplicantEducation(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-3 text-right'
+        self.helper.label_class = 'col-3 text-right text-white'
         self.helper.field_class = 'col-8'
         self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-education-form"))

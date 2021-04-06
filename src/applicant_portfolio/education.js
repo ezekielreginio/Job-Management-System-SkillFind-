@@ -36,4 +36,12 @@ if(location.href.indexOf('education') != -1){
             document.getElementById("form-delete").setAttribute("action", link_href)
         })
     }
+
+    //CSS
+    let edu_input = document.getElementsByClassName("textinput")
+    for(let i= 0; i<edu_input.length; i++){
+        edu_input[i].classList.add("eduinp")
+    }
+
+   
 }

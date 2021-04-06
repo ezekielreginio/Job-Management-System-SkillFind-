@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 from . import views
 
@@ -25,4 +26,9 @@ urlpatterns = [
     path('applicant/languages/<str:op>/<str:pk>/', views.applicant_languages, name="languages_delete"),
 
     path('applicant/resume', views.applicant_resume, name="resume"),
+    
+    path('login/applicant/password_reset/', PasswordResetView.as_view(template_name='app_applicant/password-reset.html'), name='password_reset'),
+    path('applicant/password_reset/done/', PasswordResetDoneView.as_view(template_name='app_applicant/password-reset-done.html'), name='password_reset_done'),
+    path('applicant/password_reset_confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='app_applicant/password-reset-confirm.html'), name='password_reset_confirm'),
+    path('applicant/password_reset_complete/', PasswordResetCompleteView.as_view(template_name='app_applicant/password-reset-complete.html'), name='password_reset_complete'),
 ]
