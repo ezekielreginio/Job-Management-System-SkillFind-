@@ -11,6 +11,7 @@ class JobListing(models.Model):
 
     employment_type = models.CharField(max_length=15, null=False, blank=False)
     contract_type = models.JSONField(null=False, blank=False)
+    job_schedules = models.JSONField(null=False, blank=False)
     start_date = models.DateField(null=True, blank=True)
 
     compensation_range = models.CharField(max_length=20, null=False, blank=False)

@@ -128,6 +128,46 @@
     width: 100px;
 }
 
+.pl-6, .px-6{
+    padding-left: 6rem!important;
+}
+
+.pr-6, .px-6{
+    padding-right: 6rem!important;
+}
+
+.pl-7, .px-7{
+    padding-left: 7rem!important;
+}
+
+.pr-7, .px-7{
+    padding-right: 7rem!important;
+}
+
+.pl-8, .px-8{
+    padding-left: 8rem!important;
+}
+
+.pr-8, .px-8{
+    padding-right: 8rem!important;
+}
+
+.pl-9, .px-9{
+    padding-left: 9rem!important;
+}
+
+.pr-9, .px-9{
+    padding-right: 9rem!important;
+}
+
+.pl-10, .px-10{
+    padding-left: 10rem!important;
+}
+
+.pr-10, .px-10{
+    padding-right: 10rem!important;
+}
+
 .list-group-item:hover{
     background-color: #E4E6EB;
     cursor: pointer;
@@ -203,7 +243,12 @@
 .checkbox-border{
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 15px 40px;
+    padding: 10px 40px;
+}
+
+.checkbox-border:hover{
+    border-color: #007bff;
+    cursor: pointer;
 }
 
 /* CSS For TextInputs */
