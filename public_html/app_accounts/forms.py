@@ -77,7 +77,7 @@ class EmployerSignupForm(SignupForm):
         employer.save()
         return employer.contact_person
         
-class CustomLoginForm(LoginForm):
+class CustomLoginForm(LoginForm): #public static int CustomLoginForm(String) extends LoginForm{}
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(CustomLoginForm, self).__init__(*args, **kwargs)

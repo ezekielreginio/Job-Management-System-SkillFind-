@@ -1,5 +1,6 @@
 const moment = require("moment")
 const { create_input } = require("../_global/global")
+const autocomplete = require('autocompleter');
 
 if(location.href.indexOf('experience') != -1){
 
@@ -102,8 +103,32 @@ if(location.href.indexOf('experience') != -1){
     //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
     // })
     
+    //Script for Autocomplete
+    let position_title = [
+        { label: 'Software Developer', value: 'UK' },
+        { label: 'Software Engineer', value: 'US' }
+    ];
+
+    let field_position_title = document.getElementById("id_position_title");
+    autocomplete({
+        input: field_position_title,
+        fetch: function(text, update) {
+            text = text.toLowerCase();
+            // you can also use AJAX requests instead of preloaded data
+            var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text))
+            update(suggestions);
+        },
+        onSelect: function(item) {
+            field_position_title.value = item.label;
+        }
+    });
+
+
     //Script for CSS
     let input_text = document.getElementsByClassName("textInput")
+
+    document.getElementById("nav-applicant-experience").classList.add("nav-applicant-active")
+
     for(let i = 0; i<input_text.length; i++){
         input_text[i].classList.add("text_Input")
         

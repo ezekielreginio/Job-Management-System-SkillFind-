@@ -20,7 +20,7 @@ def skillfind_login(request, level=None):
     errors = {}
     if request.method == "POST":
         form = custom_forms.CustomLoginForm(request.POST)
-        email = request.POST.get('login')
+        email = request.POST.get('login') # $email = $_POST['login']
         password = request.POST.get('password')
         if form.is_valid():
             user = authenticate(request, username=email, password=password)
