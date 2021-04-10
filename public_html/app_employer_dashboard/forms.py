@@ -25,6 +25,12 @@ class EmployerAddJobListing(forms.ModelForm):
         ("false", "NO"),
     )
 
+    NO_YES = (
+        ("false", "NO"),
+        ("true", "YES"),
+        
+    )
+
     SCHEDULES = (
         ("8 hour shift", "8 hour shift"),
         ("10 hour shift", "10 hour shift"),
@@ -46,22 +52,83 @@ class EmployerAddJobListing(forms.ModelForm):
         ("Others", "Others"),
     )
 
-    DEMO_CHOICES =(
-        ("1", "Naveen"),
-        ("2", "Pranav"),
-        ("3", "Isha"),
-        ("4", "Saloni"),
+    COMPENSATION_RANGE = (
+        ("Range", "Range"),
+        ("Starting at", "Starting at"),
+        ("Up to", "Up to"),
+        ("Exact Rate", "Exact Rate"),
     )
+
+    DEMO_CHOICES = (
+        ("Sample", "Sample"),
+    )
+
+    HANDICAPPED_TYPES = (
+        ("Blind", "Blind"),
+        ("Legally Blind", "Legally Blind"),
+        ("Locomotor Disability (Hands)", "Locomotor Disability (Hands)"),
+        ("Locomotor Disability (Feet/Legs)", "Locomotor Disability (Feet/Legs)"),
+        ("Hearing Impairment", "Hearing Impairment"),
+        ("Speech and Language Disability", "Speech and Language Disability"),
+        ("Intellectual Disability", "Intellectual Disability"),
+    )
+
+    SUPPLEMENTAL_PAY = (
+        ("13th month salary", "13th month salary"),
+        ("Overtime pay", "Overtime pay"),
+        ("Commission pay", "Commission pay"),
+        ("Yearly bonus", "Yearly bonus"),
+        ("Bonus pay", "Bonus pay"),
+        ("Performance bonus", "Performance bonus"),
+        ("Tips", "Tips"),
+        ("Quarterly bonus", "Quarterly bonus"),
+        ("Anniversary bonus", "Anniversary bonus"),
+        ("Other", "Other"),
+        ("None", "None"),
+    )
+
+    BENEFITS = (
+        ("Paid training", "Paid training"),
+        ("Work from home", "Work from home"),
+        ("On-site parking", "On-site parking"),
+        ("Flexible schedule", "Flexible schedule"),
+        ("Discounted lunch", "Discounted lunch"),
+        ("Employee discount", "Employee discount"),
+        ("Paid toll fees", "Paid toll fees"),
+        ("Company events", "Company events"),
+        ("Gym membership", "Gym membership"),
+        ("Health insurance", "Health insurance"),
+        ("Additional leave", "Additional leave"),
+        ("Free parking", "Free parking"),
+        ("Company car", "Company car"),
+        ("Company Christmas gift", "Company Christmas gift"),
+        ("Life insurance", "Life insurance"),
+        ("Fuel discount", "Fuel discount"),
+        ("Employee stock ownership plan", "Employee stock ownership plan"),
+        ("Others", "Others"),
+        ("None", "None"),
+    )
+
+    accept_handicapped = forms.ChoiceField(choices=NO_YES)
+    accepted_handicapped_types = forms.MultipleChoiceField(choices=HANDICAPPED_TYPES, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'False'}))
     contract_type = forms.MultipleChoiceField(choices=CONTRACT_TYPE, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
     job_schedules = forms.MultipleChoiceField(choices=SCHEDULES, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
     date_prompt = forms.ChoiceField(choices=YES_NO, widget=forms.RadioSelect)
-    supplemental_pay = forms.MultipleChoiceField(choices=DEMO_CHOICES)
-    benefits = forms.MultipleChoiceField(choices=DEMO_CHOICES)
+    
+    initial_salary = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'From: (E.g. 10000.00)'}))
+    max_salary = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': '(E.g. 50000.00)'}))
+    supplemental_pay = forms.MultipleChoiceField(choices=SUPPLEMENTAL_PAY, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
+    benefits = forms.MultipleChoiceField(choices=BENEFITS, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
+    
+    application_resume = forms.ChoiceField(choices=YES_NO, widget=forms.RadioSelect)
+
     qualification_experience_type = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     qualification_minimum_education_level = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     qualification_licenses = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     qualification_languages = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     
+    compensation_range = forms.ChoiceField(choices=COMPENSATION_RANGE)
+
     class Meta:
         model = models.JobListing
         exclude=('employer',)
@@ -74,21 +141,26 @@ class EmployerAddJobListing(forms.ModelForm):
 
         #labels
         self.fields['date_prompt'].label = "Is there a planned start date for this job?"
+        self.fields['initial_salary'].label = ""
+        self.fields['max_salary'].label = ""
+        self.fields['application_resume'].label = "Is there an application deadline?"
         self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary d-none'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger d-none', css_id="cancel-experience-form"))
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                Div(
+                Div( #Page 1
                     'job_title',
                     'location',
                     'remote',
+                    'accept_handicapped',
+                    'accepted_handicapped_types',
                     'hires_needed',
                     HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p2-add-job">Next Page</button> """),
                     css_class='pages-add-job',
                     css_id='p1-add-job',
                 ),
-                Div(
+                Div( #Page 2
                     'employment_type',
                     'contract_type',
                     'job_schedules',
@@ -98,6 +170,32 @@ class EmployerAddJobListing(forms.ModelForm):
                     HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p3-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p2-add-job',
+                ),
+                Div( #Page 3
+                    'compensation_range',
+                    Div(
+                        'initial_salary',
+                        HTML(''' <span class="align-middle p-2">TO</span> '''),
+                        'max_salary',
+                        css_class="d-flex flex-row"
+                    ),
+                    'supplemental_pay',
+                    'benefits',
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p2-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p4-add-job">Next Page</button> """),
+                    css_class='pages-add-job d-none',
+                    css_id='p3-add-job',
+                ),
+                Div( #Page 4
+                    'application_type',
+                    'application_resume',
+                    'application_deadline',
+                    'application_email_recepient',
+                    'job_description',
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p3-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p5-add-job">Next Page</button> """),
+                    css_class='pages-add-job d-none',
+                    css_id='p4-add-job',
                 ),
             ),
         )

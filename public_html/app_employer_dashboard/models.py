@@ -1,12 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class JobListing(models.Model):
     employer = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=50, null=False, blank=False)
     location = models.CharField(max_length=50, null=False, blank=False)
     remote = models.CharField(max_length=50, null=False, blank=False)
+    accept_handicapped = models.CharField(max_length=3, null=False, blank=False)
+    accepted_handicapped_types = models.CharField(max_length=30, null=True, blank=True)
     hires_needed = models.IntegerField(null=False, blank=False)
 
     employment_type = models.CharField(max_length=15, null=False, blank=False)

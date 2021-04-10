@@ -25,7 +25,28 @@ if(location.href.indexOf('employer/addjob') != -1){
         })
     }
 
+    document.getElementById("id_accept_handicapped").addEventListener("change", (e)=>{
+        if(e.target.value == "true"){
+            document.getElementById("div_id_accepted_handicapped_types").classList.remove("d-none")
+            document.querySelectorAll('[name="accepted_handicapped_types"]').forEach((e)=>{
+                e.setAttribute("data-required", "True")
+            })
+        }
+            
+        else if(e.target.value == "false"){
+            document.getElementById("div_id_accepted_handicapped_types").classList.add("d-none")
+            document.querySelectorAll('[name="accepted_handicapped_types"]').forEach((e)=>{
+                e.checked = false
+                e.setAttribute("data-required", "False")
+            })
+        }
+            
+    })
+
     //Scripts for Add Job CSS Styling
+
+    //CSS for handicapped types
+    document.getElementById("div_id_accepted_handicapped_types").classList.add("d-none")
 
     //CSS for multi select borders
     let multi_checkbox = document.getElementsByClassName("custom-checkbox")

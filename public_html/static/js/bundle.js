@@ -447,8 +447,8 @@ function swap_display(hide, show) {
 function page_navigation(btn_list) {
   for (let i = 0; i < btn_list.length; i++) {
     btn_list[i].addEventListener("click", function () {
-      let flag = false;
-      flag = (0,_validation__WEBPACK_IMPORTED_MODULE_0__.validate_form)(this.parentElement);
+      let flag = false; //flag = validate_form(this.parentElement)
+
       window.scrollTo(0, 0);
 
       if (!flag) {
@@ -879,9 +879,25 @@ if (location.href.indexOf('employer/addjob') != -1) {
       let prev_page = this.getAttribute("data-prev-page");
       document.getElementById(prev_page).classList.remove("d-none");
     });
-  } //Scripts for Add Job CSS Styling
-  //CSS for multi select borders
+  }
 
+  document.getElementById("id_accept_handicapped").addEventListener("change", e => {
+    if (e.target.value == "true") {
+      document.getElementById("div_id_accepted_handicapped_types").classList.remove("d-none");
+      document.querySelectorAll('[name="accepted_handicapped_types"]').forEach(e => {
+        e.setAttribute("data-required", "True");
+      });
+    } else if (e.target.value == "false") {
+      document.getElementById("div_id_accepted_handicapped_types").classList.add("d-none");
+      document.querySelectorAll('[name="accepted_handicapped_types"]').forEach(e => {
+        e.checked = false;
+        e.setAttribute("data-required", "False");
+      });
+    }
+  }); //Scripts for Add Job CSS Styling
+  //CSS for handicapped types
+
+  document.getElementById("div_id_accepted_handicapped_types").classList.add("d-none"); //CSS for multi select borders
 
   let multi_checkbox = document.getElementsByClassName("custom-checkbox");
   let multi_radio = document.getElementsByClassName("custom-radio");
