@@ -116,6 +116,10 @@
     color:#1c3f94;
 }
 
+.pointer{
+    cursor: pointer;
+}
+
 .height-50{
     height: 200px;
 }
@@ -317,53 +321,15 @@
     color: white;
 }
 
-.log-input{
-    background-color: #464444;
-    color: white;
+/* CSS For Qualifications Template */
+.qualification-template{
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
 }
 
-.log-input :focus{
-    background-color: #464444;
-    color: white;
-}
-
-
-.pass-reset-input{
-    background-color: #464444;
-    color: white;
-  
-   
-}
-
-.lang-in{
-    background-color: #464444;
-    color: white;
-}
-
-.lang-in :focus{
-    background-color: #464444;
-    color: white;
-}
-
-.ex-strtdate{
-    color: white;
-}
-
-.ex-end{
-    color: white;
-}
-
-.ex-info{
-    color: white;
-}
-
-.applicant-text-color{
-    color:#4ACFAC;
-}
-
-.btn-applicant{
-    background-color: #4ACFAC;
-    color: white;
+.custom-form-input{
+    border-radius: 5px
 }
 
 

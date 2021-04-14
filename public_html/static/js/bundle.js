@@ -413,16 +413,21 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "csrftoken": () => (/* binding */ csrftoken),
 /* harmony export */   "create_input": () => (/* binding */ create_input),
+/* harmony export */   "getCookie": () => (/* binding */ getCookie),
 /* harmony export */   "hide": () => (/* binding */ hide),
 /* harmony export */   "show": () => (/* binding */ show),
 /* harmony export */   "swap_display": () => (/* binding */ swap_display),
 /* harmony export */   "page_navigation": () => (/* binding */ page_navigation),
 /* harmony export */   "select_borders": () => (/* binding */ select_borders),
-/* harmony export */   "radio_borders": () => (/* binding */ radio_borders)
+/* harmony export */   "radio_borders": () => (/* binding */ radio_borders),
+/* harmony export */   "AJAX": () => (/* binding */ AJAX)
 /* harmony export */ });
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validation */ "./src/_global/validation.js");
+ //Global Variables:
 
+let csrftoken = getCookie('csrftoken');
 function create_input(type, placeholder, name, classlist, idname, required) {
   let input_field = document.createElement("input");
   input_field.setAttribute("type", type);
@@ -433,6 +438,24 @@ function create_input(type, placeholder, name, classlist, idname, required) {
   input_field.setAttribute("placeholder", placeholder);
   input_field.setAttribute("required", "true");
   return input_field;
+}
+function getCookie(name) {
+  let cookieValue = null;
+
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim(); // Does this cookie string begin with the name we want?
+
+      if (cookie.substring(0, name.length + 1) === name + '=') {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+
+  return cookieValue;
 }
 function hide(id) {
   document.getElementById(id).classList.add("d-none");
@@ -447,8 +470,8 @@ function swap_display(hide, show) {
 function page_navigation(btn_list) {
   for (let i = 0; i < btn_list.length; i++) {
     btn_list[i].addEventListener("click", function () {
-      let flag = false;
-      flag = (0,_validation__WEBPACK_IMPORTED_MODULE_0__.validate_form)(this.parentElement);
+      let flag = false; //flag = validate_form(this.parentElement)
+
       window.scrollTo(0, 0);
 
       if (!flag) {
@@ -474,6 +497,48 @@ function radio_borders(selectboxes) {
       this.firstElementChild.checked = true;
     });
   }
+}
+function AJAX(context) {
+  /*
+  context = {
+      'method',
+      'action',
+      'body',
+      'type',
+      'token',
+      'function',
+  }
+  */
+  let header = {};
+
+  if (context['type'] != null) {
+    header = {
+      'Content-Type': context['type'],
+      //'application/json',
+      'X-CSRFToken': context['token'] //csrftoken
+
+    };
+  } else {
+    header = {
+      'X-CSRFToken': context['token'] //csrftoken
+
+    };
+  }
+
+  const request = new Request(context['action'] // "./request/reorder_task"
+  );
+  let thisFunct = context['function'];
+  fetch(request, {
+    method: context['method'],
+    //POST,
+    body: context['body'],
+    //JSON.stringify(json_order),
+    headers: header,
+    mode: 'same-origin' // Do not send CSRF token to another domain.
+
+  }).then(function (response) {
+    thisFunct(response);
+  });
 }
 
 /***/ }),
@@ -592,7 +657,7 @@ if (location.href.indexOf('education') != -1) {
   } //CSS
 
 
-  let edu_input = document.getElementsByClassName("form-control");
+  let edu_input = document.getElementsByClassName("textinput");
 
   for (let i = 0; i < edu_input.length; i++) {
     edu_input[i].classList.add("eduinp");
@@ -743,30 +808,6 @@ if (location.href.indexOf('experience') != -1) {
   for (let i = 0; i < ex_textarea.length; i++) {
     ex_textarea[i].classList.add("date_Input");
   }
-
-  let ex_start = document.getElementsByClassName("experience-startdate");
-
-  for (let i = 0; i < ex_start.length; i++) {
-    ex_start[i].classList.add("applicant-text-color");
-  }
-
-  let ex_end = document.getElementsByClassName("experience-enddate");
-
-  for (let i = 0; i < ex_end.length; i++) {
-    ex_end[i].classList.add("applicant-text-color");
-  }
-
-  let ex_info = document.getElementsByClassName("col-8");
-
-  for (let i = 0; i < ex_info.length; i++) {
-    ex_info[i].classList.add("ex-info");
-  }
-
-  let ex_info_label = document.getElementsByClassName("col-4");
-
-  for (let i = 0; i < ex_info_label.length; i++) {
-    ex_info_label[i].classList.add("applicant-text-color");
-  }
 }
 
 /***/ }),
@@ -826,12 +867,6 @@ if (location.href.indexOf('languages') != -1) {
       let link_href = this.getAttribute("data-link");
       document.getElementById("form-delete").setAttribute("action", link_href);
     });
-  }
-
-  let lang_input = document.getElementsByClassName("textInput");
-
-  for (let i = 0; i < lang_input.length; i++) {
-    lang_input[i].classList.add("lang-in");
   }
 }
 
@@ -895,13 +930,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
   let prev_btn_list = document.getElementsByClassName("btn-prev-job");
   let next_btn_list = document.getElementsByClassName("btn-next-job");
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.page_navigation)(next_btn_list);
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.page_navigation)(prev_btn_list); // for(let i = 0; i<next_btn_list.length; i++){
-  //     next_btn_list[i].addEventListener("click", function(){
-  //         this.parentElement.classList.add("d-none")
-  //         let next_page = this.getAttribute("data-next-page") 
-  //         document.getElementById(next_page).classList.remove("d-none")
-  //     })
-  // }
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.page_navigation)(prev_btn_list);
 
   for (let i = 0; i < prev_btn_list.length; i++) {
     prev_btn_list[i].addEventListener("click", function () {
@@ -909,34 +938,133 @@ if (location.href.indexOf('employer/addjob') != -1) {
       let prev_page = this.getAttribute("data-prev-page");
       document.getElementById(prev_page).classList.remove("d-none");
     });
-  } //Scripts for Add Job CSS Styling
-  //CSS for multi select borders
+  } //Yes No Option for accepting handicapped option
 
+
+  yes_no_hidden_option("id_accept_handicapped", "div_id_accepted_handicapped_types", "accepted_handicapped_types"); //Yes No Option for starting date option
+
+  yes_no_hidden_option("id_date_prompt", "div_id_start_date", "start_date"); //Yes No Option for starting date option
+
+  yes_no_hidden_option("id_application_resume", "div_id_application_deadline", "application_deadline"); //Clone Qualification Card
+
+  let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true);
+  qualification_template.classList.remove("d-none");
+  qualification_template.setAttribute("name", "qualification-experience");
+  document.getElementById("p5-container").appendChild(qualification_template); //Event Listeners:
+
+  let qualification_ctr = 1; //Close Qualification Card Event Listener:
+
+  document.getElementById("p5-container").addEventListener("click", e => {
+    if (e.target.getAttribute("name") == "card-close") {
+      e.target.parentElement.parentElement.parentElement.remove();
+      qualification_ctr--;
+    }
+  }); //Add qualification event listener:
+
+  document.getElementById("dropdown-add-qualification").addEventListener("click", e => {
+    qualification_ctr++;
+    let selected_option = e.target.textContent;
+    let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true);
+    qualification_template.classList.remove("d-none");
+    qualification_template.querySelectorAll("[name='qualification_required']").forEach(e => {
+      e.setAttribute("name", "qualification_required" + qualification_ctr);
+    });
+    qualification_template.querySelector("#qualification-header").textContent = selected_option;
+
+    if (selected_option == "Experience") {
+      qualification_template.setAttribute("name", "qualification-experience");
+    } else if (selected_option == "Education") {
+      qualification_template.setAttribute("name", "qualification-education");
+      qualification_template.querySelector("#qualification-body").innerHTML = `
+                <h6>Minimum Level of Education 
+                    <select class="custom-form-input m-2 p-2">
+                        <option value="1">Elementary/Primary School</option>
+                        <option value="2">Junior High School</option>
+                        <option value="3">Senior High School</option>
+                        <option value="3">Bachelor's</option>
+                        <option value="3">Master's</option>
+                        <option value="3">Doctorate</option>
+                    </select>
+                </h6>
+            `;
+    } else if (selected_option == "License") {
+      qualification_template.setAttribute("name", "qualification-license");
+      qualification_template.querySelector("#qualification-body").innerHTML = `
+                <h6>Valid <input type="text" class="custom-form-input m-2 p-2"> license or certification </h6>
+            `;
+    } else if (selected_option == "Language") {
+      qualification_template.setAttribute("name", "qualification-language");
+      qualification_template.querySelector("#qualification-body").innerHTML = `
+                <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2"></h6>
+            `;
+    } else if (selected_option == "Location") {
+      qualification_template.setAttribute("name", "qualification-location");
+      qualification_template.querySelector("#qualification-body").innerHTML = `
+                <h6>Located in ` + document.getElementById("id_location").value + `</h6>
+            `;
+    }
+
+    document.getElementById("p5-container").appendChild(qualification_template);
+    console.log();
+  }); //Post Job Btn
+
+  document.getElementById("btn-post-job").addEventListener("click", e => {
+    let qualification_experience = {};
+    let qualification_education = {};
+    let qualification_license = {};
+    let qualification_location = false;
+    let experience_data = document.getElementsByName("qualification-experience");
+    let education_data = document.getElementsByName("qualification-education");
+    let license_data = document.getElementsByName("qualification-license");
+
+    for (let i = 0; i < experience_data.length; i++) {
+      qualification_experience[i] = {
+        "year": experience_data[i].querySelector("[name='year']").value,
+        "name": experience_data[i].querySelector("[name='experience']").value
+      };
+    }
+
+    console.log(qualification_experience); // let formdata_joblist = new FormData(document.getElementById("form-add-job"))
+    // AJAX({
+    //     "method":"POST",
+    //     "action": "./addjob",
+    //     "body": formdata_joblist,
+    //     "token": csrftoken,
+    //     "function": function(response){
+    //         if(response.status == 200){
+    //             response.json().then(json => {
+    //                 alert(json['job_id'])
+    //             })
+    //         }
+    //     }
+    // })
+  }); //Functions:
+
+  function yes_no_hidden_option(yesno_field, hidden_target, target_fieldname) {
+    document.getElementById(yesno_field).addEventListener("change", e => {
+      if (e.target.value == "true") {
+        document.getElementById(hidden_target).classList.remove("d-none");
+        document.getElementById(hidden_target).querySelectorAll('[name="' + target_fieldname + '"]').forEach(e => {
+          e.setAttribute("data-required", "True");
+        });
+      } else if (e.target.value == "false") {
+        document.getElementById(hidden_target).classList.add("d-none");
+        document.getElementById(hidden_target).querySelectorAll('[name="' + target_fieldname + '"]').forEach(e => {
+          e.checked = false;
+          e.setAttribute("data-required", "False");
+        });
+      }
+    });
+  } //Scripts for Add Job CSS Styling
+  //CSS for handicapped types
+
+
+  document.getElementById("div_id_accepted_handicapped_types").classList.add("d-none"); //CSS for multi select borders
 
   let multi_checkbox = document.getElementsByClassName("custom-checkbox");
   let multi_radio = document.getElementsByClassName("custom-radio");
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.select_borders)(multi_checkbox);
-  let yes_opt = null;
-
-  for (let i = 0; i < multi_radio.length; i++) {
-    multi_radio[i].classList.add("selectbox-border", "my-3");
-    multi_radio[i].addEventListener("click", function (e) {
-      if (i == 0) yes_opt = this.firstElementChild;
-      this.firstElementChild.checked = true;
-
-      if (yes_opt.checked) {
-        (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.show)("id_start_date");
-        document.getElementById("id_start_date").setAttribute("required", "");
-      } else {
-        (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.hide)("id_start_date");
-        document.getElementById("id_start_date").value = "";
-        document.getElementById("id_start_date").classList.remove("is-invalid");
-        document.getElementById("id_start_date").nextElementSibling.remove();
-        document.getElementById("id_start_date").removeAttribute("required");
-      }
-    });
-  } //Start Date CSS
-
+  let yes_opt = null; //Start Date CSS
 
   document.getElementById("div_id_start_date").firstElementChild.remove();
   document.getElementById("id_start_date").setAttribute("placeholder", "Start Date (MM/DD/YYYY)");
@@ -944,7 +1072,10 @@ if (location.href.indexOf('employer/addjob') != -1) {
   document.getElementById("id_start_date").addEventListener("focus", function () {
     this.setAttribute("type", "date");
   });
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.hide)("id_start_date");
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.hide)("div_id_start_date"); //Application Deadline CSS
+
+  document.getElementById("id_application_deadline").classList.add("w-50");
+  document.getElementById("id_application_deadline").setAttribute("data-required", "True"); //hide("div_id_application_deadline")
 }
 
 /***/ }),
@@ -969,34 +1100,14 @@ if (location.href.indexOf('employer/dashboard') != -1) {
   \****************************/
 /***/ (() => {
 
-function login(username, password) {
-  console.log(`Username: ${username} || Password: ${password}`); // "Username: "+ username 
-}
-
-if (location.href.indexOf('login') != -1) {
-  let log_input = document.getElementsByClassName("form-control");
-
-  for (let i = 0; i < log_input.length; i++) {
-    log_input[i].classList.add("log-input");
-  }
-}
-
-/***/ }),
-
-/***/ "./src/login/password_reset.js":
-/*!*************************************!*\
-  !*** ./src/login/password_reset.js ***!
-  \*************************************/
-/***/ (() => {
-
-if (location.href == "http://127.0.0.1:8000/login/applicant/password_reset/" || location.href == "http://127.0.0.1:8000/login/employer/password_reset/") {
-  document.getElementById("id_email").classList.add("form-control");
-  document.getElementById("id_email").classList.add("pass-reset-input");
-} else if (location.href.indexOf('password_reset_confirm') != -1) {
-  document.getElementById("id_new_password1").classList.add("form-control");
-  document.getElementById("id_new_password1").classList.add("pass-reset-input");
-  document.getElementById("id_new_password2").classList.add("form-control");
-  document.getElementById("id_new_password2").classList.add("pass-reset-input");
+if (location.href.indexOf('login/applicant/') != -1 || location.href.indexOf('login/employer/') != -1) {
+  document.getElementById("btn-handicap-ui").remove();
+  document.getElementById("btn-login-applicant").textContent = "Signin | Applicant";
+  login_employer_btn = document.createElement("a");
+  login_employer_btn.classList.add("btn", "btn-primary", "my-2", "my-sm-0", "mr-1");
+  login_employer_btn.textContent = "For Employers";
+  login_employer_btn.setAttribute("href", "/login/employer");
+  document.getElementById("btn-login-applicant").after(login_employer_btn);
 }
 
 /***/ }),
@@ -22539,10 +22650,6 @@ const {
 const {
   employer_addjob
 } = __webpack_require__(/*! ./employer_dashboard/addjob */ "./src/employer_dashboard/addjob.js");
-
-const {
-  password_reset
-} = __webpack_require__(/*! ./login/password_reset */ "./src/login/password_reset.js");
 })();
 
 /******/ })()
