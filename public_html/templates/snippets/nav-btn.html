@@ -1,8 +1,9 @@
 <!-- navbar section for log in form (hidden when user is logged in)-->
 {% if not user.is_active %}
-    <a href="/login/applicant" class="btn btn-primary my-2 my-sm-0 mr-1" style="background-color: #36C7D0" name="signin-btn"
-    >Signin | Applicant</a>
-    <a href="/login/employer" class="btn btn-success my-2 my-sm-0" style="background-color: #4ACFAC">For Employers</a>
+    <a href="/login/applicant" class="btn btn-primary my-2 my-sm-0 mr-1" id="btn-login-applicant" style="background-color: #36C7D0" name="signin-btn"
+    >Signin</a>
+    <a href="/handicap/index" class="btn btn-success my-2 my-sm-0 mr-1" id="btn-handicap-ui" style="background-color: #36C7D0" name="signin-btn"
+    >UI For Handicapped</a>
 {% elif user.is_active %}
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item dropdown">

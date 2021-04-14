@@ -116,6 +116,10 @@
     color:#1c3f94;
 }
 
+.pointer{
+    cursor: pointer;
+}
+
 .height-50{
     height: 200px;
 }
@@ -315,6 +319,17 @@
 .eduinp{
     background-color: #464444;
     color: white;
+}
+
+/* CSS For Qualifications Template */
+.qualification-template{
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.custom-form-input{
+    border-radius: 5px
 }
 
 

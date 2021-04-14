@@ -109,23 +109,33 @@ class EmployerAddJobListing(forms.ModelForm):
         ("None", "None"),
     )
 
+    APPLICATION_TYPE = (
+        ("Email" ,"Email"),
+        ("In-Person" ,"In-Person"),
+    )
+
+    REQUIRED_QUALIFICATION = (
+        ("Required", "Required"),
+        ("Preferred", "Preferred"),
+    )
     accept_handicapped = forms.ChoiceField(choices=NO_YES)
-    accepted_handicapped_types = forms.MultipleChoiceField(choices=HANDICAPPED_TYPES, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'False'}))
+    accepted_handicapped_types = forms.MultipleChoiceField(choices=HANDICAPPED_TYPES,required=False, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'False'}))
     contract_type = forms.MultipleChoiceField(choices=CONTRACT_TYPE, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
     job_schedules = forms.MultipleChoiceField(choices=SCHEDULES, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
-    date_prompt = forms.ChoiceField(choices=YES_NO, widget=forms.RadioSelect)
+    date_prompt = forms.ChoiceField(choices=NO_YES)
     
     initial_salary = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'From: (E.g. 10000.00)'}))
     max_salary = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': '(E.g. 50000.00)'}))
     supplemental_pay = forms.MultipleChoiceField(choices=SUPPLEMENTAL_PAY, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
     benefits = forms.MultipleChoiceField(choices=BENEFITS, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
     
-    application_resume = forms.ChoiceField(choices=YES_NO, widget=forms.RadioSelect)
+    application_type = forms.ChoiceField(choices=APPLICATION_TYPE)
+    application_resume = forms.ChoiceField(choices=YES_NO)
 
-    qualification_experience_type = forms.MultipleChoiceField(choices=DEMO_CHOICES)
-    qualification_minimum_education_level = forms.MultipleChoiceField(choices=DEMO_CHOICES)
-    qualification_licenses = forms.MultipleChoiceField(choices=DEMO_CHOICES)
-    qualification_languages = forms.MultipleChoiceField(choices=DEMO_CHOICES)
+    # qualification_experience_type = forms.MultipleChoiceField(choices=DEMO_CHOICES)
+    # qualification_minimum_education_level = forms.MultipleChoiceField(choices=DEMO_CHOICES)
+    # qualification_licenses = forms.MultipleChoiceField(choices=DEMO_CHOICES)
+    # qualification_languages = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     
     compensation_range = forms.ChoiceField(choices=COMPENSATION_RANGE)
 
@@ -143,7 +153,10 @@ class EmployerAddJobListing(forms.ModelForm):
         self.fields['date_prompt'].label = "Is there a planned start date for this job?"
         self.fields['initial_salary'].label = ""
         self.fields['max_salary'].label = ""
+        self.fields['application_type'].label = "How do you want to receive applications?"
         self.fields['application_resume'].label = "Is there an application deadline?"
+        self.fields['application_email_recepient'].label = "Daily updates about this job and candidates will be sent to:"
+        self.helper.form_id = "form-add-job"
         self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary d-none'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger d-none', css_id="cancel-experience-form"))
         self.helper.layout = Layout(
@@ -177,7 +190,7 @@ class EmployerAddJobListing(forms.ModelForm):
                         'initial_salary',
                         HTML(''' <span class="align-middle p-2">TO</span> '''),
                         'max_salary',
-                        css_class="d-flex flex-row"
+                        css_class="d-flex flex-row d-none"
                     ),
                     'supplemental_pay',
                     'benefits',
@@ -196,6 +209,47 @@ class EmployerAddJobListing(forms.ModelForm):
                     HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p5-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p4-add-job',
+                ),
+                Div( #Page 5
+                    HTML("""
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add Qualification
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" id="dropdown-add-qualification">
+                                <a class="dropdown-item" href="#">Experience</a>
+                                <a class="dropdown-item" href="#">Education</a>
+                                <a class="dropdown-item" href="#">Location</a>
+                                <a class="dropdown-item" href="#">License</a>
+                                <a class="dropdown-item" href="#">Language</a>
+                            </div>
+                        </div>
+                        
+                        <div class="container" id="p5-container">
+                            <div class="qualification-template d-none my-3">
+                                <div>
+                                    <h5><span id="qualification-header">Experience</span> <i class="fas fa-times float-right pr-3 pt-2 pointer" name="card-close"></i></h5>
+                                </div>
+                                <hr style="background-color: white">
+                                <div id="qualification-body"> 
+                                    <h6>Minimum of <input type="text" class="custom-form-input m-2 p-2" name="year"> of <input type="text" class="p-2 custom-form-input m-2" name="experience">  Experience</h6>
+                                </div>
+                                <div id="qualification-footer">
+                                    <h5>Is this qualification required?</h5>
+                                    <select name="application_resume" class="select form-control custom-select w-50" id="id_application_resume"> 
+                                        <option value="true">Required</option> 
+                                        <option value="false">Preferred</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p4-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="btn-post-job" class="btn btn-success pull-right">Post Job</button> """),
+                    css_class='pages-add-job d-none',
+                    css_id='p5-add-job',
                 ),
             ),
         )
