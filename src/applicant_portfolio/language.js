@@ -33,4 +33,9 @@ if(location.href.indexOf('languages') != -1){
             document.getElementById("form-delete").setAttribute("action", link_href)
         })
     }
+
+    let lang_input = document.getElementsByClassName("textInput")
+    for(let i = 0; i<lang_input.length; i++){
+        lang_input[i].classList.add("lang-in")
+    }
 }

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -31,4 +32,6 @@ urlpatterns = [
     path('applicant/password_reset/done/', PasswordResetDoneView.as_view(template_name='app_applicant/password-reset-done.html'), name='password_reset_done'),
     path('applicant/password_reset_confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='app_applicant/password-reset-confirm.html'), name='password_reset_confirm'),
     path('applicant/password_reset_complete/', PasswordResetCompleteView.as_view(template_name='app_applicant/password-reset-complete.html'), name='password_reset_complete'),
+
+     path('applicant/oauth/', include('social_django.urls', namespace='social')),  # <-- here
 ]

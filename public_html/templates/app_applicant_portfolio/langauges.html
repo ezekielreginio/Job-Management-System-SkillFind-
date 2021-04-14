@@ -6,8 +6,8 @@
 {% block portfolio-content %}
 <div class="row mb-5">
     <div class="col-9 pt-1">
-        <i class="icon-comments-alt d-inline-block fs-25"></i>
-        <h4 class="d-inline-block">Languages</h4>
+        <i class="icon-comments-alt d-inline-block fs-25 applicant-text-color"></i>
+        <h4 class="d-inline-block text-white">Languages</h4>
     </div>
 </div>
 <hr>
@@ -18,27 +18,27 @@
     <div class="mh-300" id="div-language-list">
         <div class="row">
             <div class="col-6">
-                <h3 class="text-secondary">My Languages</h3>
+                <h3 class="text-white">My Languages</h3>
             </div>
             <div class="col-xs-6 ml-auto mr-2">
-                <a href="#" class="btn btn-primary" id="btn-add-language"><i class="icon-plus-sign"></i> Add Language</a>
+                <a href="#" class="btn btn-applicant" id="btn-add-language"><i class="icon-plus-sign"></i> Add Language</a>
             </div>
         </div>
         <div class="row text-secondary pb-2">
             <div class="col-4">
-                <h5>Language Name</h5>
+                <h5 class="applicant-text-color">Language Name</h5>
             </div>   
             <div class="col-3">
-                <h5>Proficiency</h5>
+                <h5 class="applicant-text-color">Proficiency</h5>
             </div> 
         </div>
         {% for language in language_list %}
             <div class="row pb-1">
                 <div class="col-4">
-                    <h5>{{language.language}}</h5>
+                    <h5 class="text-white">{{language.language}}</h5>
                 </div>
                 <div class="col-2">
-                    <h5>{{language.proficiency}}</h5>
+                    <h5 class="text-white">{{language.proficiency}}</h5>
                 </div>
                 <div class="col-2">
                     <a href="{% url 'languages_edit' language.id %}" class="update-skill"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>

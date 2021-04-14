@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block content%}
-    <div id="logreg-forms">
+    <div id="logreg-forms" class="bg-dark text-white">
         {% if request.GET.next %}
             <form action="/login/employer/?next={{request.GET.next}}" method="POST" class="form-signin">
         {%else%}
@@ -33,17 +33,13 @@
             {{ form.password|add_class:"form-control" }}
             
             <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
-            <a href="#" id="forgot_pswd">Forgot password?</a>
+            <a href="password_reset/" id="forgot_pswd">Forgot password?</a>
             <hr>
             <!-- <p>Don't have an account!</p>  -->
             <a href="/signup/employer" class="btn btn-primary btn-block text-white" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</a>
         </form>
 
-        <form action="/reset/password/" class="form-reset d-none">
-            <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-            <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
-            <p>Already a Member? <a href="#" id="cancel_reset">Login Now </a></p>
-        </form>
+        
         
     
             
