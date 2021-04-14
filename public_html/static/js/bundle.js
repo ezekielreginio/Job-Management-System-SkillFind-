@@ -615,6 +615,21 @@ function isinvalid(input, message) {
 
 /***/ }),
 
+/***/ "./src/app_handicapped/index.js":
+/*!**************************************!*\
+  !*** ./src/app_handicapped/index.js ***!
+  \**************************************/
+/***/ (() => {
+
+if (location.href.indexOf('handicapped') != -1) {
+  document.getElementById("nav-home").remove();
+  document.getElementById("dropdownId").remove();
+  document.getElementById("btn-login-applicant").remove();
+  document.getElementById("btn-handicap-ui").remove();
+}
+
+/***/ }),
+
 /***/ "./src/applicant_portfolio/education.js":
 /*!**********************************************!*\
   !*** ./src/applicant_portfolio/education.js ***!
@@ -657,7 +672,7 @@ if (location.href.indexOf('education') != -1) {
   } //CSS
 
 
-  let edu_input = document.getElementsByClassName("textinput");
+  let edu_input = document.getElementsByClassName("form-control");
 
   for (let i = 0; i < edu_input.length; i++) {
     edu_input[i].classList.add("eduinp");
@@ -808,6 +823,30 @@ if (location.href.indexOf('experience') != -1) {
   for (let i = 0; i < ex_textarea.length; i++) {
     ex_textarea[i].classList.add("date_Input");
   }
+
+  let ex_start = document.getElementsByClassName("experience-startdate");
+
+  for (let i = 0; i < ex_start.length; i++) {
+    ex_start[i].classList.add("applicant-text-color");
+  }
+
+  let ex_end = document.getElementsByClassName("experience-enddate");
+
+  for (let i = 0; i < ex_end.length; i++) {
+    ex_end[i].classList.add("applicant-text-color");
+  }
+
+  let ex_info = document.getElementsByClassName("col-8");
+
+  for (let i = 0; i < ex_info.length; i++) {
+    ex_info[i].classList.add("ex-info");
+  }
+
+  let ex_info_label = document.getElementsByClassName("col-4");
+
+  for (let i = 0; i < ex_info_label.length; i++) {
+    ex_info_label[i].classList.add("applicant-text-color");
+  }
 }
 
 /***/ }),
@@ -867,6 +906,12 @@ if (location.href.indexOf('languages') != -1) {
       let link_href = this.getAttribute("data-link");
       document.getElementById("form-delete").setAttribute("action", link_href);
     });
+  }
+
+  let lang_input = document.getElementsByClassName("textInput");
+
+  for (let i = 0; i < lang_input.length; i++) {
+    lang_input[i].classList.add("lang-in");
   }
 }
 
@@ -1108,6 +1153,24 @@ if (location.href.indexOf('login/applicant/') != -1 || location.href.indexOf('lo
   login_employer_btn.textContent = "For Employers";
   login_employer_btn.setAttribute("href", "/login/employer");
   document.getElementById("btn-login-applicant").after(login_employer_btn);
+}
+
+/***/ }),
+
+/***/ "./src/login/password_reset.js":
+/*!*************************************!*\
+  !*** ./src/login/password_reset.js ***!
+  \*************************************/
+/***/ (() => {
+
+if (location.href == "http://127.0.0.1:8000/login/applicant/password_reset/" || location.href == "http://127.0.0.1:8000/login/employer/password_reset/") {
+  document.getElementById("id_email").classList.add("form-control");
+  document.getElementById("id_email").classList.add("pass-reset-input");
+} else if (location.href.indexOf('password_reset_confirm') != -1) {
+  document.getElementById("id_new_password1").classList.add("form-control");
+  document.getElementById("id_new_password1").classList.add("pass-reset-input");
+  document.getElementById("id_new_password2").classList.add("form-control");
+  document.getElementById("id_new_password2").classList.add("pass-reset-input");
 }
 
 /***/ }),
@@ -22650,6 +22713,14 @@ const {
 const {
   employer_addjob
 } = __webpack_require__(/*! ./employer_dashboard/addjob */ "./src/employer_dashboard/addjob.js");
+
+const {
+  password_reset
+} = __webpack_require__(/*! ./login/password_reset */ "./src/login/password_reset.js");
+
+const {
+  handicapped_index
+} = __webpack_require__(/*! ./app_handicapped/index */ "./src/app_handicapped/index.js");
 })();
 
 /******/ })()

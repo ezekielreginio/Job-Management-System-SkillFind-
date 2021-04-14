@@ -4,24 +4,45 @@
 
 {% block content %}
 
-<div id="sidebar-wrapper">
-    <div id="sidebar-header">
-        <div class="row">
-            <div class="col-3">
-                <img src="{% static 'media/images/profile.jpg' %}" alt="sample img" id="img-company" width="50" height="50">
-            </div>
 
-            <div class="col-9">
-                <p class="text-white">HANDICAPPED</p>
-            </div>
-        </div>
+<div class="row m-2">
+    <div class="col-4 pt-5 d-flex">
+        <i class="icon-briefcase d-inline-block fa-microphone fa-5x applicant-text-color"></i>
+        <input class="tgl tgl-flip" id="cb5" type="checkbox"/>
+        <label class="tgl-btn d-inline-block fa-2x" data-tg-off="OFF" data-tg-on="ON" for="cb5"></label>
         
     </div>
-    <ul class="sidebar-nav">
-        <li id="employer-nav-dashboard"><a href="#"><i class="icon-dashboard pr-2"></i> Dashboard</a></li>
-        <li><a href="#"><i class="icon-briefcase pr-2 pl-0"></i> Jobs Panel</a></li>
-        <li><a href="#"><i class="icon-bar-chart pr-2"></i>Analytics</a></li>
-        <li><a href="#"><i class="icon-cogs pr-2"></i>Settings</a></li>
-    </ul>
+    <div class="col-6 pt-5 d-flex">
+        <h1 class="d-inline-block text-white">What would you Like to do...</h1>
+    </div>
+</div>
+
+<div class="row m-2 align-content-center">
+    <div class="col-6 p-5 d-flex">
+       <button class="btn btn-handicapped">Edit My Portfolio</button>
+    </div>
+    <div class="col-6 p-5 d-flex">
+        <button class="btn btn-handicapped">Find Jobs Near Me</button>
+     </div>
+</div>
+
+<div class="row m-2 align-content-center">
+    <div class="col-6 p-5 d-flex">
+       <button class="btn btn-handicapped">Find Companies</button>
+    </div>
+    <div class="col-6 p-5 d-flex">
+        <button class="btn btn-handicapped">Check Applicantion Statu</button>
+     </div>
+</div>
+
+<div class="row m-2 align-content-center">
+    <div class="col-6 p-5 d-flex">
+       <button class="btn btn-handicapped">Help</button>
+    </div>
+    <div class="col-6 p-5 d-flex">
+        <button class="btn btn-handicapped">Command List</button>
+     </div>
+</div>
+    
 
 {% endblock %}
