@@ -9,7 +9,7 @@ class JobListing(models.Model):
     location = models.CharField(max_length=50, null=False, blank=False)
     remote = models.CharField(max_length=50, null=False, blank=False)
     accept_handicapped = models.CharField(max_length=5, null=False, blank=False)
-    accepted_handicapped_types = models.CharField(max_length=30, null=True, blank=True)
+    accepted_handicapped_types = models.JSONField(null=True, blank=True)
     hires_needed = models.IntegerField(null=False, blank=False)
 
     employment_type = models.CharField(max_length=15, null=False, blank=False)
@@ -29,16 +29,12 @@ class JobListing(models.Model):
     application_email_recepient = models.EmailField(null=False, blank=False)
     job_description = models.TextField(max_length=3500, null=False, blank=False)
 
-    qualification_experience_type = models.JSONField(null=True, blank=True)
-    qualification_experience_required = models.CharField(max_length=20, null=True, blank=True)
+    qualification_experience = models.JSONField(null=True, blank=True)
 
-    qualification_minimum_education_level = models.JSONField(null=True, blank=True)
-    qualification_education_required = models.BooleanField(null=True, blank=True)
+    qualification_education = models.JSONField(null=True, blank=True)
 
-    qualification_location_required = models.BooleanField(null=True, blank=True)
+    qualification_location = models.CharField(max_length=25, null=True, blank=True)
 
-    qualification_licenses = models.JSONField(null=True, blank=True)
-    qualification_license_required = models.BooleanField(null=True, blank=True)
+    qualification_license = models.JSONField(null=True, blank=True)
 
-    qualification_languages = models.JSONField(null=True, blank=True)
-    qualification_languages_required = models.BooleanField(null=True, blank=True)
+    qualification_language = models.JSONField(null=True, blank=True)
