@@ -27,7 +27,7 @@ SECRET_KEY = '6_ew)ilqi4!lc9dw=rd#(rv*d0nm^zp$n(_48fbkas49d=la87'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -46,13 +46,17 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'widget_tweaks',
     'crispy_forms',
+    'social_django',
 
     'app_main',
     'app_accounts',
     'app_applicant_portfolio',
     'app_employer_dashboard',
+    'app_handicapped',
     
 ]
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -68,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = '_skillfind.urls'
@@ -83,6 +88,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                'social_django.context_processors.backends',  # <-- Here
+                'social_django.context_processors.login_redirect', # <-- Here
             ],
         },
     },
@@ -95,6 +103,8 @@ AUTHENTICATION_BACKENDS = [
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
+
+    'social_core.backends.facebook.FacebookOAuth2',
     
 ]
 
@@ -186,3 +196,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1094278477722412'        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '5cd1aaf5a72a32321b60be1f707af098'  # App Secret

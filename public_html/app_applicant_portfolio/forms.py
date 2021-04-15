@@ -77,7 +77,7 @@ class ApplicantExperienceLevel(forms.ModelForm):
             Fieldset(
                 '',
                 Div(
-                    Div(HTML(""" <label for="id_experience_level_0" class="text-right text-white requiredField">
+                    Div(HTML(""" <label for="id_experience_level_0" class="text-right applicant-text-color requiredField">
                 Experience level<span class="asteriskField">*</span> </label> """), css_class='col-3'),
                     Div('experience_level', css_class='col-8'),
                     css_class='row',
@@ -171,7 +171,7 @@ class ApplicantLanguage(forms.ModelForm):
             Fieldset(
                 '',
                 Div(
-                    Div(HTML(''' <h5>Add Language</h5> '''), css_class="col-12 pl-0"),
+                    Div(HTML(''' <h5 class="text-white">Add Language</h5> '''), css_class="col-12 pl-0"),
                     Div(
                         'language', css_class="col-3 mr-2",
                     ),
@@ -193,12 +193,12 @@ class ApplicantResume(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.form_show_labels = False
-        self.helper.add_input(Submit('submit', 'Upload Now', css_class='btn-primary'))
+        self.helper.add_input(Submit('submit', 'Upload Now', css_class='btn-applicant'))
         self.helper.layout = Layout(
             Fieldset(
                 '',
                 Div(
-                    Div(HTML(''' <h5>Upload Your Resume</h5> '''), css_class="col-12 pl-0"),
+                    Div(HTML(''' <h5 class="text-white">Upload Your Resume</h5> '''), css_class="col-12 pl-0"),
                     Div(
                         'resume', css_class="col-6 mr-2",
                     ),

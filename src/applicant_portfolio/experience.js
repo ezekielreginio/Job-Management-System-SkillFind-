@@ -150,5 +150,25 @@ if(location.href.indexOf('experience') != -1){
     for(let i = 0; i<ex_textarea.length; i++){
         ex_textarea[i].classList.add("date_Input")
     }
+
+    let ex_start = document.getElementsByClassName("experience-startdate")
+    for(let i = 0; i<ex_start.length; i++){
+        ex_start[i].classList.add("applicant-text-color")
+    }
+
+    let ex_end = document.getElementsByClassName("experience-enddate")
+    for(let i = 0; i<ex_end.length; i++){
+        ex_end[i].classList.add("applicant-text-color")
+    }
+
+    let ex_info = document.getElementsByClassName("col-8")
+    for(let i = 0; i<ex_info.length; i++){
+        ex_info[i].classList.add("ex-info")
+    }
+
+    let ex_info_label = document.getElementsByClassName("col-4")
+    for(let i = 0; i<ex_info_label.length; i++){
+        ex_info_label[i].classList.add("applicant-text-color")
+    }
     
 }

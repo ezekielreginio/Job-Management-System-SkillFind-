@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block content%}
-    <div id="logreg-forms">
+    <div id="logreg-forms" class="bg-dark text-white">
         
         {% if request.GET.next %}
             <form action="/login/applicant/?next={{request.GET.next}}" method="POST" class="form-signin">
@@ -11,7 +11,7 @@
         {% endif %}
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in as Applicant</h1>
             <div class="social-login">
-                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+                <a href="{% url 'social:begin' 'facebook' %}" class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </a>
                 <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
             </div>
             <p style="text-align:center"> OR  </p>

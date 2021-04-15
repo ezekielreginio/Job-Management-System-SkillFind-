@@ -38,10 +38,11 @@ if(location.href.indexOf('education') != -1){
     }
 
     //CSS
-    let edu_input = document.getElementsByClassName("textinput")
+    let edu_input = document.getElementsByClassName("form-control")
     for(let i= 0; i<edu_input.length; i++){
         edu_input[i].classList.add("eduinp")
     }
 
+    
    
 }
