@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "autocompleter": "^6.1.0",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "simple-datatables": "^3.0.2"
   }
 }

@@ -61,18 +61,7 @@ if(location.href.indexOf('employer/addjob') != -1){
                     </select>
                 </h6>
                 `
-                // let shs_strand = document.createElement("select")
-                // shs_strand.classList.add("custom-form-input", "m-2", "p-2")
-                // shs_strand.innerHTML = `
-                //     <option value="STEM">STEM</option>
-                //     <option value="ABM">ABM</option>
-                //     <option value="HUMMS">HUMMS</option>
-                //     <option value="GAS">GAS</option>
-                //     <option value="ICT">ICT</option>
-                //     <option value="ICT">Industrial Arts</option>
-                //     <option value="Home Economics">Home Economics</option>
-                //     `
-                // e.target.after(shs_strand)
+                
             }
 
             else if(e.target.value == "Bachelor's" || e.target.value == "Master's" || e.target.value == "Doctorate"){
@@ -217,7 +206,7 @@ if(location.href.indexOf('employer/addjob') != -1){
             "function": function(response){
                 if(response.status == 200){
                     response.json().then(json => {
-                        alert("Job Successfully Posted")
+                        location.replace("/employer/jobspanel")
                     })
                 }
             }

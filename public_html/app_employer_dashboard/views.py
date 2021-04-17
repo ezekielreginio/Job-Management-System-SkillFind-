@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from . import forms as employer_forms
+from .models import JobListing
 
 import json
 
@@ -11,6 +12,13 @@ import json
 def employer_dashboard(request):
     context ={}
     return render(request, "app_employer_dashboard/dashboard.html", context)
+
+@login_required(login_url='/login/employer')
+@user_passes_test(lambda u: u.groups.filter(name='employer').exists())
+def employer_jobspanel(request):
+    job_list = JobListing.objects.filter(employer = request.user)
+    context ={"job_list": job_list}
+    return render(request, "app_employer_dashboard/jobspanel.html", context)
 
 
 @login_required(login_url='/login/employer')
