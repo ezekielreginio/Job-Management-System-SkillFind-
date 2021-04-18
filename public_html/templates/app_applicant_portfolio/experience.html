@@ -1,0 +1,109 @@
+{% extends "./home.html"%}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block portfolio-content %}
+    <div class="row mb-5">
+        <div class="col-4">
+            <i class="icon-briefcase d-inline-block fs-25 applicant-text-color"></i>
+            <h4 class="d-inline-block text-white">Experience</h4>    
+        </div>
+        <div class="col-7">
+            <img src="{% static 'media/images/skill find icon 6.png' %}" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+        </div> 
+    </div>
+    <div class="row" id="experience-level">
+        <div class="col-3">
+            Experience Level
+        </div>
+        <div class="col-6">
+            <span class="text-white applicant-text-color" id="experience-level-desc">{{experience_level_desc}}</span>
+        </div>
+        <div class="col-3">
+            <a href="#" id="edit-experience-level"><i class="icon-edit d-inline-block"></i> Edit</a>
+        </div>
+    </div>
+    <div class="d-none" id="experience-level-form">
+        {%crispy experience_level_form%}
+    </div>
+    
+    <hr>
+    
+    <div class="d-none" id="div-experience-form">
+        <p class="applicant-text-color">Experience Information : Kindly fill up the form that contains the information regarding your job experience/s</p>
+        <div class="container">
+            {% crispy form %}
+        </div>
+    </div>
+
+    {%if experience_list %}
+        <div id="div-experience-list">
+            <div class="row">
+                <div class="col-xs-12 ml-auto mr-2">
+                    <a href="#" class="btn btn-applicant"  id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
+                </div>
+            </div>
+            {% for experience in experience_list %}
+                <div class="row p-2 experience-record">
+                    <div class="col-3">
+                        <span><span class="experience-startdate" value="{{experience.start_date|date:'Y-m-d'}}">{{experience.start_date|date:'M Y'}}</span> - <span class="experience-enddate" value="{{experience.end_date|date:'Y-m-d'}}">{{experience.end_date|date:'M Y'}}</span></span>
+                        <br>
+                        <span class="experience-span applicant-text-color"></span>
+                    </div>
+                    <div class="col-7">
+                        <h3 class="text-white">{{experience.position_title}}</h3>
+                        <h5 class="applicant-text-color">{{experience.company_name}} | {{experience.country}}</h5>
+                        <br>
+                        <div class="row">
+                            <div class="col-4">
+                                <span>Industry</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.industry}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span>Specialization</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.specialization}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span>Role</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.role}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span>Position Level</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.position_level}}</span>
+                            </div>
+
+                            <div class="col-4">
+                                <span>Salary</span>
+                            </div>
+                            <div class="col-8">
+                                <span>{{experience.currency}} {{experience.salary}}</span>
+                            </div>
+                            
+
+                        </div>
+                        <br>
+                        <p class="text-white">{{experience.experience_description}}</p>
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'experience_update' experience.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
+                        <a data-link="{% url 'experience_delete' experience.id %}" class="delete-experience" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block" ></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+        
+    
+{% endblock %}

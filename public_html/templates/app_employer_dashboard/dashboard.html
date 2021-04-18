@@ -1,0 +1,41 @@
+{% extends "./index.html" %} 
+{% load static %}
+{% load widget_tweaks %}
+
+{% block dashboard-title%}
+    <i class="icon-dashboard d-inline-block fs-25 mt-2"></i>
+    <h4 class="d-inline-block">Dashboard</h4>
+{% endblock dashboard-title %}
+
+{% block dashboard-content%}
+<div class="container align-items-center">
+    <div class="row container">
+        <div class="card col-md m-1 height-50" >
+            <div class="card-body p-0 py-3">
+                <h5 class="card-title">Messages (0)</h5>
+                <hr>
+                <p class="text-center"><i class="icon-envelope icon-4x"></i></p>
+                <p class="text-center text-secondary">You have 0 New Messages</p>
+            </div>
+        </div>
+
+        <div class="card col-md m-1 height-50">
+            <div class="card-body p-0 py-3">
+                <h5 class="card-title">Job Applicants (0)</h5>
+                <hr>
+                <p class="text-center"><i class="icon-user icon-4x"></i></p>
+                <p class="text-center text-secondary">You have 0 New Job Applicants</p>
+            </div>
+        </div>
+
+        <div class="card col-md m-1 height-50">
+            <div class="card-body p-0 py-3">
+                <h5 class="card-title">Interviews (0)</h5>
+                <hr>
+                <p class="text-center"><i class="icon-group icon-4x"></i></p>
+                <p class="text-center text-secondary">You have 0 New Interviews</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock dashboard-content %}
