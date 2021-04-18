@@ -1,0 +1,27 @@
+{
+  "name": "Skillfind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "webpack serve",
+    "build": "webpack",
+    "build-p": "webpack --mode production --no-devtool",
+    "watch": "webpack --watch --mode development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "autocompleter": "^6.1.0",
+    "moment": "^2.29.1",
+    "simple-datatables": "^3.0.2"
+  }
+}
