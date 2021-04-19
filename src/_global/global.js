@@ -49,7 +49,7 @@ export function page_navigation(btn_list){
     for(let i = 0; i<btn_list.length; i++){
         btn_list[i].addEventListener("click", function(){
             let flag = false;
-            //flag = validate_form(this.parentElement)
+            flag = validate_form(this.parentElement)
             window.scrollTo(0, 0);
             
             if(!flag){

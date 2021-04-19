@@ -3,11 +3,12 @@
 {% load widget_tweaks %}
 
 {% block dashboard-title%}
-    <i class="icon-dashboard d-inline-block fs-25"></i>
+    <i class="icon-dashboard d-inline-block fs-25 mt-2"></i>
     <h4 class="d-inline-block">Dashboard</h4>
 {% endblock dashboard-title %}
 
 {% block dashboard-content%}
+<div class="container align-items-center">
     <div class="row container">
         <div class="card col-md m-1 height-50" >
             <div class="card-body p-0 py-3">
@@ -36,4 +37,5 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock dashboard-content %}

@@ -18,8 +18,8 @@
         
     </div>
     <ul class="sidebar-nav">
-        <li id="employer-nav-dashboard"><a href="#"><i class="icon-dashboard pr-2"></i> Dashboard</a></li>
-        <li><a href="#"><i class="icon-briefcase pr-2 pl-0"></i> Jobs Panel</a></li>
+        <li id="employer-nav-dashboard"><a href="/employer/dashboard"><i class="icon-dashboard pr-2"></i> Dashboard</a></li>
+        <li id="employer-nav-jobspanel"><a href="/employer/jobspanel"><i class="icon-briefcase pr-2 pl-0"></i> Jobs Panel</a></li>
         <li><a href="#"><i class="icon-bar-chart pr-2"></i>Analytics</a></li>
         <li><a href="#"><i class="icon-cogs pr-2"></i>Settings</a></li>
     </ul>
@@ -40,7 +40,7 @@
                             {% endblock dashboard-title %}
                         </div>
                     </div>
-                    <div class="container align-items-center">
+                    
                         {% block dashboard-content%}
                         {% endblock dashboard-content %}
                     </div>

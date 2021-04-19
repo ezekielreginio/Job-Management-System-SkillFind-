@@ -236,7 +236,7 @@ class EmployerAddJobListing(forms.ModelForm):
                                 </div>
                                 <div id="qualification-footer">
                                     <h5>Is this qualification required?</h5>
-                                    <select name="application_resume" class="select form-control custom-select w-50" id="id_application_resume"> 
+                                    <select name="required-preferred" class="select form-control custom-select w-50" id="id_application_resume"> 
                                         <option value="true">Required</option> 
                                         <option value="false">Preferred</option>
                                     </select>

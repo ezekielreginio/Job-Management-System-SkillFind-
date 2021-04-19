@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 import os
+import django_heroku
+import crispy_forms
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,7 @@ SECRET_KEY = '6_ew)ilqi4!lc9dw=rd#(rv*d0nm^zp$n(_48fbkas49d=la87'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'skillfind.herokuapp.com']
 
 
 # Application definition
@@ -45,7 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'widget_tweaks',
-    'crispy_forms',
+    "crispy_forms",
     'social_django',
 
     'app_main',
@@ -112,9 +114,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'hellotsunchan@gmail.com'
+EMAIL_HOST_USER = 'skillfindsystem@gmail.com'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = 'ilovelolicon15'
+EMAIL_HOST_PASSWORD = 'Juanone1'
 
 WSGI_APPLICATION = '_skillfind.wsgi.application'
 
@@ -199,3 +201,8 @@ STATICFILES_DIRS = [
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1094278477722412'        # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '5cd1aaf5a72a32321b60be1f707af098'  # App Secret
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
