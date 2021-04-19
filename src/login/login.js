@@ -6,5 +6,8 @@ if(location.href.indexOf('login/applicant/') != -1 || location.href.indexOf('log
     login_employer_btn.textContent = "For Employers"
     login_employer_btn.setAttribute("href", "/login/employer")
     document.getElementById("btn-login-applicant").after(login_employer_btn)
+    
 }
+
+
 

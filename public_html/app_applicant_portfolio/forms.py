@@ -10,11 +10,14 @@ from Include import validators
 
 import re, datetime
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 class ApplicantPortfolioExperience(forms.ModelForm):
     position_title = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
     company_name = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    start_date = forms.DateField(required=True)
-    end_date = forms.DateField(required=True)
+    start_date = forms.DateField(required=True, widget=DateInput)
+    end_date = forms.DateField(required=True, widget=DateInput)
     specialization = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
     role = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
     country = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
@@ -99,6 +102,7 @@ class ApplicantExperienceLevel(forms.ModelForm):
         )
 
 class ApplicantEducation(forms.ModelForm):
+    graduation_date = forms.DateField(widget=DateInput)
     university = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
     qualification = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
     university_location = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
