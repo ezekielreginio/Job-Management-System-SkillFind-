@@ -111,12 +111,12 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.mail.yahoo.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'skillfindsystem@gmail.com'
+EMAIL_HOST_USER = 'skillfind@yahoo.com'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = 'Juanone1'
+EMAIL_HOST_PASSWORD = 'heqoazvfdamgykmq'
 
 WSGI_APPLICATION = '_skillfind.wsgi.application'
 

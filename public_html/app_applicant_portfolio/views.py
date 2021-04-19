@@ -13,8 +13,9 @@ import datetime
 @login_required(login_url='/login/applicant')
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_portfolio(request):
-    context = {}
-    return render(request, 'app_applicant_portfolio/home.html', context)
+    experience_list = Experience.objects.all().filter(applicant_id=request.user.id)
+    context = {'experience_list': experience_list}
+    return render(request, 'app_applicant_portfolio/portfolio.html', context)
 
 @login_required(login_url='/login/applicant')
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
