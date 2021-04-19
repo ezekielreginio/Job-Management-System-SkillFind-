@@ -1,0 +1,19 @@
+{% extends "./home.html"%}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block portfolio-content%}
+<div class="row mb-5">
+    <div class="col-9 pt-1">
+        <i class="icon-comments-alt d-inline-block fs-25 applicant-text-color"></i>
+        <h4 class="d-inline-block text-white">Experience</h4>
+    </div>
+</div>
+<hr>
+<div>
+    {% for experience in experience_list %}
+        <p class="text-white">{{experience.position_title}}</p>
+    {% endfor %}
+</div>
+{% endblock portfolio-content %}
