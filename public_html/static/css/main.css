@@ -287,6 +287,12 @@
 
 /* CSS For TextInputs */
 
+.ex-info{
+    color: white;
+}
+
+
+
 .text_Input{
     background-color: #464444;
     color: white;

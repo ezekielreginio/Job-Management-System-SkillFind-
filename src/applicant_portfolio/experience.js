@@ -166,6 +166,11 @@ if(location.href.indexOf('experience') != -1){
         ex_info[i].classList.add("ex-info")
     }
 
+    let ex_level = document.getElementsByClassName("col-3")
+    for(let i = 0; i<ex_level.length; i++){
+        ex_level[i].classList.add("applicant-text-color")
+    }
+
     let ex_info_label = document.getElementsByClassName("col-4")
     for(let i = 0; i<ex_info_label.length; i++){
         ex_info_label[i].classList.add("applicant-text-color")

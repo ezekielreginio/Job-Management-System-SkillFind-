@@ -842,6 +842,12 @@ if (location.href.indexOf('experience') != -1) {
     ex_info[i].classList.add("ex-info");
   }
 
+  let ex_level = document.getElementsByClassName("col-3");
+
+  for (let i = 0; i < ex_level.length; i++) {
+    ex_level[i].classList.add("applicant-text-color");
+  }
+
   let ex_info_label = document.getElementsByClassName("col-4");
 
   for (let i = 0; i < ex_info_label.length; i++) {
@@ -1022,18 +1028,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
                         <option value="Home Economics">Home Economics</option>
                     </select>
                 </h6>
-                `; // let shs_strand = document.createElement("select")
-        // shs_strand.classList.add("custom-form-input", "m-2", "p-2")
-        // shs_strand.innerHTML = `
-        //     <option value="STEM">STEM</option>
-        //     <option value="ABM">ABM</option>
-        //     <option value="HUMMS">HUMMS</option>
-        //     <option value="GAS">GAS</option>
-        //     <option value="ICT">ICT</option>
-        //     <option value="ICT">Industrial Arts</option>
-        //     <option value="Home Economics">Home Economics</option>
-        //     `
-        // e.target.after(shs_strand)
+                `;
       } else if (e.target.value == "Bachelor's" || e.target.value == "Master's" || e.target.value == "Doctorate") {
         div_container.innerHTML = `
                 <h6>Major in 
