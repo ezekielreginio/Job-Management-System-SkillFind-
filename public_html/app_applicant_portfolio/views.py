@@ -14,7 +14,13 @@ import datetime
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_portfolio(request):
     experience_list = Experience.objects.all().filter(applicant_id=request.user.id)
-    context = {'experience_list': experience_list}
+    education_list = Education.objects.all().filter(applicant_id=request.user.id)
+    skill_list = Skill.objects.all().filter(applicant_id=request.user.id)
+    language_list = Language.objects.all().filter(applicant_id=request.user.id)
+    context = {'experience_list': experience_list,
+                'education_list': education_list,
+                'skill_list': skill_list,
+                'language_list': language_list}
     return render(request, 'app_applicant_portfolio/portfolio.html', context)
 
 @login_required(login_url='/login/applicant')
