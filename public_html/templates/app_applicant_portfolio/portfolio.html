@@ -4,16 +4,140 @@
 {% load crispy_forms_tags %}
 
 {% block portfolio-content%}
+
+
+
 <div class="row mb-5">
     <div class="col-9 pt-1">
-        <i class="icon-comments-alt d-inline-block fs-25 applicant-text-color"></i>
-        <h4 class="d-inline-block text-white">Experience</h4>
+        <i class="icon-briefcase d-inline-block fs-25 applicant-text-color"></i>
+        <h4 class="d-inline-block text-white">Portfolio</h4>
     </div>
 </div>
-<hr>
-<div>
-    {% for experience in experience_list %}
-        <p class="text-white">{{experience.position_title}}</p>
-    {% endfor %}
+
+
+<div class="card-header">
+    <i class="icon-briefcase d-inline-block fs-25 applicant-text-color"></i>
+        <h4 class="d-inline-block text-white">Experience</h4>
+  </div>
+{% for experience in experience_list %} 
+
+  <div class="card-deck m-3 d-flex justify-content-center">
+    <div class="task">
+       <div class="abstract">
+         <div class="row">
+            <h2>{{experience.position_title}}</h2>
+            <hr>
+            <div class="col text-right">
+                <h5>{{experience.company_name}}</h5>
+                <p>{{experience.start_date|date:'M Y'}}-{{experience.end_date|date:'M Y'}}</p>
+            </div>
+         </div>
+        </div>
+        <div class="details">
+          <div class="details__inner">
+            <h3>Details</h3>
+            <div class="row">
+              <div class="col-4">Industry</div>
+              <div class="col-8">{{experience.industry}}</div>
+              <div class="col-4">Specialization</div>
+              <div class="col-8">{{experience.specialization}}</div>
+              <div class="col-4">Role</div>
+              <div class="col-8">{{experience.role}}</div>
+              <div class="col-4">Position Level</div>
+              <div class="col-8">{{experience.position_level}}</div>
+              <div class="col-4">Salary</div>
+              <div class="col-8">{{experience.salary}}</div>
+            </div>
+          </div>
+        </div>
+    </div>   
 </div>
+{% endfor %}
+
+<div class="card-header">
+    <i class="icon-book d-inline-block fs-25 applicant-text-color"></i>
+    <h4 class="d-inline-block text-white">Education</h4>
+</div>
+{% for education in education_list %} 
+
+  <div class="card-deck m-3 d-flex justify-content-center">
+    <div class="task">
+       <div class="abstract">
+         <div class="row">
+            <h2>{{education.university}}</h2>
+            <hr>
+            <div class="col text-right">
+                <h5>{{ education.qualification }} in {{ education.field_of_study }}</h5>
+                <p>{{education.graduation_date|date:'M Y'}}</p>
+            </div>
+         </div>
+        </div>
+        <div class="details">
+          <div class="details__inner">
+            <h3>Details</h3>
+            <div class="row">
+              <div class="col-4">Major in</div>
+              <div class="col-8">{{ education.major }}</div>
+              <div class="col-4">GPA</div>
+              <div class="col-8">{{ education.grade }}</div>
+            </div>
+          </div>
+        </div>
+    </div>   
+</div>
+{% endfor %}
+
+
+
+<div class="card-header">
+    <i class="icon-book d-inline-block fs-25 applicant-text-color"></i>
+    <h4 class="d-inline-block text-white">Skills & Language</h4>
+</div>
+
+<div class="card-deck mt-3">
+    <div class="task">
+       <div class="abstract">
+         <div class="row">
+            <h2>Skills</h2>
+            <hr>
+         </div>
+        </div>
+        <div class="details">
+          <div class="details__inner">
+            <h3>Details</h3>
+            {% for skill in skill_list %}
+            <div class="row">
+              <div class="col-4">Skill</div>
+              <div class="col-8">{{ skill.skill }}</div>
+              <div class="col-4">Proficiency</div>
+              <div class="col-8">{{ skill.proficiency }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+    <div class="task">
+        <div class="abstract">
+          <div class="row">
+             <h2>Language</h2>
+             <hr>
+          </div>
+         </div>
+         <div class="details">
+           <div class="details__inner">
+             <h3>Details</h3>
+             {% for language in language_list %}
+             <div class="row">
+               <div class="col-4">Language</div>
+               <div class="col-8">{{ language.language }}</div>
+               <div class="col-4">Proficiency</div>
+               <div class="col-8">{{ language.proficiency }}</div>
+             </div>
+             {% endfor %}
+           </div>
+         </div>
+     </div>    
+</div>
+
+
 {% endblock portfolio-content %}
