@@ -61,6 +61,7 @@ def applicant_experience(request, pk=None):
     context = {'form': experience_form, 'experience_list' : experience_list, 'experience_level_desc': experience_level_desc, 'experience_level_form': experience_level_form}
     return render(request, 'app_applicant_portfolio/experience.html', context)
 
+
 @login_required(login_url='/login/applicant')
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
 def applicant_experience_delete(request, pk=None):

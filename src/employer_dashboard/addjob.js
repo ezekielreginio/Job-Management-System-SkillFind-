@@ -192,7 +192,7 @@ if(location.href.indexOf('employer/addjob') != -1){
             "qualification_language": qualification_language,
         }
 
-        //console.log(data)
+        console.log(data)
         let formdata_joblist = new FormData(document.getElementById("form-add-job"))
         
         formdata_joblist.append("qualifications", JSON.stringify(data))
@@ -206,7 +206,7 @@ if(location.href.indexOf('employer/addjob') != -1){
             "function": function(response){
                 if(response.status == 200){
                     response.json().then(json => {
-                        location.replace("/employer/jobspanel")
+                        //location.replace("/employer/jobspanel")
                     })
                 }
             }

@@ -1,5 +1,5 @@
 const moment = require("moment")
-const { create_input } = require("../_global/global")
+const { create_input, AJAX, csrftoken } = require("../_global/global")
 const autocomplete = require('autocompleter');
 
 if(location.href.indexOf('experience') != -1){
@@ -103,25 +103,78 @@ if(location.href.indexOf('experience') != -1){
     //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
     // })
     
-    //Script for Autocomplete
+    //Script for Autocomplete:
     let position_title = [
         { label: 'Software Developer', value: 'UK' },
         { label: 'Software Engineer', value: 'US' }
     ];
 
-    let field_position_title = document.getElementById("id_position_title");
-    autocomplete({
-        input: field_position_title,
-        fetch: function(text, update) {
-            text = text.toLowerCase();
-            // you can also use AJAX requests instead of preloaded data
-            var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text))
-            update(suggestions);
-        },
-        onSelect: function(item) {
-            field_position_title.value = item.label;
+    let field_position_title = document.getElementById("id_position_title")
+
+    field_position_title.addEventListener("focus", function(){
+        AJAX({
+        "method":"POST",
+        "action": "/autocomplete",
+        "body": "#",
+        "token": csrftoken,
+        "function": function(response){
+            if(response.status == 200){
+                response.json().then(json => {
+                    let data = JSON.parse(json['data'])
+                    let position_title = [];
+                    data.forEach((record)=>{
+                        console.log(record['fields']['data'])
+                        position_title.push({label: record['fields']['data'], value: record['fields']['data']})
+                    })
+                    autocomplete({
+                        input: field_position_title,
+                        fetch: function(text, update) {
+                            text = text.toLowerCase();
+                            
+                            var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text))
+                            update(suggestions);
+                        },
+                        onSelect: function(item) {
+                            field_position_title.value = item.label;
+                        }
+                    });
+                })
+            }
         }
-    });
+    })
+    })
+    // AJAX({
+    //     "method":"POST",
+    //     "action": "/autocomplete",
+    //     "body": "#",
+    //     "token": csrftoken,
+    //     "function": function(response){
+    //         if(response.status == 200){
+    //             response.json().then(json => {
+    //                 let data = JSON.parse(json['data'])
+    //                 let position_title = [];
+    //                 data.forEach((record)=>{
+    //                     console.log(record['fields']['data'])
+    //                     position_title.push({label: record['fields']['data'], value: record['fields']['data']})
+    //                 })
+    //                 autocomplete({
+    //                     input: field_position_title,
+    //                     fetch: function(text, update) {
+    //                         text = text.toLowerCase();
+                            
+    //                         var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text))
+    //                         update(suggestions);
+    //                     },
+    //                     onSelect: function(item) {
+    //                         field_position_title.value = item.label;
+    //                     }
+    //                 });
+    //             })
+    //         }
+    //     }
+    // })
+
+    
 
 
     //Script for CSS
