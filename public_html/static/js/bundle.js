@@ -690,7 +690,9 @@ if (location.href.indexOf('education') != -1) {
 const moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 const {
-  create_input
+  create_input,
+  AJAX,
+  csrftoken
 } = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
 
 const autocomplete = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
@@ -782,7 +784,7 @@ if (location.href.indexOf('experience') != -1) {
   //     let link_href = this.getAttribute("data-link")
   //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
   // })
-  //Script for Autocomplete
+  //Script for Autocomplete:
 
 
   let position_title = [{
@@ -793,18 +795,69 @@ if (location.href.indexOf('experience') != -1) {
     value: 'US'
   }];
   let field_position_title = document.getElementById("id_position_title");
-  autocomplete({
-    input: field_position_title,
-    fetch: function (text, update) {
-      text = text.toLowerCase(); // you can also use AJAX requests instead of preloaded data
-
-      var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text));
-      update(suggestions);
-    },
-    onSelect: function (item) {
-      field_position_title.value = item.label;
-    }
-  }); //Script for CSS
+  field_position_title.addEventListener("focus", function () {
+    AJAX({
+      "method": "POST",
+      "action": "/autocomplete",
+      "body": "#",
+      "token": csrftoken,
+      "function": function (response) {
+        if (response.status == 200) {
+          response.json().then(json => {
+            let data = JSON.parse(json['data']);
+            let position_title = [];
+            data.forEach(record => {
+              console.log(record['fields']['data']);
+              position_title.push({
+                label: record['fields']['data'],
+                value: record['fields']['data']
+              });
+            });
+            autocomplete({
+              input: field_position_title,
+              fetch: function (text, update) {
+                text = text.toLowerCase();
+                var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text));
+                update(suggestions);
+              },
+              onSelect: function (item) {
+                field_position_title.value = item.label;
+              }
+            });
+          });
+        }
+      }
+    });
+  }); // AJAX({
+  //     "method":"POST",
+  //     "action": "/autocomplete",
+  //     "body": "#",
+  //     "token": csrftoken,
+  //     "function": function(response){
+  //         if(response.status == 200){
+  //             response.json().then(json => {
+  //                 let data = JSON.parse(json['data'])
+  //                 let position_title = [];
+  //                 data.forEach((record)=>{
+  //                     console.log(record['fields']['data'])
+  //                     position_title.push({label: record['fields']['data'], value: record['fields']['data']})
+  //                 })
+  //                 autocomplete({
+  //                     input: field_position_title,
+  //                     fetch: function(text, update) {
+  //                         text = text.toLowerCase();
+  //                         var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text))
+  //                         update(suggestions);
+  //                     },
+  //                     onSelect: function(item) {
+  //                         field_position_title.value = item.label;
+  //                     }
+  //                 });
+  //             })
+  //         }
+  //     }
+  // })
+  //Script for CSS
 
   let input_text = document.getElementsByClassName("textInput");
   document.getElementById("nav-applicant-experience").classList.add("nav-applicant-active");
@@ -1094,7 +1147,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
     document.getElementById("p5-container").appendChild(qualification_template);
     console.log();
-  }); //Post Job Btn
+  }); //Post Job Btn  
 
   document.getElementById("btn-post-job").addEventListener("click", e => {
     let qualification_experience = {};
@@ -1153,11 +1206,9 @@ if (location.href.indexOf('employer/addjob') != -1) {
       "qualification_license": qualification_license,
       "qualification_location": qualification_location,
       "qualification_language": qualification_language
-    }; //console.log(data)
-
+    };
     let formdata_joblist = new FormData(document.getElementById("form-add-job"));
     formdata_joblist.append("qualifications", JSON.stringify(data));
-    console.log(formdata_joblist);
     (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.AJAX)({
       "method": "POST",
       "action": "./addjob",

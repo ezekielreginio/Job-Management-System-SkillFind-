@@ -123,13 +123,27 @@ WSGI_APPLICATION = '_skillfind.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'skillfind',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',   
+#         'OPTIONS': {
+#         'sql_mode': 'traditional',
+#         },
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'skillfind',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'skillfind_1234',
+        'USER': 'skillfind',
+        'PASSWORD': 'Iamregi25',
+        'HOST': 'mysql-skillfind.alwaysdata.net',
         'PORT': '3306',   
         'OPTIONS': {
         'sql_mode': 'traditional',

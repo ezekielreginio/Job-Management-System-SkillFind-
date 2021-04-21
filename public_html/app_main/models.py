@@ -8,3 +8,7 @@ from django.dispatch import receiver
 # def user_signed_up_(sender, request, user, **kwargs):
 #     g = Group.objects.get(name='applicant')
 #     user.groups.add(g)
+
+class AutoComplete(models.Model):
+    field_name = models.CharField(max_length=50, null=False, blank=False)
+    data = models.CharField(max_length=50, null=False, blank=False)

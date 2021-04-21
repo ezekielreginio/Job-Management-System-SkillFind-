@@ -1,10 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
+from django.core import serializers
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django import forms as d_forms
 import allauth.account.forms as forms
+from django.http import JsonResponse
 
 #Models Import:
 from app_accounts import models
+from app_main.models import AutoComplete
+
+import json, datetime
 
 # Create your views here.
 
@@ -32,3 +38,9 @@ def index(request):
 def base(request):
     context = {}
     return render(request, "base.html", context)
+
+def autocomplete(request):
+    data = AutoComplete.objects.all().filter(field_name = "position_title")
+    data = serializers.serialize('json', data)
+    context = {"data": data}
+    return HttpResponse(json.dumps(context), status=200)
