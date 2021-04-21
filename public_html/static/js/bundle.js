@@ -1140,7 +1140,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
     document.getElementById("p5-container").appendChild(qualification_template);
     console.log();
-  }); //Post Job Btn
+  }); //Post Job Btn  
 
   document.getElementById("btn-post-job").addEventListener("click", e => {
     let qualification_experience = {};
@@ -1200,10 +1200,8 @@ if (location.href.indexOf('employer/addjob') != -1) {
       "qualification_location": qualification_location,
       "qualification_language": qualification_language
     };
-    console.log(data);
     let formdata_joblist = new FormData(document.getElementById("form-add-job"));
     formdata_joblist.append("qualifications", JSON.stringify(data));
-    console.log(formdata_joblist);
     (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.AJAX)({
       "method": "POST",
       "action": "./addjob",
@@ -1211,7 +1209,8 @@ if (location.href.indexOf('employer/addjob') != -1) {
       "token": _global_global__WEBPACK_IMPORTED_MODULE_0__.csrftoken,
       "function": function (response) {
         if (response.status == 200) {
-          response.json().then(json => {//location.replace("/employer/jobspanel")
+          response.json().then(json => {
+            location.replace("/employer/jobspanel");
           });
         }
       }

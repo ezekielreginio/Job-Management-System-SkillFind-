@@ -131,7 +131,7 @@ if(location.href.indexOf('employer/addjob') != -1){
         console.log()
     })
     
-    //Post Job Btn
+    //Post Job Btn  
     document.getElementById("btn-post-job").addEventListener("click", (e)=>{
         let qualification_experience = {}
         let qualification_education = {}
@@ -192,12 +192,11 @@ if(location.href.indexOf('employer/addjob') != -1){
             "qualification_language": qualification_language,
         }
 
-        console.log(data)
+
         let formdata_joblist = new FormData(document.getElementById("form-add-job"))
         
         formdata_joblist.append("qualifications", JSON.stringify(data))
         
-        console.log(formdata_joblist)
         AJAX({
             "method":"POST",
             "action": "./addjob",
@@ -206,7 +205,7 @@ if(location.href.indexOf('employer/addjob') != -1){
             "function": function(response){
                 if(response.status == 200){
                     response.json().then(json => {
-                        //location.replace("/employer/jobspanel")
+                        location.replace("/employer/jobspanel")
                     })
                 }
             }
