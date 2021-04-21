@@ -696,7 +696,14 @@ const {
 const autocomplete = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
 
 if (location.href.indexOf('experience') != -1) {
-  //Experience Level Validator:
+  //Experience Level radio button 3
+  if (document.getElementById('id_experience_level_3').checked) {
+    document.getElementById("experience-duration").classList.remove("d-none");
+  } else {
+    document.getElementById("experience-duration").classList.add("d-none");
+  } //Experience Level Validator:
+
+
   if (document.getElementById("experience-level-desc").textContent == 'None') {
     document.getElementById("experience-level").classList.add("d-none");
     document.getElementById("experience-level-form").classList.remove("d-none");

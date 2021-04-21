@@ -94,8 +94,8 @@
     <h4 class="d-inline-block text-white">Skills & Language</h4>
 </div>
 
-<div class="card-deck mt-3">
-    <div class="task">
+<div class="card-deck m-3 d-flex justify-content-center">
+    <div class="task m-2">
        <div class="abstract">
          <div class="row">
             <h2>Skills</h2>
@@ -105,18 +105,18 @@
         <div class="details">
           <div class="details__inner">
             <h3>Details</h3>
-            {% for skill in skill_list %}
             <div class="row">
-              <div class="col-4">Skill</div>
-              <div class="col-8">{{ skill.skill }}</div>
-              <div class="col-4">Proficiency</div>
+              <h5 class="col-4">SKILLS</h5>
+              <h5 class="col-8">PROFICIENCY</h5>
+              {% for skill in skill_list %}
+              <div class="col-4">{{ skill.skill }}</div>
               <div class="col-8">{{ skill.proficiency }}</div>
+              {% endfor %}
             </div>
-            {% endfor %}
           </div>
         </div>
     </div>
-    <div class="task">
+    <div class="task m-2">
         <div class="abstract">
           <div class="row">
              <h2>Language</h2>
@@ -126,14 +126,15 @@
          <div class="details">
            <div class="details__inner">
              <h3>Details</h3>
-             {% for language in language_list %}
              <div class="row">
-               <div class="col-4">Language</div>
-               <div class="col-8">{{ language.language }}</div>
-               <div class="col-4">Proficiency</div>
+               <h5 class="col-4">LANGUAGE</h5>
+               <h5 class="col-8">PROFICIENCY</h5>
+               {% for language in language_list %}
+               <div class="col-4">{{ language.language }}</div>
                <div class="col-8">{{ language.proficiency }}</div>
+               {% endfor %}
              </div>
-             {% endfor %}
+             
            </div>
          </div>
      </div>    
