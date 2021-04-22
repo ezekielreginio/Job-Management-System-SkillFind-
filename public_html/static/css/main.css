@@ -545,3 +545,13 @@
 }
 
 
+.img-applicant-portfolio{
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.vertical-center{
+    padding-top: 10%;
+    padding-left: 5%;
+}
