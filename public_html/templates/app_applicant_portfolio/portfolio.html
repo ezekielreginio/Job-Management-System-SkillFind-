@@ -90,54 +90,45 @@
 
 
 <div class="card-header">
-    <i class="icon-book d-inline-block fs-25 applicant-text-color"></i>
-    <h4 class="d-inline-block text-white">Skills & Language</h4>
+  <i class="icon-cogs d-inline-block fs-25 applicant-text-color"></i>
+    <h4 class="d-inline-block text-white">Skills</h4>
 </div>
 
-<div class="card-deck mt-3">
-    <div class="task">
-       <div class="abstract">
-         <div class="row">
-            <h2>Skills</h2>
-            <hr>
-         </div>
-        </div>
-        <div class="details">
-          <div class="details__inner">
-            <h3>Details</h3>
-            {% for skill in skill_list %}
-            <div class="row">
-              <div class="col-4">Skill</div>
-              <div class="col-8">{{ skill.skill }}</div>
-              <div class="col-4">Proficiency</div>
-              <div class="col-8">{{ skill.proficiency }}</div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
+<div class="card-deck m-3 d-flex justify-content-center">
+  {% for skill in skill_list %}
+ <div class="task m-3">
+  <div class="abstract">
+    <div class="row">
+       <h2>{{skill.skill}}</h2>
+       <hr>
+       <div class="col text-right">
+           <h5>{{ skill.proficiency}}</h5>
+       </div>
     </div>
-    <div class="task">
-        <div class="abstract">
-          <div class="row">
-             <h2>Language</h2>
-             <hr>
-          </div>
-         </div>
-         <div class="details">
-           <div class="details__inner">
-             <h3>Details</h3>
-             {% for language in language_list %}
-             <div class="row">
-               <div class="col-4">Language</div>
-               <div class="col-8">{{ language.language }}</div>
-               <div class="col-4">Proficiency</div>
-               <div class="col-8">{{ language.proficiency }}</div>
-             </div>
-             {% endfor %}
-           </div>
-         </div>
-     </div>    
+   </div>
+ </div>
+  {% endfor %}  
 </div>
 
+<div class="card-header">
+  <i class="icon-comments-alt d-inline-block fs-25 applicant-text-color"></i>
+  <h4 class="d-inline-block text-white">Language</h4>
+</div>
+
+<div class="card-deck m-3 d-flex justify-content-center">
+  {% for language in language_list %}
+ <div class="task m-3">
+  <div class="abstract">
+    <div class="row">
+       <h2>{{language.language}}</h2>
+       <hr>
+       <div class="col text-right">
+           <h5>{{ language.proficiency }}</h5>
+       </div>
+    </div>
+   </div>
+ </div>
+  {% endfor %}  
+</div>
 
 {% endblock portfolio-content %}
