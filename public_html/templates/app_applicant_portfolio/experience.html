@@ -4,15 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block portfolio-content %}
-    <div class="row mb-5">
-        <div class="col-7 vertical-center">
-            <i class="icon-briefcase fs-25 applicant-text-color"></i>
-            <h4 class="d-inline-block text-white">Experience</h4>    
-        </div>
-        <div class="col-4">
-            <img src="{% static 'media/images/applicant_experience.png' %}" class="img-applicant-portfolio" alt="">
-        </div> 
-    </div>
+    
     <div class="row" id="experience-level">
         <div class="col-3 text-white">
             Experience Level
@@ -26,6 +18,7 @@
     </div>
     <div class="d-none" id="experience-level-form">
         {%crispy experience_level_form%}
+    
     </div>
     
     <hr>

@@ -496,6 +496,16 @@
   border-radius: 3px;
 }
 
+.task_click {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+
 .abstract,
 .details {
   width: 100%;
@@ -505,6 +515,11 @@
 }
 .task:hover .abstract,
 .task:hover .details {
+  background-color: #aef7e4;
+}
+
+.task_click:hover .abstract,
+.task_click:hover .details {
   background-color: #aef7e4;
 }
 
@@ -533,12 +548,22 @@
   height: 1px;
   background: grey;
 }
+
+
 .task:hover .details {
   max-height: none;
   overflow: visible;
   visibility: visible;
   transform: rotateX(0deg);
 }
+
+.task_click .details {
+    max-height: none;
+    overflow: visible;
+    visibility: visible;
+    transform: rotateX(0deg);
+  }
+
 
 .details__inner {
   padding: 15px 30px;

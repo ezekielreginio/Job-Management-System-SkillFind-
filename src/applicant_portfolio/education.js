@@ -4,26 +4,37 @@ if(location.href.indexOf('education') != -1){
     //Checks if the user has education data. If none, the add education form will be hidden
     if(document.getElementById("div-education-list") == null){
         document.getElementById("div-education-form").classList.remove("d-none")
+        document.getElementById("cancel-education-form").classList.add("d-none")
+    }
+
+    else{
+       //Event Listener for Add Education Btn:
+    document.getElementById("btn-add-education").addEventListener("click", function(){
+        this.classList.add("d-none")
+        document.getElementById("div-education-form").classList.remove("d-none")
+        document.getElementById("cancel-education-form").classList.add("d-none")
+    })
+    
+    //Event Listener for Cancel Education Btn:
+    document.getElementById("cancel-education-form").addEventListener("click", function(){
+        location.replace("/applicant/education")
+    })
+
     }
 
     //Check if the user is editing education record
     if(location.href.indexOf('edit') != -1){
         document.getElementById("div-education-form").classList.remove("d-none")
-        document.getElementById("div-education-list").classList.add("d-none")
+        document.getElementById("div-education-list").classLis
+        t.add("d-none")
     }
     
-    //Event Listeners:
+  
+     
 
-    //Event Listener for Add Education Btn:
-    document.getElementById("btn-add-education").addEventListener("click", function(){
-        this.classList.add("d-none")
-        document.getElementById("div-education-form").classList.remove("d-none")
-    })
+   
 
-    //Event Listener for Cancel Education Btn:
-    document.getElementById("cancel-education-form").addEventListener("click", function(){
-        location.replace("/applicant/education")
-    })
+   
 
     //Event Listener for Delete Education Btn:
     let delete_btn_array = document.getElementsByClassName("btn-delete-education")
@@ -42,6 +53,9 @@ if(location.href.indexOf('education') != -1){
     for(let i= 0; i<edu_input.length; i++){
         edu_input[i].classList.add("eduinp")
     }
+
+    //for Image header
+    document.getElementById("education-img-header").classList.remove("d-none")
 
     
    

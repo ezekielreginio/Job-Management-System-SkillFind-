@@ -640,24 +640,27 @@ if (location.href.indexOf('education') != -1) {
   //Checks if the user has education data. If none, the add education form will be hidden
   if (document.getElementById("div-education-list") == null) {
     document.getElementById("div-education-form").classList.remove("d-none");
+    document.getElementById("cancel-education-form").classList.add("d-none");
+  } else {
+    //Event Listener for Add Education Btn:
+    document.getElementById("btn-add-education").addEventListener("click", function () {
+      this.classList.add("d-none");
+      document.getElementById("div-education-form").classList.remove("d-none");
+      document.getElementById("cancel-education-form").classList.add("d-none");
+    }); //Event Listener for Cancel Education Btn:
+
+    document.getElementById("cancel-education-form").addEventListener("click", function () {
+      location.replace("/applicant/education");
+    });
   } //Check if the user is editing education record
 
 
   if (location.href.indexOf('edit') != -1) {
     document.getElementById("div-education-form").classList.remove("d-none");
-    document.getElementById("div-education-list").classList.add("d-none");
-  } //Event Listeners:
-  //Event Listener for Add Education Btn:
+    document.getElementById("div-education-list").classLis;
+    t.add("d-none");
+  } //Event Listener for Delete Education Btn:
 
-
-  document.getElementById("btn-add-education").addEventListener("click", function () {
-    this.classList.add("d-none");
-    document.getElementById("div-education-form").classList.remove("d-none");
-  }); //Event Listener for Cancel Education Btn:
-
-  document.getElementById("cancel-education-form").addEventListener("click", function () {
-    location.replace("/applicant/education");
-  }); //Event Listener for Delete Education Btn:
 
   let delete_btn_array = document.getElementsByClassName("btn-delete-education");
 
@@ -676,7 +679,10 @@ if (location.href.indexOf('education') != -1) {
 
   for (let i = 0; i < edu_input.length; i++) {
     edu_input[i].classList.add("eduinp");
-  }
+  } //for Image header
+
+
+  document.getElementById("education-img-header").classList.remove("d-none");
 }
 
 /***/ }),
@@ -701,10 +707,23 @@ if (location.href.indexOf('experience') != -1) {
   //Experience Level radio button 3
   if (document.getElementById('id_experience_level_3').checked) {
     document.getElementById("experience-duration").classList.remove("d-none");
+    document.getElementById("submit-id-submit").type = "button";
+    document.getElementById("submit-id-submit").addEventListener("click", function (e) {
+      e.preventDefault();
+    });
   } else {
     document.getElementById("experience-duration").classList.add("d-none");
-  } //Experience Level Validator:
+    document.getElementById("submit-id-submit").type = "submit";
+  } //Event Listener for Cancel Experience Btn:
 
+
+  document.getElementById("cancel-experience-form").addEventListener("click", function () {
+    location.replace("/applicant/experience");
+  }); //Event Listener for Cancel Experience level Btn:
+
+  document.getElementById("cancel-experiencelevel-form").addEventListener("click", function () {
+    location.replace("/applicant/experience");
+  }); //Experience Level Validator:
 
   if (document.getElementById("experience-level-desc").textContent == 'None') {
     document.getElementById("experience-level").classList.add("d-none");
@@ -727,6 +746,7 @@ if (location.href.indexOf('experience') != -1) {
     document.getElementById("btn-add-experience").addEventListener("click", function () {
       this.classList.add("d-none");
       document.getElementById("div-experience-form").classList.remove("d-none");
+      document.getElementById("cancel-experience-form").classList.add("d-none");
     });
     document.getElementById("cancel-experience-form").addEventListener("click", function () {
       document.getElementById("div-experience-form").classList.add("d-none");
@@ -912,7 +932,10 @@ if (location.href.indexOf('experience') != -1) {
 
   for (let i = 0; i < ex_info_label.length; i++) {
     ex_info_label[i].classList.add("applicant-text-color");
-  }
+  } //for img header
+
+
+  document.getElementById("experience-img-header").classList.remove("d-none");
 }
 
 /***/ }),
@@ -956,6 +979,10 @@ if (location.href.indexOf('languages') != -1) {
   document.getElementById("btn-add-language").addEventListener("click", function () {
     this.classList.add("d-none");
     document.getElementById("div-language-form").classList.remove("d-none");
+    document.getElementById("cancel-language-form").classList.add("d-none");
+  });
+  document.getElementById("cancel-language-form").addEventListener("click", function () {
+    location.replace("/applicant/languages");
   }); //Event Listener for Cancel Skill Form Btn:
 
   document.getElementById("cancel-education-form").addEventListener("click", function () {
@@ -978,7 +1005,59 @@ if (location.href.indexOf('languages') != -1) {
 
   for (let i = 0; i < lang_input.length; i++) {
     lang_input[i].classList.add("lang-in");
+  } //for img header
+
+
+  document.getElementById("language-img-header").classList.remove("d-none");
+}
+
+/***/ }),
+
+/***/ "./src/applicant_portfolio/portfolio.js":
+/*!**********************************************!*\
+  !*** ./src/applicant_portfolio/portfolio.js ***!
+  \**********************************************/
+/***/ (() => {
+
+if (location.href.indexOf('portfolio') != -1) {
+  let clicked_card = document.getElementsByClassName("portfolio_detail");
+  let card_clickk = document.getElementsByClassName("card_click");
+  let card_clickkk = document.getElementsByClassName("card_click2");
+
+  for (let i = 0; i < clicked_card.length; i++) {
+    clicked_card[i].addEventListener("click", function () {
+      if (clicked_card[i].classList.contains("task")) {
+        clicked_card[i].classList.remove("task");
+        clicked_card[i].classList.add("task_click");
+
+        for (let i = 0; i < card_clickkk.length; i++) {
+          card_clickkk[i].classList.remove("d-none");
+        }
+      } else {
+        clicked_card[i].classList.remove("task_click");
+        clicked_card[i].classList.add("task");
+
+        for (let i = 0; i < card_clickk.length; i++) {
+          card_clickk[i].classList.remove("d-none");
+        }
+      }
+    });
   }
+  /*document.getElementById("portfolio_detail").addEventListener("click", function(){
+      if(this.classList.contains("task")){
+      this.classList.remove("task")
+      this.classList.add("task_click")
+      document.getElementById("card_click").classList.add("d-none")
+      document.getElementById("card_click2").classList.remove("d-none")
+    }
+    else{
+      this.classList.remove("task_click")
+      this.classList.add("task")
+      document.getElementById("card_click").classList.remove("d-none")
+      document.getElementById("card_click2").classList.add("d-none")  
+    }
+  })*/
+
 }
 
 /***/ }),
@@ -1005,6 +1084,10 @@ if (location.href.indexOf('skills') != -1) {
   document.getElementById("btn-add-skill").addEventListener("click", function () {
     this.classList.add("d-none");
     document.getElementById("div-skill-form").classList.remove("d-none");
+    document.getElementById("cancel-skill-form").classList.add("d-none");
+  });
+  document.getElementById("cancel-skill-form").addEventListener("click", function () {
+    location.replace("/applicant/skills");
   }); //Event Listener for Cancel Skill Form Btn:
 
   document.getElementById("cancel-education-form").addEventListener("click", function () {
@@ -1021,7 +1104,10 @@ if (location.href.indexOf('skills') != -1) {
       let link_href = this.getAttribute("data-link");
       document.getElementById("form-delete").setAttribute("action", link_href);
     });
-  }
+  } //for img header
+
+
+  document.getElementById("skill-img-header").classList.remove("d-none");
 }
 
 /***/ }),
@@ -25579,6 +25665,10 @@ const {
 const {
   handicapped_index
 } = __webpack_require__(/*! ./app_handicapped/index */ "./src/app_handicapped/index.js");
+
+const {
+  portfolio_summary
+} = __webpack_require__(/*! ./applicant_portfolio/portfolio */ "./src/applicant_portfolio/portfolio.js");
 })();
 
 /******/ })()

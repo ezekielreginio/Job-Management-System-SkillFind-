@@ -15,6 +15,11 @@ if(location.href.indexOf('languages') != -1){
     document.getElementById("btn-add-language").addEventListener("click", function(){
         this.classList.add("d-none")
         document.getElementById("div-language-form").classList.remove("d-none")
+        document.getElementById("cancel-language-form").classList.add("d-none")
+    })
+
+    document.getElementById("cancel-language-form").addEventListener("click", function(){
+        location.replace("/applicant/languages")
     })
     
     //Event Listener for Cancel Skill Form Btn:
@@ -38,4 +43,6 @@ if(location.href.indexOf('languages') != -1){
     for(let i = 0; i<lang_input.length; i++){
         lang_input[i].classList.add("lang-in")
     }
+    //for img header
+    document.getElementById("language-img-header").classList.remove("d-none")
 }

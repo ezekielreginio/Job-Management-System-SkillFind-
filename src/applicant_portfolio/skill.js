@@ -15,7 +15,14 @@ if(location.href.indexOf('skills') != -1){
     document.getElementById("btn-add-skill").addEventListener("click", function(){
         this.classList.add("d-none")
         document.getElementById("div-skill-form").classList.remove("d-none")
+        document.getElementById("cancel-skill-form").classList.add("d-none")
     })
+
+    document.getElementById("cancel-skill-form").addEventListener("click", function(){
+        location.replace("/applicant/skills")
+    })
+
+
     
     //Event Listener for Cancel Skill Form Btn:
     document.getElementById("cancel-education-form").addEventListener("click", function(){
@@ -33,4 +40,6 @@ if(location.href.indexOf('skills') != -1){
             document.getElementById("form-delete").setAttribute("action", link_href)
         })
     }
+    //for img header
+    document.getElementById("skill-img-header").classList.remove("d-none")
 }
