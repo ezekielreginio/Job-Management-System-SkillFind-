@@ -9,6 +9,7 @@ from django.http import JsonResponse
 #Models Import:
 from app_accounts import models
 from app_main.models import AutoComplete
+from app_accounts.models import Employer
 
 import json, datetime
 
@@ -40,7 +41,13 @@ def base(request):
     return render(request, "base.html", context)
 
 def autocomplete(request):
-    data = AutoComplete.objects.all().filter(field_name = "position_title")
-    data = serializers.serialize('json', data)
-    context = {"data": data}
+    field_name = request.GET.get("fieldname")
+    data = AutoComplete.objects.values_list('data', flat=True).filter(field_name = field_name)
+    #data = serializers.serialize('json', data)
+
+
+    if (field_name=="company_name"):
+        data = Employer.objects.values_list('company_name', flat=True)   
+    
+    context = {"data": list(data)}
     return HttpResponse(json.dumps(context), status=200)

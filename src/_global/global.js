@@ -16,6 +16,43 @@ export function create_input(type, placeholder, name, classlist, idname, require
     return input_field
 }
 
+export function autoComplete(field_id, suggestion, field_name){
+    document.getElementById(field_id).addEventListener("focus", function(){
+        if(suggestion == null){
+            console.log("hello")
+            AJAX({
+                "method":"POST",
+                "action": "/autocomplete?fieldname="+field_name,
+                "body": "#",
+                "token": csrftoken,
+                "function": function(response){
+                    if(response.status == 200){
+                        response.json().then(json => {
+                            let data = json['data']
+                            suggestion = [];
+                            data.forEach((record)=>{
+                                console.log(record)
+                                suggestion.push({label: record, value: record})
+                            })
+                            autocomplete({
+                                input: document.getElementById(field_id),
+                                fetch: function(text, update) {
+                                    text = text.toLowerCase();                                  
+                                    var suggestions = suggestion.filter(n => n.label.toLowerCase().startsWith(text))
+                                    update(suggestions);
+                                },
+                                onSelect: function(item) {
+                                    document.getElementById(field_id).value = item.label;
+                                }
+                            });
+                        })
+                    }
+                }
+            })
+        }
+    })
+}
+
 export function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {

@@ -38,7 +38,7 @@ class ApplicantPortfolioExperience(forms.ModelForm):
         self.helper.label_class = 'col-3 text-right text-white'
         self.helper.field_class = 'col-8'
         self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
-        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-experience-form"))
+        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-experience-btn"))
     
     def clean_end_date(self):
         cleaned_data = super().clean()
