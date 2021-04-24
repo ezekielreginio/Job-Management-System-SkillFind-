@@ -145,38 +145,40 @@ if(location.href.indexOf('experience') != -1){
     ];
 
     let field_position_title = document.getElementById("id_position_title")
-
+    let position_title_suggestion = null
     field_position_title.addEventListener("focus", function(){
-        AJAX({
-        "method":"POST",
-        "action": "/autocomplete",
-        "body": "#",
-        "token": csrftoken,
-        "function": function(response){
-            if(response.status == 200){
-                response.json().then(json => {
-                    let data = JSON.parse(json['data'])
-                    let position_title = [];
-                    data.forEach((record)=>{
-                        console.log(record['fields']['data'])
-                        position_title.push({label: record['fields']['data'], value: record['fields']['data']})
-                    })
-                    autocomplete({
-                        input: field_position_title,
-                        fetch: function(text, update) {
-                            text = text.toLowerCase();
-                            
-                            var suggestions = position_title.filter(n => n.label.toLowerCase().startsWith(text))
-                            update(suggestions);
-                        },
-                        onSelect: function(item) {
-                            field_position_title.value = item.label;
-                        }
-                    });
-                })
-            }
+        if(position_title_suggestion == null){
+            console.log("hello")
+            AJAX({
+                "method":"POST",
+                "action": "/autocomplete",
+                "body": "#",
+                "token": csrftoken,
+                "function": function(response){
+                    if(response.status == 200){
+                        response.json().then(json => {
+                            let data = JSON.parse(json['data'])
+                            position_title_suggestion = [];
+                            data.forEach((record)=>{
+                                console.log(record['fields']['data'])
+                                position_title_suggestion.push({label: record['fields']['data'], value: record['fields']['data']})
+                            })
+                            autocomplete({
+                                input: field_position_title,
+                                fetch: function(text, update) {
+                                    text = text.toLowerCase();                                  
+                                    var suggestions = position_title_suggestion.filter(n => n.label.toLowerCase().startsWith(text))
+                                    update(suggestions);
+                                },
+                                onSelect: function(item) {
+                                    field_position_title.value = item.label;
+                                }
+                            });
+                        })
+                    }
+                }
+            })
         }
-    })
     })
     // AJAX({
     //     "method":"POST",
