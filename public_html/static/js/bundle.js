@@ -745,7 +745,13 @@ const {
 const autocomplete = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
 
 if (location.href.indexOf('experience') != -1) {
-  //Experience Level radio button 3
+  let position_title_suggestion = null;
+  autoComplete("id_position_title", position_title_suggestion, "position_title");
+  let company_name_suggestion = null;
+  autoComplete("id_company_name", company_name_suggestion, "company_name");
+  let specialization_suggestion = null;
+  autoComplete("id_specialization", specialization_suggestion, "specialization"); //Experience Level radio button 3
+
   if (document.getElementById('id_experience_level_3').checked) {
     document.getElementById("experience-duration").classList.remove("d-none");
     document.getElementById("submit-id-submit").type = "button";
@@ -844,14 +850,7 @@ if (location.href.indexOf('experience') != -1) {
   //     let link_href = this.getAttribute("data-link")
   //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
   // })
-
-
-  let position_title_suggestion = null;
-  autoComplete("id_position_title", position_title_suggestion, "position_title");
-  let company_name_suggestion = null;
-  autoComplete("id_company_name", company_name_suggestion, "company_name");
-  let specialization_suggestion = null;
-  autoComplete("id_specialization", specialization_suggestion, "specialization"); // field_position_title.addEventListener("focus", function(){
+  // field_position_title.addEventListener("focus", function(){
   //     if(position_title_suggestion == null){
   //         console.log("hello")
   //         AJAX({
@@ -915,6 +914,7 @@ if (location.href.indexOf('experience') != -1) {
   //     }
   // })
   //Script for CSS
+
 
   let input_text = document.getElementsByClassName("textInput");
   document.getElementById("nav-applicant-experience").classList.add("nav-applicant-active");

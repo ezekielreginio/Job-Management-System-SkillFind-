@@ -3,6 +3,23 @@
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
 
+{% block header%}
+<div id="education-img-header" class="card bg-dark mb-3">
+    <div class="container mt-2">
+        <div class="row mb-5">
+            <div class="col-7 vertical-center">
+                <i class="icon-book fs-25 applicant-text-color"></i>
+                <h4 class="d-inline-block text-white">Education</h4>    
+            </div>
+            <div class="col-4">
+                <img src="{% static 'media/images/applicant_education.png' %}" class="img-applicant-portfolio" alt="">
+            </div> 
+        </div>  
+    </div>
+</div>
+{% endblock %}
+
+
 {% block portfolio-content %}  
 
     <p class="applicant-text-color">Educational Attainment Information</p>

@@ -29,20 +29,9 @@
             </ul>
         </div>
 
-        <div class="col">
-            <div id="education-img-header" class="card bg-dark mb-3 d-none">
-                <div class="container mt-2">
-                    <div class="row mb-5">
-                        <div class="col-7 vertical-center">
-                            <i class="icon-book fs-25 applicant-text-color"></i>
-                            <h4 class="d-inline-block text-white">Education</h4>    
-                        </div>
-                        <div class="col-4">
-                            <img src="{% static 'media/images/applicant_education.png' %}" class="img-applicant-portfolio" alt="">
-                        </div> 
-                    </div>  
-                </div>
-            </div>
+        
+        <!-- <div class="col">
+            
             <div id="experience-img-header" class="card bg-dark mb-3  d-none">
                 <div class="container mt-2">
                     <div class="row mb-5">
@@ -83,6 +72,12 @@
                 </div>
             </div>
 
+            
+        </div> -->
+        
+        <div class="col">
+            {% block header%}
+            {% endblock %}
             <div class="card bg-dark">
                 <div class="container mt-2">
                     {% block portfolio-content%}
@@ -91,7 +86,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
     
     

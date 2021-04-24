@@ -4,9 +4,17 @@ const autocomplete = require('autocompleter');
 
 if(location.href.indexOf('experience') != -1){
 
-    //Experience Level radio button 3
-       
+    let position_title_suggestion = null
+    autoComplete("id_position_title", position_title_suggestion, "position_title")
 
+    let company_name_suggestion = null
+    autoComplete("id_company_name", company_name_suggestion, "company_name")
+
+    let specialization_suggestion = null
+    autoComplete("id_specialization", specialization_suggestion, "specialization")
+
+
+    //Experience Level radio button 3
     if(document.getElementById('id_experience_level_3').checked){   
         document.getElementById("experience-duration").classList.remove("d-none")
         document.getElementById("submit-id-submit").type = "button"
@@ -27,10 +35,6 @@ if(location.href.indexOf('experience') != -1){
     document.getElementById("cancel-experiencelevel-form").addEventListener("click", function(){
         location.replace("/applicant/experience")
     })
-
-   
-     
-
 
     //Experience Level Validator:
     if(document.getElementById("experience-level-desc").textContent == 'None'){
@@ -138,14 +142,7 @@ if(location.href.indexOf('experience') != -1){
     // })
     
 
-    let position_title_suggestion = null
-    autoComplete("id_position_title",position_title_suggestion,"position_title")
-
-    let company_name_suggestion = null
-    autoComplete("id_company_name",company_name_suggestion,"company_name")
-
-    let specialization_suggestion = null
-    autoComplete("id_specialization",specialization_suggestion,"specialization")
+    
     // field_position_title.addEventListener("focus", function(){
     //     if(position_title_suggestion == null){
     //         console.log("hello")
