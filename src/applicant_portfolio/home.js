@@ -5,3 +5,4 @@ for (var i = 0; i < nav_portfolio.length; i++) {
         window.location.replace(link)
     })
 }
+

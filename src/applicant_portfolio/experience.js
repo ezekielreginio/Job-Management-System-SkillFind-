@@ -5,16 +5,31 @@ const autocomplete = require('autocompleter');
 if(location.href.indexOf('experience') != -1){
 
     //Experience Level radio button 3
-    
+       
 
     if(document.getElementById('id_experience_level_3').checked){   
-        document.getElementById("experience-duration").classList.remove("d-none")     
-       }
+        document.getElementById("experience-duration").classList.remove("d-none")
+        document.getElementById("submit-id-submit").type = "button"
+        document.getElementById("submit-id-submit").addEventListener("click", function(e){
+            e.preventDefault()
+       })
+       
+    }
     else{
         document.getElementById("experience-duration").classList.add("d-none")
+        document.getElementById("submit-id-submit").type = "submit"
     } 
       
-  
+    //Event Listener for Cancel Experience Btn:
+    document.getElementById("cancel-experience-form").addEventListener("click", function(){
+        location.replace("/applicant/experience")
+    })
+    //Event Listener for Cancel Experience level Btn:
+    document.getElementById("cancel-experiencelevel-form").addEventListener("click", function(){
+        location.replace("/applicant/experience")
+    })
+
+   
      
 
 
@@ -23,6 +38,9 @@ if(location.href.indexOf('experience') != -1){
         document.getElementById("experience-level").classList.add("d-none")
         document.getElementById("experience-level-form").classList.remove("d-none")
     }
+
+ 
+
 
     //Edit Experience Indicator
     if(location.href.indexOf('edit') != -1){
@@ -43,6 +61,7 @@ if(location.href.indexOf('experience') != -1){
         document.getElementById("btn-add-experience").addEventListener("click", function(){
             this.classList.add("d-none")
             document.getElementById("div-experience-form").classList.remove("d-none")
+            document.getElementById("cancel-experience-form").classList.add("d-none")
         })
         document.getElementById("cancel-experience-form").addEventListener("click", function(){
             document.getElementById("div-experience-form").classList.add("d-none")
@@ -97,6 +116,8 @@ if(location.href.indexOf('experience') != -1){
             })
         })
     })
+
+    
 
     //Event Listeners for Delete Experience Buttons
     let delete_btn_array = document.getElementsByClassName("delete-experience")
@@ -244,5 +265,8 @@ if(location.href.indexOf('experience') != -1){
     for(let i = 0; i<ex_info_label.length; i++){
         ex_info_label[i].classList.add("applicant-text-color")
     }
+
+    //for img header
+    document.getElementById("experience-img-header").classList.remove("d-none")
     
 }

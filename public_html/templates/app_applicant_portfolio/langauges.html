@@ -4,15 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block portfolio-content %}
-<div class="row mb-5">
-    <div class="col-7 vertical-center">
-        <i class="icon-comments-alt d-inline-block fs-25 applicant-text-color"></i>
-        <h4 class="d-inline-block text-white">Languages</h4>
-    </div>
-    <div class="col-4">
-        <img src="{% static 'media/images/applicant_language.png' %}" class="img-applicant-portfolio" alt="">
-    </div>
-</div>
+
 <hr>
 <div class="container pb-3 d-none" id="div-language-form">
     {% crispy language_form %}

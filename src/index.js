@@ -8,6 +8,7 @@ const { employer_dashboard } = require("./employer_dashboard/index");
 const { employer_addjob } = require("./employer_dashboard/addjob");
 const { password_reset } = require("./login/password_reset");
 const { handicapped_index } = require("./app_handicapped/index");
+const { portfolio_summary } = require("./applicant_portfolio/portfolio");
 
 
 
