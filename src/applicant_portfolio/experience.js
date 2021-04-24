@@ -12,13 +12,12 @@ if(location.href.indexOf('experience') != -1){
         document.getElementById("submit-id-submit").type = "button"
         document.getElementById("submit-id-submit").addEventListener("click", function(e){
             e.preventDefault()
-       })
-       
+         })
     }
     else{
         document.getElementById("experience-duration").classList.add("d-none")
-        document.getElementById("submit-id-submit").type = "submit"
     } 
+    
       
     //Event Listener for Cancel Experience Btn:
     document.getElementById("cancel-experience-form").addEventListener("click", function(){

@@ -713,7 +713,6 @@ if (location.href.indexOf('experience') != -1) {
     });
   } else {
     document.getElementById("experience-duration").classList.add("d-none");
-    document.getElementById("submit-id-submit").type = "submit";
   } //Event Listener for Cancel Experience Btn:
 
 
