@@ -415,6 +415,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "csrftoken": () => (/* binding */ csrftoken),
 /* harmony export */   "create_input": () => (/* binding */ create_input),
+/* harmony export */   "autoComplete": () => (/* binding */ autoComplete),
 /* harmony export */   "getCookie": () => (/* binding */ getCookie),
 /* harmony export */   "hide": () => (/* binding */ hide),
 /* harmony export */   "show": () => (/* binding */ show),
@@ -438,6 +439,45 @@ function create_input(type, placeholder, name, classlist, idname, required) {
   input_field.setAttribute("placeholder", placeholder);
   input_field.setAttribute("required", "true");
   return input_field;
+}
+function autoComplete(field_id, suggestion, field_name) {
+  document.getElementById(field_id).addEventListener("focus", function () {
+    if (suggestion == null) {
+      console.log("hello");
+      AJAX({
+        "method": "POST",
+        "action": "/autocomplete?fieldname=" + field_name,
+        "body": "#",
+        "token": csrftoken,
+        "function": function (response) {
+          if (response.status == 200) {
+            response.json().then(json => {
+              let data = json['data'];
+              suggestion = [];
+              data.forEach(record => {
+                console.log(record);
+                suggestion.push({
+                  label: record,
+                  value: record
+                });
+              });
+              autocomplete({
+                input: document.getElementById(field_id),
+                fetch: function (text, update) {
+                  text = text.toLowerCase();
+                  var suggestions = suggestion.filter(n => n.label.toLowerCase().startsWith(text));
+                  update(suggestions);
+                },
+                onSelect: function (item) {
+                  document.getElementById(field_id).value = item.label;
+                }
+              });
+            });
+          }
+        }
+      });
+    }
+  });
 }
 function getCookie(name) {
   let cookieValue = null;
@@ -698,7 +738,8 @@ const moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.j
 const {
   create_input,
   AJAX,
-  csrftoken
+  csrftoken,
+  autoComplete
 } = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
 
 const autocomplete = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
@@ -740,7 +781,7 @@ if (location.href.indexOf('experience') != -1) {
 
   if (document.getElementById("div-experience-list") == null) {
     document.getElementById("div-experience-form").classList.remove("d-none");
-    document.getElementById("cancel-experience-form").classList.add("d-none");
+    document.getElementById("cancel-experience-btn").classList.add("d-none");
   } else {
     document.getElementById("btn-add-experience").addEventListener("click", function () {
       this.classList.add("d-none");
@@ -803,55 +844,48 @@ if (location.href.indexOf('experience') != -1) {
   //     let link_href = this.getAttribute("data-link")
   //     document.getElementById("modal-btn-delete").setAttribute("href", link_href)
   // })
-  //Script for Autocomplete:
 
 
-  let position_title = [{
-    label: 'Software Developer',
-    value: 'UK'
-  }, {
-    label: 'Software Engineer',
-    value: 'US'
-  }];
-  let field_position_title = document.getElementById("id_position_title");
   let position_title_suggestion = null;
-  field_position_title.addEventListener("focus", function () {
-    if (position_title_suggestion == null) {
-      console.log("hello");
-      AJAX({
-        "method": "POST",
-        "action": "/autocomplete",
-        "body": "#",
-        "token": csrftoken,
-        "function": function (response) {
-          if (response.status == 200) {
-            response.json().then(json => {
-              let data = JSON.parse(json['data']);
-              position_title_suggestion = [];
-              data.forEach(record => {
-                console.log(record['fields']['data']);
-                position_title_suggestion.push({
-                  label: record['fields']['data'],
-                  value: record['fields']['data']
-                });
-              });
-              autocomplete({
-                input: field_position_title,
-                fetch: function (text, update) {
-                  text = text.toLowerCase();
-                  var suggestions = position_title_suggestion.filter(n => n.label.toLowerCase().startsWith(text));
-                  update(suggestions);
-                },
-                onSelect: function (item) {
-                  field_position_title.value = item.label;
-                }
-              });
-            });
-          }
-        }
-      });
-    }
-  }); // AJAX({
+  autoComplete("id_position_title", position_title_suggestion, "position_title");
+  let company_name_suggestion = null;
+  autoComplete("id_company_name", company_name_suggestion, "company_name");
+  let specialization_suggestion = null;
+  autoComplete("id_specialization", specialization_suggestion, "specialization"); // field_position_title.addEventListener("focus", function(){
+  //     if(position_title_suggestion == null){
+  //         console.log("hello")
+  //         AJAX({
+  //             "method":"POST",
+  //             "action": "/autocomplete?fieldname=position_title",
+  //             "body": "#",
+  //             "token": csrftoken,
+  //             "function": function(response){
+  //                 if(response.status == 200){
+  //                     response.json().then(json => {
+  //                         let data = JSON.parse(json['data'])
+  //                         position_title_suggestion = [];
+  //                         data.forEach((record)=>{
+  //                             console.log(record['fields']['data'])
+  //                             position_title_suggestion.push({label: record['fields']['data'], value: record['fields']['data']})
+  //                         })
+  //                         autocomplete({
+  //                             input: field_position_title,
+  //                             fetch: function(text, update) {
+  //                                 text = text.toLowerCase();                                  
+  //                                 var suggestions = position_title_suggestion.filter(n => n.label.toLowerCase().startsWith(text))
+  //                                 update(suggestions);
+  //                             },
+  //                             onSelect: function(item) {
+  //                                 field_position_title.value = item.label;
+  //                             }
+  //                         });
+  //                     })
+  //                 }
+  //             }
+  //         })
+  //     }
+  // })
+  // AJAX({
   //     "method":"POST",
   //     "action": "/autocomplete",
   //     "body": "#",
