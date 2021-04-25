@@ -13,6 +13,8 @@ if(location.href.indexOf('experience') != -1){
     let specialization_suggestion = null
     autoComplete("id_specialization", specialization_suggestion, "specialization")
 
+    let role_suggestion = null
+    autoComplete("id_role", role_suggestion, "role")
 
     //Experience Level radio button 3
     if(document.getElementById('id_experience_level_3').checked){   

@@ -749,17 +749,21 @@ if (location.href.indexOf('experience') != -1) {
   let company_name_suggestion = null;
   autoComplete("id_company_name", company_name_suggestion, "company_name");
   let specialization_suggestion = null;
-  autoComplete("id_specialization", specialization_suggestion, "specialization"); //Experience Level radio button 3
+  autoComplete("id_specialization", specialization_suggestion, "specialization");
+  let role_suggestion = null;
+  autoComplete("id_role", role_suggestion, "role"); //Experience Level radio button 3
 
   if (document.getElementById('id_experience_level_3').checked) {
     document.getElementById("experience-duration").classList.remove("d-none");
-
-    if (document.getElementById("id_duration_year").value == "" || document.getElementById("id_duration_month").value == "") {
-      alert("save input"); //document.getElementById("experiencelevel-form").setAttribute('type', 'button')
-    }
+    document.getElementById("submit-id-submit").type = "button";
+    /*document.getElementById("submit-id-submit").addEventListener("click", function(e){
+       e.preventDefault()
+    })
+    if(document.getElementById("id_duration_year") == "" || document.getElementById("id_duration_month") == ""){
+       
+    }*/
   } else {
     document.getElementById("experience-duration").classList.add("d-none");
-    document.getElementById("experiencelevel-form").setAttribute('type', 'submit');
   } //Event Listener for Cancel Experience Btn:
 
 
