@@ -17,16 +17,18 @@ if(location.href.indexOf('experience') != -1){
     //Experience Level radio button 3
     if(document.getElementById('id_experience_level_3').checked){   
         document.getElementById("experience-duration").classList.remove("d-none")
-        if(document.getElementById("id_duration_year").value == ""|| document.getElementById("id_duration_month").value == ""){
-            alert("save input")
-            //document.getElementById("experiencelevel-form").setAttribute('type', 'button')
-        }
-        
+        document.getElementById("submit-id-submit").type = "button"
+        /*document.getElementById("submit-id-submit").addEventListener("click", function(e){
+           e.preventDefault()
+        })
+        if(document.getElementById("id_duration_year") == "" || document.getElementById("id_duration_month") == ""){
+           
+        }*/
         
     }
     else{
         document.getElementById("experience-duration").classList.add("d-none") 
-        document.getElementById("experiencelevel-form").setAttribute('type', 'submit') 
+        
     } 
 
     
