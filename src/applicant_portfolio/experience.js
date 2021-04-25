@@ -18,12 +18,14 @@ if(location.href.indexOf('experience') != -1){
     if(document.getElementById('id_experience_level_3').checked){   
         document.getElementById("experience-duration").classList.remove("d-none")
         document.getElementById("submit-id-submit").type = "button"
-        /*document.getElementById("submit-id-submit").addEventListener("click", function(e){
-           e.preventDefault()
-        })
         if(document.getElementById("id_duration_year") == "" || document.getElementById("id_duration_month") == ""){
-           
-        }*/
+            document.getElementById("submit-id-submit").addEventListener("click", function(e){
+                e.preventDefault()
+             })
+        }
+        else{
+            document.getElementById("experiencelevel-form").submit()
+        }
         
     }
     else{
