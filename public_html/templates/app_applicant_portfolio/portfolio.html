@@ -25,15 +25,15 @@
     <div class="task portfolio_detail">
        <div class="abstract">
          <div class="row">
-          <div class="col-12 ml-2 mb-0">
+          <div class="col-8 mb-0">
             <h4>{{experience.position_title}}</h4>
+          </div>
+          <div class="col-4 mb-0 text-right">
+            <i class="fa fa-eye fs-25 text-right"></i>
           </div>
           <div class="col-12 text-right">
             <h5>{{experience.company_name}}</h5>
             <p>{{experience.start_date|date:'M Y'}}-{{experience.end_date|date:'M Y'}}</p>
-          </div>
-          <div class="col-12 text-center">
-            <p class="card_click">Click Here to Stay</p>
           </div>
         </div>
         </div>
@@ -51,7 +51,6 @@
               <div class="col-8">{{experience.position_level}}</div>
               <div class="col-4">Salary</div>
               <div class="col-8">{{experience.salary}}</div>
-              <div class="col-12 text-center"><p class="card_click2">Click to Hide</p></div>
             </div>
           </div>
         </div>
@@ -69,16 +68,16 @@
     <div class="task portfolio_detail">
        <div class="abstract">
          <div class="row">
-            <div class="col-12">
+            <div class="col-8">
               <h4>{{education.university}}</h4>
+            </div>
+            <div class="col-4 mb-0 text-right">
+              <i class="fa fa-eye fs-25 text-right"></i>
             </div>
             <hr>
             <div class="col-12 text-right">
                 <h5>{{ education.qualification }} in {{ education.field_of_study }}</h5>
                 <p>{{education.graduation_date|date:'M Y'}}</p>
-            </div>
-            <div class="col-12 text-center">
-              <p class="card_click">Click Here to Stay</p>
             </div>
          </div>
         </div>
@@ -90,7 +89,6 @@
               <div class="col-8">{{ education.major }}</div>
               <div class="col-4">GPA</div>
               <div class="col-8">{{ education.grade }}</div>
-              <div class="col-12 text-center"><p class="card_click2">Click to Hide</p></div>
             </div>
           </div>
         </div>

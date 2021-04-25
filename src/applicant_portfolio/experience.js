@@ -17,15 +17,22 @@ if(location.href.indexOf('experience') != -1){
     //Experience Level radio button 3
     if(document.getElementById('id_experience_level_3').checked){   
         document.getElementById("experience-duration").classList.remove("d-none")
-        document.getElementById("submit-id-submit").type = "button"
-        document.getElementById("submit-id-submit").addEventListener("click", function(e){
-            e.preventDefault()
-         })
+        if(document.getElementById("id_duration_year").value == ""|| document.getElementById("id_duration_month").value == ""){
+            alert("save input")
+            //document.getElementById("experiencelevel-form").setAttribute('type', 'button')
+        }
+        
+        
     }
     else{
-        document.getElementById("experience-duration").classList.add("d-none")
+        document.getElementById("experience-duration").classList.add("d-none") 
+        document.getElementById("experiencelevel-form").setAttribute('type', 'submit') 
     } 
+
     
+
+
+   
       
     //Event Listener for Cancel Experience Btn:
     document.getElementById("cancel-experience-form").addEventListener("click", function(){
@@ -58,13 +65,12 @@ if(location.href.indexOf('experience') != -1){
 
     if(document.getElementById("div-experience-list") == null){
         document.getElementById("div-experience-form").classList.remove("d-none")
-        document.getElementById("cancel-experience-btn").classList.add("d-none")
+        document.getElementById("cancel-experience-form").classList.add("d-none")
     }
     else{
         document.getElementById("btn-add-experience").addEventListener("click", function(){
             this.classList.add("d-none")
             document.getElementById("div-experience-form").classList.remove("d-none")
-            document.getElementById("cancel-experience-form").classList.add("d-none")
         })
         document.getElementById("cancel-experience-form").addEventListener("click", function(){
             document.getElementById("div-experience-form").classList.add("d-none")
@@ -262,7 +268,6 @@ if(location.href.indexOf('experience') != -1){
         ex_info_label[i].classList.add("applicant-text-color")
     }
 
-    //for img header
-    document.getElementById("experience-img-header").classList.remove("d-none")
+    
     
 }

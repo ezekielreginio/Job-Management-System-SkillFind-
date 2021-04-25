@@ -2,6 +2,7 @@ if(location.href.indexOf('languages') != -1){
     //Checks if the user has languages data. If none, the add language form will be hidden
     if(document.getElementById("div-language-list") == null){
         document.getElementById("div-language-form").classList.remove("d-none")
+        document.getElementById("cancel-language-form").classList.add("d-none")
     }
 
     //Checks if URL is in edit skill
@@ -15,17 +16,13 @@ if(location.href.indexOf('languages') != -1){
     document.getElementById("btn-add-language").addEventListener("click", function(){
         this.classList.add("d-none")
         document.getElementById("div-language-form").classList.remove("d-none")
-        document.getElementById("cancel-language-form").classList.add("d-none")
     })
 
     document.getElementById("cancel-language-form").addEventListener("click", function(){
         location.replace("/applicant/languages")
     })
     
-    //Event Listener for Cancel Skill Form Btn:
-    document.getElementById("cancel-education-form").addEventListener("click", function(){
-        location.replace(this.getAttribute("name"))
-    })
+   
 
     //Event Listener for Delete Education Btn:
     let delete_btn_array = document.getElementsByClassName("btn-delete-language")
@@ -43,6 +40,5 @@ if(location.href.indexOf('languages') != -1){
     for(let i = 0; i<lang_input.length; i++){
         lang_input[i].classList.add("lang-in")
     }
-    //for img header
-    document.getElementById("language-img-header").classList.remove("d-none")
+  
 }

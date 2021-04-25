@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-2">
                     <a href="{% url 'skills_update' skill.id%}" class="update-skill"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
-                    <a data-link="{% url 'skills_delete' 'delete' skill.id%}" class="btn-delete-skill"><i class="icon-trash fs-25 d-inline-block" ></i></a>
+                    <a data-link="{% url 'skills_delete' 'delete' skill.id%}" class="btn-delete-skill" id="btn-delete-skill"><i class="icon-trash fs-25 d-inline-block" ></i></a>
                 </div>
             </div>
         {% endfor %}

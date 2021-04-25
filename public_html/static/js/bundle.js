@@ -686,7 +686,6 @@ if (location.href.indexOf('education') != -1) {
     document.getElementById("btn-add-education").addEventListener("click", function () {
       this.classList.add("d-none");
       document.getElementById("div-education-form").classList.remove("d-none");
-      document.getElementById("cancel-education-form").classList.add("d-none");
     }); //Event Listener for Cancel Education Btn:
 
     document.getElementById("cancel-education-form").addEventListener("click", function () {
@@ -754,12 +753,13 @@ if (location.href.indexOf('experience') != -1) {
 
   if (document.getElementById('id_experience_level_3').checked) {
     document.getElementById("experience-duration").classList.remove("d-none");
-    document.getElementById("submit-id-submit").type = "button";
-    document.getElementById("submit-id-submit").addEventListener("click", function (e) {
-      e.preventDefault();
-    });
+
+    if (document.getElementById("id_duration_year").value == "" || document.getElementById("id_duration_month").value == "") {
+      alert("save input"); //document.getElementById("experiencelevel-form").setAttribute('type', 'button')
+    }
   } else {
     document.getElementById("experience-duration").classList.add("d-none");
+    document.getElementById("experiencelevel-form").setAttribute('type', 'submit');
   } //Event Listener for Cancel Experience Btn:
 
 
@@ -787,12 +787,11 @@ if (location.href.indexOf('experience') != -1) {
 
   if (document.getElementById("div-experience-list") == null) {
     document.getElementById("div-experience-form").classList.remove("d-none");
-    document.getElementById("cancel-experience-btn").classList.add("d-none");
+    document.getElementById("cancel-experience-form").classList.add("d-none");
   } else {
     document.getElementById("btn-add-experience").addEventListener("click", function () {
       this.classList.add("d-none");
       document.getElementById("div-experience-form").classList.remove("d-none");
-      document.getElementById("cancel-experience-form").classList.add("d-none");
     });
     document.getElementById("cancel-experience-form").addEventListener("click", function () {
       document.getElementById("div-experience-form").classList.add("d-none");
@@ -969,10 +968,7 @@ if (location.href.indexOf('experience') != -1) {
 
   for (let i = 0; i < ex_info_label.length; i++) {
     ex_info_label[i].classList.add("applicant-text-color");
-  } //for img header
-
-
-  document.getElementById("experience-img-header").classList.remove("d-none");
+  }
 }
 
 /***/ }),
@@ -1004,6 +1000,7 @@ if (location.href.indexOf('languages') != -1) {
   //Checks if the user has languages data. If none, the add language form will be hidden
   if (document.getElementById("div-language-list") == null) {
     document.getElementById("div-language-form").classList.remove("d-none");
+    document.getElementById("cancel-language-form").classList.add("d-none");
   } //Checks if URL is in edit skill
 
 
@@ -1016,14 +1013,9 @@ if (location.href.indexOf('languages') != -1) {
   document.getElementById("btn-add-language").addEventListener("click", function () {
     this.classList.add("d-none");
     document.getElementById("div-language-form").classList.remove("d-none");
-    document.getElementById("cancel-language-form").classList.add("d-none");
   });
   document.getElementById("cancel-language-form").addEventListener("click", function () {
     location.replace("/applicant/languages");
-  }); //Event Listener for Cancel Skill Form Btn:
-
-  document.getElementById("cancel-education-form").addEventListener("click", function () {
-    location.replace(this.getAttribute("name"));
   }); //Event Listener for Delete Education Btn:
 
   let delete_btn_array = document.getElementsByClassName("btn-delete-language");
@@ -1042,10 +1034,7 @@ if (location.href.indexOf('languages') != -1) {
 
   for (let i = 0; i < lang_input.length; i++) {
     lang_input[i].classList.add("lang-in");
-  } //for img header
-
-
-  document.getElementById("language-img-header").classList.remove("d-none");
+  }
 }
 
 /***/ }),
@@ -1109,6 +1098,7 @@ if (location.href.indexOf('skills') != -1) {
   //Checks if the user has skills data. If none, the add language form will be hidden
   if (document.getElementById("div-skill-list") == null) {
     document.getElementById("div-skill-form").classList.remove("d-none");
+    document.getElementById("cancel-skill-form").classList.add("d-none");
   } //Checks if URL is in edit skill
 
 
@@ -1121,30 +1111,22 @@ if (location.href.indexOf('skills') != -1) {
   document.getElementById("btn-add-skill").addEventListener("click", function () {
     this.classList.add("d-none");
     document.getElementById("div-skill-form").classList.remove("d-none");
-    document.getElementById("cancel-skill-form").classList.add("d-none");
   });
   document.getElementById("cancel-skill-form").addEventListener("click", function () {
     location.replace("/applicant/skills");
-  }); //Event Listener for Cancel Skill Form Btn:
+  }); //Event Listener for Delete Skill Btn:
 
-  document.getElementById("cancel-education-form").addEventListener("click", function () {
-    location.replace(this.getAttribute("name"));
-  }); //Event Listener for Delete Education Btn:
+  let delete_btn_skill = document.getElementsByClassName("btn-delete-skill");
 
-  let delete_btn_array = document.getElementsByClassName("btn-delete-skill");
-
-  for (let i = 0; i < delete_btn_array.length; i++) {
-    delete_btn_array[i].addEventListener("click", function () {
+  for (let i = 0; i < delete_btn_skill.length; i++) {
+    delete_btn_skill[i].addEventListener("click", function () {
       $("#modal-delete").modal("show");
       document.getElementById("modal-title-delete").textContent = "Delete Skill";
       document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Skill?";
       let link_href = this.getAttribute("data-link");
       document.getElementById("form-delete").setAttribute("action", link_href);
     });
-  } //for img header
-
-
-  document.getElementById("skill-img-header").classList.remove("d-none");
+  }
 }
 
 /***/ }),

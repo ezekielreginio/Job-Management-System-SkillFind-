@@ -12,7 +12,6 @@ if(location.href.indexOf('education') != -1){
     document.getElementById("btn-add-education").addEventListener("click", function(){
         this.classList.add("d-none")
         document.getElementById("div-education-form").classList.remove("d-none")
-        document.getElementById("cancel-education-form").classList.add("d-none")
     })
     
     //Event Listener for Cancel Education Btn:

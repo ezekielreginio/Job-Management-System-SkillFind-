@@ -71,6 +71,7 @@ class ApplicantExperienceLevel(forms.ModelForm):
         # self.fields['duration_year'].label = " "
         # self.fields['duration_month'].label = " "
         self.helper = FormHelper()
+        self.helper.form_id = 'experiencelevel-form'
         self.helper.form_show_labels = False
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-3 text-right'
@@ -123,7 +124,7 @@ class ApplicantEducation(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-3 text-right text-white'
         self.helper.field_class = 'col-8'
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
+        self.helper.add_input(Submit('save', 'Save', css_class='btn-primary'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-education-form"))
 
 class ApplicantSkill(forms.ModelForm):
