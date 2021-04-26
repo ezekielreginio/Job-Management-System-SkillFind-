@@ -484,7 +484,10 @@
 
 
 /*hover card*/
-
+ .disabled {
+        pointer-events: none;
+        opacity: 0.3;
+      }
 
 .task {
   position: relative;
@@ -512,15 +515,18 @@
   padding: 15px 30px;
   position: relative;
   background-color: #4ACFAC;
+  border-radius: 3px;
 }
 .task:hover .abstract,
 .task:hover .details {
   background-color: #aef7e4;
+  border-radius: 3px;
 }
 
 .task_click:hover .abstract,
 .task_click:hover .details {
   background-color: #aef7e4;
+  border-radius: 3px;
 }
 
 .abstract {

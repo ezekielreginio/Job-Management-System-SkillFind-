@@ -12,6 +12,11 @@
         <i class="icon-briefcase d-inline-block fs-25 applicant-text-color"></i>
         <h3 class="d-inline-block text-white">Portfolio</h3>
     </div>
+    <div class="col-3 pt-1">
+      <button class="btn btn-applicant d-none" id="show-portfolio">Show All Cards</button>
+      <button class="btn btn-applicant d-none" id="show-portfolio2">Show All Cards</button>
+      
+  </div>
 </div>
 
 
@@ -22,7 +27,7 @@
 {% for experience in experience_list %} 
 
   <div class="card-deck m-3 d-flex justify-content-center">
-    <div class="task portfolio_detail">
+    <div class="task portfolio_detail" id="portfolio_detail">
        <div class="abstract">
          <div class="row">
           <div class="col-8 mb-0">
@@ -105,21 +110,20 @@
 
 <div class="card-deck m-2">
   {% for skill in skill_list %}
- <div class="col-4 mt-3">
+ <div class="col mt-3">
   <div class="abstract">
     <div class="row">
-      
-        <h2>{{skill.skill}}</h2>
+       <h2>{{skill.skill}}</h2>
        <hr>
        <div class="col text-right">
-           <h5>{{ skill.proficiency}}</h5>
+           <h5>{{ skill.proficiency }}</h5>
        </div>
-     
     </div>
    </div>
  </div>
   {% endfor %}  
 </div>
+
 
 <div class="card-header">
   <i class="icon-comments-alt d-inline-block fs-25 applicant-text-color"></i>
@@ -128,7 +132,7 @@
 
 <div class="card-deck m-2">
   {% for language in language_list %}
- <div class="col-4 mt-3">
+ <div class="col mt-3">
   <div class="abstract">
     <div class="row">
        <h2>{{language.language}}</h2>
