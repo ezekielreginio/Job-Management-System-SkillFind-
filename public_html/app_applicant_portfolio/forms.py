@@ -76,7 +76,7 @@ class ApplicantExperienceLevel(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-3 text-right'
         self.helper.form_action = '/applicant/experiencelevel'
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary experiencelevel-save-btn'))
+        self.helper.add_input(Submit('save', 'Save', css_class='btn-primary experiencelevel-save-btn'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-experiencelevel-form"))
         self.helper.layout = Layout(
             Fieldset(

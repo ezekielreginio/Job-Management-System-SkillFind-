@@ -16,27 +16,12 @@ if(location.href.indexOf('experience') != -1){
     let role_suggestion = null
     autoComplete("id_role", role_suggestion, "role")
 
-    //Experience Level radio button 3
-    if(document.getElementById('id_experience_level_3').checked){   
-        document.getElementById("experience-duration").classList.remove("d-none")
-        document.getElementById("submit-id-submit").type = "button"
-        if(document.getElementById("id_duration_year") == "" || document.getElementById("id_duration_month") == ""){
-            document.getElementById("submit-id-submit").addEventListener("click", function(e){
-                e.preventDefault()
-             })
-        }
-        else{
-            document.getElementById("experiencelevel-form").submit()
-        }
-        
-    }
-    else{
-        document.getElementById("experience-duration").classList.add("d-none") 
-        
-    } 
+    
 
     
 
+    //radio button 3
+   
 
    
       

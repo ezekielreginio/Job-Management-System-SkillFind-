@@ -751,21 +751,8 @@ if (location.href.indexOf('experience') != -1) {
   let specialization_suggestion = null;
   autoComplete("id_specialization", specialization_suggestion, "specialization");
   let role_suggestion = null;
-  autoComplete("id_role", role_suggestion, "role"); //Experience Level radio button 3
-
-  if (document.getElementById('id_experience_level_3').checked) {
-    document.getElementById("experience-duration").classList.remove("d-none");
-    document.getElementById("submit-id-submit").type = "button";
-    /*document.getElementById("submit-id-submit").addEventListener("click", function(e){
-       e.preventDefault()
-    })
-    if(document.getElementById("id_duration_year") == "" || document.getElementById("id_duration_month") == ""){
-       
-    }*/
-  } else {
-    document.getElementById("experience-duration").classList.add("d-none");
-  } //Event Listener for Cancel Experience Btn:
-
+  autoComplete("id_role", role_suggestion, "role"); //radio button 3
+  //Event Listener for Cancel Experience Btn:
 
   document.getElementById("cancel-experience-form").addEventListener("click", function () {
     location.replace("/applicant/experience");
