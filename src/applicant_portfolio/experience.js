@@ -22,9 +22,6 @@ if(location.href.indexOf('experience') != -1){
     
 
     //radio button 3
-    
-
-
     if(document.getElementById("id_experience_level_3").checked){
         document.getElementById("experience-duration").classList.remove("d-none")
     }
