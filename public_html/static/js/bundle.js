@@ -743,6 +743,10 @@ const {
 
 const autocomplete = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
 
+const {
+  isinvalid
+} = __webpack_require__(/*! ../_global/validation */ "./src/_global/validation.js");
+
 if (location.href.indexOf('experience') != -1) {
   let position_title_suggestion = null;
   autoComplete("id_position_title", position_title_suggestion, "position_title");
@@ -752,7 +756,49 @@ if (location.href.indexOf('experience') != -1) {
   autoComplete("id_specialization", specialization_suggestion, "specialization");
   let role_suggestion = null;
   autoComplete("id_role", role_suggestion, "role"); //radio button 3
-  //Event Listener for Cancel Experience Btn:
+
+  if (document.getElementById("id_experience_level_3").checked) {
+    document.getElementById("experience-duration").classList.remove("d-none");
+  }
+
+  function radiobutton_listener() {
+    document.querySelectorAll('.custom-control-input').forEach(function (x) {
+      x.addEventListener("change", function () {
+        if (document.getElementById("id_experience_level_3").checked) {
+          document.getElementById("experience-duration").classList.remove("d-none");
+        } else {
+          document.getElementById("experience-duration").classList.add("d-none");
+          document.getElementById("id_duration_year").value = '';
+          document.getElementById("id_duration_month").value = '';
+        }
+      });
+    });
+    document.getElementById("submit-id-save").addEventListener("click", e => {
+      if (document.getElementById("id_experience_level_3").checked) {
+        e.preventDefault();
+        let flag = true;
+
+        if (document.getElementById("id_duration_year").value == "") {
+          flag = false;
+          field_year = document.getElementById("id_duration_year");
+          field_year.classList.add("is-invalid");
+          isinvalid(field_year, "Invalid Input");
+        }
+
+        if (document.getElementById("id_duration_month").value == "") {
+          flag = false;
+          field_month = document.getElementById("id_duration_month");
+          field_month.classList.add("is-invalid");
+          isinvalid(field_month, "Invalid Input");
+        }
+
+        if (flag) {
+          document.getElementById("experiencelevel-form").submit();
+        }
+      }
+    });
+  } //Event Listener for Cancel Experience Btn:
+
 
   document.getElementById("cancel-experience-form").addEventListener("click", function () {
     location.replace("/applicant/experience");
@@ -810,17 +856,7 @@ if (location.href.indexOf('experience') != -1) {
   document.getElementById("edit-experience-level").addEventListener("click", function () {
     document.getElementById("experience-level").classList.add("d-none");
     document.getElementById("experience-level-form").classList.remove("d-none");
-    document.querySelectorAll('.custom-control-input').forEach(function (x) {
-      x.addEventListener("change", function () {
-        if (x.value == "1") {
-          document.getElementById("experience-duration").classList.remove("d-none");
-        } else {
-          document.getElementById("experience-duration").classList.add("d-none");
-          document.getElementById("id_duration_year").value = '';
-          document.getElementById("id_duration_month").value = '';
-        }
-      });
-    });
+    radiobutton_listener();
   }); //Event Listeners for Delete Experience Buttons
 
   let delete_btn_array = document.getElementsByClassName("delete-experience");
