@@ -1,4 +1,10 @@
+import { autoComplete } from "../_global/global"
+
 if(location.href.indexOf('skills') != -1){
+
+    let skill_suggestion = null
+    autoComplete("id_skill", skill_suggestion, "skill")
+
     //Checks if the user has skills data. If none, the add language form will be hidden
     if(document.getElementById("div-skill-list") == null){
         document.getElementById("div-skill-form").classList.remove("d-none")

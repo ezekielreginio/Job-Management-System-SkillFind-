@@ -17,8 +17,18 @@ if(location.href.indexOf('experience') != -1){
     let role_suggestion = null
     autoComplete("id_role", role_suggestion, "role")
 
-    
+    let industry_suggestion = null
+    autoComplete("id_industry", industry_suggestion, "industry")
 
+    let position_level_suggestion = null
+    autoComplete("id_position_level", position_level_suggestion, "position_level")
+
+    let salary_currency_suggestion = null
+    autoComplete("id_salary_currency", salary_currency_suggestion, "salary_currency")
+
+    
+    //show portfolio button
+    
     
 
     //radio button 3

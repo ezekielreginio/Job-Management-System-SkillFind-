@@ -674,10 +674,21 @@ if (location.href.indexOf('handicapped') != -1) {
 /*!**********************************************!*\
   !*** ./src/applicant_portfolio/education.js ***!
   \**********************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
 
 if (location.href.indexOf('education') != -1) {
-  //Checks if the user has education data. If none, the add education form will be hidden
+  let qualification_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_qualification", qualification_suggestion, "qualification");
+  let fieldofstudy_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_field_of_study", fieldofstudy_suggestion, "field_of_study");
+  let major_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_major", major_suggestion, "major"); //Checks if the user has education data. If none, the add education form will be hidden
+
   if (document.getElementById("div-education-list") == null) {
     document.getElementById("div-education-form").classList.remove("d-none");
     document.getElementById("cancel-education-form").classList.add("d-none");
@@ -755,7 +766,14 @@ if (location.href.indexOf('experience') != -1) {
   let specialization_suggestion = null;
   autoComplete("id_specialization", specialization_suggestion, "specialization");
   let role_suggestion = null;
-  autoComplete("id_role", role_suggestion, "role"); //radio button 3
+  autoComplete("id_role", role_suggestion, "role");
+  let industry_suggestion = null;
+  autoComplete("id_industry", industry_suggestion, "industry");
+  let position_level_suggestion = null;
+  autoComplete("id_position_level", position_level_suggestion, "position_level");
+  let salary_currency_suggestion = null;
+  autoComplete("id_salary_currency", salary_currency_suggestion, "salary_currency"); //show portfolio button
+  //radio button 3
 
   if (document.getElementById("id_experience_level_3").checked) {
     document.getElementById("experience-duration").classList.remove("d-none");
@@ -1021,10 +1039,19 @@ for (var i = 0; i < nav_portfolio.length; i++) {
 /*!*********************************************!*\
   !*** ./src/applicant_portfolio/language.js ***!
   \*********************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
 
 if (location.href.indexOf('languages') != -1) {
-  //Checks if the user has languages data. If none, the add language form will be hidden
+  let language_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_language", language_suggestion, "language");
+  let proficiency_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_proficiency", proficiency_suggestion, "proficiency"); //Checks if the user has languages data. If none, the add language form will be hidden
+
   if (document.getElementById("div-language-list") == null) {
     document.getElementById("div-language-form").classList.remove("d-none");
     document.getElementById("cancel-language-form").classList.add("d-none");
@@ -1119,10 +1146,17 @@ if (location.href.indexOf('portfolio') != -1) {
 /*!******************************************!*\
   !*** ./src/applicant_portfolio/skill.js ***!
   \******************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
 
 if (location.href.indexOf('skills') != -1) {
-  //Checks if the user has skills data. If none, the add language form will be hidden
+  let skill_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_skill", skill_suggestion, "skill"); //Checks if the user has skills data. If none, the add language form will be hidden
+
   if (document.getElementById("div-skill-list") == null) {
     document.getElementById("div-skill-form").classList.remove("d-none");
     document.getElementById("cancel-skill-form").classList.add("d-none");

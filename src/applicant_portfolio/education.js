@@ -1,6 +1,20 @@
+import { autoComplete } from "../_global/global"
 
 
 if(location.href.indexOf('education') != -1){
+
+
+
+     let qualification_suggestion = null
+     autoComplete("id_qualification", qualification_suggestion, "qualification")
+
+     let fieldofstudy_suggestion = null
+     autoComplete("id_field_of_study", fieldofstudy_suggestion, "field_of_study")
+
+     let major_suggestion = null
+     autoComplete("id_major", major_suggestion, "major")
+
+
     //Checks if the user has education data. If none, the add education form will be hidden
     if(document.getElementById("div-education-list") == null){
         document.getElementById("div-education-form").classList.remove("d-none")

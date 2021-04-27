@@ -1,4 +1,14 @@
+import { autoComplete } from "../_global/global"
+
 if(location.href.indexOf('languages') != -1){
+
+    let language_suggestion = null
+    autoComplete("id_language", language_suggestion, "language")
+
+    let proficiency_suggestion = null
+    autoComplete("id_proficiency", proficiency_suggestion, "proficiency")
+    
+
     //Checks if the user has languages data. If none, the add language form will be hidden
     if(document.getElementById("div-language-list") == null){
         document.getElementById("div-language-form").classList.remove("d-none")
