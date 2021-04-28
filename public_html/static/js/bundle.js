@@ -404,6 +404,63 @@
 
 /***/ }),
 
+/***/ "./src/_factories/ajax_requests.js":
+/*!*****************************************!*\
+  !*** ./src/_factories/ajax_requests.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RequestFactory": () => (/* binding */ RequestFactory),
+/* harmony export */   "RequestBodyFactory": () => (/* binding */ RequestBodyFactory)
+/* harmony export */ });
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
+function RequestFactory(action) {
+  const request = new Request(action // "./request/reorder_task"
+  );
+  return request;
+}
+function RequestBodyFactory(context) {
+  /*
+      Factory Parameters
+      context = {
+          "type": type,
+          "method": POST or GET,
+          "body": request data to be sent
+      }
+  */
+  let header = {};
+
+  if (context['type'] != null) {
+    header = {
+      'Content-Type': context['type'],
+      //'application/json',
+      'X-CSRFToken': _global_global__WEBPACK_IMPORTED_MODULE_0__.csrftoken //csrftoken
+
+    };
+  } else {
+    header = {
+      'X-CSRFToken': _global_global__WEBPACK_IMPORTED_MODULE_0__.csrftoken //csrftoken
+
+    };
+  }
+
+  const body = {
+    method: context['method'],
+    //POST,
+    body: context['body'],
+    //JSON.stringify(json_order),
+    headers: header,
+    mode: 'same-origin' // Do not send CSRF token to another domain.
+
+  };
+}
+
+/***/ }),
+
 /***/ "./src/_global/global.js":
 /*!*******************************!*\
   !*** ./src/_global/global.js ***!
@@ -423,7 +480,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "page_navigation": () => (/* binding */ page_navigation),
 /* harmony export */   "select_borders": () => (/* binding */ select_borders),
 /* harmony export */   "radio_borders": () => (/* binding */ radio_borders),
-/* harmony export */   "AJAX": () => (/* binding */ AJAX)
+/* harmony export */   "AJAX": () => (/* binding */ AJAX),
+/* harmony export */   "isEmpty": () => (/* binding */ isEmpty)
 /* harmony export */ });
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validation */ "./src/_global/validation.js");
  //Global Variables:
@@ -579,6 +637,13 @@ function AJAX(context) {
   }).then(function (response) {
     thisFunct(response);
   });
+}
+function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+
+  return true;
 }
 
 /***/ }),
@@ -1200,6 +1265,9 @@ if (location.href.indexOf('skills') != -1) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "create_qualification": () => (/* binding */ create_qualification)
+/* harmony export */ });
 /* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
 
 
@@ -1222,14 +1290,27 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
   yes_no_hidden_option("id_date_prompt", "div_id_start_date", "start_date"); //Yes No Option for starting date option
 
-  yes_no_hidden_option("id_application_resume", "div_id_application_deadline", "application_deadline"); //Clone Qualification Card
+  yes_no_hidden_option("id_application_resume", "div_id_application_deadline", "application_deadline"); //Qualification Card for Edit Function
 
-  let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true);
-  qualification_template.classList.remove("d-none");
-  qualification_template.setAttribute("name", "qualification-experience");
-  document.getElementById("p5-container").appendChild(qualification_template); //Event Listeners:
-
-  let qualification_ctr = 1; //Close Qualification Card Event Listener:
+  let qualification_ctr = 1; // try{
+  //     document.getElementsByName("qualification-experience")[0].remove()
+  //     // if(!isEmpty(data_qualification_experience) && !isEmpty(data_qualification_education) && !isEmpty(data_qualification_license) && !isEmpty(data_qualification_language) && !isEmpty(data_qualification_location)){
+  //     //     document.getElementsByName("qualification-experience")[0].remove()
+  //     // }
+  //     for (const [key, value] of Object.entries(data_qualification_experience)) {
+  //         qualification_ctr++
+  //         let qualification_template =  create_qualification_template("Experience", qualification_ctr)
+  //         console.log(qualification_template)
+  //         qualification_template.querySelector("[name='year']").value = value['year']
+  //         qualification_template.querySelector("[name='experience']").value = value['name']
+  //         qualification_template.querySelector("[name='required-preferred']").value = value['required']
+  //         document.getElementById("p5-container").appendChild(qualification_template)
+  //     }
+  // }
+  // catch(e){
+  // }
+  //Event Listeners:
+  //Close Qualification Card Event Listener:
 
   document.getElementById("p5-container").addEventListener("click", e => {
     if (e.target.getAttribute("name") == "card-close") {
@@ -1255,7 +1336,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
                     </select>
                 </h6>
                 `;
-      } else if (e.target.value == "Bachelor's" || e.target.value == "Master's" || e.target.value == "Doctorate") {
+      } else if (e.target.value == "Bachelor" || e.target.value == "Master" || e.target.value == "Doctorate") {
         div_container.innerHTML = `
                 <h6>Major in 
                 <input type="text" class="custom-form-input m-2 p-2" name="major">
@@ -1270,6 +1351,11 @@ if (location.href.indexOf('employer/addjob') != -1) {
   document.getElementById("dropdown-add-qualification").addEventListener("click", e => {
     qualification_ctr++;
     let selected_option = e.target.textContent;
+    let qualification_template = create_qualification_template(selected_option, qualification_ctr);
+    document.getElementById("p5-container").appendChild(qualification_template);
+  });
+
+  function create_qualification_template(selected_option, qualification_ctr) {
     let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true);
     qualification_template.classList.remove("d-none");
     qualification_template.querySelectorAll("[name='qualification_required']").forEach(e => {
@@ -1287,8 +1373,8 @@ if (location.href.indexOf('employer/addjob') != -1) {
                         <option value="Elementary">Elementary/Primary School</option>
                         <option value="Junior High School">Junior High School</option>
                         <option value="Senior High School">Senior High School</option>
-                        <option value="Bachelor's">Bachelor's</option>
-                        <option value="Master's">Master's</option>
+                        <option value="Bachelor">Bachelor Degree</option>
+                        <option value="Master Degree">Master Degree</option>
                         <option value="Doctorate">Doctorate</option>
                     </select>
                     <div name="education-specific-info"></div>
@@ -1311,9 +1397,9 @@ if (location.href.indexOf('employer/addjob') != -1) {
             `;
     }
 
-    document.getElementById("p5-container").appendChild(qualification_template);
-    console.log();
-  }); //Post Job Btn  
+    return qualification_template;
+  } //Post Job Btn  
+
 
   document.getElementById("btn-post-job").addEventListener("click", e => {
     let qualification_experience = {};
@@ -1426,7 +1512,122 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
   document.getElementById("id_application_deadline").classList.add("w-50");
   document.getElementById("id_application_deadline").setAttribute("data-required", "True"); //hide("div_id_application_deadline")
-}
+} //Improvement of create_qualification_template (Module Design Pattern)
+
+
+var create_qualification = (() => {
+  //private members:
+  function clone_template() {
+    let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true);
+    qualification_template.classList.remove("d-none");
+    qualification_template.querySelectorAll("[name='qualification_required']").forEach(e => {
+      e.setAttribute("name", "qualification_required");
+    });
+    return qualification_template;
+  }
+
+  function add_experience() {
+    let qualification_experience = clone_template();
+    qualification_experience.querySelector("#qualification-header").textContent = "Experience";
+    qualification_experience.setAttribute("name", "qualification-experience");
+    return qualification_experience;
+  }
+
+  function add_education() {
+    let qualification_education = clone_template();
+    qualification_education.querySelector("#qualification-header").textContent = "Education";
+    qualification_education.setAttribute("name", "qualification-education");
+    qualification_education.querySelector("#qualification-body").innerHTML = `
+            <h6>Level of Education 
+                <select class="custom-form-input m-2 p-2" name="select-level-education">
+                    <option value="Elementary">Elementary/Primary School</option>
+                    <option value="Junior High School">Junior High School</option>
+                    <option value="Senior High School">Senior High School</option>
+                    <option value="Bachelor">Bachelor Degree</option>
+                    <option value="Master Degree">Master Degree</option>
+                    <option value="Doctorate">Doctorate</option>
+                </select>
+                <div name="education-specific-info">
+                    
+                </div>
+            </h6>
+        `;
+    return qualification_education;
+  }
+
+  function add_location() {
+    let qualification_location = clone_template();
+    qualification_location.querySelector("#qualification-header").textContent = "Location";
+    qualification_location.setAttribute("name", "qualification-location");
+    qualification_location.querySelector("#qualification-body").innerHTML = `
+            <h6>Located in ` + document.getElementById("id_location").value + `</h6>
+        `;
+    return qualification_location;
+  }
+
+  function add_license() {
+    let qualification_license = clone_template();
+    qualification_license.querySelector("#qualification-header").textContent = "License";
+    qualification_license.setAttribute("name", "qualification-license");
+    qualification_license.querySelector("#qualification-body").innerHTML = `
+            <h6>Valid <input type="text" class="custom-form-input m-2 p-2" name="license"> license or certification </h6>
+        `;
+    return qualification_license;
+  }
+
+  function add_language() {
+    let qualification_language = clone_template();
+    qualification_language.querySelector("#qualification-header").textContent = "Language";
+    qualification_language.setAttribute("name", "qualification-language");
+    qualification_language.querySelector("#qualification-body").innerHTML = `
+            <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
+        `;
+    return qualification_language;
+  }
+
+  return {
+    add_experience: add_experience,
+    add_education: add_education,
+    add_location: add_location,
+    add_language: add_language,
+    add_license: add_license
+  }; //public members:
+  // return{
+  //     add_experience: function(){
+  //         console.log("pasok sa exp")
+  //         qualification_template.querySelector("#qualification-header").textContent = "Experience"
+  //         qualification_template.setAttribute("name", "qualification-experience")
+  //         let qualification_experience = qualification_template
+  //         return qualification_experience
+  //     },
+  //     add_education: function(){
+  //         console.log("pasok sa educ")
+  //         qualification_template.setAttribute("name", "qualification-education")
+  //         qualification_template.querySelector("#qualification-body").innerHTML = `
+  //             <h6>Level of Education 
+  //                 <select class="custom-form-input m-2 p-2" name="select-level-education">
+  //                     <option value="Elementary">Elementary/Primary School</option>
+  //                     <option value="Junior High School">Junior High School</option>
+  //                     <option value="Senior High School">Senior High School</option>
+  //                     <option value="Bachelor">Bachelor Degree</option>
+  //                     <option value="Master Degree">Master Degree</option>
+  //                     <option value="Doctorate">Doctorate</option>
+  //                 </select>
+  //                 <div name="education-specific-info"></div>
+  //             </h6>
+  //         `
+  //         let qualification_education = qualification_template
+  //         return qualification_education
+  //     },
+  //     add_language: function(){
+  //         console.log("pasok sa language")
+  //         qualification_template.setAttribute("name", "qualification-language")
+  //         qualification_template.querySelector("#qualification-body").innerHTML = `
+  //             <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
+  //         `
+  //     }
+  // };
+})();
 
 /***/ }),
 
@@ -1457,6 +1658,135 @@ if (location.href.indexOf('employer/jobspanel') != -1) {
 function adjust_logo() {
   document.getElementById("skillfind-logo").classList.add("logo-nav");
   document.getElementById("collapsibleNavId").classList.add("ml-4");
+}
+
+/***/ }),
+
+/***/ "./src/employer_dashboard/load_qualifications.js":
+/*!*******************************************************!*\
+  !*** ./src/employer_dashboard/load_qualifications.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+/* harmony import */ var _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../employer_dashboard/addjob */ "./src/employer_dashboard/addjob.js");
+
+
+
+
+if (location.href.indexOf('employer/addjob') != -1) {
+  let url = location.href;
+  let data = url.match(/(\d+)/g) || [];
+  let id = 0;
+  if (data[0] == 127) id = data[5];else id = data[0];
+
+  if (id != null) {
+    document.getElementsByName("qualification-experience")[0].remove();
+
+    async function loadQualifications() {
+      const request = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestFactory)("/ajax/requestqualifications/" + id);
+      const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestBodyFactory)({
+        "method": "POST"
+      });
+      const response = await fetch(request, body);
+      return await response.json();
+    }
+
+    (async () => {
+      let data_samp = await loadQualifications();
+      let qualification_location_data = data_samp['qualification_location']; //console.log(data_samp)
+
+      for (const [key, value] of Object.entries(data_samp['qualification_experience'])) {
+        let qualification_experience = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_experience();
+        qualification_experience = populate_qualification(qualification_experience, value).populate_experience();
+        document.getElementById("p5-container").appendChild(qualification_experience);
+      }
+
+      for (const [key, value] of Object.entries(data_samp['qualification_education'])) {
+        let qualification_education = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_education();
+        qualification_education = populate_qualification(qualification_education, value).populate_education();
+        document.getElementById("p5-container").appendChild(qualification_education);
+      }
+
+      if (qualification_location_data != null) {
+        let qualification_location = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_location();
+        qualification_location = populate_qualification(qualification_location, qualification_location_data).populate_location();
+        document.getElementById("p5-container").appendChild(qualification_location);
+      }
+
+      for (const [key, value] of Object.entries(data_samp['qualification_licenses'])) {
+        let qualification_license = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_license();
+        qualification_license = populate_qualification(qualification_license, value).populate_license();
+        document.getElementById("p5-container").appendChild(qualification_license);
+      }
+
+      for (const [key, value] of Object.entries(data_samp['qualification_languages'])) {
+        let y = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_language();
+      }
+    })();
+
+    let populate_qualification = (qualification, data) => {
+      //Private Members
+      function populate_experience() {
+        qualification.querySelector("[name='year']").value = data['year'];
+        qualification.querySelector("[name='experience']").value = data['name'];
+        qualification.querySelector("[name='required-preferred']").value = data['required'];
+        return qualification;
+      }
+
+      function populate_education() {
+        qualification.querySelector("[name='select-level-education']").value = data['level'];
+        qualification.querySelector("[name='required-preferred']").value = data['required'];
+
+        if (data['level'] == "Bachelor" || data['level'] == "Master" || data['level'] == "Doctorate") {
+          qualification.querySelector("[name='education-specific-info']").innerHTML = `
+                        <h6>Major in 
+                            <input type="text" class="custom-form-input m-2 p-2" name="major">
+                        </h6>
+                    `;
+        } else if (data['level'] == "Senior High School") {
+          qualification.querySelector("[name='education-specific-info']").innerHTML = `
+                        <h6>SHS Strand 
+                            <select class="custom-form-input m-2 p-2" name="major">
+                                <option value="STEM">STEM</option>
+                                <option value="ABM">ABM</option>
+                                <option value="HUMMS">HUMMS</option>
+                                <option value="GAS">GAS</option>
+                                <option value="ICT">ICT</option>
+                                <option value="ICT">Industrial Arts</option>
+                                <option value="Home Economics">Home Economics</option>
+                            </select>
+                        </h6>
+                    `;
+        }
+
+        qualification.querySelector("[name='major']").value = data['major'];
+        return qualification;
+      }
+
+      function populate_location() {
+        qualification.querySelector("[name='required-preferred']").value = data;
+        return qualification;
+      }
+
+      function populate_license() {
+        qualification.querySelector("[name='license']").value = data['license'];
+        qualification.querySelector("[name='required-preferred']").value = data['required'];
+        return qualification;
+      } //Public Members
+
+
+      return {
+        populate_experience: populate_experience,
+        populate_education: populate_education,
+        populate_location: populate_location,
+        populate_license: populate_license
+      };
+    };
+  }
 }
 
 /***/ }),
@@ -25733,6 +26063,10 @@ const {
 const {
   employer_dashboard
 } = __webpack_require__(/*! ./employer_dashboard/index */ "./src/employer_dashboard/index.js");
+
+const {
+  load_qualifications
+} = __webpack_require__(/*! ./employer_dashboard/load_qualifications */ "./src/employer_dashboard/load_qualifications.js");
 
 const {
   employer_addjob

@@ -242,6 +242,7 @@ class EmployerAddJobListing(forms.ModelForm):
                                     </select>
                                 </div>
                             </div>
+                            <div class="qualification-template my-3" name="qualification-experience"> <div> <h5><span id="qualification-header">Experience</span> <i class="fas fa-times float-right pr-3 pt-2 pointer" name="card-close" aria-hidden="true"></i></h5> </div> <hr style="background-color: white"> <div id="qualification-body"> <h6>Minimum of <input type="text" class="custom-form-input m-2 p-2" name="year"> of <input type="text" class="p-2 custom-form-input m-2" name="experience">  Experience</h6> </div> <div id="qualification-footer"> <h5>Is this qualification required?</h5> <select name="required-preferred" class="select form-control custom-select w-50" id="id_application_resume"> <option value="true">Required</option> <option value="false">Preferred</option> </select> </div> </div>
                         </div>
                         
                         

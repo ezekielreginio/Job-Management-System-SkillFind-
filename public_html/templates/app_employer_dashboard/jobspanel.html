@@ -31,7 +31,7 @@
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <a class="dropdown-item" href="#" data-job-id="{{job.id}}">View Applicants</a>
                                 <hr style="background-color: black">
-                                <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Edit</a>
+                                <a class="dropdown-item" href="{% url 'employer_updatejob' job.id %}" data-job-id="{{job.id}}">Edit</a>
                                 <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Set as Inactive</a>
                                 <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Archive</a>
                             </div>

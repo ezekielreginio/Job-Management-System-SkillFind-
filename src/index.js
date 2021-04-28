@@ -5,6 +5,7 @@ const { applicant_education } = require("./applicant_portfolio/education");
 const { applicant_skill } = require("./applicant_portfolio/skill");
 const { applicant_language } = require("./applicant_portfolio/language");
 const { employer_dashboard } = require("./employer_dashboard/index");
+const { load_qualifications } = require("./employer_dashboard/load_qualifications");
 const { employer_addjob } = require("./employer_dashboard/addjob");
 const { password_reset } = require("./login/password_reset");
 const { handicapped_index } = require("./app_handicapped/index");
