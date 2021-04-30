@@ -31,7 +31,7 @@ def applicant_experience(request, pk=None):
     experience_info = None
     if not pk is None:
         experience_info = Experience.objects.get(id=pk)
-        experience_form =portfolio_forms.ApplicantPortfolioExperience(instance=experience_info)
+        experience_form =portfolio_forms.ApplicantPortfolioExperience(instance = experience_info)
     try:
         experience_level_obj = ExperienceLevel.objects.get(applicant_id = request.user.id)
         experience_level = experience_level_obj.experience_level

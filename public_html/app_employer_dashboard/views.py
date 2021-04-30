@@ -30,12 +30,6 @@ def employer_addjob(request, pk=None):
     qualification_data = {}
     if not pk is None:
         job_info = JobListing.objects.get(id=pk)
-        qualification_data['qualification_experience'] = json.dumps(job_info.qualification_experience)
-        qualification_data['qualification_education'] = json.dumps(job_info.qualification_education)
-        print(qualification_data['qualification_education'])
-        qualification_data['qualification_language'] = json.dumps(job_info.qualification_language)
-        qualification_data['qualification_location'] = json.dumps(job_info.qualification_location)
-        qualification_data['qualification_license'] = json.dumps(job_info.qualification_license)
         addjob_form = employer_forms.EmployerAddJobListing(instance=job_info)
     job_id = ""
 
