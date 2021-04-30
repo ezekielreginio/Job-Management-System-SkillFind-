@@ -1350,56 +1350,56 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
   document.getElementById("dropdown-add-qualification").addEventListener("click", e => {
     qualification_ctr++;
-    let selected_option = e.target.textContent;
-    let qualification_template = create_qualification_template(selected_option, qualification_ctr);
+    let selected_option = e.target.textContent; //let qualification_template = create_qualification_template(selected_option, qualification_ctr)
+
+    let qualification_template = null;
+    if (selected_option == "Experience") qualification_template = create_qualification.add_experience();else if (selected_option == "Education") qualification_template = create_qualification.add_education();else if (selected_option == "Location") qualification_template = create_qualification.add_location();else if (selected_option == "Language") qualification_template = create_qualification.add_language();else if (selected_option == "License") qualification_template = create_qualification.add_license();
     document.getElementById("p5-container").appendChild(qualification_template);
-  });
-
-  function create_qualification_template(selected_option, qualification_ctr) {
-    let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true);
-    qualification_template.classList.remove("d-none");
-    qualification_template.querySelectorAll("[name='qualification_required']").forEach(e => {
-      e.setAttribute("name", "qualification_required" + qualification_ctr);
-    });
-    qualification_template.querySelector("#qualification-header").textContent = selected_option;
-
-    if (selected_option == "Experience") {
-      qualification_template.setAttribute("name", "qualification-experience");
-    } else if (selected_option == "Education") {
-      qualification_template.setAttribute("name", "qualification-education");
-      qualification_template.querySelector("#qualification-body").innerHTML = `
-                <h6>Level of Education 
-                    <select class="custom-form-input m-2 p-2" name="select-level-education">
-                        <option value="Elementary">Elementary/Primary School</option>
-                        <option value="Junior High School">Junior High School</option>
-                        <option value="Senior High School">Senior High School</option>
-                        <option value="Bachelor">Bachelor Degree</option>
-                        <option value="Master Degree">Master Degree</option>
-                        <option value="Doctorate">Doctorate</option>
-                    </select>
-                    <div name="education-specific-info"></div>
-                </h6>
-            `;
-    } else if (selected_option == "License") {
-      qualification_template.setAttribute("name", "qualification-license");
-      qualification_template.querySelector("#qualification-body").innerHTML = `
-                <h6>Valid <input type="text" class="custom-form-input m-2 p-2" name="license"> license or certification </h6>
-            `;
-    } else if (selected_option == "Language") {
-      qualification_template.setAttribute("name", "qualification-language");
-      qualification_template.querySelector("#qualification-body").innerHTML = `
-                <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
-            `;
-    } else if (selected_option == "Location") {
-      qualification_template.setAttribute("name", "qualification-location");
-      qualification_template.querySelector("#qualification-body").innerHTML = `
-                <h6>Located in ` + document.getElementById("id_location").value + `</h6>
-            `;
-    }
-
-    return qualification_template;
-  } //Post Job Btn  
-
+  }); // function create_qualification_template(selected_option, qualification_ctr){
+  //     let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true)
+  //     qualification_template.classList.remove("d-none")
+  //     qualification_template.querySelectorAll("[name='qualification_required']").forEach((e)=>{ e.setAttribute("name", "qualification_required"+qualification_ctr) })
+  //     qualification_template.querySelector("#qualification-header").textContent = selected_option
+  //     if(selected_option == "Experience"){
+  //         qualification_template.setAttribute("name", "qualification-experience")
+  //     }
+  //     else if(selected_option == "Education"){
+  //         qualification_template.setAttribute("name", "qualification-education")
+  //         qualification_template.querySelector("#qualification-body").innerHTML = `
+  //             <h6>Level of Education 
+  //                 <select class="custom-form-input m-2 p-2" name="select-level-education">
+  //                     <option value="Elementary">Elementary/Primary School</option>
+  //                     <option value="Junior High School">Junior High School</option>
+  //                     <option value="Senior High School">Senior High School</option>
+  //                     <option value="Bachelor">Bachelor Degree</option>
+  //                     <option value="Master Degree">Master Degree</option>
+  //                     <option value="Doctorate">Doctorate</option>
+  //                 </select>
+  //                 <div name="education-specific-info"></div>
+  //             </h6>
+  //         `
+  //     }
+  //     else if(selected_option == "License"){
+  //         qualification_template.setAttribute("name", "qualification-license")
+  //         qualification_template.querySelector("#qualification-body").innerHTML = `
+  //             <h6>Valid <input type="text" class="custom-form-input m-2 p-2" name="license"> license or certification </h6>
+  //         `
+  //     }
+  //     else if(selected_option == "Language"){
+  //         qualification_template.setAttribute("name", "qualification-language")
+  //         qualification_template.querySelector("#qualification-body").innerHTML = `
+  //             <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
+  //         `
+  //     }
+  //     else if(selected_option == "Location"){
+  //         qualification_template.setAttribute("name", "qualification-location")
+  //         qualification_template.querySelector("#qualification-body").innerHTML = `
+  //             <h6>Located in `+document.getElementById("id_location").value+`</h6>
+  //         `
+  //     }
+  //     return qualification_template
+  // }
+  //Post Job Btn  
 
   document.getElementById("btn-post-job").addEventListener("click", e => {
     let qualification_experience = {};
@@ -1512,11 +1512,31 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
   document.getElementById("id_application_deadline").classList.add("w-50");
   document.getElementById("id_application_deadline").setAttribute("data-required", "True"); //hide("div_id_application_deadline")
-} //Improvement of create_qualification_template (Module Design Pattern)
+}
+/*
+Type 1:
+function FunctionName(parameter){
+    Function Body
+    return
+}
+
+Type 2:
+(parameter)=>{
+    Function Body
+    return
+}
+document.getElementById("Button-ID").addEventListener("click", (e)=>{})
+
+Type 3:
+(()={
+    function body
+})()
+*/
+//Improvement of create_qualification_template (Module Design Pattern)
 
 
 var create_qualification = (() => {
-  //private members:
+  //private members:  
   function clone_template() {
     let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true);
     qualification_template.classList.remove("d-none");
@@ -1583,7 +1603,8 @@ var create_qualification = (() => {
             <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
         `;
     return qualification_language;
-  }
+  } //public members:
+
 
   return {
     add_experience: add_experience,
@@ -1591,42 +1612,7 @@ var create_qualification = (() => {
     add_location: add_location,
     add_language: add_language,
     add_license: add_license
-  }; //public members:
-  // return{
-  //     add_experience: function(){
-  //         console.log("pasok sa exp")
-  //         qualification_template.querySelector("#qualification-header").textContent = "Experience"
-  //         qualification_template.setAttribute("name", "qualification-experience")
-  //         let qualification_experience = qualification_template
-  //         return qualification_experience
-  //     },
-  //     add_education: function(){
-  //         console.log("pasok sa educ")
-  //         qualification_template.setAttribute("name", "qualification-education")
-  //         qualification_template.querySelector("#qualification-body").innerHTML = `
-  //             <h6>Level of Education 
-  //                 <select class="custom-form-input m-2 p-2" name="select-level-education">
-  //                     <option value="Elementary">Elementary/Primary School</option>
-  //                     <option value="Junior High School">Junior High School</option>
-  //                     <option value="Senior High School">Senior High School</option>
-  //                     <option value="Bachelor">Bachelor Degree</option>
-  //                     <option value="Master Degree">Master Degree</option>
-  //                     <option value="Doctorate">Doctorate</option>
-  //                 </select>
-  //                 <div name="education-specific-info"></div>
-  //             </h6>
-  //         `
-  //         let qualification_education = qualification_template
-  //         return qualification_education
-  //     },
-  //     add_language: function(){
-  //         console.log("pasok sa language")
-  //         qualification_template.setAttribute("name", "qualification-language")
-  //         qualification_template.querySelector("#qualification-body").innerHTML = `
-  //             <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
-  //         `
-  //     }
-  // };
+  };
 })();
 
 /***/ }),
