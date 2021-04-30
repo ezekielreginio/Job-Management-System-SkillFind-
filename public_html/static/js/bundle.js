@@ -1268,14 +1268,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "create_qualification": () => (/* binding */ create_qualification)
 /* harmony export */ });
-/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+/* harmony import */ var autocompleter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
+/* harmony import */ var autocompleter__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(autocompleter__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
 
 
 if (location.href.indexOf('employer/addjob') != -1) {
   let prev_btn_list = document.getElementsByClassName("btn-prev-job");
   let next_btn_list = document.getElementsByClassName("btn-next-job");
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.page_navigation)(next_btn_list);
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.page_navigation)(prev_btn_list);
+  let job_title_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_job_title", job_title_suggestion, "position_title");
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.page_navigation)(next_btn_list);
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.page_navigation)(prev_btn_list); //for starting range
+
+  document.getElementById("id_compensation_range").addEventListener("change", e => {
+    if (e.target.value == "Starting at") {
+      document.getElementById("id_max_salary").classList.add("d-none");
+      document.getElements;
+    }
+  });
 
   for (let i = 0; i < prev_btn_list.length; i++) {
     prev_btn_list[i].addEventListener("click", function () {
@@ -1288,7 +1300,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
   yes_no_hidden_option("id_accept_handicapped", "div_id_accepted_handicapped_types", "accepted_handicapped_types"); //Yes No Option for starting date option
 
-  yes_no_hidden_option("id_date_prompt", "div_id_start_date", "start_date"); //Yes No Option for starting date option
+  yes_no_hidden_option("id_date_prompt", "div_id_start_date", "start_date"); //Yes No Option for application deadline option
 
   yes_no_hidden_option("id_application_resume", "div_id_application_deadline", "application_deadline"); //Qualification Card for Edit Function
 
@@ -1461,11 +1473,11 @@ if (location.href.indexOf('employer/addjob') != -1) {
     };
     let formdata_joblist = new FormData(document.getElementById("form-add-job"));
     formdata_joblist.append("qualifications", JSON.stringify(data));
-    (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.AJAX)({
+    (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.AJAX)({
       "method": "POST",
       "action": "./addjob",
       "body": formdata_joblist,
-      "token": _global_global__WEBPACK_IMPORTED_MODULE_0__.csrftoken,
+      "token": _global_global__WEBPACK_IMPORTED_MODULE_1__.csrftoken,
       "function": function (response) {
         if (response.status == 200) {
           response.json().then(json => {
@@ -1499,7 +1511,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
   let multi_checkbox = document.getElementsByClassName("custom-checkbox");
   let multi_radio = document.getElementsByClassName("custom-radio");
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.select_borders)(multi_checkbox);
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.select_borders)(multi_checkbox);
   let yes_opt = null; //Start Date CSS
 
   document.getElementById("div_id_start_date").firstElementChild.remove();
@@ -1508,7 +1520,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
   document.getElementById("id_start_date").addEventListener("focus", function () {
     this.setAttribute("type", "date");
   });
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.hide)("div_id_start_date"); //Application Deadline CSS
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.hide)("div_id_start_date"); //Application Deadline CSS
 
   document.getElementById("id_application_deadline").classList.add("w-50");
   document.getElementById("id_application_deadline").setAttribute("data-required", "True"); //hide("div_id_application_deadline")
@@ -1805,6 +1817,11 @@ if (location.href.indexOf('login/applicant/') != -1 || location.href.indexOf('lo
   login_employer_btn.textContent = "For Employers";
   login_employer_btn.setAttribute("href", "/login/employer");
   document.getElementById("btn-login-applicant").after(login_employer_btn);
+  let input_dark = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < input_dark.length; i++) {
+    input_dark[i].classList.add("input-dark-theme");
+  }
 }
 
 /***/ }),

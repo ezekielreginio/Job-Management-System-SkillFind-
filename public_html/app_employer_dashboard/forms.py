@@ -10,6 +10,11 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, B
 from Include import validators
 
 import re, datetime
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class EmployerAddJobListing(forms.ModelForm):
     CONTRACT_TYPE = (
         ("1", "Temporary"),
@@ -118,6 +123,13 @@ class EmployerAddJobListing(forms.ModelForm):
         ("Required", "Required"),
         ("Preferred", "Preferred"),
     )
+
+    EMPLOYMENT_TYPE = (
+        ("Part-time Job", "Part-time Job"),
+        ("Full-time Job", "Full-time Job"),
+    )
+
+    CHOICES = [('2', 'Temporarily due to COVID-19'), ('3', 'Yes'), ('1', 'No')]
     accept_handicapped = forms.ChoiceField(choices=NO_YES)
     accepted_handicapped_types = forms.MultipleChoiceField(choices=HANDICAPPED_TYPES,required=False, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'False'}))
     contract_type = forms.MultipleChoiceField(choices=CONTRACT_TYPE, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
@@ -125,12 +137,17 @@ class EmployerAddJobListing(forms.ModelForm):
     date_prompt = forms.ChoiceField(choices=NO_YES)
     
     initial_salary = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'From: (E.g. 10000.00)'}))
-    max_salary = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': '(E.g. 50000.00)'}))
+    max_salary = forms.DecimalField(required=False,widget=forms.NumberInput(attrs={'placeholder': '(E.g. 50000.00)'}))
     supplemental_pay = forms.MultipleChoiceField(choices=SUPPLEMENTAL_PAY, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
     benefits = forms.MultipleChoiceField(choices=BENEFITS, widget=forms.CheckboxSelectMultiple(attrs={'data-required': 'True'}))
-    
+    remote = forms.ChoiceField(choices=CHOICES)
     application_type = forms.ChoiceField(choices=APPLICATION_TYPE)
     application_resume = forms.ChoiceField(choices=YES_NO)
+
+    employment_type = forms.ChoiceField(choices=EMPLOYMENT_TYPE)
+
+    application_deadline = forms.DateField(widget=DateInput)
+
 
     # qualification_experience_type = forms.MultipleChoiceField(choices=DEMO_CHOICES)
     # qualification_minimum_education_level = forms.MultipleChoiceField(choices=DEMO_CHOICES)
@@ -169,7 +186,7 @@ class EmployerAddJobListing(forms.ModelForm):
                     'accept_handicapped',
                     'accepted_handicapped_types',
                     'hires_needed',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p2-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p2-add-job">Next Page</button> """),
                     css_class='pages-add-job',
                     css_id='p1-add-job',
                 ),
@@ -179,8 +196,8 @@ class EmployerAddJobListing(forms.ModelForm):
                     'job_schedules',
                     'date_prompt',
                     'start_date',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p1-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p3-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p1-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p3-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p2-add-job',
                 ),
@@ -194,8 +211,8 @@ class EmployerAddJobListing(forms.ModelForm):
                     ),
                     'supplemental_pay',
                     'benefits',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p2-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p4-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p2-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p4-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p3-add-job',
                 ),
@@ -205,8 +222,8 @@ class EmployerAddJobListing(forms.ModelForm):
                     'application_deadline',
                     'application_email_recepient',
                     'job_description',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p3-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-next-job pull-right" data-next-page="p5-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p3-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p5-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p4-add-job',
                 ),
@@ -225,7 +242,7 @@ class EmployerAddJobListing(forms.ModelForm):
                             </div>
                         </div>
                         
-                        <div class="container" id="p5-container">
+                        <div class="container card-primary-theme-p5" id="p5-container">
                             <div class="qualification-template d-none my-3">
                                 <div>
                                     <h5><span id="qualification-header">Experience</span> <i class="fas fa-times float-right pr-3 pt-2 pointer" name="card-close"></i></h5>
@@ -247,8 +264,8 @@ class EmployerAddJobListing(forms.ModelForm):
                         
                         
                     """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-primary btn-prev-job pull-left" data-prev-page="p4-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="btn-post-job" class="btn btn-success pull-right">Post Job</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p4-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="btn-post-job" class="btn btn-secondary pull-right">Post Job</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p5-add-job',
                 ),

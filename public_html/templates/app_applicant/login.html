@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block content%}
-    <div id="logreg-forms" class="bg-dark text-white">
+    <div id="logreg-forms" class="bg-dark text-white card-dark-theme">
         
         {% if request.GET.next %}
             <form action="/login/applicant/?next={{request.GET.next}}" method="POST" class="form-signin">

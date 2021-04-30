@@ -56,8 +56,8 @@
                     <p class="text-white">{{ education.additional_information }}</p>
                 </div>
                 <div class="col-2">
-                    <a href="{% url 'education_update' education.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
-                    <a data-link="{% url 'education_delete' 'delete' education.id %}" class="btn-delete-education" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block" ></i></a>
+                    <a href="{% url 'education_update' education.id %}" class="update-experience applicant-text-color"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
+                    <a data-link="{% url 'education_delete' 'delete' education.id %}" class="btn-delete-education text-danger-dark" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block"></i></a>
                 </div>
             </div>
         {% endfor %}

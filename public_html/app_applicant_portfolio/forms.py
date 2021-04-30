@@ -37,8 +37,8 @@ class ApplicantPortfolioExperience(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-3 text-right text-white'
         self.helper.field_class = 'col-8'
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
-        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-experience-form"))
+        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary btn-applicant'))
+        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-experience-form"))
         
 
     def clean_end_date(self):
@@ -76,8 +76,8 @@ class ApplicantExperienceLevel(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-3 text-right'
         self.helper.form_action = '/applicant/experiencelevel'
-        self.helper.add_input(Submit('save', 'Save', css_class='btn-primary experiencelevel-save-btn'))
-        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-experiencelevel-form"))
+        self.helper.add_input(Submit('save', 'Save', css_class='experiencelevel-save-btn btn-applicant'))
+        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-danger-dark text-white', css_id="cancel-experiencelevel-form"))
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -124,8 +124,8 @@ class ApplicantEducation(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-3 text-right text-white'
         self.helper.field_class = 'col-8'
-        self.helper.add_input(Submit('save', 'Save', css_class='btn-primary'))
-        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-education-form"))
+        self.helper.add_input(Submit('save', 'Save', css_class='btn-applicant'))
+        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-education-form"))
 
 class ApplicantSkill(forms.ModelForm):
     skill = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Skill Name'}))
@@ -140,8 +140,8 @@ class ApplicantSkill(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.form_show_labels = False
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
-        self.helper.add_input(Button('/applicant/skills', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-skill-form"))
+        self.helper.add_input(Submit('submit', 'Save', css_class='btn-applicant'))
+        self.helper.add_input(Button('/applicant/skills', 'Cancel', css_class='btn-danger-dark', css_id="cancel-skill-form"))
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -171,8 +171,8 @@ class ApplicantLanguage(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.form_show_labels = False
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary'))
-        self.helper.add_input(Button('/applicant/languages', 'Cancel', css_class='btn-primary btn-danger', css_id="cancel-language-form"))
+        self.helper.add_input(Submit('submit', 'Save', css_class='btn-applicant'))
+        self.helper.add_input(Button('/applicant/languages', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-language-form"))
         self.helper.layout = Layout(
             Fieldset(
                 '',
