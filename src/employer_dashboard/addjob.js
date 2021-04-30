@@ -1,11 +1,26 @@
-import { hide, select_borders, radio_borders, show, page_navigation, AJAX, csrftoken, isEmpty } from "../_global/global";
+import autocomplete from "autocompleter";
+import { hide, select_borders, radio_borders, show, page_navigation, AJAX, csrftoken, isEmpty, autoComplete } from "../_global/global";
 
 if(location.href.indexOf('employer/addjob') != -1){
+
     let prev_btn_list = document.getElementsByClassName("btn-prev-job")
     let next_btn_list = document.getElementsByClassName("btn-next-job")
+
+    let job_title_suggestion = null
+    autoComplete("id_job_title", job_title_suggestion, "position_title")
+
     
     page_navigation(next_btn_list)
     page_navigation(prev_btn_list)
+
+    //for starting range
+    document.getElementById("id_compensation_range").addEventListener("change", (e)=>{
+        if(e.target.value == "Starting at"){
+            document.getElementById("id_max_salary").classList.add("d-none")
+            document.getElements
+        }
+    })
+
 
 
     for(let i = 0; i<prev_btn_list.length; i++){
@@ -24,7 +39,7 @@ if(location.href.indexOf('employer/addjob') != -1){
     //Yes No Option for starting date option
     yes_no_hidden_option("id_date_prompt", "div_id_start_date", "start_date")
 
-    //Yes No Option for starting date option
+    //Yes No Option for application deadline option
     yes_no_hidden_option("id_application_resume", "div_id_application_deadline", "application_deadline")
 
 

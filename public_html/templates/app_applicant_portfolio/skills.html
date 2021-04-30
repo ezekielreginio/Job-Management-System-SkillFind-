@@ -3,6 +3,22 @@
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
 
+{% block header %}
+<div  class="card bg-dark mb-3">
+    <div class="container mt-2">
+        <div class="row mb-5">
+            <div class="col-7 vertical-center">
+                <i class="icon-briefcase fs-25 applicant-text-color"></i>
+                <h4 class="d-inline-block text-white">Skills</h4>    
+            </div>
+            <div class="col-4">
+                <img src="{% static 'media/images/applicant_skill.png' %}" class="img-applicant-portfolio" alt="">
+            </div> 
+        </div>  
+    </div>
+</div>
+{% endblock %}
+
 {% block portfolio-content %}
 
 <hr>
@@ -36,8 +52,8 @@
                     <h5 class="text-white">{{skill.proficiency}}</h5>
                 </div>
                 <div class="col-2">
-                    <a href="{% url 'skills_update' skill.id%}" class="update-skill"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
-                    <a data-link="{% url 'skills_delete' 'delete' skill.id%}" class="btn-delete-skill" id="btn-delete-skill"><i class="icon-trash fs-25 d-inline-block" ></i></a>
+                    <a href="{% url 'skills_update' skill.id%}" class="update-skill applicant-text-color"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
+                    <a data-link="{% url 'skills_delete' 'delete' skill.id%}" class="btn-delete-skill text-danger-dark" id="btn-delete-skill"><i class="icon-trash fs-25 d-inline-block" ></i></a>
                 </div>
             </div>
         {% endfor %}
