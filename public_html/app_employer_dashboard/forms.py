@@ -147,6 +147,7 @@ class EmployerAddJobListing(forms.ModelForm):
     employment_type = forms.ChoiceField(choices=EMPLOYMENT_TYPE)
 
     application_deadline = forms.DateField(widget=DateInput)
+    
 
 
     # qualification_experience_type = forms.MultipleChoiceField(choices=DEMO_CHOICES)
@@ -167,6 +168,7 @@ class EmployerAddJobListing(forms.ModelForm):
         # self.helper.field_class = 'col-8'
 
         #labels
+        
         self.fields['date_prompt'].label = "Is there a planned start date for this job?"
         self.fields['initial_salary'].label = ""
         self.fields['max_salary'].label = ""

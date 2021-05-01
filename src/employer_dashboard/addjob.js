@@ -34,12 +34,15 @@ if(location.href.indexOf('employer/addjob') != -1){
     }
 
     //Yes No Option for accepting handicapped option
+   
     yes_no_hidden_option("id_accept_handicapped", "div_id_accepted_handicapped_types", "accepted_handicapped_types")
     
     //Yes No Option for starting date option
+    
     yes_no_hidden_option("id_date_prompt", "div_id_start_date", "start_date")
 
     //Yes No Option for application deadline option
+   
     yes_no_hidden_option("id_application_resume", "div_id_application_deadline", "application_deadline")
 
 
@@ -288,6 +291,7 @@ if(location.href.indexOf('employer/addjob') != -1){
     }
     //Scripts for Add Job CSS Styling
 
+    
     //CSS for handicapped types
     document.getElementById("div_id_accepted_handicapped_types").classList.add("d-none")
 
