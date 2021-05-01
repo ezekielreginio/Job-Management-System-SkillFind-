@@ -1175,33 +1175,37 @@ if (location.href.indexOf('portfolio') != -1) {
         clicked_card[i].classList.replace("task", "task_click"); //for show all cards
       } else if (clicked_card[i].classList.contains("task_click")) {
         clicked_card[i].classList.replace("task_click", "task");
+        document.getElementById("show-portfolio2").classList.add("d-none");
       }
     });
-  }
+  } //For Card Showall/Hideall Button
+  //ShowAll
+  //class for adding eventlistiner for showall card
 
-  document.getElementById("show-portfolio").addEventListener("click", function () {
-    let card_click = document.getElementsByClassName("portfolio_detail");
 
-    for (let i = 0; i < card_click.length; i++) {
-      if (card_click[i].classList.contains("task")) {
-        card_click[i].classList.replace("task", "task_click");
-      }
-    }
-
+  let cardbtn = document.getElementById("show-portfolio");
+  cardbtn.addEventListener("click", () => {
+    cardbtn.classList.add("d-none");
     document.getElementById("show-portfolio2").classList.remove("d-none");
-    document.getElementById("show-portfolio").classList.add("d-none");
-  });
-  document.getElementById("show-portfolio2").addEventListener("click", function () {
-    let card_click = document.getElementsByClassName("portfolio_detail");
+    let Task = document.getElementsByClassName("portfolio_detail");
 
-    for (let i = 0; i < card_click.length; i++) {
-      if (card_click[i].classList.contains("task_click")) {
-        card_click[i].classList.replace("task_click", "task");
+    for (let i = 0; i < Task.length; i++) {
+      if (Task[i].classList.contains("task")) {
+        Task[i].classList.replace("task", "task_click");
       }
     }
-
-    document.getElementById("show-portfolio2").classList.add("d-none");
+  });
+  let cardbtn2 = document.getElementById("show-portfolio2");
+  cardbtn2.addEventListener("click", () => {
+    cardbtn2.classList.add("d-none");
     document.getElementById("show-portfolio").classList.remove("d-none");
+    let Task = document.getElementsByClassName("portfolio_detail");
+
+    for (let i = 0; i < Task.length; i++) {
+      if (Task[i].classList.contains("task_click")) {
+        Task[i].classList.replace("task_click", "task");
+      }
+    }
   });
 }
 
