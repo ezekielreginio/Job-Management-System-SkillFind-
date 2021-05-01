@@ -9,6 +9,11 @@ from .models import Experience, ExperienceLevel, Education, Skill, Language, Res
 
 import datetime
 
+def user_check(user):
+    x = user.id
+    print(x)
+    return True
+
 # Create your views here.
 @login_required(login_url='/login/applicant')
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
