@@ -3,11 +3,16 @@ import { hide, select_borders, radio_borders, show, page_navigation, AJAX, csrft
 
 if(location.href.indexOf('employer/addjob') != -1){
 
+ 
+
     let prev_btn_list = document.getElementsByClassName("btn-prev-job")
     let next_btn_list = document.getElementsByClassName("btn-next-job")
 
     let job_title_suggestion = null
     autoComplete("id_job_title", job_title_suggestion, "position_title")
+
+    let location_suggestion = null
+    autoComplete("id_location", location_suggestion, "position_title")
 
     
     page_navigation(next_btn_list)
@@ -17,8 +22,52 @@ if(location.href.indexOf('employer/addjob') != -1){
     document.getElementById("id_compensation_range").addEventListener("change", (e)=>{
         if(e.target.value == "Starting at"){
             document.getElementById("id_max_salary").classList.add("d-none")
-            document.getElements
+            let span=document.getElementsByClassName("align-middle")
+            for(let i = 0; i<span.length; i++){
+                span[i].classList.add("d-none")
+            }
         }
+        else if(e.target.value == "Range"){
+            document.getElementById("id_max_salary").classList.remove("d-none")
+            let span=document.getElementsByClassName("align-middle")
+            for(let i = 0; i<span.length; i++){
+                span[i].classList.remove("d-none")
+        }
+    }
+    })
+
+    //for none check box
+    document.querySelectorAll('.custom-control-input').forEach(function(x){
+        x.addEventListener("change", function(){
+            if(document.getElementById("id_benefits_19").checked){
+                document.getElementById("id_benefits_1").checked = null
+                document.getElementById("id_benefits_2").checked = null
+                document.getElementById("id_benefits_3").checked = null
+                document.getElementById("id_benefits_4").checked = null
+                document.getElementById("id_benefits_5").checked = null
+                document.getElementById("id_benefits_6").checked = null
+                document.getElementById("id_benefits_7").checked = null
+                document.getElementById("id_benefits_8").checked = null
+                document.getElementById("id_benefits_9").checked = null
+                document.getElementById("id_benefits_10").checked = null
+                document.getElementById("id_benefits_11").checked = null
+                document.getElementById("id_benefits_12").checked = null
+                document.getElementById("id_benefits_13").checked = null
+                document.getElementById("id_benefits_14").checked = null
+                document.getElementById("id_benefits_15").checked = null
+                document.getElementById("id_benefits_16").checked = null
+                document.getElementById("id_benefits_17").checked = null
+                document.getElementById("id_benefits_18").checked = null
+                
+                
+            }
+            else {
+                document.getElementById("id_benefits_19").checked = null
+            }
+             
+            
+            
+        })
     })
 
 

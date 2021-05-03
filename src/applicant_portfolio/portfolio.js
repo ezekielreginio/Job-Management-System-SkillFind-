@@ -9,6 +9,11 @@
         
        if(clicked_card[i].classList.contains("task")){
         clicked_card[i].classList.replace("task", "task_click")
+        let eye=document.querySelectorAll(".eye")
+        for(let i =0; i<eye.length; i++){
+          eye[i].classList.replace("fa-eye", "fa-eye-slash")
+
+        }
         //for show all cards
        
       
@@ -17,6 +22,11 @@
        else if(clicked_card[i].classList.contains("task_click")){
         clicked_card[i].classList.replace("task_click", "task")
         document.getElementById("show-portfolio2").classList.add("d-none")
+        let eye=document.querySelectorAll(".eye")
+        for(let i =0; i<eye.length; i++){
+          eye[i].classList.replace("fa-eye-slash", "fa-eye")
+
+        }
        }
 
        
@@ -39,6 +49,11 @@
         for(let i = 0; i<Task.length; i++){
           if(Task[i].classList.contains("task")){
             Task[i].classList.replace("task", "task_click")
+            let eye=document.getElementsByClassName("eye")
+            for(let i =0; i<eye.length; i++){
+              eye[i].classList.replace("fa-eye", "fa-eye-slash")
+    
+            }
           }
         }
         
@@ -53,6 +68,11 @@
         for(let i = 0; i<Task.length; i++){
           if(Task[i].classList.contains("task_click")){
             Task[i].classList.replace("task_click", "task")
+            let eye=document.getElementsByClassName("eye")
+            for(let i =0; i<eye.length; i++){
+             eye[i].classList.replace("fa-eye-slash", "fa-eye")
+
+        }
           }
         }
  

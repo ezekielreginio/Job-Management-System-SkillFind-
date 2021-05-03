@@ -13,6 +13,12 @@ if(location.href.indexOf('education') != -1){
 
      let major_suggestion = null
      autoComplete("id_major", major_suggestion, "major")
+     
+     let university_suggestion = null
+     autoComplete("id_university", university_suggestion, "university")
+    
+     let university_location_suggestion = null
+     autoComplete("id_university_location", university_location_suggestion, "location")
 
 
     //Checks if the user has education data. If none, the add education form will be hidden

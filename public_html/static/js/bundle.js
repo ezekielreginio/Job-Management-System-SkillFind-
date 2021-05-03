@@ -752,7 +752,11 @@ if (location.href.indexOf('education') != -1) {
   let fieldofstudy_suggestion = null;
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_field_of_study", fieldofstudy_suggestion, "field_of_study");
   let major_suggestion = null;
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_major", major_suggestion, "major"); //Checks if the user has education data. If none, the add education form will be hidden
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_major", major_suggestion, "major");
+  let university_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_university", university_suggestion, "university");
+  let university_location_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_university_location", university_location_suggestion, "location"); //Checks if the user has education data. If none, the add education form will be hidden
 
   if (document.getElementById("div-education-list") == null) {
     document.getElementById("div-education-form").classList.remove("d-none");
@@ -1172,10 +1176,21 @@ if (location.href.indexOf('portfolio') != -1) {
       document.getElementById("show-portfolio").classList.remove("d-none");
 
       if (clicked_card[i].classList.contains("task")) {
-        clicked_card[i].classList.replace("task", "task_click"); //for show all cards
+        clicked_card[i].classList.replace("task", "task_click");
+        let eye = document.querySelectorAll(".eye");
+
+        for (let i = 0; i < eye.length; i++) {
+          eye[i].classList.replace("fa-eye", "fa-eye-slash");
+        } //for show all cards
+
       } else if (clicked_card[i].classList.contains("task_click")) {
         clicked_card[i].classList.replace("task_click", "task");
         document.getElementById("show-portfolio2").classList.add("d-none");
+        let eye = document.querySelectorAll(".eye");
+
+        for (let i = 0; i < eye.length; i++) {
+          eye[i].classList.replace("fa-eye-slash", "fa-eye");
+        }
       }
     });
   } //For Card Showall/Hideall Button
@@ -1192,6 +1207,11 @@ if (location.href.indexOf('portfolio') != -1) {
     for (let i = 0; i < Task.length; i++) {
       if (Task[i].classList.contains("task")) {
         Task[i].classList.replace("task", "task_click");
+        let eye = document.getElementsByClassName("eye");
+
+        for (let i = 0; i < eye.length; i++) {
+          eye[i].classList.replace("fa-eye", "fa-eye-slash");
+        }
       }
     }
   });
@@ -1204,6 +1224,11 @@ if (location.href.indexOf('portfolio') != -1) {
     for (let i = 0; i < Task.length; i++) {
       if (Task[i].classList.contains("task_click")) {
         Task[i].classList.replace("task_click", "task");
+        let eye = document.getElementsByClassName("eye");
+
+        for (let i = 0; i < eye.length; i++) {
+          eye[i].classList.replace("fa-eye-slash", "fa-eye");
+        }
       }
     }
   });
@@ -1283,14 +1308,54 @@ if (location.href.indexOf('employer/addjob') != -1) {
   let next_btn_list = document.getElementsByClassName("btn-next-job");
   let job_title_suggestion = null;
   (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_job_title", job_title_suggestion, "position_title");
+  let location_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_location", location_suggestion, "position_title");
   (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.page_navigation)(next_btn_list);
   (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.page_navigation)(prev_btn_list); //for starting range
 
   document.getElementById("id_compensation_range").addEventListener("change", e => {
     if (e.target.value == "Starting at") {
       document.getElementById("id_max_salary").classList.add("d-none");
-      document.getElements;
+      let span = document.getElementsByClassName("align-middle");
+
+      for (let i = 0; i < span.length; i++) {
+        span[i].classList.add("d-none");
+      }
+    } else if (e.target.value == "Range") {
+      document.getElementById("id_max_salary").classList.remove("d-none");
+      let span = document.getElementsByClassName("align-middle");
+
+      for (let i = 0; i < span.length; i++) {
+        span[i].classList.remove("d-none");
+      }
     }
+  }); //for none check box
+
+  document.querySelectorAll('.custom-control-input').forEach(function (x) {
+    x.addEventListener("change", function () {
+      if (document.getElementById("id_benefits_19").checked) {
+        document.getElementById("id_benefits_1").checked = null;
+        document.getElementById("id_benefits_2").checked = null;
+        document.getElementById("id_benefits_3").checked = null;
+        document.getElementById("id_benefits_4").checked = null;
+        document.getElementById("id_benefits_5").checked = null;
+        document.getElementById("id_benefits_6").checked = null;
+        document.getElementById("id_benefits_7").checked = null;
+        document.getElementById("id_benefits_8").checked = null;
+        document.getElementById("id_benefits_9").checked = null;
+        document.getElementById("id_benefits_10").checked = null;
+        document.getElementById("id_benefits_11").checked = null;
+        document.getElementById("id_benefits_12").checked = null;
+        document.getElementById("id_benefits_13").checked = null;
+        document.getElementById("id_benefits_14").checked = null;
+        document.getElementById("id_benefits_15").checked = null;
+        document.getElementById("id_benefits_16").checked = null;
+        document.getElementById("id_benefits_17").checked = null;
+        document.getElementById("id_benefits_18").checked = null;
+      } else {
+        document.getElementById("id_benefits_19").checked = null;
+      }
+    });
   });
 
   for (let i = 0; i < prev_btn_list.length; i++) {
