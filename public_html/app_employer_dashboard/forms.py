@@ -125,8 +125,8 @@ class EmployerAddJobListing(forms.ModelForm):
     )
 
     EMPLOYMENT_TYPE = (
-        ("Part-time Job", "Part-time Job"),
         ("Full-time Job", "Full-time Job"),
+        ("Part-time Job", "Part-time Job"),    
     )
 
     CHOICES = [('2', 'Temporarily due to COVID-19'), ('3', 'Yes'), ('1', 'No')]
