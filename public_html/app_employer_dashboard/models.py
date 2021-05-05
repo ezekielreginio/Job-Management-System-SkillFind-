@@ -38,3 +38,5 @@ class JobListing(models.Model):
     qualification_license = models.JSONField(null=True, blank=True)
 
     qualification_language = models.JSONField(null=True, blank=True)
+
+    is_active = models.BooleanField(null=False, blank=False, default=True)
