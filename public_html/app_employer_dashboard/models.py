@@ -39,4 +39,4 @@ class JobListing(models.Model):
 
     qualification_language = models.JSONField(null=True, blank=True)
 
-    is_active = models.BooleanField(null=False, blank=False, default=True)
+    is_active = models.CharField(max_length=10, null=False, blank=False, default="Active")
