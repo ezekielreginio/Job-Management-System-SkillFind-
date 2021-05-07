@@ -735,6 +735,29 @@ if (location.href.indexOf('handicapped') != -1) {
 
 /***/ }),
 
+/***/ "./src/app_handicapped/login.js":
+/*!**************************************!*\
+  !*** ./src/app_handicapped/login.js ***!
+  \**************************************/
+/***/ (() => {
+
+if (location.href.indexOf('login-handicapped') != -1) {
+  document.getElementById("btn-sign").addEventListener("click", function () {
+    this.classList.replace("btn-pwd-nonactive", "btn-pwd");
+    document.getElementById("btn-login").classList.replace("btn-pwd", "btn-pwd-nonactive");
+    document.getElementById("login-content").classList.add("d-none");
+    document.getElementById("signup-content").classList.remove("d-none");
+  });
+  document.getElementById("btn-login").addEventListener("click", function () {
+    this.classList.replace("btn-pwd-nonactive", "btn-pwd");
+    document.getElementById("btn-sign").classList.replace("btn-pwd", "btn-pwd-nonactive");
+    document.getElementById("signup-content").classList.add("d-none");
+    document.getElementById("login-content").classList.remove("d-none");
+  });
+}
+
+/***/ }),
+
 /***/ "./src/applicant_portfolio/education.js":
 /*!**********************************************!*\
   !*** ./src/applicant_portfolio/education.js ***!
@@ -26151,6 +26174,10 @@ const {
 const {
   handicapped_index
 } = __webpack_require__(/*! ./app_handicapped/index */ "./src/app_handicapped/index.js");
+
+const {
+  handicapped_login
+} = __webpack_require__(/*! ./app_handicapped/login */ "./src/app_handicapped/login.js");
 
 const {
   portfolio_summary
