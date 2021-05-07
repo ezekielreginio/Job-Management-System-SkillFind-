@@ -434,7 +434,7 @@ function RequestBodyFactory(context) {
   */
   let header = {};
 
-  if (context['type'] != null) {
+  if (context['type'] == "application/json") {
     header = {
       'Content-Type': context['type'],
       //'application/json',
@@ -457,7 +457,101 @@ function RequestBodyFactory(context) {
     mode: 'same-origin' // Do not send CSRF token to another domain.
 
   };
+  return body;
 }
+
+/***/ }),
+
+/***/ "./src/_factories/validation.js":
+/*!**************************************!*\
+  !*** ./src/_factories/validation.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Validation": () => (/* binding */ Validation)
+/* harmony export */ });
+let Validation = (() => {
+  let flag = false;
+
+  function validate_form(form) {
+    /*Parameter:
+        form: Form Should be an object not an ID or Class
+    */
+    //Variable Declarations:
+    let inputs = form.getElementsByTagName("input");
+    let i = 0;
+    let error = null; //Function Calls:
+
+    reset_validation();
+
+    for (i = 0; i < inputs.length; i++) {
+      if (inputs[i].required) validate_required(inputs[i]);
+      if (inputs[i].getAttribute("type") == "text") validate_text(inputs[i]);else if (inputs[i].getAttribute("type") == "checkbox" && inputs[i].getAttribute("data-required").toLowerCase() == "true") {
+        let input_checklist = document.getElementsByName(inputs[i].getAttribute("name"));
+        let list_size = input_checklist.length;
+        i += list_size - 1;
+        let list_flag = true;
+
+        for (let j = 0; j < input_checklist.length; j++) {
+          console.log(input_checklist[j]);
+          if (input_checklist[j].checked) list_flag = false;
+        }
+
+        if (list_flag) {
+          invalid_message(input_checklist[list_size - 1].parentElement, "Please Select an Option Above");
+          flag = true;
+        }
+      } // if(inputs[i].getAttribute("type") == "text")
+      //     validate_text(inputs[i]) 
+    }
+
+    if (flag == true) {
+      error = document.getElementsByClassName("is-invalid")[0].getBoundingClientRect();
+      window.scrollTo(error.x, error.y - 50);
+    }
+
+    return flag;
+  }
+
+  function validate_required(input) {
+    if (input.value == "") {
+      flag = true;
+      invalid_message(input, "This is a Required Field");
+    }
+  }
+
+  function validate_text(input) {
+    let pattern = /^[a-zA-Z0-9 .,-_ñ]*$/;
+
+    if (!input.value.match(pattern)) {
+      flag = true;
+      invalid_message(input, "Invalid Input. List of Acceptable Characters: A-Z,a-z,0-9,(-.,space)");
+    }
+  }
+
+  function invalid_message(input, message) {
+    let is_invalid = document.createElement("div");
+    is_invalid.classList.add("invalid-feedback");
+    input.classList.add("is-invalid");
+    is_invalid.textContent = message;
+    input.after(is_invalid);
+  }
+
+  function reset_validation() {
+    flag = false;
+    document.querySelectorAll(".is-invalid").forEach(function (e) {
+      e.classList.remove("is-invalid");
+      e.nextSibling.remove();
+    });
+  }
+
+  return {
+    validate_form: validate_form
+  };
+})();
 
 /***/ }),
 
@@ -1294,328 +1388,262 @@ if (location.href.indexOf('skills') != -1) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "create_qualification": () => (/* binding */ create_qualification)
-/* harmony export */ });
-/* harmony import */ var autocompleter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
-/* harmony import */ var autocompleter__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(autocompleter__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+/* harmony import */ var _factories_validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_factories/validation */ "./src/_factories/validation.js");
+/* harmony import */ var _create_qualification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./create_qualification */ "./src/employer_dashboard/create_qualification.js");
+
+
 
 
 
 if (location.href.indexOf('employer/addjob') != -1) {
-  let prev_btn_list = document.getElementsByClassName("btn-prev-job");
-  let next_btn_list = document.getElementsByClassName("btn-next-job");
-  let job_title_suggestion = null;
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_job_title", job_title_suggestion, "position_title");
-  let location_suggestion = null;
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_location", location_suggestion, "position_title");
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.page_navigation)(next_btn_list);
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.page_navigation)(prev_btn_list); //for starting range
+  let AddJob = (() => {
+    let hidden_elements = [];
+    let deselect_on_none = ['supplemental_pay', 'benefits'];
 
-  document.getElementById("id_compensation_range").addEventListener("change", e => {
-    if (e.target.value == "Starting at") {
-      document.getElementById("id_max_salary").classList.add("d-none");
-      let span = document.getElementsByClassName("align-middle");
+    function EventBubble() {
+      //Click Event Inside Bubble:
+      document.getElementById("addjob-bubble").addEventListener("click", e => {
+        if (e.target.classList.contains("btn-move-page")) {
+          window.scrollTo(0, 0);
+          let page_target = e.target.getAttribute("data-target-page");
+          let validate_page = _factories_validation__WEBPACK_IMPORTED_MODULE_2__.Validation.validate_form(e.target.parentElement);
+          if (!validate_page || e.target.innerHTML == "Previous Page") (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.swap_display)(e.target.parentElement.getAttribute("id"), page_target);
+        } else if (e.target.getAttribute("id") == "btn-post-job") {
+          (async () => {
+            let formdata_joblist = new FormData(document.getElementById("form-add-job"));
+            let qualification_data = CompileQualifications();
+            formdata_joblist.append("qualifications", JSON.stringify(qualification_data));
+            const request = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestFactory)("./addjob");
+            const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestBodyFactory)({
+              "method": "POST",
+              "body": formdata_joblist
+            });
+            const response = await fetch(request, body);
 
-      for (let i = 0; i < span.length; i++) {
-        span[i].classList.add("d-none");
-      }
-    } else if (e.target.value == "Range") {
-      document.getElementById("id_max_salary").classList.remove("d-none");
-      let span = document.getElementsByClassName("align-middle");
+            if (response.status == 200) {
+              location.replace("/employer/jobspanel");
+            }
+          })();
+        } else if (e.target.classList.contains("custom-checkbox") || deselect_on_none.includes(e.target.getAttribute("name"))) {
+          let checkbox = "";
+          let parentElement = "";
 
-      for (let i = 0; i < span.length; i++) {
-        span[i].classList.remove("d-none");
-      }
-    }
-  }); //for none check box
+          if (e.target.getAttribute("type") == "checkbox") {
+            checkbox = e.target;
+            parentElement = e.target.parentElement.parentElement;
+          } else {
+            checkbox = e.target.firstElementChild;
+            parentElement = e.target.parentElement;
+            if (checkbox.checked) checkbox.checked = false;else checkbox.checked = true;
+          }
 
-  document.querySelectorAll('.custom-control-input').forEach(function (x) {
-    x.addEventListener("change", function () {
-      if (document.getElementById("id_benefits_19").checked) {
-        document.getElementById("id_benefits_1").checked = null;
-        document.getElementById("id_benefits_2").checked = null;
-        document.getElementById("id_benefits_3").checked = null;
-        document.getElementById("id_benefits_4").checked = null;
-        document.getElementById("id_benefits_5").checked = null;
-        document.getElementById("id_benefits_6").checked = null;
-        document.getElementById("id_benefits_7").checked = null;
-        document.getElementById("id_benefits_8").checked = null;
-        document.getElementById("id_benefits_9").checked = null;
-        document.getElementById("id_benefits_10").checked = null;
-        document.getElementById("id_benefits_11").checked = null;
-        document.getElementById("id_benefits_12").checked = null;
-        document.getElementById("id_benefits_13").checked = null;
-        document.getElementById("id_benefits_14").checked = null;
-        document.getElementById("id_benefits_15").checked = null;
-        document.getElementById("id_benefits_16").checked = null;
-        document.getElementById("id_benefits_17").checked = null;
-        document.getElementById("id_benefits_18").checked = null;
-      } else {
-        document.getElementById("id_benefits_19").checked = null;
-      }
-    });
-  });
+          if (deselect_on_none.includes(checkbox.getAttribute("name"))) {
+            let target_name = checkbox.getAttribute("name");
 
-  for (let i = 0; i < prev_btn_list.length; i++) {
-    prev_btn_list[i].addEventListener("click", function () {
-      this.parentElement.classList.add("d-none");
-      let prev_page = this.getAttribute("data-prev-page");
-      document.getElementById(prev_page).classList.remove("d-none");
-    });
-  } //Yes No Option for accepting handicapped option
+            if (checkbox.value == "None") {
+              DeselectOnNone(checkbox, target_name);
+            } else {
+              parentElement.querySelector('[value="None"]').checked = false;
+            }
+          }
+        } else if (e.target.parentElement.getAttribute("id") == "dropdown-add-qualification") {
+          let qualification = e.target.textContent;
+          let qualification_template = _create_qualification__WEBPACK_IMPORTED_MODULE_3__.create_qualification.create_qualification_card(qualification);
+          document.getElementById("p5-container").appendChild(qualification_template);
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        } else if (e.target.getAttribute("name") == "card-close") {
+          e.target.parentElement.parentElement.parentElement.remove();
+        }
 
+        function DeselectOnNone(target, target_name) {
+          document.querySelectorAll('[name="' + target_name + '"]').forEach(x => {
+            x.checked = false;
+          });
+          target.checked = true;
+        }
+      }); //Change Event Inside Bubble:
 
-  yes_no_hidden_option("id_accept_handicapped", "div_id_accepted_handicapped_types", "accepted_handicapped_types"); //Yes No Option for starting date option
+      document.getElementById("addjob-bubble").addEventListener("change", e => {
+        if (e.target.classList.contains("yes-no-option") && e.target.value == "true") {
+          let next_sibling = e.target.parentElement.parentElement.nextElementSibling;
+          next_sibling.classList.remove("d-none");
+          ChangeRequired(next_sibling, true);
+        } else if (e.target.classList.contains("yes-no-option") && e.target.value == "false") {
+          let next_sibling = e.target.parentElement.parentElement.nextElementSibling;
+          next_sibling.classList.add("d-none");
+          ChangeRequired(next_sibling, false);
+        } else if (e.target.getAttribute("name") == "compensation_range") {
+          if (e.target.value != "Range") {
+            document.getElementById("id_max_salary").value = "";
+            HideElements([document.getElementById("div_id_max_salary"), document.getElementById("span-compensation")]);
+            document.getElementById("id_max_salary").required = false;
+          } else {
+            document.getElementById("div_id_max_salary").classList.remove("d-none");
+            document.getElementById("span-compensation").classList.remove("d-none");
+            document.getElementById("id_max_salary").required = true;
+          }
+        } else if (e.target.getAttribute("name") == "select-level-education") {
+          if (e.target.value == "Bachelor" || e.target.value == "Master Degree" || e.target.value == "Doctorate") {
+            e.target.nextElementSibling.innerHTML = `
+                        <h6>Major in 
+                            <input type="text" class="custom-form-input m-2 p-2" name="major">
+                        </h6>
+                        `;
+          } else if (e.target.value == "Senior High School") {
+            e.target.nextElementSibling.innerHTML = `
+                            <h6>SHS Strand 
+                                <select class="custom-form-input m-2 p-2" name="major">
+                                    <option value="STEM">STEM</option>
+                                    <option value="ABM">ABM</option>
+                                    <option value="HUMMS">HUMMS</option>
+                                    <option value="GAS">GAS</option>
+                                    <option value="ICT">ICT</option>
+                                    <option value="ICT">Industrial Arts</option>
+                                    <option value="Home Economics">Home Economics</option>
+                                </select>
+                            </h6>
+                        `;
+          } else {
+            e.target.nextElementSibling.innerHTML = ``;
+          }
+        }
 
-  yes_no_hidden_option("id_date_prompt", "div_id_start_date", "start_date"); //Yes No Option for application deadline option
+        function ChangeRequired(next_sibling, bool_value) {
+          next_sibling.querySelectorAll('[name="' + e.target.getAttribute("data-name") + '"]').forEach(x => {
+            if (x.getAttribute("type") == "checkbox") {
+              if (!bool_value) x.checked = bool_value;
+              x.setAttribute("data-required", bool_value);
+            }
 
-  yes_no_hidden_option("id_application_resume", "div_id_application_deadline", "application_deadline"); //Qualification Card for Edit Function
-
-  let qualification_ctr = 1; // try{
-  //     document.getElementsByName("qualification-experience")[0].remove()
-  //     // if(!isEmpty(data_qualification_experience) && !isEmpty(data_qualification_education) && !isEmpty(data_qualification_license) && !isEmpty(data_qualification_language) && !isEmpty(data_qualification_location)){
-  //     //     document.getElementsByName("qualification-experience")[0].remove()
-  //     // }
-  //     for (const [key, value] of Object.entries(data_qualification_experience)) {
-  //         qualification_ctr++
-  //         let qualification_template =  create_qualification_template("Experience", qualification_ctr)
-  //         console.log(qualification_template)
-  //         qualification_template.querySelector("[name='year']").value = value['year']
-  //         qualification_template.querySelector("[name='experience']").value = value['name']
-  //         qualification_template.querySelector("[name='required-preferred']").value = value['required']
-  //         document.getElementById("p5-container").appendChild(qualification_template)
-  //     }
-  // }
-  // catch(e){
-  // }
-  //Event Listeners:
-  //Close Qualification Card Event Listener:
-
-  document.getElementById("p5-container").addEventListener("click", e => {
-    if (e.target.getAttribute("name") == "card-close") {
-      e.target.parentElement.parentElement.parentElement.remove();
-      qualification_ctr--;
-    }
-  });
-  document.getElementById("p5-container").addEventListener("change", e => {
-    if (e.target.getAttribute("name") == "select-level-education") {
-      let div_container = e.target.nextElementSibling;
-
-      if (e.target.value == "Senior High School") {
-        div_container.innerHTML = `
-                <h6>SHS Strand 
-                    <select class="custom-form-input m-2 p-2" name="major">
-                        <option value="STEM">STEM</option>
-                        <option value="ABM">ABM</option>
-                        <option value="HUMMS">HUMMS</option>
-                        <option value="GAS">GAS</option>
-                        <option value="ICT">ICT</option>
-                        <option value="ICT">Industrial Arts</option>
-                        <option value="Home Economics">Home Economics</option>
-                    </select>
-                </h6>
-                `;
-      } else if (e.target.value == "Bachelor" || e.target.value == "Master" || e.target.value == "Doctorate") {
-        div_container.innerHTML = `
-                <h6>Major in 
-                <input type="text" class="custom-form-input m-2 p-2" name="major">
-                </h6>
-                `;
-      } else {
-        div_container.innerHTML = ``;
-      }
-    }
-  }); //Add qualification event listener:
-
-  document.getElementById("dropdown-add-qualification").addEventListener("click", e => {
-    qualification_ctr++;
-    let selected_option = e.target.textContent; //let qualification_template = create_qualification_template(selected_option, qualification_ctr)
-
-    let qualification_template = null;
-    if (selected_option == "Experience") qualification_template = create_qualification.add_experience();else if (selected_option == "Education") qualification_template = create_qualification.add_education();else if (selected_option == "Location") qualification_template = create_qualification.add_location();else if (selected_option == "Language") qualification_template = create_qualification.add_language();else if (selected_option == "License") qualification_template = create_qualification.add_license();
-    document.getElementById("p5-container").appendChild(qualification_template);
-  }); // function create_qualification_template(selected_option, qualification_ctr){
-  //     let qualification_template = document.getElementsByClassName("qualification-template")[0].cloneNode(true)
-  //     qualification_template.classList.remove("d-none")
-  //     qualification_template.querySelectorAll("[name='qualification_required']").forEach((e)=>{ e.setAttribute("name", "qualification_required"+qualification_ctr) })
-  //     qualification_template.querySelector("#qualification-header").textContent = selected_option
-  //     if(selected_option == "Experience"){
-  //         qualification_template.setAttribute("name", "qualification-experience")
-  //     }
-  //     else if(selected_option == "Education"){
-  //         qualification_template.setAttribute("name", "qualification-education")
-  //         qualification_template.querySelector("#qualification-body").innerHTML = `
-  //             <h6>Level of Education 
-  //                 <select class="custom-form-input m-2 p-2" name="select-level-education">
-  //                     <option value="Elementary">Elementary/Primary School</option>
-  //                     <option value="Junior High School">Junior High School</option>
-  //                     <option value="Senior High School">Senior High School</option>
-  //                     <option value="Bachelor">Bachelor Degree</option>
-  //                     <option value="Master Degree">Master Degree</option>
-  //                     <option value="Doctorate">Doctorate</option>
-  //                 </select>
-  //                 <div name="education-specific-info"></div>
-  //             </h6>
-  //         `
-  //     }
-  //     else if(selected_option == "License"){
-  //         qualification_template.setAttribute("name", "qualification-license")
-  //         qualification_template.querySelector("#qualification-body").innerHTML = `
-  //             <h6>Valid <input type="text" class="custom-form-input m-2 p-2" name="license"> license or certification </h6>
-  //         `
-  //     }
-  //     else if(selected_option == "Language"){
-  //         qualification_template.setAttribute("name", "qualification-language")
-  //         qualification_template.querySelector("#qualification-body").innerHTML = `
-  //             <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
-  //         `
-  //     }
-  //     else if(selected_option == "Location"){
-  //         qualification_template.setAttribute("name", "qualification-location")
-  //         qualification_template.querySelector("#qualification-body").innerHTML = `
-  //             <h6>Located in `+document.getElementById("id_location").value+`</h6>
-  //         `
-  //     }
-  //     return qualification_template
-  // }
-  //Post Job Btn  
-
-  document.getElementById("btn-post-job").addEventListener("click", e => {
-    let qualification_experience = {};
-    let qualification_education = {};
-    let qualification_license = {};
-    let qualification_language = {};
-    let qualification_location = null;
-    let experience_data = document.getElementsByName("qualification-experience");
-    let education_data = document.getElementsByName("qualification-education");
-    let license_data = document.getElementsByName("qualification-license");
-    let language_data = document.getElementsByName("qualification-language");
-
-    try {
-      qualification_location = document.getElementsByName("qualification-location")[0].querySelector("[name='required-preferred']").value;
-    } catch (e) {}
-
-    for (let i = 0; i < experience_data.length; i++) {
-      qualification_experience[i] = {
-        "year": experience_data[i].querySelector("[name='year']").value,
-        "name": experience_data[i].querySelector("[name='experience']").value,
-        "required": experience_data[i].querySelector("[name='required-preferred']").value
-      };
-    }
-
-    for (let i = 0; i < education_data.length; i++) {
-      let major = null;
-
-      try {
-        major = education_data[i].querySelector("[name='major']").value;
-      } catch (e) {}
-
-      qualification_education[i] = {
-        "level": education_data[i].querySelector("[name='select-level-education']").value,
-        "major": major,
-        "required": education_data[i].querySelector("[name='required-preferred']").value
-      };
-    }
-
-    for (let i = 0; i < license_data.length; i++) {
-      qualification_license[i] = {
-        "license": license_data[i].querySelector("[name='license']").value,
-        "required": license_data[i].querySelector("[name='required-preferred']").value
-      };
-    }
-
-    for (let i = 0; i < language_data.length; i++) {
-      qualification_language[i] = {
-        "language": language_data[i].querySelector("[name='language']").value,
-        "required": language_data[i].querySelector("[name='required-preferred']").value
-      };
-    }
-
-    let data = {
-      "qualification_experience": qualification_experience,
-      "qualification_education": qualification_education,
-      "qualification_license": qualification_license,
-      "qualification_location": qualification_location,
-      "qualification_language": qualification_language
-    };
-    let formdata_joblist = new FormData(document.getElementById("form-add-job"));
-    formdata_joblist.append("qualifications", JSON.stringify(data));
-    (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.AJAX)({
-      "method": "POST",
-      "action": "./addjob",
-      "body": formdata_joblist,
-      "token": _global_global__WEBPACK_IMPORTED_MODULE_1__.csrftoken,
-      "function": function (response) {
-        if (response.status == 200) {
-          response.json().then(json => {
-            location.replace("/employer/jobspanel");
+            if (x.getAttribute("type") == "text" || x.getAttribute("type") == "date") {
+              x.required = bool_value;
+              if (!bool_value) x.value = "";
+            }
           });
         }
+      });
+    }
+
+    function CompileQualifications() {
+      let qualification_experience = {};
+      let qualification_education = {};
+      let qualification_licenses = {};
+      let qualification_languages = {};
+      let qualification_location = null;
+      let experience_data = document.getElementsByName("qualification-experience");
+      let education_data = document.getElementsByName("qualification-education");
+      let license_data = document.getElementsByName("qualification-license");
+      let language_data = document.getElementsByName("qualification-language");
+
+      try {
+        qualification_location = document.getElementsByName("qualification-location")[0].querySelector("[name='required-preferred']").value;
+      } catch (e) {}
+
+      for (let i = 0; i < experience_data.length; i++) {
+        qualification_experience[i] = {
+          "year": experience_data[i].querySelector("[name='year']").value,
+          "name": experience_data[i].querySelector("[name='experience']").value,
+          "required": experience_data[i].querySelector("[name='required-preferred']").value
+        };
       }
-    });
-  }); //Functions:
 
-  function yes_no_hidden_option(yesno_field, hidden_target, target_fieldname) {
-    document.getElementById(yesno_field).addEventListener("change", e => {
-      if (e.target.value == "true") {
-        document.getElementById(hidden_target).classList.remove("d-none");
-        document.getElementById(hidden_target).querySelectorAll('[name="' + target_fieldname + '"]').forEach(e => {
-          e.setAttribute("data-required", "True");
-        });
-      } else if (e.target.value == "false") {
-        document.getElementById(hidden_target).classList.add("d-none");
-        document.getElementById(hidden_target).querySelectorAll('[name="' + target_fieldname + '"]').forEach(e => {
-          e.checked = false;
-          e.setAttribute("data-required", "False");
-        });
+      for (let i = 0; i < education_data.length; i++) {
+        let major = null;
+
+        try {
+          major = education_data[i].querySelector("[name='major']").value;
+        } catch (e) {}
+
+        qualification_education[i] = {
+          "level": education_data[i].querySelector("[name='select-level-education']").value,
+          "major": major,
+          "required": education_data[i].querySelector("[name='required-preferred']").value
+        };
       }
-    });
-  } //Scripts for Add Job CSS Styling
-  //CSS for handicapped types
+
+      for (let i = 0; i < license_data.length; i++) {
+        qualification_licenses[i] = {
+          "license": license_data[i].querySelector("[name='license']").value,
+          "required": license_data[i].querySelector("[name='required-preferred']").value
+        };
+      }
+
+      for (let i = 0; i < language_data.length; i++) {
+        qualification_languages[i] = {
+          "language": language_data[i].querySelector("[name='language']").value,
+          "required": language_data[i].querySelector("[name='required-preferred']").value
+        };
+      }
+
+      let data = {
+        "qualification_experience": qualification_experience,
+        "qualification_education": qualification_education,
+        "qualification_licenses": qualification_licenses,
+        "qualification_location": qualification_location,
+        "qualification_languages": qualification_languages
+      };
+      return data;
+    } //Adds Borders to Select Checkbox Fields
 
 
-  document.getElementById("div_id_accepted_handicapped_types").classList.add("d-none"); //CSS for multi select borders
+    function SelectBorders(selectboxes) {
+      for (let i = 0; i < selectboxes.length; i++) {
+        selectboxes[i].classList.add("selectbox-border", "my-3");
+      }
+    }
 
-  let multi_checkbox = document.getElementsByClassName("custom-checkbox");
-  let multi_radio = document.getElementsByClassName("custom-radio");
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.select_borders)(multi_checkbox);
-  let yes_opt = null; //Start Date CSS
+    function HideElements(elements) {
+      for (let i = 0; i < elements.length; i++) {
+        try {
+          elements[i].classList.add("d-none");
+        } catch (e) {}
+      }
+    }
 
-  document.getElementById("div_id_start_date").firstElementChild.remove();
-  document.getElementById("id_start_date").setAttribute("placeholder", "Start Date (MM/DD/YYYY)");
-  document.getElementById("id_start_date").classList.add("w-50");
-  document.getElementById("id_start_date").addEventListener("focus", function () {
-    this.setAttribute("type", "date");
-  });
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.hide)("div_id_start_date"); //Application Deadline CSS
+    function CheckBoolean(element, target) {
+      if (element.value == "false") return target;
+    } //Public_Members:
 
-  document.getElementById("id_application_deadline").classList.add("w-50");
-  document.getElementById("id_application_deadline").setAttribute("data-required", "True"); //hide("div_id_application_deadline")
+
+    return {
+      getInstance: () => {
+        hidden_elements = [CheckBoolean(document.getElementById("id_accept_handicapped"), document.getElementById("div_id_accepted_handicapped_types")), (() => {
+          if (document.getElementById("id_start_date").value == "") return document.getElementById("div_id_start_date");else document.getElementById("id_date_prompt").value = "true";
+        })(), (() => {
+          if (document.getElementById("id_compensation_range").value != "Range") {
+            HideElements([document.getElementById("div_id_max_salary"), document.getElementById("span-compensation")]);
+          }
+        })(), (() => {
+          if (document.getElementById("id_application_deadline").value == "") return document.getElementById("div_id_application_deadline");else document.getElementById("id_application_resume").value = "true";
+        })()];
+        EventBubble();
+        SelectBorders(document.getElementsByClassName("custom-checkbox"));
+        HideElements(hidden_elements);
+      }
+    };
+  })();
+
+  let addJob_instance = AddJob.getInstance();
 }
-/*
-Type 1:
-function FunctionName(parameter){
-    Function Body
-    return
-}
 
-Type 2:
-(parameter)=>{
-    Function Body
-    return
-}
-document.getElementById("Button-ID").addEventListener("click", (e)=>{})
+/***/ }),
 
-Type 3:
-(()={
-    function body
-})()
-*/
-//Improvement of create_qualification_template (Module Design Pattern)
+/***/ "./src/employer_dashboard/create_qualification.js":
+/*!********************************************************!*\
+  !*** ./src/employer_dashboard/create_qualification.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "create_qualification": () => (/* binding */ create_qualification)
+/* harmony export */ });
 var create_qualification = (() => {
   //private members:  
   function clone_template() {
@@ -1684,6 +1712,10 @@ var create_qualification = (() => {
             <h6>Speaks the following language: <input type="text" class="custom-form-input m-2 p-2" name="language"></h6>
         `;
     return qualification_language;
+  }
+
+  function create_qualification_card(qualification) {
+    if (qualification == "Experience") return add_experience();else if (qualification == "Education") return add_education();else if (qualification == "Location") return add_location();else if (qualification == "Language") return add_language();else if (qualification == "License") return add_license();
   } //public members:
 
 
@@ -1692,7 +1724,8 @@ var create_qualification = (() => {
     add_education: add_education,
     add_location: add_location,
     add_language: add_language,
-    add_license: add_license
+    add_license: add_license,
+    create_qualification_card: create_qualification_card
   };
 })();
 
@@ -1729,6 +1762,57 @@ function adjust_logo() {
 
 /***/ }),
 
+/***/ "./src/employer_dashboard/jobspanel.js":
+/*!*********************************************!*\
+  !*** ./src/employer_dashboard/jobspanel.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+
+
+if (location.href.indexOf('employer/jobspanel') != -1) {
+  //Singleton Design Pattern
+  let JobsPanel = (() => {
+    function EventBubble() {
+      document.getElementById("jobspanel-bubble").addEventListener("click", e => {
+        if (e.target.classList.contains("btn-set-active")) {
+          (async () => {
+            let response = await Update_JobStatus(e.target.getAttribute("data-job-id"), e.target.getAttribute("data-status"));
+            location.reload();
+          })();
+        }
+      });
+    }
+
+    async function Update_JobStatus(job_id, job_status) {
+      let json_body = {
+        "status": job_status
+      };
+      const request = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__.RequestFactory)("/ajax/updatejoblistingstatus/" + job_id + "/");
+      const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__.RequestBodyFactory)({
+        "method": "POST",
+        "type": "application/json",
+        "body": JSON.stringify(json_body)
+      });
+      const response = await fetch(request, body);
+      return await response.json();
+    }
+
+    return {
+      getInstance: () => {
+        EventBubble();
+      }
+    };
+  })();
+
+  let jobspanel_instance = JobsPanel.getInstance();
+}
+
+/***/ }),
+
 /***/ "./src/employer_dashboard/load_qualifications.js":
 /*!*******************************************************!*\
   !*** ./src/employer_dashboard/load_qualifications.js ***!
@@ -1739,7 +1823,7 @@ function adjust_logo() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
 /* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
-/* harmony import */ var _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../employer_dashboard/addjob */ "./src/employer_dashboard/addjob.js");
+/* harmony import */ var _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../employer_dashboard/create_qualification */ "./src/employer_dashboard/create_qualification.js");
 
 
 
@@ -1767,31 +1851,31 @@ if (location.href.indexOf('employer/addjob') != -1) {
       let qualification_location_data = data_samp['qualification_location']; //console.log(data_samp)
 
       for (const [key, value] of Object.entries(data_samp['qualification_experience'])) {
-        let qualification_experience = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_experience();
+        let qualification_experience = _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_experience();
         qualification_experience = populate_qualification(qualification_experience, value).populate_experience();
         document.getElementById("p5-container").appendChild(qualification_experience);
       }
 
       for (const [key, value] of Object.entries(data_samp['qualification_education'])) {
-        let qualification_education = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_education();
+        let qualification_education = _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_education();
         qualification_education = populate_qualification(qualification_education, value).populate_education();
         document.getElementById("p5-container").appendChild(qualification_education);
       }
 
       if (qualification_location_data != null) {
-        let qualification_location = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_location();
+        let qualification_location = _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_location();
         qualification_location = populate_qualification(qualification_location, qualification_location_data).populate_location();
         document.getElementById("p5-container").appendChild(qualification_location);
       }
 
       for (const [key, value] of Object.entries(data_samp['qualification_licenses'])) {
-        let qualification_license = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_license();
+        let qualification_license = _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_license();
         qualification_license = populate_qualification(qualification_license, value).populate_license();
         document.getElementById("p5-container").appendChild(qualification_license);
       }
 
       for (const [key, value] of Object.entries(data_samp['qualification_languages'])) {
-        let y = _employer_dashboard_addjob__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_language();
+        let y = _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_language();
       }
     })();
 
@@ -1814,6 +1898,7 @@ if (location.href.indexOf('employer/addjob') != -1) {
                             <input type="text" class="custom-form-input m-2 p-2" name="major">
                         </h6>
                     `;
+          qualification.querySelector("[name='major']").value = data['major'];
         } else if (data['level'] == "Senior High School") {
           qualification.querySelector("[name='education-specific-info']").innerHTML = `
                         <h6>SHS Strand 
@@ -1828,9 +1913,9 @@ if (location.href.indexOf('employer/addjob') != -1) {
                             </select>
                         </h6>
                     `;
+          qualification.querySelector("[name='major']").value = data['major'];
         }
 
-        qualification.querySelector("[name='major']").value = data['major'];
         return qualification;
       }
 
@@ -26155,6 +26240,10 @@ const {
 const {
   portfolio_summary
 } = __webpack_require__(/*! ./applicant_portfolio/portfolio */ "./src/applicant_portfolio/portfolio.js");
+
+const {
+  jobs_panel
+} = __webpack_require__(/*! ./employer_dashboard/jobspanel */ "./src/employer_dashboard/jobspanel.js");
 })();
 
 /******/ })()

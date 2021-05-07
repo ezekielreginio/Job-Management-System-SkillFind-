@@ -1,6 +1,6 @@
 import { csrftoken } from "../_global/global";
 import { RequestFactory, RequestBodyFactory } from "../_factories/ajax_requests"
-import { create_qualification} from "../employer_dashboard/addjob"
+import { create_qualification} from "../employer_dashboard/create_qualification"
 
 if(location.href.indexOf('employer/addjob') != -1){
     let url = location.href
@@ -75,6 +75,7 @@ if(location.href.indexOf('employer/addjob') != -1){
                             <input type="text" class="custom-form-input m-2 p-2" name="major">
                         </h6>
                     `
+                    qualification.querySelector("[name='major']").value = data['major']
                 }
                 else if(data['level'] == "Senior High School"){
                     qualification.querySelector("[name='education-specific-info']").innerHTML = `
@@ -90,8 +91,9 @@ if(location.href.indexOf('employer/addjob') != -1){
                             </select>
                         </h6>
                     `
+                    qualification.querySelector("[name='major']").value = data['major']
                 }
-                qualification.querySelector("[name='major']").value = data['major']
+                
                 
                 return qualification
             }

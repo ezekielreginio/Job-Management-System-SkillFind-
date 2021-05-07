@@ -20,7 +20,7 @@ export function RequestBodyFactory(context){
         }
     */
     let header = {}
-    if(context['type'] != null){
+    if(context['type'] == "application/json"){
         header = {
             'Content-Type': context['type'], //'application/json',
             'X-CSRFToken': csrftoken //csrftoken
@@ -37,5 +37,7 @@ export function RequestBodyFactory(context){
         headers: header,
         mode: 'same-origin'  // Do not send CSRF token to another domain.
     }
+
+    return body
 }
 

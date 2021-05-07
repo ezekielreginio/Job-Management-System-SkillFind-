@@ -8,7 +8,7 @@
 {% endblock dashboard-title %}
 
 {% block dashboard-content%}
-    <div class="mx-4 text-white">
+    <div class="mx-4 text-white" id="jobspanel-bubble">
         <table class="text-white" id="table-job-posting">
             <thead>
                 <tr>
@@ -33,9 +33,9 @@
                                 <hr style="background-color: black">
                                 <a class="dropdown-item" href="{% url 'employer_updatejob' job.id %}" data-job-id="{{job.id}}">Edit</a>
                                 {% if job.is_active == "Active" %}
-                                    <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Set as Inactive</a>
+                                    <a class="btn-set-active dropdown-item" href="#" data-status="Inactive" data-job-id="{{job.id}}">Set as Inactive</a>
                                 {% else %}
-                                    <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Set as Active</a>
+                                    <a class="btn-set-active dropdown-item" href="#" data-status="Active" data-job-id="{{job.id}}">Set as Active</a>
                                 {% endif %}
                                 <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Archive</a>
                             </div>
