@@ -13,6 +13,7 @@ urlpatterns = [
     path('employer/addjob/<str:pk>/', views.employer_addjob, name="employer_updatejob"),
 
     path('ajax/requestqualifications/<str:pk>', views.request_qualifications, name='request_qualification'),
+    path('ajax/updatejoblistingstatus/<str:pk>/', views.update_jobstatus, name='update_jobstatus'),
 
     path('login/employer/password_reset/', PasswordResetView.as_view(template_name='app_employer/password-reset.html'), name='password_reset'),
     path('employer/password_reset/done/', PasswordResetDoneView.as_view(template_name='app_employer/password-reset-done.html'), name='password_reset_done'),

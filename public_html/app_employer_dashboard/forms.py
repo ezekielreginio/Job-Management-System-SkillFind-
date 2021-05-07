@@ -146,7 +146,7 @@ class EmployerAddJobListing(forms.ModelForm):
 
     employment_type = forms.ChoiceField(choices=EMPLOYMENT_TYPE)
 
-    application_deadline = forms.DateField(widget=DateInput)
+    application_deadline = forms.DateField(widget=DateInput, required=False)
     
 
 
@@ -167,8 +167,21 @@ class EmployerAddJobListing(forms.ModelForm):
         # self.helper.label_class = 'col-3 text-right text-white'
         # self.helper.field_class = 'col-8'
 
+        #widgets
+        self.fields['accept_handicapped'].widget.attrs.update({
+            'class': 'yes-no-option',
+            'data-name': 'accepted_handicapped_types'
+        })
+        self.fields['date_prompt'].widget.attrs.update({
+            'class': 'yes-no-option',
+            'data-name': 'start_date'
+        })
+        self.fields['application_resume'].widget.attrs.update({
+            'class': 'yes-no-option',
+            'data-name': 'application_deadline'
+        })
+
         #labels
-        
         self.fields['date_prompt'].label = "Is there a planned start date for this job?"
         self.fields['initial_salary'].label = ""
         self.fields['max_salary'].label = ""
@@ -176,8 +189,8 @@ class EmployerAddJobListing(forms.ModelForm):
         self.fields['application_resume'].label = "Is there an application deadline?"
         self.fields['application_email_recepient'].label = "Daily updates about this job and candidates will be sent to:"
         self.helper.form_id = "form-add-job"
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary d-none'))
-        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger d-none', css_id="cancel-experience-form"))
+        #self.helper.add_input(Submit('save', 'Save', css_class='experiencelevel-save-btn btn-applicant'))
+        #self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-danger-dark text-white', css_id="cancel-experiencelevel-form"))
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -188,7 +201,7 @@ class EmployerAddJobListing(forms.ModelForm):
                     'accept_handicapped',
                     'accepted_handicapped_types',
                     'hires_needed',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p2-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-right" data-target-page="p2-add-job">Next Page</button> """),
                     css_class='pages-add-job',
                     css_id='p1-add-job',
                 ),
@@ -198,8 +211,8 @@ class EmployerAddJobListing(forms.ModelForm):
                     'job_schedules',
                     'date_prompt',
                     'start_date',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p1-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p3-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-left" data-target-page="p1-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-right" data-target-page="p3-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p2-add-job',
                 ),
@@ -207,14 +220,14 @@ class EmployerAddJobListing(forms.ModelForm):
                     'compensation_range',
                     Div(
                         'initial_salary',
-                        HTML(''' <span class="align-middle p-2">TO</span> '''),
+                        HTML(''' <span class="align-middle p-2" id="span-compensation">TO</span> '''),
                         'max_salary',
-                        css_class="d-flex flex-row d-none"
+                        css_class="d-flex flex-row"
                     ),
                     'supplemental_pay',
                     'benefits',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p2-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p4-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-left" data-target-page="p2-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-right" data-target-page="p4-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p3-add-job',
                 ),
@@ -224,8 +237,8 @@ class EmployerAddJobListing(forms.ModelForm):
                     'application_deadline',
                     'application_email_recepient',
                     'job_description',
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p3-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-next-job pull-right" data-next-page="p5-add-job">Next Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-left" data-target-page="p3-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-right" data-target-page="p5-add-job">Next Page</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p4-add-job',
                 ),
@@ -266,7 +279,7 @@ class EmployerAddJobListing(forms.ModelForm):
                         
                         
                     """),
-                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-prev-job pull-left" data-prev-page="p4-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-left" data-target-page="p4-add-job">Previous Page</button> """),
                     HTML(""" <button type="button" name="" id="btn-post-job" class="btn btn-secondary pull-right">Post Job</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p5-add-job',

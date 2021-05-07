@@ -8,7 +8,7 @@
 {% endblock dashboard-title %}
 
 {% block dashboard-content%}
-    <div class="mx-4 text-white">
+    <div class="mx-4 text-white" id="jobspanel-bubble">
         <table class="text-white" id="table-job-posting">
             <thead>
                 <tr>
@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{job.id}}</td>
                         <td>{{job.job_title}}</td>
-                        <td>Active</td>
+                        <td>{{job.is_active}}</td>
                         <td><div class="btn-group" role="group">
                             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Action
@@ -32,7 +32,11 @@
                                 <a class="dropdown-item" href="#" data-job-id="{{job.id}}">View Applicants</a>
                                 <hr style="background-color: black">
                                 <a class="dropdown-item" href="{% url 'employer_updatejob' job.id %}" data-job-id="{{job.id}}">Edit</a>
-                                <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Set as Inactive</a>
+                                {% if job.is_active == "Active" %}
+                                    <a class="btn-set-active dropdown-item" href="#" data-status="Inactive" data-job-id="{{job.id}}">Set as Inactive</a>
+                                {% else %}
+                                    <a class="btn-set-active dropdown-item" href="#" data-status="Active" data-job-id="{{job.id}}">Set as Active</a>
+                                {% endif %}
                                 <a class="dropdown-item" href="#" data-job-id="{{job.id}}">Archive</a>
                             </div>
                           </div></td>

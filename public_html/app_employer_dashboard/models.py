@@ -29,14 +29,16 @@ class JobListing(models.Model):
     application_email_recepient = models.EmailField(null=False, blank=False)
     job_description = models.TextField(max_length=3500, null=False, blank=False)
 
-    qualification_experience = models.JSONField(null=True, blank=True)
+    qualifications = models.JSONField(null=True, blank=True)
 
-    qualification_education = models.JSONField(null=True, blank=True)
+    # qualification_experience = models.JSONField(null=True, blank=True)
 
-    qualification_location = models.CharField(max_length=25, null=True, blank=True)
+    # qualification_education = models.JSONField(null=True, blank=True)
 
-    qualification_license = models.JSONField(null=True, blank=True)
+    # qualification_location = models.CharField(max_length=25, null=True, blank=True)
 
-    qualification_language = models.JSONField(null=True, blank=True)
+    # qualification_license = models.JSONField(null=True, blank=True)
 
-    is_active = models.BooleanField(null=False, blank=False, default=True)
+    # qualification_language = models.JSONField(null=True, blank=True)
+
+    is_active = models.CharField(max_length=10, null=True, blank=True, default="Active")
