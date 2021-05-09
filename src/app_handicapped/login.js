@@ -34,35 +34,41 @@ if(location.href.indexOf('login-handicapped') != -1 ){
         .join('')
         let tts = window.speechSynthesis
        
-    console.log(text)
+        console.log(text)
 
-    if(text=="email"){
-        document.getElementById("email").focus() 
-        let command = "your in email field"
-        let speech = new SpeechSynthesisUtterance(command)  
-        tts.speak(speech)
-       
-        
-    }
-  
+        if(text=="email"){
+            document.getElementById("email").focus() 
+            let command = "your in email field"
+            let speech = new SpeechSynthesisUtterance(command)  
+            tts.speak(speech)
+            
+            
+        }
 
-
-    if(text=="password"){
-        document.getElementById("pass").focus()
-        let command = "your in password field"
-        let speech = new SpeechSynthesisUtterance(command)   
-        tts.speak(speech)
-       
-    }
+        if(text=="password"){
+            document.getElementById("pass").focus()
+            let command = "your in password field"
+            let speech = new SpeechSynthesisUtterance(command)   
+            tts.speak(speech)
+            
+        }
 
 
 
     })
 
+    recognition.addEventListener("end", ()=>{
+        recognition.start()
+    })
     
 
     recognition.start()
 
 
+    window.onunload = function(event)
+    {
+        recognition.stop()
+    };
+    
       
 }

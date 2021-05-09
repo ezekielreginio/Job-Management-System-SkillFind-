@@ -871,7 +871,14 @@ if (location.href.indexOf('login-handicapped') != -1) {
       tts.speak(speech);
     }
   });
+  recognition.addEventListener("end", () => {
+    recognition.start();
+  });
   recognition.start();
+
+  window.onunload = function (event) {
+    recognition.stop();
+  };
 }
 
 /***/ }),

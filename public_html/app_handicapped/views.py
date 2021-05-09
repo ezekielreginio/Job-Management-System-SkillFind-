@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from app_accounts.forms import CustomLoginForm
 
 # Create your views here.
 def handicapped_index(request):
     context ={}
     return render(request, "app_handicapped/index.html", context)
 
-def handicapped_login(request):
-    context ={}
+
+def handicapped_login(request, ):
+    login_form = CustomLoginForm
+    context ={'form': login_form}
     return render(request, "app_handicapped/login.html", context)
 
 def pwd_experience(request):
