@@ -14,8 +14,54 @@ if(location.href.indexOf('login-handicapped') != -1 ){
         document.getElementById("login-content").classList.remove("d-none")
        
     })
+
+
   
+    const text = document.querySelector('.form-control')
+
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+
+    const recognition = new window.SpeechRecognition()
+    recognition.interimResults = true
+
+    
+
+    recognition.addEventListener("result", (e)=> {
+        const text = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('')
+        let tts = window.speechSynthesis
+       
+    console.log(text)
+
+    if(text=="email"){
+        document.getElementById("email").focus() 
+        let command = "your in email field"
+        let speech = new SpeechSynthesisUtterance(command)  
+        tts.speak(speech)
+       
+        
+    }
   
+
+
+    if(text=="password"){
+        document.getElementById("pass").focus()
+        let command = "your in password field"
+        let speech = new SpeechSynthesisUtterance(command)   
+        tts.speak(speech)
+       
+    }
+
+
+
+    })
+
+    
+
+    recognition.start()
 
 
       

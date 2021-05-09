@@ -8,3 +8,19 @@ def handicapped_index(request):
 def handicapped_login(request):
     context ={}
     return render(request, "app_handicapped/login.html", context)
+
+def pwd_experience(request):
+    context ={}
+    return render(request, "app_handicapped/pwd-experience.html", context)
+
+def pwd_education(request):
+    context ={}
+    return render(request, "app_handicapped/pwd-education.html", context)
+
+def pwd_skill(request):
+    context ={}
+    return render(request, "app_handicapped/pwd-skill.html", context)
+
+def pwd_language(request):
+    context ={}
+    return render(request, "app_handicapped/pwd-language.html", context)
