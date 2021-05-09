@@ -389,18 +389,7 @@
       box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
   }
 
-  .btn-handicapped{
-    background-color:  #BB86FC;
-    width: 100%;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 50px;
-    box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
-}
+  
 
 .handicapped-button{
     width: 50%;
@@ -513,3 +502,77 @@
     padding-top: 10%;
     padding-left: 5%;
 }
+
+/*CSS for PWD LOGIN*/
+
+.login-pwd {
+  background: rgba(234, 233, 236, 0.9);
+  padding: 40px;
+  max-width: 600px;
+  margin: 40px auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+
+.btn-group{
+    padding: 0;
+    margin: 0 0 40px 0;
+}
+
+.btn-handicapped{
+    background-color:  #BB86FC;
+    width: 100%;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 50px;
+    box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
+}
+.btn-pwd{
+    background-color:  #BB86FC;
+    width: 100%;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 50px;
+   
+}
+
+.btn-pwd-nonactive{
+    background-color:  #7d7c7e;
+    width: 100%;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 50px;
+   
+}
+
+.login-content > div:last-child {
+    display: none;
+  }
+
+.top-field> div {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+  }
+.top-field > div:last-child {
+    margin: 0;
+  }
+
+ .field-wrap {
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+
