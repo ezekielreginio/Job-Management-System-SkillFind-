@@ -1457,6 +1457,157 @@ if (location.href.indexOf('employer/addjob') != -1) {
           let page_target = e.target.getAttribute("data-target-page");
           let validate_page = _factories_validation__WEBPACK_IMPORTED_MODULE_2__.Validation.validate_form(e.target.parentElement);
           if (!validate_page || e.target.innerHTML == "Previous Page") (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.swap_display)(e.target.parentElement.getAttribute("id"), page_target);
+        } else if (e.target.getAttribute("id") == "btn-preview-job") {
+          (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.swap_display)(e.target.parentElement.getAttribute("id"), "p6-add-job");
+          let compensation_type = document.getElementById("id_compensation_range").value;
+          let compensation = "";
+          if (compensation_type == "Range") compensation = "From PHP " + document.getElementById("id_initial_salary").value + " - PHP " + document.getElementById("id_max_salary").value;else if (compensation_type == "Exact Rate") compensation = "PHP " + document.getElementById("id_initial_salary").value;else compensation = compensation_type + "  PHP " + document.getElementById("id_initial_salary").value;
+          let benefits = [];
+          let benefits_checkboxes = document.getElementsByName("benefits");
+
+          for (let i = 0; i < benefits_checkboxes.length; i++) {
+            if (benefits_checkboxes[i].checked) benefits.push(benefits_checkboxes[i].value);
+          }
+
+          let schedules = [];
+          let schedule_checkboxes = document.getElementsByName("job_schedules");
+
+          for (let i = 0; i < schedule_checkboxes.length; i++) {
+            if (schedule_checkboxes[i].checked) schedules.push(schedule_checkboxes[i].value);
+          }
+
+          let supplemental_pay = [];
+          let supplemental_pay_checkboxes = document.getElementsByName("supplemental_pay");
+
+          for (let i = 0; i < supplemental_pay_checkboxes.length; i++) {
+            if (supplemental_pay_checkboxes[i].checked) supplemental_pay.push(supplemental_pay_checkboxes[i].value);
+          }
+
+          let qualification_data = CompileQualifications();
+          console.log(qualification_data);
+          document.getElementById("job-preview").innerHTML = `
+                        <h4> ` + document.getElementById("id_job_title").value + ` </h4>
+                        <p>` + sessionStorage.getItem("company_name") + ` | ` + document.getElementById("id_location").value + `</p>
+                        <button type="button" name=""  class="btn btn-secondary">Apply Now</button>
+                        <button type="button" name="" id="" class="btn btn-applicant">Save</button>
+
+                        <div>
+                            ` + document.getElementById("id_job_description").value + `
+                        </div>
+                        <br>
+                        <p>Job Types: ` + document.getElementById("id_employment_type").value + `</p>
+                        <p>Salary: ` + compensation + `</p>
+
+                        <div id="preview-other-info">
+                            
+                        </div>
+                    `;
+
+          if (benefits[0] != "None") {
+            document.getElementById("preview-other-info").innerHTML += `
+                            <p>Benefits: </p>
+                            <ul id="preview-benefits">
+                            </ul>
+                        `;
+
+            for (let i = 0; i < benefits.length; i++) {
+              document.getElementById("preview-benefits").innerHTML += `
+                                <li>` + benefits[i] + `</li>
+                            `;
+            }
+          }
+
+          document.getElementById("preview-other-info").innerHTML += `
+                            <p>Schedule: </p>
+                            <ul id="preview-schedule">
+                            </ul>
+                        `;
+
+          for (let i = 0; i < schedules.length; i++) {
+            document.getElementById("preview-schedule").innerHTML += `
+                            <li>` + schedules[i] + `</li>
+                        `;
+          }
+
+          if (supplemental_pay[0] != "None") {
+            document.getElementById("preview-other-info").innerHTML += `
+                            <p>Supplemental Pay: </p>
+                            <ul id="preview-pay">
+                            </ul>
+                        `;
+
+            for (let i = 0; i < supplemental_pay.length; i++) {
+              document.getElementById("preview-pay").innerHTML += `
+                                <li>` + supplemental_pay[i] + `</li>
+                            `;
+            }
+          }
+
+          if (qualification_data['qualification_education'][0] != undefined) {
+            document.getElementById("preview-other-info").innerHTML += `
+                            <p>Education: </p>
+                            <ul id="preview-education">
+                            </ul>
+                        `;
+
+            for (let i in qualification_data['qualification_education']) {
+              let value = qualification_data['qualification_education'][i];
+              let info = "";
+              if (value['major'] != null) info = value['level'] + " Major in " + value['major'];else info = value['level'];
+              document.getElementById("preview-education").innerHTML += `
+                                <li>` + info + ` (` + required_preferred(value['required']) + `)</li>
+                            `;
+            }
+          }
+
+          if (qualification_data['qualification_experience'][0] != undefined) {
+            document.getElementById("preview-other-info").innerHTML += `
+                            <p>Experience: </p>
+                            <ul id="preview-experience">
+                            </ul>
+                        `;
+
+            for (let i in qualification_data['qualification_experience']) {
+              let data = qualification_data['qualification_experience'][i];
+              document.getElementById("preview-experience").innerHTML += `
+                                <li>` + data['name'] + `: ` + data['year'] + ` (` + required_preferred(data['required']) + `)</li>
+                            `;
+            }
+          }
+
+          if (qualification_data['qualification_licenses'][0] != undefined) {
+            document.getElementById("preview-other-info").innerHTML += `
+                            <p>License: </p>
+                            <ul id="preview-license">
+                            </ul>
+                        `;
+
+            for (let i in qualification_data['qualification_licenses']) {
+              let data = qualification_data['qualification_licenses'][i];
+              document.getElementById("preview-license").innerHTML += `
+                                <li>` + data['license'] + ` (` + required_preferred(data['required']) + `)</li>
+                            `;
+            }
+          }
+
+          if (qualification_data['qualification_languages'][0] != undefined) {
+            document.getElementById("preview-other-info").innerHTML += `
+                            <p>Language: </p>
+                            <ul id="preview-languages">
+                            </ul>
+                        `;
+
+            for (let i in qualification_data['qualification_languages']) {
+              let data = qualification_data['qualification_languages'][i];
+              document.getElementById("preview-languages").innerHTML += `
+                                <li>` + data['language'] + ` (` + required_preferred(data['required']) + `)</li>
+                            `;
+            }
+          }
+
+          function required_preferred(bool) {
+            if (bool == "true") return "Required";else return "Preferred";
+          }
         } else if (e.target.getAttribute("id") == "btn-post-job") {
           (async () => {
             let formdata_joblist = new FormData(document.getElementById("form-add-job"));
@@ -1487,10 +1638,8 @@ if (location.href.indexOf('employer/addjob') != -1) {
           }
 
           if (deselect_on_none.includes(checkbox.getAttribute("name"))) {
-            let target_name = checkbox.getAttribute("name");
-
             if (checkbox.value == "None") {
-              DeselectOnNone(checkbox, target_name);
+              DeselectOnNone(checkbox);
             } else {
               parentElement.querySelector('[value="None"]').checked = false;
             }
@@ -1507,7 +1656,8 @@ if (location.href.indexOf('employer/addjob') != -1) {
           e.target.parentElement.parentElement.parentElement.remove();
         }
 
-        function DeselectOnNone(target, target_name) {
+        function DeselectOnNone(target) {
+          let target_name = target.getAttribute("name");
           document.querySelectorAll('[name="' + target_name + '"]').forEach(x => {
             x.checked = false;
           });
@@ -1922,7 +2072,9 @@ if (location.href.indexOf('employer/addjob') != -1) {
       }
 
       for (const [key, value] of Object.entries(data_samp['qualification_languages'])) {
-        let y = _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_language();
+        let qualification_language = _employer_dashboard_create_qualification__WEBPACK_IMPORTED_MODULE_2__.create_qualification.add_language();
+        qualification_language = populate_qualification(qualification_language, value).populate_language();
+        document.getElementById("p5-container").appendChild(qualification_language);
       }
     })();
 
@@ -1975,6 +2127,12 @@ if (location.href.indexOf('employer/addjob') != -1) {
         qualification.querySelector("[name='license']").value = data['license'];
         qualification.querySelector("[name='required-preferred']").value = data['required'];
         return qualification;
+      }
+
+      function populate_language() {
+        qualification.querySelector("[name='language']").value = data['language'];
+        qualification.querySelector("[name='required-preferred']").value = data['required'];
+        return qualification;
       } //Public Members
 
 
@@ -1982,7 +2140,8 @@ if (location.href.indexOf('employer/addjob') != -1) {
         populate_experience: populate_experience,
         populate_education: populate_education,
         populate_location: populate_location,
-        populate_license: populate_license
+        populate_license: populate_license,
+        populate_language: populate_language
       };
     };
   }

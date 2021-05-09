@@ -45,7 +45,7 @@ def employer_addjob(request, pk=None):
             print(addjob_form.errors)
     else:
         context ={
-                'addjob_form' : addjob_form
+                'addjob_form' : addjob_form,
             }
         return render(request, "app_employer_dashboard/addjob.html", context)
 
