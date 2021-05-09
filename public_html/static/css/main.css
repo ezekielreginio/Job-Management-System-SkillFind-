@@ -7,6 +7,10 @@
     color: #BB86FC;
 }
 
+.card-secondary-theme{
+    background-color:  rgba(255, 255, 255, 0.13);
+}
+
 .card-primary-theme-p5{
     background-color:  rgba(187,134,252,0.12);
     color: #BB86FC;
@@ -361,7 +365,7 @@
 }
 
 /* CSS For Qualifications Template */
-.qualification-template{
+.qualification-template, .job-preview{
     border: 1px solid white;
     border-radius: 10px;
     padding: 10px;

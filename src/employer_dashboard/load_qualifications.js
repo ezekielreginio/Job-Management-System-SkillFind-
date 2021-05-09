@@ -52,7 +52,9 @@ if(location.href.indexOf('employer/addjob') != -1){
                 document.getElementById("p5-container").appendChild(qualification_license)
             }
             for (const [key, value] of Object.entries(data_samp['qualification_languages'])) {
-                let y = create_qualification.add_language()
+                let qualification_language = create_qualification.add_language()
+                qualification_language = populate_qualification(qualification_language, value).populate_language()
+                document.getElementById("p5-container").appendChild(qualification_language)
             }
         })()
 
@@ -109,12 +111,19 @@ if(location.href.indexOf('employer/addjob') != -1){
                 return qualification
             }
 
+            function populate_language(){
+                qualification.querySelector("[name='language']").value = data['language']
+                qualification.querySelector("[name='required-preferred']").value = data['required']
+                return qualification
+            }
+
             //Public Members
             return{
                 populate_experience: populate_experience,
                 populate_education: populate_education,
                 populate_location: populate_location,
-                populate_license: populate_license
+                populate_license: populate_license,
+                populate_language: populate_language
             }
         }
     }

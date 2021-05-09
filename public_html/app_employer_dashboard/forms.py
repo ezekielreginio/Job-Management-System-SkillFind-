@@ -111,6 +111,7 @@ class EmployerAddJobListing(forms.ModelForm):
         ("Fuel discount", "Fuel discount"),
         ("Employee stock ownership plan", "Employee stock ownership plan"),
         ("Others", "Others"),
+        ("Christmas Bonus", "Christmas Bonus"),
         ("None", "None"),
     )
 
@@ -280,9 +281,20 @@ class EmployerAddJobListing(forms.ModelForm):
                         
                     """),
                     HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-left" data-target-page="p4-add-job">Previous Page</button> """),
-                    HTML(""" <button type="button" name="" id="btn-post-job" class="btn btn-secondary pull-right">Post Job</button> """),
+                    HTML(""" <button type="button" name="" id="btn-preview-job" class="btn btn-secondary pull-right">View Preview</button> """),
                     css_class='pages-add-job d-none',
                     css_id='p5-add-job',
+                ),
+                Div( #Page 6
+                    HTML("""
+                        <div class="job-preview card-secondary-theme" id="job-preview">
+
+                        </div>
+                    """),
+                    HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-left" data-target-page="p5-add-job">Previous Page</button> """),
+                    HTML(""" <button type="button" name="" id="btn-post-job" class="btn btn-secondary pull-right">Post Job</button> """),
+                    css_class='pages-add-job d-none',
+                    css_id='p6-add-job',
                 ),
             ),
         )
