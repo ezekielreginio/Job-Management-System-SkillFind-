@@ -462,6 +462,90 @@ function RequestBodyFactory(context) {
 
 /***/ }),
 
+/***/ "./src/_factories/speech_ai.js":
+/*!*************************************!*\
+  !*** ./src/_factories/speech_ai.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "speech_ai": () => (/* binding */ speech_ai)
+/* harmony export */ });
+//Singleton Factory Design Pattern for Speech AI
+let speech_ai = (() => {
+  //private members
+  function voice_input(recognition, fields) {
+    recognition.addEventListener("result", e => {
+      let text = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
+      let tts = window.speechSynthesis;
+      text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+      console.log(text);
+
+      if (Object.keys(fields).includes(text.toLowerCase())) {
+        document.getElementById(fields[text.toLowerCase()]).focus();
+        document.activeElement.value = "";
+        let command = "you're in " + text + " field";
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } else if (document.activeElement.tagName == "INPUT") {
+        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) document.activeElement.value = text;
+      } else if (text.toLowerCase() == "help") {
+        let command = "Hello. welcome to skillfind, I am your virtual assistant";
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text.toLowerCase().indexOf("clear") != -1) {
+        document.activeElement.value = "";
+        let command = "Field Cleared";
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } // if(fields.includes(text)){
+      //     document.getElementById("id_login").focus() 
+      //     let command = "you're in "+text+" field"
+      //     let speech = new SpeechSynthesisUtterance(command)  
+      //     tts.speak(speech)
+      // }
+      // if(text=="email"){
+      //     document.getElementById("id_login").focus() 
+      //     let command = "you're in email field"
+      //     let speech = new SpeechSynthesisUtterance(command)  
+      //     tts.speak(speech)
+      // }
+      // if(text=="password"){
+      //     document.getElementById("id_password").focus()
+      //     let command = "you're in password field"
+      //     let speech = new SpeechSynthesisUtterance(command)   
+      //     tts.speak(speech)
+      // }
+
+    });
+  } //public Members
+
+
+  return {
+    getInstance: fields => {
+      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new window.SpeechRecognition();
+      recognition.interimResults = false;
+      recognition.addEventListener("end", () => {
+        recognition.start();
+      });
+      recognition.start();
+
+      window.onunload = function (event) {
+        recognition.stop();
+      };
+
+      voice_input(recognition, fields);
+    }
+  };
+})();
+
+/***/ }),
+
 /***/ "./src/_factories/validation.js":
 /*!**************************************!*\
   !*** ./src/_factories/validation.js ***!
@@ -838,52 +922,89 @@ if (location.href.indexOf('handicapped') != -1) {
 /*!**************************************!*\
   !*** ./src/app_handicapped/login.js ***!
   \**************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
 
 if (location.href.indexOf('login-handicapped') != -1) {
-  document.getElementById("btn-sign").addEventListener("click", function () {
-    this.classList.replace("btn-pwd-nonactive", "btn-pwd");
-    document.getElementById("btn-login").classList.replace("btn-pwd", "btn-pwd-nonactive");
-    document.getElementById("login-content").classList.add("d-none");
-    document.getElementById("signup-content").classList.remove("d-none");
-  });
-  document.getElementById("btn-login").addEventListener("click", function () {
-    this.classList.replace("btn-pwd-nonactive", "btn-pwd");
-    document.getElementById("btn-sign").classList.replace("btn-pwd", "btn-pwd-nonactive");
-    document.getElementById("signup-content").classList.add("d-none");
-    document.getElementById("login-content").classList.remove("d-none");
-  });
-  const text = document.querySelector('.form-control');
-  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new window.SpeechRecognition();
-  recognition.interimResults = true;
-  recognition.addEventListener("result", e => {
-    const text = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
-    let tts = window.speechSynthesis;
-    console.log(text);
+  //Singleton Design Pattern
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'email': 'id_login',
+      'password': 'id_password'
+    };
 
-    if (text == "email") {
-      document.getElementById("email").focus();
-      let command = "your in email field";
-      let speech = new SpeechSynthesisUtterance(command);
-      tts.speak(speech);
-    }
+    function EventBubble() {
+      document.getElementById("login-pwd").addEventListener("click", e => {
+        if (e.target.getAttribute("id") == "btn-sign") {
+          e.target.classList.replace("btn-pwd-nonactive", "btn-pwd");
+          document.getElementById("btn-login").classList.replace("btn-pwd", "btn-pwd-nonactive");
+          document.getElementById("login-content").classList.add("d-none");
+          document.getElementById("signup-content").classList.remove("d-none");
+        } else if (e.target.getAttribute("id") == "btn-login") {
+          e.target.classList.replace("btn-pwd-nonactive", "btn-pwd");
+          document.getElementById("btn-sign").classList.replace("btn-pwd", "btn-pwd-nonactive");
+          document.getElementById("signup-content").classList.add("d-none");
+          document.getElementById("login-content").classList.remove("d-none");
+        }
+      });
+    } //Public Members
 
-    if (text == "password") {
-      document.getElementById("pass").focus();
-      let command = "your in password field";
-      let speech = new SpeechSynthesisUtterance(command);
-      tts.speak(speech);
-    }
-  });
-  recognition.addEventListener("end", () => {
-    recognition.start();
-  });
-  recognition.start();
 
-  window.onunload = function (event) {
-    recognition.stop();
-  };
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance(); // let fields = [
+  //     {
+  //         'command': 'email',
+  //         'field': 'id_login'
+  //     },
+  //     {
+  //         'command': 'password',
+  //         'field': 'id_password'
+  //     }
+  // ]
+  // const text = document.querySelector('.form-control')
+  // window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+  // const recognition = new window.SpeechRecognition()
+  // recognition.interimResults = true
+  // recognition.addEventListener("result", (e)=> {
+  //     const text = Array.from(e.results)
+  //     .map(result => result[0])
+  //     .map(result => result.transcript)
+  //     .join('')
+  //     let tts = window.speechSynthesis
+  //     console.log(text)
+  //     if(text=="email"){
+  //         document.getElementById("id_login").focus() 
+  //         let command = "your in email field"
+  //         let speech = new SpeechSynthesisUtterance(command)  
+  //         tts.speak(speech)
+  //     }
+  //     if(text=="password"){
+  //         document.getElementById("id_password").focus()
+  //         let command = "your in password field"
+  //         let speech = new SpeechSynthesisUtterance(command)   
+  //         tts.speak(speech)
+  //     }
+  // })
+  // recognition.addEventListener("end", ()=>{
+  //     recognition.start()
+  // })
+  // recognition.start()
+  // window.onunload = function(event)
+  // {
+  //     recognition.stop()
+  // };
 }
 
 /***/ }),
