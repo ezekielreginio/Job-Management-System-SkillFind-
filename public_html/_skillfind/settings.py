@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     "crispy_forms",
     'social_django',
+    'rest_framework',
 
     'app_main',
+    'app_findjob',
     'app_accounts',
     'app_applicant_portfolio',
     'app_employer_dashboard',
@@ -58,6 +60,11 @@ INSTALLED_APPS = [
     
 ]
 
+REST_FRAMEWORK = {
+    
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

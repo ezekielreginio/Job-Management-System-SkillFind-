@@ -5,6 +5,12 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from . import forms as employer_forms
 from .models import JobListing
 
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+from .serializers import JobListingSerializer
+
 import json
 
 # Create your views here.
@@ -118,3 +124,19 @@ def update_jobstatus(request, pk=None):
     job_info.save()
     response = {'status': status}
     return JsonResponse(response, status=200)
+
+#REST APIs
+@api_view(['GET', ])
+def api_view_joblisting(request):
+    try:
+        job_list = JobListing.objects.get(id=1)
+        print(job_list)
+    except JobListing.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if(request.method == "GET"):
+        serializer = JobListingSerializer(job_list)
+        context={"serial":serializer.data}
+        print(serializer.data)
+        return render(request, "index.html", context)
+        #return Response(serializer.data)

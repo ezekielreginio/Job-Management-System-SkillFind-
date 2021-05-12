@@ -3,7 +3,6 @@ import { validate_form } from "./validation"
 //Global Variables:
 export let csrftoken = getCookie('csrftoken')
 
-
 export function create_input(type, placeholder, name, classlist, idname, required){
     let input_field = document.createElement("input")
     input_field.setAttribute("type", type)
@@ -164,3 +163,9 @@ export function isEmpty(obj) {
     }
     return true;
 }
+
+document.getElementById("searchbar").addEventListener("submit", (e)=>{
+    e.preventDefault()
+    let query = document.getElementById("input-searchbar").value
+    location.replace("jobs?q="+query)
+})

@@ -20,5 +20,5 @@ urlpatterns = [
     path('employer/password_reset_confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='app_employer/password-reset-confirm.html'), name='password_reset_confirm'),
     path('employer/password_reset_complete/', PasswordResetCompleteView.as_view(template_name='app_employer/password-reset-complete.html'), name='password_reset_complete'),
 
-
+    path('joblistings/view/', views.api_view_joblisting, name='request_joblisting'),
 ]

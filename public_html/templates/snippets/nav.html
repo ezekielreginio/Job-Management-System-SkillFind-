@@ -17,8 +17,9 @@
                 </div>
             </li>
             <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0" action="includes/" method="POST">
-                    <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search Job/Company....."> 
+                    <form class="form-inline my-2 my-lg-0" action="jobs/" method="GET" id="searchbar">
+                        {% csrf_token%}
+                        <input class="form-control mr-sm-2" type="text" name="search" id="input-searchbar" placeholder="Search Job/Company....."> 
                     </form>
             </li>
         </ul>
