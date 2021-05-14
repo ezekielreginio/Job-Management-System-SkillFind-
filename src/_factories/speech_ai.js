@@ -11,12 +11,18 @@ export let speech_ai = (()=>{
             .join('')
             let tts = window.speechSynthesis
 
-            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+            let text_command = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
 
             console.log(text)
+<<<<<<< HEAD
  
             if(Object.keys(fields).includes(text.toLowerCase())){
                 document.getElementById(fields[text.toLowerCase()]).focus() 
+=======
+            
+            if(Object.keys(fields).includes(text_command.toLowerCase())){
+                document.getElementById(fields[text_command.toLowerCase()]).focus() 
+>>>>>>> 509d0461b6ec1680434281e6528995928c22622d
                 document.activeElement.value = ""
                 let command = "you're in "+text+" field"
                 let speech = new SpeechSynthesisUtterance(command)  
@@ -29,13 +35,13 @@ export let speech_ai = (()=>{
                     document.activeElement.value = text
             }
 
-            else if(text.toLowerCase() == "help"){
+            else if(text_command.toLowerCase() == "help"){
                 let command = "Hello. welcome to skillfind, I am your virtual assistant"
                 let speech = new SpeechSynthesisUtterance(command)  
                 tts.speak(speech)
             }
 
-            if(text.toLowerCase().indexOf("clear") != -1){
+            if(text_command.toLowerCase().indexOf("clear") != -1){
                 document.activeElement.value = ""
                 let command = "Field Cleared"
                 let speech = new SpeechSynthesisUtterance(command)  
