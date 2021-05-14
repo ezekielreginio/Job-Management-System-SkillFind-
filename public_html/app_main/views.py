@@ -24,7 +24,10 @@ def index(request):
 
         if(user_level.name == 'applicant'):
             request.session['user_name'] = user.first_name
-        
+
+        elif(user_level.name == 'pwd'):
+            request.session['user_name'] = user.first_name
+                      
         elif(user_level.name == 'employer'):
             try:
                 employer_info = models.Employer.objects.get(contact_person_id=request.user.id)

@@ -14,7 +14,7 @@ export let speech_ai = (()=>{
             text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
 
             console.log(text)
-            
+ 
             if(Object.keys(fields).includes(text.toLowerCase())){
                 document.getElementById(fields[text.toLowerCase()]).focus() 
                 document.activeElement.value = ""
@@ -22,6 +22,7 @@ export let speech_ai = (()=>{
                 let speech = new SpeechSynthesisUtterance(command)  
                 tts.speak(speech)
             }
+
 
             else if(document.activeElement.tagName == "INPUT"){
                 if(Object.values(fields).includes(document.activeElement.getAttribute("id")))
@@ -82,7 +83,9 @@ export let speech_ai = (()=>{
             })
 
             recognition.start()
-
+            // let command = "You're in Login Form. The fields are email and password, Say email if you want to go in email field, and password if you want to go in password field."
+            // let speech = new SpeechSynthesisUtterance(command)  
+            // window.speechSynthesis.speak(speech)
             window.onunload = function(event){
                 recognition.stop()
             };
