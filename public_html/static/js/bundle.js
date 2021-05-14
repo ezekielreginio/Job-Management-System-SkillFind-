@@ -466,9 +466,83 @@ function RequestBodyFactory(context) {
 /*!*************************************!*\
   !*** ./src/_factories/speech_ai.js ***!
   \*************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\src\\_factories\\speech_ai.js: Unexpected token (17:2)\n\n\u001b[0m \u001b[90m 15 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 16 |\u001b[39m             console\u001b[33m.\u001b[39mlog(text)\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 17 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 18 |\u001b[39m  \u001b[0m\n\u001b[0m \u001b[90m 19 |\u001b[39m             \u001b[36mif\u001b[39m(\u001b[33mObject\u001b[39m\u001b[33m.\u001b[39mkeys(fields)\u001b[33m.\u001b[39mincludes(text\u001b[33m.\u001b[39mtoLowerCase())){\u001b[0m\n\u001b[0m \u001b[90m 20 |\u001b[39m                 document\u001b[33m.\u001b[39mgetElementById(fields[text\u001b[33m.\u001b[39mtoLowerCase()])\u001b[33m.\u001b[39mfocus() \u001b[0m\n    at Parser._raise (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:776:17)\n    at Parser.raiseWithData (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:769:17)\n    at Parser.raise (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:737:17)\n    at Parser.unexpected (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:9686:16)\n    at Parser.parseExprAtom (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:11078:20)\n    at Parser.parseExprSubscripts (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:10655:23)\n    at Parser.parseUpdate (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:10635:21)\n    at Parser.parseMaybeUnary (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:10613:23)\n    at Parser.parseExprOpBaseRightExpr (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:10565:34)\n    at Parser.parseExprOpRightExpr (C:\\Users\\Sophia\\Documents\\GitHub\\Job-Management-System-SkillFind-\\node_modules\\@babel\\parser\\lib\\index.js:10558:21)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "speech_ai": () => (/* binding */ speech_ai)
+/* harmony export */ });
+//Singleton Factory Design Pattern for Speech AI
+let speech_ai = (() => {
+  //private members
+  function voice_input(recognition, fields) {
+    recognition.addEventListener("result", e => {
+      let text = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
+      let tts = window.speechSynthesis;
+      let text_command = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+      console.log(text);
+
+      if (Object.keys(fields).includes(text_command.toLowerCase())) {
+        document.getElementById(fields[text_command.toLowerCase()]).focus();
+        document.activeElement.value = "";
+        let command = "you're in " + text + " field";
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } else if (document.activeElement.tagName == "INPUT") {
+        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) document.activeElement.value = text;
+      } else if (text_command.toLowerCase() == "help") {
+        let command = "Hello. welcome to skillfind, I am your virtual assistant";
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("clear") != -1) {
+        document.activeElement.value = "";
+        let command = "Field Cleared";
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } // if(fields.includes(text)){
+      //     document.getElementById("id_login").focus() 
+      //     let command = "you're in "+text+" field"
+      //     let speech = new SpeechSynthesisUtterance(command)  
+      //     tts.speak(speech)
+      // }
+      // if(text=="email"){
+      //     document.getElementById("id_login").focus() 
+      //     let command = "you're in email field"
+      //     let speech = new SpeechSynthesisUtterance(command)  
+      //     tts.speak(speech)
+      // }
+      // if(text=="password"){
+      //     document.getElementById("id_password").focus()
+      //     let command = "you're in password field"
+      //     let speech = new SpeechSynthesisUtterance(command)   
+      //     tts.speak(speech)
+      // }
+
+    });
+  } //public Members
+
+
+  return {
+    getInstance: fields => {
+      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new window.SpeechRecognition();
+      recognition.interimResults = false;
+      recognition.addEventListener("end", () => {
+        recognition.start();
+      });
+      recognition.start();
+
+      window.onunload = function (event) {
+        recognition.stop();
+      };
+
+      voice_input(recognition, fields);
+    }
+  };
+})();
 
 /***/ }),
 
@@ -855,18 +929,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
 
 
-if (location.href.indexOf('handicapped/login') != -1 || location.href.indexOf('handicapped/signup') != -1) {
+if (location.href.indexOf('login-handicapped') != -1) {
   //Singleton Design Pattern
   let login_handicapped_singleton = (() => {
     //Private Members:
     let fields = {
       'email': 'id_login',
-      'password': 'id_password',
-      'first name': 'id_first_name',
-      'last name': 'id_last_name'
+      'password': 'id_password'
     };
 
-    function EventBubble() {} //Public Members
+    function EventBubble() {
+      document.getElementById("login-pwd").addEventListener("click", e => {
+        if (e.target.getAttribute("id") == "btn-sign") {
+          e.target.classList.replace("btn-pwd-nonactive", "btn-pwd");
+          document.getElementById("btn-login").classList.replace("btn-pwd", "btn-pwd-nonactive");
+          document.getElementById("login-content").classList.add("d-none");
+          document.getElementById("signup-content").classList.remove("d-none");
+        } else if (e.target.getAttribute("id") == "btn-login") {
+          e.target.classList.replace("btn-pwd-nonactive", "btn-pwd");
+          document.getElementById("btn-sign").classList.replace("btn-pwd", "btn-pwd-nonactive");
+          document.getElementById("signup-content").classList.add("d-none");
+          document.getElementById("login-content").classList.remove("d-none");
+        }
+      });
+    } //Public Members
 
 
     return {
