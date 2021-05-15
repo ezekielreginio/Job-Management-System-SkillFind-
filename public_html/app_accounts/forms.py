@@ -32,7 +32,8 @@ class ApplicantSignupForm(SignupForm):
         )
     
     def save(self, request):
-        user = super(ApplicantSignupForm, self).save(request)
+        user = super
+        (ApplicantSignupForm, self).save(request)
         user_group = request.POST.get('user_group', False) #$_POST['user_group']
         add_group(user_group, user)
 

@@ -59,6 +59,10 @@ def pwd_language(request):
     context ={}
     return render(request, "app_handicapped/pwd-language.html", context)
 
+def pwd_portfolio(request):
+    context ={}
+    return render(request, "app_handicapped/pwd-portfolio.html", context)
+
 handicapped_signup = PwdSignupForm.as_view()
 
 handicapped_login = PwdSigninForm.as_view()

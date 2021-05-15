@@ -652,8 +652,83 @@
 .card-icon-text{
     font-size: 30px;
 }
+
+
+/* aside */
+
+.sidenav {
+    height: 100%;
+    width: 360px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    margin-top: 77px;
+    padding: 5px 5px;
+  }
   
+
+  .sidenav i {
+   
+    font-size: 50px;
+    color: #6200EE;
+    
+  }
+
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 50px;
+    color: black;
+    display: block;
+  }
+
+  .sidenav h1 {
   
+    font-size: 55px;
+    text-align: center;
+  }
+
+ .card-portfolio {
+    background-color: #6200EE;
+    color: white;
+    margin: 0px;
+  }
+  
+  .sidenav a:hover {
+    color: #89b7fc;
+  }
+  
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  
+  .navbar-expand-sm{
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+  }
+  
+  .btn-pwd-portfolio{
+    background-color: #6200EE;
+    width: 100%;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 25px;
+    
+  }
  
   
 

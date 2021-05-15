@@ -11,6 +11,7 @@ urlpatterns = [
     path('handicapped/pwd-education', views.pwd_education, name="pwd_education"),
     path('handicapped/pwd-skill', views.pwd_skill, name="pwd_skill"),
     path('handicapped/pwd-language', views.pwd_language, name="pwd_language"),
+    path('handicapped/pwd-portfolio', views.pwd_portfolio, name="pwd_portfolio"),
     
    
 ]

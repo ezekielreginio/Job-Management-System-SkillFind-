@@ -9,8 +9,14 @@ if(location.href.indexOf('handicapped/login') != -1 ||  location.href.indexOf('h
             'password': 'id_password',
             'first name': 'id_first_name',
             'last name': 'id_last_name',
+            'email': 'id_email',
+            'password': 'id_password1',
+            'password again': 'id_password2'
+
 
         }
+
+        
 
         function EventBubble(){
            

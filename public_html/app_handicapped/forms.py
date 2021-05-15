@@ -4,13 +4,17 @@ from allauth.account.forms import SignupForm, LoginForm
 from django.contrib.auth.models import User, Group
 from Include import validators
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field
+from . import models
+from django.core.exceptions import ValidationError 
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, Button, Div, HTML
+from Include import validators
 
 class PwdSigninForm(LoginForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(PwdSigninForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_id = 'id_pwd_login'
         self.fields['login'].label = False
         self.fields['password'].label = False
         self.helper.layout = Layout(
@@ -33,6 +37,7 @@ class PwdSignupForm(SignupForm):
       self.request = kwargs.pop('request', None)
       super(PwdSignupForm, self).__init__(*args, **kwargs)
       self.helper = FormHelper()
+      self.helper.form_id = 'id_pwd_signup'
       self.helper.form_show_labels = False
       self.helper.form_action = '/handicapped/signup'
       self.helper.layout = Layout(

@@ -2,7 +2,7 @@
 
 export let speech_ai = (()=>{
     //private members
-    function voice_input(recognition, fields){
+    function voice_input(recognition, fields, buttons){
 
         recognition.addEventListener("result", (e)=> {
             let text = Array.from(e.results)
@@ -24,8 +24,14 @@ export let speech_ai = (()=>{
             }
 
             else if(document.activeElement.tagName == "INPUT"){
-                if(Object.values(fields).includes(document.activeElement.getAttribute("id")))
-                    document.activeElement.value = text
+                 if(Object.values(fields).includes(document.activeElement.getAttribute("id")))
+                    if(document.activeElement.getAttribute("id")=="id_password"){
+                        document.activeElement.value = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ").join("")
+                    }
+                    else{
+                        document.activeElement.value = text.toLowerCase()
+                    }
+                    
             }
 
             else if(text_command.toLowerCase() == "help"){
@@ -40,6 +46,8 @@ export let speech_ai = (()=>{
                 let speech = new SpeechSynthesisUtterance(command)  
                 tts.speak(speech)
             }
+
+            
 
             
 

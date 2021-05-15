@@ -476,7 +476,7 @@ __webpack_require__.r(__webpack_exports__);
 //Singleton Factory Design Pattern for Speech AI
 let speech_ai = (() => {
   //private members
-  function voice_input(recognition, fields) {
+  function voice_input(recognition, fields, buttons) {
     recognition.addEventListener("result", e => {
       let text = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
       let tts = window.speechSynthesis;
@@ -490,7 +490,11 @@ let speech_ai = (() => {
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
       } else if (document.activeElement.tagName == "INPUT") {
-        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) document.activeElement.value = text;
+        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) if (document.activeElement.getAttribute("id") == "id_password") {
+          document.activeElement.value = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(" ").join("");
+        } else {
+          document.activeElement.value = text.toLowerCase();
+        }
       } else if (text_command.toLowerCase() == "help") {
         let command = "Hello. welcome to skillfind, I am your virtual assistant";
         let speech = new SpeechSynthesisUtterance(command);
@@ -929,30 +933,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
 
 
-if (location.href.indexOf('login-handicapped') != -1) {
+if (location.href.indexOf('handicapped/login') != -1 || location.href.indexOf('handicapped/signup') != -1) {
   //Singleton Design Pattern
   let login_handicapped_singleton = (() => {
     //Private Members:
     let fields = {
       'email': 'id_login',
-      'password': 'id_password'
+      'password': 'id_password',
+      'first name': 'id_first_name',
+      'last name': 'id_last_name',
+      'email': 'id_email',
+      'password': 'id_password1',
+      'password again': 'id_password2'
     };
 
-    function EventBubble() {
-      document.getElementById("login-pwd").addEventListener("click", e => {
-        if (e.target.getAttribute("id") == "btn-sign") {
-          e.target.classList.replace("btn-pwd-nonactive", "btn-pwd");
-          document.getElementById("btn-login").classList.replace("btn-pwd", "btn-pwd-nonactive");
-          document.getElementById("login-content").classList.add("d-none");
-          document.getElementById("signup-content").classList.remove("d-none");
-        } else if (e.target.getAttribute("id") == "btn-login") {
-          e.target.classList.replace("btn-pwd-nonactive", "btn-pwd");
-          document.getElementById("btn-sign").classList.replace("btn-pwd", "btn-pwd-nonactive");
-          document.getElementById("signup-content").classList.add("d-none");
-          document.getElementById("login-content").classList.remove("d-none");
-        }
-      });
-    } //Public Members
+    function EventBubble() {} //Public Members
 
 
     return {

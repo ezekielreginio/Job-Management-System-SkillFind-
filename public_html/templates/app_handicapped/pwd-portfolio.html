@@ -1,0 +1,23 @@
+{% extends "../base.html" %} 
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+ 
+{% block content %}
+
+<div class="card">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="btn-group btn-group-lg">
+                    <a href="/handicapped/pwd-experience" type="button" class="btn btn-pwd-portfolio">Experience</a>
+                    <a type="button" class="btn btn-pwd-portfolio">Education</a>
+                    <a type="button" class="btn btn-pwd-portfolio">Skill</a>
+                    <a type="button" class="btn btn-pwd-portfolio">Language</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
