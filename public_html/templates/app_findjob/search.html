@@ -1,0 +1,50 @@
+{% extends "../base.html"%}
+{% load static %}
+{% block content %} 
+    <div class="container text-white mt-3">
+        <div class="row">
+            <div class="col-4">
+                {% for job in queryset%}
+                    <div class="job-card">
+                        <div class="abstract text-white">
+                            <h5>{{job.job_title}}</h5>
+                            <h6>{{job.employer__company_name}}</h6>
+                            <ul>
+                                <li>Associate software engineers may work in developing software....</li>
+                            </ul>
+                            <span class="date-posted">2 days ago ·</span>
+                            <span>More...</span>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+            <div class="col-8">
+                <div class="job-card job-card-sticky">
+                    <div class="abstract text-white">
+                        <h5>IT Support Engineer</h5>
+                        <h6>Ezecom Technologies - Makati</h6>
+                        <h6>PHP 25,000.00 - Fulltime, Permanent - Remote</h6>
+                        <button class="btn btn-apply">Apply Now</button>
+                        <button class="btn btn-secondary"><i class="fas fa-heart"></i></button>
+                        <hr class="bg-white">
+                        <div class="search-job-info">
+                            <p>Associate software engineers may work in developing software either as a product for use by the public or for private use within a business. While they tend to be on the lower or beginner rungs of their particular industry, companies in need of software engineers will often hire them due to the fact that they are more affordable than more senior software engineers. However, working as an associate software engineer is usually a stepping stone to higher positions and fulfilling careers in software engineering.</p>
+                            <p>Associate software engineers must be trained in reading and using different programming languages such as Java or C++. As lower level engineers, associate software engineers often work under software engineers and are involved in testing new software programs or making relatively small changes to preexisting programs. The initial design and creation of these programs is usually left to the engineers that are higher up on the department hierarchy. They also usually work in an office setting (in a cubicle, conference room, etc.) and are generally part of a team of other associate software engineers. Tools for work are a computer and computer programs, telephone, pen and paper, code editors, and other normal office supplies. They usually work Monday through Friday from 9 a.m. to 5 p.m. Educational requirements for this position are usually a bachelor's degree in software engineering or computer science. One to three years of experience in the field is a common requirement for associate software engineers as well.</p>
+                            <p>We are looking for 100 JUNIOR SOFTWARE ENGINEERS - open to the ff. candidates:</p>
+                            <ol>
+                                <li> Fresh graduates</li>
+                                <li>Vocational course graduate ( 2 year associate degree course / diploma holder) with 2 years experience in IT</li>
+                                <li>Career shifters - graduate of any course with 2 years experience in Office setting and wants to venture into IT.</li>
+
+                            </ol>
+                            <p>BOOST YOUR CAREER by starting with the leading IT Company in the Philippines.</p>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

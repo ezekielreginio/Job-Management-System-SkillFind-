@@ -476,7 +476,7 @@ __webpack_require__.r(__webpack_exports__);
 //Singleton Factory Design Pattern for Speech AI
 let speech_ai = (() => {
   //private members
-  function voice_input(recognition, fields, buttons) {
+  function voice_input(recognition, fields) {
     recognition.addEventListener("result", e => {
       let text = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
       let tts = window.speechSynthesis;
@@ -490,11 +490,7 @@ let speech_ai = (() => {
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
       } else if (document.activeElement.tagName == "INPUT") {
-        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) if (document.activeElement.getAttribute("id") == "id_password") {
-          document.activeElement.value = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(" ").join("");
-        } else {
-          document.activeElement.value = text.toLowerCase();
-        }
+        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) document.activeElement.value = text;
       } else if (text_command.toLowerCase() == "help") {
         let command = "Hello. welcome to skillfind, I am your virtual assistant";
         let speech = new SpeechSynthesisUtterance(command);
@@ -827,11 +823,6 @@ function isEmpty(obj) {
 
   return true;
 }
-document.getElementById("searchbar").addEventListener("submit", e => {
-  e.preventDefault();
-  let query = document.getElementById("input-searchbar").value;
-  location.replace("jobs?q=" + query);
-});
 
 /***/ }),
 
@@ -941,10 +932,7 @@ if (location.href.indexOf('handicapped/login') != -1 || location.href.indexOf('h
       'email': 'id_login',
       'password': 'id_password',
       'first name': 'id_first_name',
-      'last name': 'id_last_name',
-      'email': 'id_email',
-      'password': 'id_password1',
-      'password again': 'id_password2'
+      'last name': 'id_last_name'
     };
 
     function EventBubble() {} //Public Members
@@ -2274,6 +2262,20 @@ if (location.href.indexOf('employer/addjob') != -1) {
     };
   }
 }
+
+/***/ }),
+
+/***/ "./src/job_search_engine/jobsearch.js":
+/*!********************************************!*\
+  !*** ./src/job_search_engine/jobsearch.js ***!
+  \********************************************/
+/***/ (() => {
+
+document.getElementById("searchbar").addEventListener("submit", e => {
+  e.preventDefault();
+  let query = document.getElementById("input-searchbar").value;
+  location.replace("/jobs?q=" + query);
+});
 
 /***/ }),
 
@@ -26582,6 +26584,10 @@ const {
 const {
   jobs_panel
 } = __webpack_require__(/*! ./employer_dashboard/jobspanel */ "./src/employer_dashboard/jobspanel.js");
+
+const {
+  jobs_search
+} = __webpack_require__(/*! ./job_search_engine/jobsearch */ "./src/job_search_engine/jobsearch.js");
 })();
 
 /******/ })()
