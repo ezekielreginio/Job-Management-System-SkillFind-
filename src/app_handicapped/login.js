@@ -1,29 +1,19 @@
 import { speech_ai } from "./../_factories/speech_ai"
-if(location.href.indexOf('login-handicapped') != -1 ){
+if(location.href.indexOf('handicapped/login') != -1 ||  location.href.indexOf('handicapped/signup') != -1 ){
     
     //Singleton Design Pattern
     let login_handicapped_singleton = (()=>{
         //Private Members:
         let fields = {
             'email': 'id_login',
-            'password': 'id_password'
+            'password': 'id_password',
+            'first name': 'id_first_name',
+            'last name': 'id_last_name',
+
         }
 
         function EventBubble(){
-            document.getElementById("login-pwd").addEventListener("click", (e)=>{
-                if(e.target.getAttribute("id") == "btn-sign"){
-                    e.target.classList.replace("btn-pwd-nonactive", "btn-pwd")
-                    document.getElementById("btn-login").classList.replace("btn-pwd", "btn-pwd-nonactive")
-                    document.getElementById("login-content").classList.add("d-none")
-                    document.getElementById("signup-content").classList.remove("d-none")
-                }
-                else if(e.target.getAttribute("id") == "btn-login"){
-                    e.target.classList.replace("btn-pwd-nonactive", "btn-pwd")
-                    document.getElementById("btn-sign").classList.replace("btn-pwd", "btn-pwd-nonactive")
-                    document.getElementById("signup-content").classList.add("d-none")
-                    document.getElementById("login-content").classList.remove("d-none")
-                }
-            })
+           
         }
 
         

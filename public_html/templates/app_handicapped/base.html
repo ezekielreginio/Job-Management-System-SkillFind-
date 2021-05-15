@@ -1,0 +1,32 @@
+{% extends "../base.html" %} 
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="login-pwd" id="login-pwd">
+    <div class="btn-group d-flex justify-content-center">
+        <a type="button" class="btn btn-pwd" href="/handicapped/signup">Sign Up</a>
+        <a type="button" class="btn btn-pwd" href="/handicapped/login">Login</a>
+        
+    </div>
+   
+    <div id="login-content">
+         
+        <h1 class="text-center">Welcome Back!</h1>
+         
+            {% block form%}
+
+            {%endblock%}
+          <p class="text-right mt"><a href="#">Forgot Password?</a></p>
+
+        
+
+      </form>
+            
+    </div>
+</div>
+
+
+{% endblock %}
