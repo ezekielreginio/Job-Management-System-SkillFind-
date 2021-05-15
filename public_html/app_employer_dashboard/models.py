@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
+from app_accounts.models import Employer
 # Create your models here.
 class JobListing(models.Model):
-    employer = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    employer = models.ForeignKey(Employer, null=False, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=50, null=False, blank=False)
     location = models.CharField(max_length=50, null=False, blank=False)
     remote = models.CharField(max_length=50, null=False, blank=False)

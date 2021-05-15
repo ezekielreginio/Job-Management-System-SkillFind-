@@ -10,6 +10,8 @@ from rest_framework.decorators import api_view
 from app_employer_dashboard.models import JobListing
 from app_employer_dashboard.serializers import JobListingSerializer
 
+import json
+
 # Create your views here.
 class SearchJob(ListAPIView):
     queryset = JobListing.objects.all()
@@ -19,7 +21,11 @@ class SearchJob(ListAPIView):
     search_fields = ('job_title', )
 
 def searchjob(request):
-    return None
+    query = request.GET.get('q')
+    queryset = JobListing.objects.filter(job_title__contains = query).select_related().values('job_title', 'employer__company_name')
+    print(queryset.query)
+    context = {'queryset': queryset}
+    return render(request, "./app_findjob/search.html", context)
 
 # @api_view(['GET', ])
 # def searchjob(request):
