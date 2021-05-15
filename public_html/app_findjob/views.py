@@ -17,15 +17,18 @@ class SearchJob(ListAPIView):
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter, )
     search_fields = ('job_title', )
-    
-@api_view(['GET', ])
+
 def searchjob(request):
-    paginator = PageNumberPagination()
-    paginator.page_size = 1
-    person_objects = JobListing.objects.all()
+    return None
+
+# @api_view(['GET', ])
+# def searchjob(request):
+#     paginator = PageNumberPagination()
+#     paginator.page_size = 1
+#     person_objects = JobListing.objects.all()
     
-    result_page = paginator.paginate_queryset(person_objects, request)
-    serializer = JobListingSerializer(result_page, many=True)
-    print(paginator.get_paginated_response(serializer.data))
-    context = {}
-    return render(request, "index.html", context) #return render(request, "index.html", context)
+#     result_page = paginator.paginate_queryset(person_objects, request)
+#     serializer = JobListingSerializer(result_page, many=True)
+#     print(paginator.get_paginated_response(serializer.data))
+#     context = {}
+#     return render(request, "index.html", context) #return render(request, "index.html", context)
