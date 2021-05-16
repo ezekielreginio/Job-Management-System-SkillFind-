@@ -13,17 +13,9 @@ from app_employer_dashboard.serializers import JobListingSerializer
 import json
 
 # Create your views here.
-class SearchJob(ListAPIView):
-    queryset = JobListing.objects.all()
-    serializer_class = JobListingSerializer
-    pagination_class = PageNumberPagination
-    filter_backends = (SearchFilter, OrderingFilter, )
-    search_fields = ('job_title', )
-
 def searchjob(request):
     query = request.GET.get('q')
-    queryset = JobListing.objects.filter(job_title__contains = query).select_related().values('job_title', 'employer__company_name')
-    print(queryset.query)
+    queryset = JobListing.objects.filter(job_title__contains = query).select_related().values('job_title', 'location', 'job_description', 'id', 'employer__company_name')
     context = {'queryset': queryset}
     return render(request, "./app_findjob/search.html", context)
 

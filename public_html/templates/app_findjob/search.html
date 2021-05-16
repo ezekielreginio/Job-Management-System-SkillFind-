@@ -1,17 +1,20 @@
 {% extends "../base.html"%}
 {% load static %}
 {% block content %} 
-    <div class="container text-white mt-3">
+    <div class="container text-white mt-3" id="searchjob-bubble">
         <div class="row">
             <div class="col-4">
                 {% for job in queryset%}
-                    <div class="job-card">
+                    <div class="job-card card-results" data-job-id="{{job.id}}">
                         <div class="abstract text-white">
                             <h5>{{job.job_title}}</h5>
                             <h6>{{job.employer__company_name}}</h6>
-                            <ul>
-                                <li>Associate software engineers may work in developing software....</li>
-                            </ul>
+                            <h6>{{job.location}}</h6>
+                            <div style="overflow: hidden;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 4;
+                            -webkit-box-orient: vertical; margin-left: 10px;">{{job.job_description |safe }}</div>
+
                             <span class="date-posted">2 days ago ·</span>
                             <span>More...</span>
                         </div>
@@ -20,8 +23,8 @@
                 
             </div>
             <div class="col-8">
-                <div class="job-card job-card-sticky">
-                    <div class="abstract text-white">
+                <div class="job-card job-card-sticky" id="job-info">
+                    <!-- <div class="abstract text-white">
                         <h5>IT Support Engineer</h5>
                         <h6>Ezecom Technologies - Makati</h6>
                         <h6>PHP 25,000.00 - Fulltime, Permanent - Remote</h6>
@@ -42,7 +45,7 @@
                             
                         </div>
                         
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

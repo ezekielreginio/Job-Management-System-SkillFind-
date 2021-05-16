@@ -14,6 +14,8 @@ class PwdSignupForm(SignupView):
     template_name = "app_handicapped/signup.html"
     form_class = custom_forms.PwdSignupForm
     view_name = 'handicapped_signup'
+    def get_success_url(self):
+        return "/handicapped/index"
 
 class PwdSigninForm(LoginView):
     template_name = 'app_handicapped/login.html' #return render(request, template, context)

@@ -59,7 +59,6 @@ if(location.href.indexOf('employer/addjob') != -1){
                     }
 
                     let qualification_data = CompileQualifications()
-                    console.log(qualification_data)
                     document.getElementById("job-preview").innerHTML = `
                         <h4> `+document.getElementById("id_job_title").value+` </h4>
                         <p>`+sessionStorage.getItem("company_name")+` | `+document.getElementById("id_location").value+`</p>
