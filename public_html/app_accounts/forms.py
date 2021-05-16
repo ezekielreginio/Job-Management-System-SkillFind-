@@ -32,12 +32,12 @@ class ApplicantSignupForm(SignupForm):
         )
     
     def save(self, request):
-        user = super
-        (ApplicantSignupForm, self).save(request)
+        user = super(ApplicantSignupForm, self).save(request)
         user_group = request.POST.get('user_group', False) #$_POST['user_group']
         add_group(user_group, user)
 
         return user
+    
         
 class EmployerSignupForm(SignupForm):
     company_name = forms.CharField(max_length=30, required=True, strip=True, widget=forms.TextInput(attrs={'placeholder': 'Company Name'}), validators=[validators.validate_alphanumeric ])

@@ -10,6 +10,7 @@ from app_accounts.models import Employer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.generics import ListAPIView
 
 from .serializers import JobListingSerializer
 
@@ -106,3 +107,20 @@ def api_view_joblisting(request):
         print(serializer.data)
         return render(request, "index.html", context)
         #return Response(serializer.data)
+
+class request_jobquery(ListAPIView):
+    serializer_class = JobListingSerializer
+    def get_queryset(self):
+        id = self.request.GET.get("id")
+        return JobListing.objects.filter(id=id)
+
+# @api_view(['GET', ])
+# def request_jobquery(request, pk=None):
+#     try:
+#         job = JobListing.objects.filter(id=pk)
+#     except JobListing.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+#     print(job.job_title)
+#     if(request.method == "GET"):
+#         serializer = JobListingSerializer(job)
+#         return Response(serializer.data)

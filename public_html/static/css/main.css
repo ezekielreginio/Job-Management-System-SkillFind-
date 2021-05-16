@@ -730,11 +730,6 @@
     .sidenav a {font-size: 18px;}
   }
   
-  .navbar-expand-sm{
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
-  }
   
   .btn-pwd-portfolio{
     background-color: #6200EE;
