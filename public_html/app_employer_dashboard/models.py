@@ -31,6 +31,8 @@ class JobListing(models.Model):
 
     qualifications = models.JSONField(null=True, blank=True)
 
+    date_posted = models.DateTimeField(auto_now=True)
+
     # qualification_experience = models.JSONField(null=True, blank=True)
 
     # qualification_education = models.JSONField(null=True, blank=True)
