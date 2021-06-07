@@ -134,7 +134,6 @@ def applicant_education(request,op=None, pk=None):
 def applicant_skills(request,op=None, pk=None):
     skill_list = Skill.objects.all().filter(applicant_id=request.user.id)
     
-
     try:
         skill_instance = Skill.objects.get(id=pk) #SELECT * FROM Education where id=pk
     except Skill.DoesNotExist:
