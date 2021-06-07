@@ -6,3 +6,9 @@ for (var i = 0; i < nav_portfolio.length; i++) {
     })
 }
 
+
+//let mods = document.getElementsByClassName("card-header")
+//for(let i=0; i<mods.length; i++)
+//{
+  //  mods[i].classList.remove("cardss")
+//}

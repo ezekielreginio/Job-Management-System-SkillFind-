@@ -272,31 +272,16 @@ if(location.href.indexOf('experience') != -1){
         ex_textarea[i].classList.add("date_Input")
     }
 
-    let ex_start = document.getElementsByClassName("experience-startdate")
-    for(let i = 0; i<ex_start.length; i++){
-        ex_start[i].classList.add("applicant-text-color")
-    }
-
-    let ex_end = document.getElementsByClassName("experience-enddate")
-    for(let i = 0; i<ex_end.length; i++){
-        ex_end[i].classList.add("applicant-text-color")
-    }
-
-    let ex_info = document.getElementsByClassName("col-8")
-    for(let i = 0; i<ex_info.length; i++){
-        ex_info[i].classList.add("ex-info")
-    }
-
-    let ex_level = document.getElementsByClassName("col-3")
-    for(let i = 0; i<ex_level.length; i++){
-        ex_level[i].classList.add("applicant-text-color")
-    }
-
-    let ex_info_label = document.getElementsByClassName("col-4")
-    for(let i = 0; i<ex_info_label.length; i++){
-        ex_info_label[i].classList.add("applicant-text-color")
-    }
+  
 
     
+
+  
+
+    let edu_input = document.getElementsByClassName("form-control")
+    for(let i= 0; i<edu_input.length; i++){
+        edu_input[i].classList.add("blank")
+    }
+
     
 }

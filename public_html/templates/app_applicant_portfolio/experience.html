@@ -4,14 +4,13 @@
 {% load crispy_forms_tags %}
 
 {% block header %}
-<div id="experience-img-header" class="card bg-dark mb-3">
+<div  class="card bg-dark-green mb-3">
     <div class="container mt-2">
-        <div class="row mb-5">
-            <div class="col-7 vertical-center">
-                <i class="icon-briefcase fs-25 applicant-text-color"></i>
-                <h4 class="d-inline-block text-white">Experience</h4>    
+        <div class="row">
+            <div class="col-8 card-height d-flex justify-content-center"> 
+                <img src="{% static 'media/images/experience-header.png' %}" class="img-applicant-portfolio" alt="">    
             </div>
-            <div class="col-4">
+            <div class="col-4 card-height d-flex justify-content-center">
                 <img src="{% static 'media/images/applicant_experience.png' %}" class="img-applicant-portfolio" alt="">
             </div> 
         </div>  
@@ -22,14 +21,14 @@
 {% block portfolio-content %}
     
     <div class="row" id="experience-level">
-        <div class="col-3 text-white">
+        <div class="col-3 text-black">
             Experience Level
         </div>
         <div class="col-6">
-            <span class="text-white applicant-text-color" id="experience-level-desc">{{experience_level_desc}}</span>
+            <span class="" id="experience-level-desc">{{experience_level_desc}}</span>
         </div>
         <div class="col-3">
-            <a href="#" class="applicant-text-color"id="edit-experience-level"><i class="icon-edit d-inline-block"></i> Edit</a>
+            <a href="#" class=""id="edit-experience-level"><i class="icon-edit d-inline-block"></i> Edit</a>
         </div>
     </div>
     <div class="d-none" id="experience-level-form">
@@ -40,7 +39,7 @@
     <hr>
     
     <div class="d-none" id="div-experience-form">
-        <p class="applicant-text-color">Experience Information : Kindly fill up the form that contains the information regarding your job experience/s</p>
+        <p class="">Experience Information : Kindly fill up the form that contains the information regarding your job experience/s</p>
         <div class="container">
             {% crispy form %}
         </div>
@@ -61,8 +60,8 @@
                         <span class="experience-span applicant-text-color"></span>
                     </div>
                     <div class="col-7">
-                        <h3 class="text-white">{{experience.position_title}}</h3>
-                        <h5 class="applicant-text-color">{{experience.company_name}} | {{experience.country}}</h5>
+                        <h3 class="">{{experience.position_title}}</h3>
+                        <h5 class="">{{experience.company_name}} | {{experience.country}}</h5>
                         <br>
                         <div class="row">
                             <div class="col-4">
@@ -103,10 +102,10 @@
 
                         </div>
                         <br>
-                        <p class="text-white">{{experience.experience_description}}</p>
+                        <p class="text-black">{{experience.experience_description}}</p>
                     </div>
                     <div class="col-2">
-                        <a href="{% url 'experience_update' experience.id %}" class="update-experience applicant-text-color"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
+                        <a href="{% url 'experience_update' experience.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
                         <a data-link="{% url 'experience_delete' experience.id %}" class="delete-experience text-danger-dark" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block" ></i></a>
                     </div>
                 </div>

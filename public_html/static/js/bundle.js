@@ -1040,8 +1040,7 @@ if (location.href.indexOf('education') != -1) {
 
   if (location.href.indexOf('edit') != -1) {
     document.getElementById("div-education-form").classList.remove("d-none");
-    document.getElementById("div-education-list").classLis;
-    t.add("d-none");
+    document.getElementById("div-education-list").classList.add("d-none");
   } //Event Listener for Delete Education Btn:
 
 
@@ -1066,6 +1065,11 @@ if (location.href.indexOf('education') != -1) {
 
 
   document.getElementById("education-img-header").classList.remove("d-none");
+  let mods = document.getElementsByClassName("requiredField");
+
+  for (let i = 0; i < mods.length; i++) {
+    mods[i].classList.remove("text-white");
+  }
 }
 
 /***/ }),
@@ -1318,34 +1322,10 @@ if (location.href.indexOf('experience') != -1) {
     ex_textarea[i].classList.add("date_Input");
   }
 
-  let ex_start = document.getElementsByClassName("experience-startdate");
+  let edu_input = document.getElementsByClassName("form-control");
 
-  for (let i = 0; i < ex_start.length; i++) {
-    ex_start[i].classList.add("applicant-text-color");
-  }
-
-  let ex_end = document.getElementsByClassName("experience-enddate");
-
-  for (let i = 0; i < ex_end.length; i++) {
-    ex_end[i].classList.add("applicant-text-color");
-  }
-
-  let ex_info = document.getElementsByClassName("col-8");
-
-  for (let i = 0; i < ex_info.length; i++) {
-    ex_info[i].classList.add("ex-info");
-  }
-
-  let ex_level = document.getElementsByClassName("col-3");
-
-  for (let i = 0; i < ex_level.length; i++) {
-    ex_level[i].classList.add("applicant-text-color");
-  }
-
-  let ex_info_label = document.getElementsByClassName("col-4");
-
-  for (let i = 0; i < ex_info_label.length; i++) {
-    ex_info_label[i].classList.add("applicant-text-color");
+  for (let i = 0; i < edu_input.length; i++) {
+    edu_input[i].classList.add("blank");
   }
 }
 
@@ -1364,7 +1344,11 @@ for (var i = 0; i < nav_portfolio.length; i++) {
     link = this.getAttribute("href");
     window.location.replace(link);
   });
-}
+} //let mods = document.getElementsByClassName("card-header")
+//for(let i=0; i<mods.length; i++)
+//{
+//  mods[i].classList.remove("cardss")
+//}
 
 /***/ }),
 
@@ -1421,6 +1405,34 @@ if (location.href.indexOf('languages') != -1) {
 
   for (let i = 0; i < lang_input.length; i++) {
     lang_input[i].classList.add("lang-in");
+  }
+}
+
+/***/ }),
+
+/***/ "./src/applicant_portfolio/personalinfo.js":
+/*!*************************************************!*\
+  !*** ./src/applicant_portfolio/personalinfo.js ***!
+  \*************************************************/
+/***/ (() => {
+
+if (location.href.indexOf('personal_info') != -1) {
+  if (document.getElementById("div-personal-info-list") == null) {
+    document.getElementById("div-personal-info-form").classList.remove("d-none");
+  } else {
+    document.getElementById("div-personal-info-form").classList.add("d-none");
+  }
+
+  let mods = document.getElementsByClassName("requiredField");
+
+  for (let i = 0; i < mods.length; i++) {
+    mods[i].classList.remove("text-white");
+  }
+
+  let edu_input = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < edu_input.length; i++) {
+    edu_input[i].classList.add("blank");
   }
 }
 
@@ -1948,6 +1960,11 @@ if (location.href.indexOf('employer/addjob') != -1) {
   })();
 
   let addJob_instance = AddJob.getInstance();
+  let input = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < input.length; i++) {
+    input[i].classList.add("black");
+  }
 }
 
 /***/ }),
@@ -26756,6 +26773,10 @@ const {
 const {
   jobs_search
 } = __webpack_require__(/*! ./job_search_engine/jobsearch */ "./src/job_search_engine/jobsearch.js");
+
+const {
+  personal_info
+} = __webpack_require__(/*! ./applicant_portfolio/personalinfo */ "./src/applicant_portfolio/personalinfo.js");
 })();
 
 /******/ })()

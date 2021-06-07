@@ -35,7 +35,7 @@ class ApplicantPortfolioExperience(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-3 text-right text-white'
+        self.helper.label_class = 'col-3 text-right'
         self.helper.field_class = 'col-8'
         self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary btn-applicant'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-experience-form"))
@@ -82,7 +82,7 @@ class ApplicantExperienceLevel(forms.ModelForm):
             Fieldset(
                 '',
                 Div(
-                    Div(HTML(""" <label for="id_experience_level_0" class="text-right applicant-text-color requiredField">
+                    Div(HTML(""" <label for="id_experience_level_0" class="text-right requiredField">
                 Experience level<span class="asteriskField">*</span> </label> """), css_class='col-3'),
                     Div('experience_level', css_class='col-8'),
                     css_class='row',
@@ -212,3 +212,41 @@ class ApplicantResume(forms.ModelForm):
                 ),
             ),
         )
+
+
+class ApplicantPersonalInfo(forms.ModelForm):
+    firstname = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    lastname = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    birthday = forms.DateField(required=True, widget=DateInput)
+    place_of_birth = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    gender = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    resident_address = forms.CharField(max_length=100, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    zip_code = forms.CharField(required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    telephone_no = forms.CharField(required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    cellphone_no = forms.CharField(required=True, strip=True)
+    civilstatus = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    citizenship = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    gsis_id_no = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    pagibig_id_no = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    philhealth_no = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_money ])
+    sss_no = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_money ])
+    tin = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_money ])
+    spouse_name = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ]) 
+    mother_name =  forms.CharField(max_length=50, required=True, strip=True,validators=[validators.validate_alphanumeric ])
+    father_name = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+
+    class Meta:
+        model = models.Personalinfo
+        exclude=('applicant',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-3 text-right text-white'
+        self.helper.field_class = 'col-8'
+        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary btn-applicant'))
+        self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-experience-form"))
+        
+
+    

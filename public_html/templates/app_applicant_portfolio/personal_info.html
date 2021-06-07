@@ -1,0 +1,175 @@
+{% extends "./home.html"%}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+<div id="experience-img-header" class="card bg-white mb-3">
+    <div class="container mt-2">
+        <div class="row mb-3 d-flex justify-content-center">
+            <div class="col-7 vertical-center">
+                <i class="icon-briefcase fs-25 applicant-text-color"></i>
+                <h4 class="d-inline-block text-danger">Personal Information</h4>    
+            </div>
+            <div class="col-4">
+                <img src="{% static 'media/images/personalinfo-header.png' %}" class="img-applicant-portfolio" alt="">
+            </div> 
+        </div>  
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block portfolio-content %}
+<div>
+    
+    {% for personal_info in personal_info_list %}
+    <div class="row p-2" id="div-personal-info-form"> 
+      
+        <div class="col-12">
+           
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="icon-briefcase fa-user applicant-text-color" class= "big"></i> Full Name</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{user.first_name}} {{user.last_name}}</span>
+                        </div>
+                      
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="fa fa-baby-carriage applicant-text-color"></i> Place of Birth</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{personal_info.place_of_birth}}</span>
+                        </div>
+        
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="icon-briefcase fa-user applicant-text-color"class= "big"></i> Gender</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{personal_info.gender}}</span>
+                        </div>
+        
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="icon-briefcase fa-house-user applicant-text-color" class= "big"></i>Resident Address</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{personal_info.resident_address}}</span>
+                        </div>
+        
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="icon-briefcase fa-house-user applicant-text-color" class= "big"></i> Zip Code</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{personal_info.zip_code}}</span>
+                        </div>
+        
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="icon-briefcase fa-phone-alt applicant-text-color"class= "big"></i> Telephone</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{personal_info.telephone_no}}</span>
+                        </div>
+        
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="icon-briefcase fa-phone-square-alt applicant-text-color" class= "big"></i> CellPhone</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{personal_info.cellphone_no}}</span>
+                        </div>
+        
+                        <div class="col-4">
+                            <span style="font-size:16px"><i class="icon-briefcase fa-user-plus applicant-text-color"></i> Civil Status</span>
+                        </div>
+                        <div class="col-8">
+                            <span>{{personal_info.civilstatus}}</span>
+                        </div>
+
+                    </div>
+                </div>
+                
+               <div class="col-6">
+                   <div class="row">
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-user-check applicant-text-color"></i> Citizenship</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.citizenship}}</span>
+                    </div>
+    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-id-card applicant-text-color"class= "big"></i> GSIS ID</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.gsis_id_no}}</span>
+                    </div>
+                    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-id-card applicant-text-color"class= "big"></i> Pag Ibig No.</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.pagibig_id_no}}</span>
+                    </div>
+    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-id-card applicant-text-color"class= "big"></i> Phil Health No</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.philhealth_no}}</span>
+                    </div>
+    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-id-card applicant-text-color"class= "big"></i> SSS No</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.sss_no}}</span>
+                    </div>
+    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-id-card applicant-text-color" class= "big"></i> Tin No</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.tin}}</span>
+                    </div>
+    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-people-arrows applicant-text-color" ></i> Spouse</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.spouse_name}}</span>
+                    </div>
+    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-people-arrows applicant-text-color"></i> Mother</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.mother_name}}</span>
+                    </div>
+    
+                    <div class="col-4">
+                        <span style="font-size:16px"><i class="icon-briefcase fa-people-arrows applicant-text-color"></i> Father</span>
+                    </div>
+                    <div class="col-8">
+                        <span>{{personal_info.father_name}}</span>
+                    </div>
+                   </div>
+               </div>
+
+                
+            </div>
+            
+        </div>
+        
+    </div>
+{% endfor %}
+    <div class="container d-none" id="div-personal-info-form">
+        {% crispy form %}
+    </div>
+</div>
+    
+
+    
+{% endblock %}

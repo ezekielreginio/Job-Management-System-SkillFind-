@@ -3,12 +3,12 @@
 }
 
 .card-primary-theme{
-    background-color:  rgba(187,134,252,0.24);
-    color: #BB86FC;
+    background-color: white;
+    
 }
 
 .card-secondary-theme{
-    background-color:  rgba(255, 255, 255, 0.13);
+    background-color:  rgba(247, 228, 228, 0.13);
 }
 
 .card-primary-theme-p5{
@@ -35,7 +35,7 @@
 }
 
 .btn-primary{
-    background-color: #BB86FC;
+    background-color: #55f1fc;
 }
 
 
@@ -244,7 +244,7 @@
     z-index: 1;
     position: absolute;
     height: 100%;
-    background: #474a5efb;
+    background: #283f2b;
     width: 250px;
 
     /*border: 2px solid red;*/
@@ -258,6 +258,7 @@
 }
 
 .sidebar-nav{
+    color: #fbfafd;
     padding: 0;
     list-style: none;
 }
@@ -275,12 +276,13 @@
 .sidebar-nav li a{
     display: block;
     text-decoration: none;
-    color: #ddd;
+    color: rgb(255, 255, 255);
     font-size: 20px;
 }
 
 .sidebar-nav li a:hover, .sidebar-active{
-    background: #302f2f;
+    background: #9c9797;
+    box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
 }
 
 /* CSS For Autocompleter*/
@@ -345,7 +347,7 @@
 }
 
 .exlabel{
-    color: white;
+    color: black;
 }
 
 .date_Input{
@@ -385,12 +387,12 @@
   
 
   .applicant-text-color{
-      color: #BB86FC;
+      color: #daad12;
   }
 
   .btn-applicant, .btn-apply{
       background-color: #BB86FC;
-      box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
+      box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.2);
   }
 
 
@@ -425,7 +427,7 @@
 /*hover card*/
 
 
-.task, .job-card {
+.task{
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -433,7 +435,8 @@
   transform-style: preserve-3d;
   box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
   border-radius: 3px;
-  color: #BB86FC;
+  color: white;
+  background-color: #283f2b;
 }
 
 .task_click {
@@ -444,7 +447,8 @@
     transform-style: preserve-3d;
     box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
     border-radius: 3px;
-    color: black;
+    color: white;
+    background-color: #283f2b;
   }
 
 .abstract,
@@ -452,24 +456,24 @@
   width: 100%;
   padding: 15px 30px;
   position: relative;
-  background-color: rgba(187,134,252,0.24);
+  background-color: #283f2b;
   border-radius: 3px;
 }
 .task:hover .abstract,
 .task:hover .details {
-  background-color: rgba(187,134,252,0.04);
+  background-color: #283f2b;
   border-radius: 3px;
 }
 
 .task_click .abstract,
 .task_click .details {
-  background-color:  rgba(187,134,252,0.24);
+  background-color: #283f2b;
   border-radius: 3px;
 }
 
 .abstract {
   transition: 0.3s ease all;
-  color: #BB86FC;
+  color:white;
   box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
 }
 
@@ -518,8 +522,8 @@
 
 .img-applicant-portfolio{
     position: relative;
-    width: 100%;
-    height: 200px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .vertical-center{
@@ -710,13 +714,13 @@
   }
 
  .card-portfolio {
-    background-color: #6200EE;
+    background-color: #79ebff;
     color: white;
     margin: 0px;
   }
   
   .sidenav a:hover {
-    color: #89b7fc;
+    color: #a3a5a8;
   }
   
   .main {
@@ -742,8 +746,540 @@
     font-size: 25px;
     
   }
- 
+  /* EMPLOYER COLOR AND DASHBOARD*/
+#sidebar-wrapper-employer{
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    background: #0f0e0e;
+    width: 250px;
+    box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
+}
+
+.card-primary-theme-employer{
+    background-color:  #f1eeee;
+    color: #000000;
+    box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.5);
+}
+
+.card-primary-theme-employer-card{
+    background-color:  #f1eeee;
+    color: #000000;
+    box-shadow: 10px 5px 10px 5px rgba(0,0,0,0.2);
+}
+
+
+
+.downlist{
+    color: #08060a;
+    background-color: #cacaca;
+    height: 35px;
+    width:300px;
+}
+
+.shadowbar-nav{
+    background-color: #BB86FC;
+    box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
+}
+
+.navbar-expand-sm{
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.navbar{
+    background-color: #283f2b;
+}
+
+.base-bg{
+    background-color: #ffffff;
+}
+
+.card-shadow{
+    box-shadow: 0px 2px 14px 0px rgba(0,0,0,0.2);
+    background-color: #ffffff;
+}
+
+.card-header{
+    background-color: #283f2b;
+}
+
+.bg-dark-green{
+    background-color: #283f2b;
+}
+
+.mar{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.coll{
+    column-width:200px;
+}
+
+
+
+.card-height{
+ max-height: 125px;
+}
+
+
+
+
+/* input-experience*/
+.component-position {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:820px;
+	left: 270px;
+  }
+  .component-company {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:820px;
+	left: 840px;
+  }
+  .component-start-date {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:930px;
+	left: 270px;
+  }
+
+  .component-end-date {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:930px;
+	left: 840px;
+  }
+
+  .component-specialization {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1040px;
+	left: 270px;
+  }
+  .component-role {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1040px;
+	left: 840px;
+  }
+
+  .component-country {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1150px;
+	left: 270px;
+  }
+
+  .component-industry {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1150px;
+	left: 840px;
+  }
+
+  .component-position_level {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1260px;
+	left: 270px;
+  }
+
+  .component-salary_currency {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1370px;
+	left: 270px;
+  }
   
+  .component-salary {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1480px;
+	left: 270px;
+  }
+
+  .component-experience_description {
+	position: absolute;
+	align-items: flex-start;
+	display: flex;
+	min-width: 731px;
+	top:1260px;
+	left: 840px;
+  }
+
+  .input {
+	align-items: flex-start;
+	display: flex;
+	height: 138px;
+	left: 0;
+	min-width: 731px;
+	position: absolute;
+	top: 0;
+  }
+  .label {
+	align-items: flex-start;
+	display: flex;
+	height: 64px;
+	left: 71px;
+	min-width: 141px;
+	position: absolute;
+	top: 0;
+  }
+  .name {
+	background-color: 
+  transparent;
+	border: 0;
+	height: 53px;
+	left: 22px;
+	letter-spacing: 0;
+	line-height: 30px;
+	padding: 0;
+	position: absolute;
+	resize: none;
+	text-align: left;
+	top: 40px;
+	width: 450px;
+	font-size: 30px;
+  }
+  .name::placeholder {
+	color: 
+  #88818199;
+  }
+ 
+  .overlap-group2 {
+	height: 64px;
+	position: relative;
+	width: 141px;
+  }
+  .place {
+	color: rgb(247, 127, 0);
+	left: 10px;
+	letter-spacing: 0;
+	line-height: 41px;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	white-space: nowrap;
+  }
+  .rectangle-37 {
+	border-style: solid;
+	border-color: rgb(247, 127, 0);
+	border-radius: 72px;
+	height: 75px;
+	left: 0;
+	position: absolute;
+	top: 32px;
+	width: 500px;
+  }
+
+  .rectangle-37-textarea {
+	border-style: solid;
+	border-color: rgb(247, 127, 0);
+	border-radius: 2px;
+	height: 300px;
+	left: 0;
+	position: absolute;
+	top: 32px;
+	width: 500px;
+  }
+  .rectangle-38-ver1 {
+	background-color: var(--white);
+	height: 61px;
+	left: 0;
+	position: absolute;
+	top: 2px;
+	width: 255px;
+  }
+  
+  .rectangle-38-ver2{
+	background-color: var(--white);
+	height: 61px;
+	left: 0;
+	position: absolute;
+	top: 2px;
+	width: 205px;
+  }
+
+  .rectangle-38-ver3{
+	background-color: var(--white);
+	height: 61px;
+	left: 0;
+	position: absolute;
+	top: 2px;
+	width: 105px;
+  }
+  @font-face {
+	font-family: "SegoeUI-Regular";
+	font-style: normal;
+	font-weight: 400;
+	src: url("https://fonts.animaapp.com/SegoeUI-Regular") format("truetype");
+  }
+  
+  @font-face {
+	font-family: "SegoeUI-Bold";
+	font-style: normal;
+	font-weight: 700;
+	src: url("https://fonts.animaapp.com/SegoeUI-Bold") format("truetype");
+  }
+  
+  input:focus {
+	outline: none;
+  }
+
+/*pwd-experience revise */
+.border-1{
+	border-radius: 10px;
+	border: 5px #0F2B5B;
+}
+
+.navigation-text-active{
+	fill: white;
+	font-family: "SegoeUI-Bold";
+	font-size: 50px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+.navigation-text{
+	fill: #0F2B5B;
+	font-family: "SegoeUI-Bold";
+	font-size: 50px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+.navigation{
+	fill: rgba(247,127,0,1);
+	filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.529));
+	border-radius: 10px;
+	
+}
+.navigation-active{
+	fill: white;
+}
+
+img{
+	display: block;
+	max-width: 100%;
+	height: auto;
+  }
+
+.home-btn{
+	fill: white;
+	filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.529));
+	border-radius: 10px;
+	stroke: #0F2B5B;
+	stroke-width:10
+}
+
+.index-btn{
+	fill: white;
+	stroke: #0F2B5B;
+	stroke-width:10
+}
+
+.index-btn-text{
+	fill: #0F2B5B;
+	font-family: "SegoeUI-Bold";
+	font-size: 46px;
+	font-style: normal;
+	font-weight: bold
+}
+
+.home-btn-text{
+	fill: #0F2B5B;
+	font-family: "SegoeUI-Bold";
+	font-size: 25px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+.text-card-title{
+	fill: #fff;
+	font-family: "SegoeUI-Bold";
+	font-style: normal;
+	font-weight: bold;
+}
+
+.text-card-sm-title{
+	fill: #0f2b5b;
+	font-family: "SegoeUI-Bold";
+	font-size: 20px; 
+	font-style: normal;
+	font-weight: bold;
+}
+
+.text-card-sm{
+	fill: #0f2b5b;
+	font-family: "SegoeUI";
+	font-size: 20px; 
+}
 
 
+
+
+  .option-input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	position: relative;
+	top: 13.33333px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 40px;
+	width: 40px;
+	transition: all 0.15s ease-out 0s;
+	background: #cbd1d8;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 0.5rem;
+	outline: none;
+	position: relative;
+	z-index: 1000;
+  }
+  .option-input:hover {
+	background: #9faab7;
+  }
+  .option-input:checked {
+	background: #0F2B5B;
+  }
+  .option-input:checked::before {
+	height: 40px;
+	width: 40px;
+	position: absolute;
+	content: '✔';
+	display: inline-block;
+	font-size: 26.66667px;
+	text-align: center;
+	line-height: 40px;
+  }
+  .option-input:checked::after {
+	-webkit-animation: click-wave 0.65s;
+	-moz-animation: click-wave 0.65s;
+	animation: click-wave 0.65s;
+	background: #0F2B5B;
+	content: '';
+	display: block;
+	position: relative;
+	z-index: 100;
+  }
+  .option-input.radio {
+	border-radius: 50%;
+  }
+  .option-input.radio::after {
+	border-radius: 50%;
+  }
+
+  label{
+	  font-size: 33px;
+  }
+
+  .title{
+	font-size: 40px;
+  }
+
+  section.input-container .pwd-label {
+	position: relative;
+	display: block;
+}
+section.input-container .pwd-label .pwd-in {
+		display: block;
+		padding: 20px;
+		width: 500px;
+	    margin-bottom: 10px;
+	    outline: none;
+		transition: all 0.2s ease-in-out;
+		background-color: white;
+		font-weight: bold;
+		color: #F77F00;
+		border-style: solid;
+        border-width: 5px;
+		border-radius: 20px;
+	}
+section.input-container .pwd-label .pwd-in::-moz-placeholder {
+			-moz-transition: all 0.2s ease-in-out;
+			transition: all 0.2s ease-in-out;
+			color: #D3D3D3;
+			font-weight: bold;
+		}
+section.input-container .pwd-label .pwd-in:-ms-input-placeholder {
+			-ms-transition: all 0.2s ease-in-out;
+			transition: all 0.2s ease-in-out;
+			color: #D3D3D3;
+			font-weight: bold;
+		}
+section.input-container .pwd-label .pwd-in::placeholder {
+			transition: all 0.2s ease-in-out;
+			color: #D3D3D3;
+			font-weight: bold;
+		}
+section.input-container .pwd-label .pwd-in:focus, section.input-container .pwd-label .pwd-in.populated {
+			padding-top: 28px;
+			padding-bottom: 12px;
+		}
+section.input-container .pwd-label .pwd-in:focus::-moz-placeholder, section.input-container .pwd-label .pwd-in.populated::-moz-placeholder {
+				color: transparent;
+			}
+section.input-container .pwd-label .pwd-in:focus:-ms-input-placeholder, section.input-container .pwd-label .pwd-in.populated:-ms-input-placeholder {
+				color: transparent;
+			}
+section.input-container .pwd-label .pwd-in:focus::placeholder, section.input-container .pwd-label .pwd-in.populated::placeholder {
+				color: transparent;
+			}
+section.input-container .pwd-label .pwd-in:focus + .pwd-span, section.input-container .pwd-label .pwd-in.populated + .pwd-span {
+			   opacity: 1;
+				top: 10px;
+			}
+section.input-container .pwd-label .pwd-span {
+		font-size: .8rem;
+		color: #A9A9A9;
+		position: absolute;
+		top: 0px;
+		left: 20px;
+		opacity: 0;
+		transition: all 0.2s ease-in-out;
+	}
+
+.pwd-input{
+  width: 500px;
+  height: 50px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #F77F00;
+}
+
+.pwd-input:focus{
+  outline: none;
+}
 

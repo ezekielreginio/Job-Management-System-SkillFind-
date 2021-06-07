@@ -44,8 +44,7 @@ if(location.href.indexOf('education') != -1){
     //Check if the user is editing education record
     if(location.href.indexOf('edit') != -1){
         document.getElementById("div-education-form").classList.remove("d-none")
-        document.getElementById("div-education-list").classLis
-        t.add("d-none")
+        document.getElementById("div-education-list").classList.add("d-none")
     }
     
   
@@ -76,6 +75,10 @@ if(location.href.indexOf('education') != -1){
     //for Image header
     document.getElementById("education-img-header").classList.remove("d-none")
 
-    
+    let mods = document.getElementsByClassName("requiredField")
+    for(let i=0; i<mods.length; i++)
+    {
+        mods[i].classList.remove("text-white")
+    }
    
 }

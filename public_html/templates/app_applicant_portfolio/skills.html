@@ -4,14 +4,13 @@
 {% load crispy_forms_tags %}
 
 {% block header %}
-<div  class="card bg-dark mb-3">
+<div  class="card bg-dark-green mb-3">
     <div class="container mt-2">
-        <div class="row mb-5">
-            <div class="col-7 vertical-center">
-                <i class="icon-briefcase fs-25 applicant-text-color"></i>
-                <h4 class="d-inline-block text-white">Skills</h4>    
+        <div class="row">
+            <div class="col-8 card-height d-flex justify-content-center">
+                <img src="{% static 'media/images/skill-header.png' %}" class="img-applicant-portfolio" alt="">   
             </div>
-            <div class="col-4">
+            <div class="col-4 card-height d-flex justify-content-center">
                 <img src="{% static 'media/images/applicant_skill.png' %}" class="img-applicant-portfolio" alt="">
             </div> 
         </div>  
