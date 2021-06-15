@@ -99,7 +99,7 @@ def update_jobstatus(request, pk=None):
 @user_passes_test(lambda u: u.groups.filter(name='employer').exists())
 def view_applicants(request,pk):
     job_list = JobListing.objects.get(id=pk)
-    queryset = JobApplication.objects.filter(joblisting_id=job_list).order_by('-id').select_related().values('applicant__first_name', 'applicant__last_name', 'status', 'applicant__resume__resume', 'applicant_id')
+    queryset = JobApplication.objects.filter(joblisting_id=job_list).order_by('-id').select_related().values('applicant__first_name', 'applicant__last_name', 'status', 'applicant__resume__resume', 'applicant_id', 'joblisting_id')
     context = {'queryset': queryset, 'job_title': job_list.job_title}
     print(context)
     return render(request, "app_employer_dashboard/applicantslist.html", context)
@@ -112,12 +112,22 @@ def get_resume(request, pk):
     dbx = dropbox.Dropbox('L-u71KTIt0UAAAAAAAAAAWTj6W9E7Ko7RUTerWQLxQv3r7JMy_NhnebvStvkS3Nr')
 
     
-    with open("Sample.pdf", "wb+") as f:
-        metadata,res = dbx.files_download(str(resume.resume))   
-        # f = open('Sample.pdf', 'wb+')
-        # f.write(res.content)
-        return HttpResponse(res.content, content_type='application/pdf')
+    meta,res = dbx.files_download(str(resume.resume))   
+    print(res)
+    response =  HttpResponse(res.content, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename='+str(resume.resume)
+    return response
+
+@login_required(login_url='/login/employer')
+@user_passes_test(lambda u: u.groups.filter(name='employer').exists())
+def update_application_status(request):
+    data = json.load(request)
     
+    job_application = JobApplication.objects.get(applicant_id=data['applicant_id'], joblisting_id=data['joblisting_id'])
+    job_application.status = data['status']
+    job_application.save()
+    response = {'status': data['status']}
+    return JsonResponse(response, status=200)
 
 #REST APIs
 @api_view(['GET', ])

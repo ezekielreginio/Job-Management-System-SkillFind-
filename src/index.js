@@ -13,6 +13,7 @@ const { handicapped_index } = require("./app_handicapped/index");
 const { handicapped_login } = require("./app_handicapped/login");
 const { portfolio_summary } = require("./applicant_portfolio/portfolio");
 const { jobs_panel } = require("./employer_dashboard/jobspanel");
+const { view_applications } = require("./employer_dashboard/view_applicants");
 //const { jobs_search } = require("./job_search_engine/jobsearchsss");
 import "./job_search_engine/jobsearch";
 

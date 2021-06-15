@@ -47,4 +47,4 @@ class Language(models.Model):
 
 class Resume(models.Model):
     applicant = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
-    resume = models.FileField(upload_to='resume', storage=DropBoxStorage(), null=True, blank=True)
+    resume = models.FileField(upload_to='resumes/', null=True, blank=True)
