@@ -33,5 +33,5 @@ urlpatterns = [
     path('applicant/password_reset_confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='app_applicant/password-reset-confirm.html'), name='password_reset_confirm'),
     path('applicant/password_reset_complete/', PasswordResetCompleteView.as_view(template_name='app_applicant/password-reset-complete.html'), name='password_reset_complete'),
 
-     path('applicant/oauth/', include('social_django.urls', namespace='social')),  # <-- here
+    path('applicant/oauth/', include('social_django.urls', namespace='social')),  # <-- here
 ]

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from storages.backends.dropbox import DropBoxStorage
 
 # Create your models here.
 class Experience(models.Model):
@@ -46,4 +47,4 @@ class Language(models.Model):
 
 class Resume(models.Model):
     applicant = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
-    resume = models.FileField(upload_to='resume', null=True, blank=True)
+    resume = models.FileField(upload_to='resumes/', null=True, blank=True)

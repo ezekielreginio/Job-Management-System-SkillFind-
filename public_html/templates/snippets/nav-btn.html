@@ -13,7 +13,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownId">
                 {% if request.session.user_level == "applicant" %}
                 <a class="dropdown-item" href="/applicant/portfolio">View Resume/Portfolio</a>
-                <a class="dropdown-item" href="#">View Job Applications</a>
+                <a class="dropdown-item" href="/applications">View Job Applications</a>
                 {% elif request.session.user_level == "employer" %}
                 <a class="dropdown-item" href="/employer/dashboard">View Dashboard</a>
                 <a class="dropdown-item" href="#">Account Settings</a>

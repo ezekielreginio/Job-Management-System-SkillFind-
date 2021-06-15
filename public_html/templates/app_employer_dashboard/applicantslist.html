@@ -1,0 +1,48 @@
+{% extends "./index.html" %} 
+{% load static %}
+{% load widget_tweaks %}
+
+{% block dashboard-title%}
+    <i class="icon-dashboard d-inline-block fs-25 mt-2"></i>
+    <h4 class="d-inline-block">Applicants for {{job_title}}</h4>
+{% endblock dashboard-title %}
+
+{% block dashboard-content%}
+    <div class="mx-4 text-white" id="view-applications-bubble">
+        <table class="text-white" id="table-job-applicants">
+            <thead>
+                <tr>
+                    <th>Applicant Name</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for applicant in queryset%}
+                    <tr>
+                        <td>{{applicant.applicant__first_name}} {{applicant.applicant__last_name}}</td>
+                        <td>{{applicant.status}}</td>
+                        <td>
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" data-applicant-id="{{applicant.applicant_id}}" data-joblisting-id="{{applicant.joblisting_id}}">
+                                <a class="dropdown-item" href="{% url 'employer_viewresume' applicant.applicant_id %}" target="_blank">View Resume</a>
+                                <hr style="background-color: black">
+                                <a class="dropdown-item change-application-status" href="#">Application Reviewed</a>
+                                <a class="dropdown-item change-application-status" href="#">Schedule for Initial Interview</a>
+                                <a class="dropdown-item change-application-status" href="#">Schedule for Technical Assessment</a>
+                                <a class="dropdown-item change-application-status" href="#">Schedule for Technical Interview</a>
+                                <a class="dropdown-item change-application-status" href="#">Schedule for Final Interview</a>
+                                <a class="dropdown-item change-application-status" href="#">Job Offer</a>
+                                <a class="dropdown-item change-application-status" href="#">Hired</a>
+                                <a class="dropdown-item change-application-status" href="#">Unqualified</a>
+                            </div>
+                        </td>
+                          
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock dashboard-content %}

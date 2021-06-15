@@ -12,6 +12,10 @@ urlpatterns = [
     path('employer/addjob/<str:pk>/addjob', views.employer_addjob, name="employer_updatejob"),
     path('employer/addjob/<str:pk>/', views.employer_addjob, name="employer_updatejob"),
 
+    path('employer/viewapplicants/<str:pk>/', views.view_applicants, name="employer_viewapplicants"),
+    path('employer/viewresume/<str:pk>/', views.get_resume, name="employer_viewresume"),
+    path('updateapplication/', views.update_application_status, name="update_application_status" ),
+
     path('ajax/requestqualifications/<str:pk>', views.request_qualifications, name='request_qualification'),
     path('ajax/updatejoblistingstatus/<str:pk>/', views.update_jobstatus, name='update_jobstatus'),
     path('ajax/jobquery', views.request_jobquery.as_view(), name='job_query'),

@@ -4,13 +4,19 @@ import { RequestBodyFactory, RequestFactory } from "../_factories/ajax_requests"
 document.getElementById("searchbar").addEventListener("submit", (e)=>{
     e.preventDefault()
     let query = document.getElementById("input-searchbar").value
-    location.replace("/jobs?q="+query)
+    location.replace("/findjob?q="+query)
 })
 
-if(location.href.indexOf('jobs') != -1){
+if(location.href.indexOf('findjob') != -1){
     let jobsearch = (()=>{
         //private members:
         function EventBubble(){
+            document.getElementById("searchjob-bubble").addEventListener("click", (e)=>{
+                if(e.target.getAttribute("id") == "btn-apply"){
+                    window.location.replace("./applyjob/"+e.target.getAttribute("data-id")+"/")
+                }
+            })
+
             document.querySelectorAll(".card-results").forEach((job_card)=>{
                 job_card.addEventListener("click", async(e)=>{
                     let job_id = job_card.getAttribute("data-job-id")
@@ -31,7 +37,7 @@ if(location.href.indexOf('jobs') != -1){
                                 <h5>`+data['job_title']+`</h5>
                                 <h6>`+data['employer']['company_name']+` - `+data['location']+`</h6>
                                 <h6>PHP `+parseFloat(data['initial_salary']).toLocaleString()+` - Fulltime, Permanent - Remote</h6>
-                                <button class="btn btn-apply">Apply Now</button>
+                                <button class="btn btn-apply" id="btn-apply" data-id="`+data['id']+`">Apply Now</button>
                                 <button class="btn btn-secondary"><i class="fas fa-heart"></i></button>
                                 <hr class="bg-white">
                                 <div class="search-job-info" id="job-description">

@@ -1368,6 +1368,24 @@ for (var i = 0; i < nav_portfolio.length; i++) {
 
 /***/ }),
 
+/***/ "./src/applicant_portfolio/job_applications.js":
+/*!*****************************************************!*\
+  !*** ./src/applicant_portfolio/job_applications.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var simple_datatables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-datatables */ "./node_modules/simple-datatables/src/index.js");
+
+
+if (location.href.indexOf('applyjob') != -1 || location.href.indexOf('applications') != -1) {
+  var myTable = document.querySelector("#table-job-applications");
+  var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(myTable);
+}
+
+/***/ }),
+
 /***/ "./src/applicant_portfolio/language.js":
 /*!*********************************************!*\
   !*** ./src/applicant_portfolio/language.js ***!
@@ -2071,6 +2089,11 @@ if (location.href.indexOf('employer/jobspanel') != -1) {
   document.getElementById("employer-nav-jobspanel").classList.add("sidebar-active");
   var myTable = document.querySelector("#table-job-posting");
   var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(myTable);
+}
+
+if (location.href.indexOf('employer/viewapplicants') != -1) {
+  var myTable = document.querySelector("#table-job-applicants");
+  var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(myTable);
 } //Functions
 
 
@@ -2271,6 +2294,51 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
 /***/ }),
 
+/***/ "./src/employer_dashboard/view_applicants.js":
+/*!***************************************************!*\
+  !*** ./src/employer_dashboard/view_applicants.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+
+
+if (location.href.indexOf('employer/viewapplicants') != -1) {
+  let view_applicants = (() => {
+    function EventBubble() {
+      document.getElementById("view-applications-bubble").addEventListener("click", e => {
+        if (e.target.classList.contains("change-application-status")) {
+          let json_body = {
+            "status": e.target.textContent,
+            "applicant_id": e.target.parentElement.getAttribute("data-applicant-id"),
+            "joblisting_id": e.target.parentElement.getAttribute("data-joblisting-id")
+          };
+          const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__.RequestBodyFactory)({
+            "method": "POST",
+            "type": "application/json",
+            "body": JSON.stringify(json_body)
+          });
+          const response = fetch("/updateapplication/", body).then(response => response.json()).then(data => {
+            e.target.parentElement.parentElement.previousSibling.textContent = e.target.textContent;
+          });
+        }
+      });
+    }
+
+    return {
+      getInstance: () => {
+        EventBubble();
+      }
+    };
+  })();
+
+  let view_applicants_instance = view_applicants.getInstance();
+}
+
+/***/ }),
+
 /***/ "./src/job_search_engine/jobsearch.js":
 /*!********************************************!*\
   !*** ./src/job_search_engine/jobsearch.js ***!
@@ -2287,13 +2355,18 @@ __webpack_require__.r(__webpack_exports__);
 document.getElementById("searchbar").addEventListener("submit", e => {
   e.preventDefault();
   let query = document.getElementById("input-searchbar").value;
-  location.replace("/jobs?q=" + query);
+  location.replace("/findjob?q=" + query);
 });
 
-if (location.href.indexOf('jobs') != -1) {
+if (location.href.indexOf('findjob') != -1) {
   let jobsearch = (() => {
     //private members:
     function EventBubble() {
+      document.getElementById("searchjob-bubble").addEventListener("click", e => {
+        if (e.target.getAttribute("id") == "btn-apply") {
+          window.location.replace("./applyjob/" + e.target.getAttribute("data-id") + "/");
+        }
+      });
       document.querySelectorAll(".card-results").forEach(job_card => {
         job_card.addEventListener("click", async e => {
           let job_id = job_card.getAttribute("data-job-id");
@@ -2313,7 +2386,7 @@ if (location.href.indexOf('jobs') != -1) {
                                 <h5>` + data['job_title'] + `</h5>
                                 <h6>` + data['employer']['company_name'] + ` - ` + data['location'] + `</h6>
                                 <h6>PHP ` + parseFloat(data['initial_salary']).toLocaleString() + ` - Fulltime, Permanent - Remote</h6>
-                                <button class="btn btn-apply">Apply Now</button>
+                                <button class="btn btn-apply" id="btn-apply" data-id="` + data['id'] + `">Apply Now</button>
                                 <button class="btn btn-secondary"><i class="fas fa-heart"></i></button>
                                 <hr class="bg-white">
                                 <div class="search-job-info" id="job-description">
@@ -26737,6 +26810,10 @@ const {
 } = __webpack_require__(/*! ./applicant_portfolio/language */ "./src/applicant_portfolio/language.js");
 
 const {
+  job_applications
+} = __webpack_require__(/*! ./applicant_portfolio/job_applications */ "./src/applicant_portfolio/job_applications.js");
+
+const {
   employer_dashboard
 } = __webpack_require__(/*! ./employer_dashboard/index */ "./src/employer_dashboard/index.js");
 
@@ -26766,7 +26843,11 @@ const {
 
 const {
   jobs_panel
-} = __webpack_require__(/*! ./employer_dashboard/jobspanel */ "./src/employer_dashboard/jobspanel.js"); //const { jobs_search } = require("./job_search_engine/jobsearchsss");
+} = __webpack_require__(/*! ./employer_dashboard/jobspanel */ "./src/employer_dashboard/jobspanel.js");
+
+const {
+  view_applications
+} = __webpack_require__(/*! ./employer_dashboard/view_applicants */ "./src/employer_dashboard/view_applicants.js"); //const { jobs_search } = require("./job_search_engine/jobsearchsss");
 
 
 
