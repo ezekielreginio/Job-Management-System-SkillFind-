@@ -490,13 +490,29 @@ let speech_ai = (() => {
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
       } else if (document.activeElement.tagName == "INPUT") {
-        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) if (document.activeElement.getAttribute("id") == "id_password") {
-          document.activeElement.value = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(" ").join("");
-        } else {
-          document.activeElement.value = text.toLowerCase();
+        if (Object.values(fields).includes(document.activeElement.getAttribute("id"))) {
+          if (document.activeElement.getAttribute("id") == "id_password" || document.activeElement.getAttribute("id") == "id_password1" || document.activeElement.getAttribute("id") == "id_password2") {
+            let text_pass = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(" ").join("");
+            document.activeElement.value = text_pass.toLowerCase();
+          } else if (document.activeElement.getAttribute("id") == "id_login" || document.activeElement.getAttribute("id") == "id_email") {
+            document.activeElement.value = text.toLowerCase();
+          } else {
+            document.activeElement.value = text_command;
+          }
+
+          let command = "you entered" + text;
+          let speech = new SpeechSynthesisUtterance(command);
+          tts.speak(speech);
         }
-      } else if (text_command.toLowerCase() == "help") {
-        let command = "Hello. welcome to skillfind, I am your virtual assistant";
+
+        document.activeElement.blur();
+        let command = "field unselected";
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase() == "help") {
+        let command = "Hello. welcome to skillfind, I am your virtual assistant. commands for signing in, email login for email field, and password login for password field";
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
       }
@@ -506,25 +522,166 @@ let speech_ai = (() => {
         let command = "Field Cleared";
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
-      } // if(fields.includes(text)){
-      //     document.getElementById("id_login").focus() 
-      //     let command = "you're in "+text+" field"
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text=="email"){
-      //     document.getElementById("id_login").focus() 
-      //     let command = "you're in email field"
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text=="password"){
-      //     document.getElementById("id_password").focus()
-      //     let command = "you're in password field"
-      //     let speech = new SpeechSynthesisUtterance(command)   
-      //     tts.speak(speech)
-      // }
+      }
 
+      if (text_command.toLowerCase().indexOf("open sign up page") != -1) {
+        let command = "Opening signup page";
+        window.location.replace('http://127.0.0.1:8000/handicapped/signup');
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("open login page") != -1) {
+        let command = "Opening login page";
+        window.location.replace('http://127.0.0.1:8000/handicapped/login');
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } //submit
+
+
+      if (text_command.toLowerCase().indexOf("submit login") != -1) {
+        let command = "Loging in";
+        let login_form = document.getElementById("id_pwd_login");
+        login_form.submit();
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("submit sign up") != -1) {
+        let command = "Signing in";
+        let login_form = document.getElementById("id_pwd_signup");
+        login_form.submit();
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("submit experience") != -1) {
+        let command = "adding experience";
+        let login_form = document.getElementById("id_pwd_exp");
+        login_form.submit();
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("submit form edu") != -1) {
+        let command = "adding education";
+        let login_form = document.getElementById("id_pwd_edu");
+        login_form.submit();
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("submit form sk") != -1) {
+        let command = "adding skill";
+        document.getElementById("id_pwd_sk").submit();
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("submit form lg") != -1) {
+        let command = "adding language";
+        document.getElementById("id_pwd_lang").submit();
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } //open page
+
+
+      if (text_command.toLowerCase().indexOf("edit portfolio") != -1) {
+        let command = "Opening portfolio";
+        location.replace("/handicapped/pwd-eeone");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("experience") != -1) {
+        let command = "Opening experience page";
+        location.replace("/handicapped/pwd-eeone");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("education") != -1) {
+        let command = "Opening education page";
+        location.replace("/handicapped/pwd-edtwo");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("skill") != -1) {
+        let command = "Opening skill page";
+        location.replace("/handicapped/pwd-sltree");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("language") != -1) {
+        let command = "Opening language page";
+        location.replace("/handicapped/pwd-llfour");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } //add
+
+
+      if (text_command.toLowerCase().indexOf("add exp") != -1) {
+        let command = "experience form is visible";
+        document.getElementById("btn-add-experience").classList.add('d-none');
+        document.getElementById("div-experience-form").classList.remove("d-none");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("add edu") != -1) {
+        let command = "education form is visible";
+        document.getElementById("btn-add-education").classList.add('d-none');
+        document.getElementById("div-education-form").classList.remove("d-none");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("add sk") != -1) {
+        let command = "skill form is visible";
+        document.getElementById("btn-add-skill").classList.add('d-none');
+        document.getElementById("div-skill-form").classList.remove("d-none");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("add lg") != -1) {
+        let command = "language form is visible";
+        document.getElementById("btn-add-language").classList.add('d-none');
+        document.getElementById("div-language-form").classList.remove("d-none");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      } //cancel
+
+
+      if (text_command.toLowerCase().indexOf("cancel exp") != -1) {
+        let command = "canceling add experience";
+        location.replace("/handicapped/pwd-eeone");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("cancel edu") != -1) {
+        let command = "canceling add education";
+        location.replace("/handicapped/pwd-edtwo");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("cancel sk") != -1) {
+        let command = "canceling add skill";
+        location.replace("/handicapped/pwd-sltree");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
+
+      if (text_command.toLowerCase().indexOf("cancel lg") != -1) {
+        let command = "canceling add language";
+        location.replace("/handicapped/pwd-llfour");
+        let speech = new SpeechSynthesisUtterance(command);
+        tts.speak(speech);
+      }
     });
   } //public Members
 
@@ -532,7 +689,12 @@ let speech_ai = (() => {
   return {
     getInstance: fields => {
       window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      window.SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
+      let grammar = "#JSGF V1.0";
       const recognition = new window.SpeechRecognition();
+      const sppechRecognitionGrammarList = new window.SpeechGrammarList();
+      sppechRecognitionGrammarList.addFromString(grammar, 1);
+      recognition.grammars = sppechRecognitionGrammarList;
       recognition.interimResults = false;
       recognition.addEventListener("end", () => {
         recognition.start();
@@ -906,13 +1068,39 @@ function isinvalid(input, message) {
 /*!**************************************!*\
   !*** ./src/app_handicapped/index.js ***!
   \**************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-if (location.href.indexOf('handicapped') != -1) {
-  document.getElementById("nav-home").remove();
-  document.getElementById("dropdownId").remove();
-  document.getElementById("btn-login-applicant").remove();
-  document.getElementById("btn-handicap-ui").remove();
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+
+if (location.href.indexOf('handicapped/index') != -1) {
+  //Singleton Design Pattern
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'email login': 'id_login',
+      'password login': 'id_password',
+      'first name': 'id_first_name',
+      'last name': 'id_last_name',
+      'email': 'id_email',
+      'password': 'id_password1',
+      'password again': 'id_password2'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
 }
 
 /***/ }),
@@ -933,8 +1121,8 @@ if (location.href.indexOf('handicapped/login') != -1 || location.href.indexOf('h
   let login_handicapped_singleton = (() => {
     //Private Members:
     let fields = {
-      'email': 'id_login',
-      'password': 'id_password',
+      'email login': 'id_login',
+      'password login': 'id_password',
       'first name': 'id_first_name',
       'last name': 'id_last_name',
       'email': 'id_email',
@@ -953,48 +1141,438 @@ if (location.href.indexOf('handicapped/login') != -1 || location.href.indexOf('h
     };
   })();
 
-  let login_handicapped_instance = login_handicapped_singleton.getInstance(); // let fields = [
-  //     {
-  //         'command': 'email',
-  //         'field': 'id_login'
-  //     },
-  //     {
-  //         'command': 'password',
-  //         'field': 'id_password'
-  //     }
-  // ]
-  // const text = document.querySelector('.form-control')
-  // window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-  // const recognition = new window.SpeechRecognition()
-  // recognition.interimResults = true
-  // recognition.addEventListener("result", (e)=> {
-  //     const text = Array.from(e.results)
-  //     .map(result => result[0])
-  //     .map(result => result.transcript)
-  //     .join('')
-  //     let tts = window.speechSynthesis
-  //     console.log(text)
-  //     if(text=="email"){
-  //         document.getElementById("id_login").focus() 
-  //         let command = "your in email field"
-  //         let speech = new SpeechSynthesisUtterance(command)  
-  //         tts.speak(speech)
-  //     }
-  //     if(text=="password"){
-  //         document.getElementById("id_password").focus()
-  //         let command = "your in password field"
-  //         let speech = new SpeechSynthesisUtterance(command)   
-  //         tts.speak(speech)
-  //     }
-  // })
-  // recognition.addEventListener("end", ()=>{
-  //     recognition.start()
-  // })
-  // recognition.start()
-  // window.onunload = function(event)
-  // {
-  //     recognition.stop()
-  // };
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+}
+
+/***/ }),
+
+/***/ "./src/app_handicapped/pwd-edu.js":
+/*!****************************************!*\
+  !*** ./src/app_handicapped/pwd-edu.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+
+
+if (location.href.indexOf('edtwo') != -1) {
+  let qualification_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_qualification", qualification_suggestion, "qualification");
+  let fieldofstudy_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_field_of_study", fieldofstudy_suggestion, "field_of_study");
+  let major_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_major", major_suggestion, "major");
+  let university_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_university", university_suggestion, "university");
+  let university_location_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_university_location", university_location_suggestion, "location"); //Checks if the user has education data. If none, the add education form will be hidden
+
+  if (document.getElementById("div-education-list") == null) {
+    document.getElementById("div-education-form").classList.remove("d-none");
+    document.getElementById("cancel-education-form").classList.add("d-none");
+  } else {
+    //Event Listener for Add Education Btn:
+    document.getElementById("btn-add-education").addEventListener("click", function () {
+      this.classList.add("d-none");
+      document.getElementById("div-education-form").classList.remove("d-none");
+    }); //Event Listener for Cancel Education Btn:
+
+    document.getElementById("cancel-education-form").addEventListener("click", function () {
+      location.replace("/handicapped/pwd-edtwo");
+    });
+  } //Check if the user is editing education record
+
+
+  if (location.href.indexOf('edit') != -1) {
+    document.getElementById("div-education-form").classList.remove("d-none");
+    document.getElementById("div-education-list").classList.add("d-none");
+  } //Event Listener for Delete Education Btn:
+
+
+  let delete_btn_array = document.getElementsByClassName("btn-delete-education");
+
+  for (let i = 0; i < delete_btn_array.length; i++) {
+    delete_btn_array[i].addEventListener("click", function () {
+      $("#modal-delete").modal("show");
+      document.getElementById("modal-title-delete").textContent = "Delete Education Info";
+      document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Education Information?";
+      let link_href = this.getAttribute("data-link");
+      document.getElementById("form-delete").setAttribute("action", link_href);
+    });
+  } //speech recognition
+  //Singleton Design Pattern
+
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'graduation date': 'id_graduation_date',
+      'university': 'id_university',
+      'qualification': 'id_qualification',
+      'university location': 'id_university_location',
+      'field_of_study': 'id_field_of_study',
+      'major': 'id_major',
+      'grade': 'id_grade'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_1__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+}
+
+/***/ }),
+
+/***/ "./src/app_handicapped/pwd-exp.js":
+/*!****************************************!*\
+  !*** ./src/app_handicapped/pwd-exp.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+
+const moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+const {
+  create_input,
+  AJAX,
+  csrftoken,
+  autoComplete
+} = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
+const autocomplete = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
+
+const {
+  isinvalid
+} = __webpack_require__(/*! ../_global/validation */ "./src/_global/validation.js");
+
+if (location.href.indexOf('eeone') != -1) {
+  let position_title_suggestion = null;
+  autoComplete("id_position_title", position_title_suggestion, "position_title");
+  let company_name_suggestion = null;
+  autoComplete("id_company_name", company_name_suggestion, "company_name");
+  let specialization_suggestion = null;
+  autoComplete("id_specialization", specialization_suggestion, "specialization");
+  let role_suggestion = null;
+  autoComplete("id_role", role_suggestion, "role");
+  let industry_suggestion = null;
+  autoComplete("id_industry", industry_suggestion, "industry");
+  let position_level_suggestion = null;
+  autoComplete("id_position_level", position_level_suggestion, "position_level");
+  let salary_currency_suggestion = null;
+  autoComplete("id_salary_currency", salary_currency_suggestion, "salary_currency"); //show portfolio button
+  //radio button 3
+
+  if (document.getElementById("id_experience_level_3").checked) {
+    document.getElementById("experience-duration").classList.remove("d-none");
+  }
+
+  function radiobutton_listener() {
+    document.querySelectorAll('.custom-control-input').forEach(function (x) {
+      x.addEventListener("change", function () {
+        if (document.getElementById("id_experience_level_3").checked) {
+          document.getElementById("experience-duration").classList.remove("d-none");
+        } else {
+          document.getElementById("experience-duration").classList.add("d-none");
+          document.getElementById("id_duration_year").value = '';
+          document.getElementById("id_duration_month").value = '';
+        }
+      });
+    });
+    document.getElementById("submit-id-save").addEventListener("click", e => {
+      if (document.getElementById("id_experience_level_3").checked) {
+        e.preventDefault();
+        let flag = true;
+
+        if (document.getElementById("id_duration_year").value == "") {
+          flag = false;
+          field_year = document.getElementById("id_duration_year");
+          field_year.classList.add("is-invalid");
+          isinvalid(field_year, "Invalid Input");
+        }
+
+        if (document.getElementById("id_duration_month").value == "") {
+          flag = false;
+          field_month = document.getElementById("id_duration_month");
+          field_month.classList.add("is-invalid");
+          isinvalid(field_month, "Invalid Input");
+        }
+
+        if (flag) {
+          document.getElementById("experiencelevel-form").submit();
+        }
+      }
+    });
+  } //Event Listener for Cancel Experience Btn:
+
+
+  document.getElementById("cancel-experience-form").addEventListener("click", function () {
+    location.replace("/handicapped/pwd-1");
+  }); //Event Listener for Cancel Experience level Btn:
+
+  document.getElementById("cancel-experiencelevel-form").addEventListener("click", function () {
+    location.replace("/handicapped/pwd-eeone");
+  }); //Experience Level Validator:
+
+  if (document.getElementById("experience-level-desc").textContent == 'None') {
+    document.getElementById("experience-level").classList.add("d-none");
+    document.getElementById("experience-level-form").classList.remove("d-none");
+  } //Edit Experience Indicator
+
+
+  if (location.href.indexOf('edit') != -1) {
+    document.getElementById("div-experience-form").classList.remove("d-none");
+
+    try {
+      document.getElementById("div-experience-list").classList.add("d-none");
+    } catch {}
+  }
+
+  if (document.getElementById("div-experience-list") == null) {
+    document.getElementById("div-experience-form").classList.remove("d-none");
+    document.getElementById("cancel-experience-form").classList.add("d-none");
+  } else {
+    document.getElementById("btn-add-experience").addEventListener("click", function () {
+      this.classList.add("d-none");
+      document.getElementById("div-experience-form").classList.remove("d-none");
+    });
+    document.getElementById("cancel-experience-form").addEventListener("click", function () {
+      document.getElementById("div-experience-form").classList.add("d-none");
+      document.getElementById("btn-add-experience").classList.remove("d-none");
+    });
+    let experience_list = document.getElementsByClassName("experience-record");
+
+    for (var i = 0; i < experience_list.length; i++) {
+      let end_date = moment(document.getElementsByClassName("experience-enddate")[i].getAttribute("value"));
+      let start_date = moment(document.getElementsByClassName("experience-startdate")[i].getAttribute("value")); //var duration = end_date.diff(start_date, "months");
+
+      let years = end_date.diff(start_date, 'year');
+      start_date.add(years, 'years');
+      let months = end_date.diff(start_date, 'months');
+      start_date.add(months, 'months');
+      let y_str = "";
+      let m_str = "";
+      if (years >= 1) if (years == 1) y_str = years + " year ";else y_str = years + " years ";
+      if (months >= 1) if (months == 1) m_str = months + " month";else m_str = months + " months";
+      console.log(y_str + m_str);
+      document.getElementsByClassName("experience-span")[i].textContent = y_str + m_str;
+    }
+  }
+
+  document.getElementById("edit-experience-level").addEventListener("click", function () {
+    document.getElementById("experience-level").classList.add("d-none");
+    document.getElementById("experience-level-form").classList.remove("d-none");
+    radiobutton_listener();
+  }); //Event Listeners for Delete Experience Buttons
+
+  let delete_btn_array = document.getElementsByClassName("delete-experience");
+
+  for (let i = 0; i < delete_btn_array.length; i++) {
+    delete_btn_array[i].addEventListener('click', function () {
+      $("#modal-delete").modal("show");
+      document.getElementById("modal-title-delete").textContent = "Delete Experience Record";
+      document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Experience Record?";
+      let link_href = this.getAttribute("data-link");
+      document.getElementById("form-delete").setAttribute("action", link_href);
+    });
+  } //speech recognition
+  //Singleton Design Pattern
+
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'position title': 'id_position_title',
+      'company name': 'id_company_name',
+      'start date': 'id_start_date',
+      'end date': 'id_end_date',
+      'specialization': 'id_specialization',
+      'role': 'id_role',
+      'country': 'id_country',
+      'industry': 'id_industry',
+      'position level': 'id_position_level',
+      'salary currency': 'id_salary_currency',
+      'salary': 'id_salary',
+      'experience description': 'id_experience_description'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+}
+
+/***/ }),
+
+/***/ "./src/app_handicapped/pwd-lang.js":
+/*!*****************************************!*\
+  !*** ./src/app_handicapped/pwd-lang.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+
+
+if (location.href.indexOf('llfour') != -1) {
+  let language_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_language", language_suggestion, "language");
+  let proficiency_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_proficiency", proficiency_suggestion, "proficiency"); //Checks if the user has languages data. If none, the add language form will be hidden
+
+  if (document.getElementById("div-language-list") == null) {
+    document.getElementById("div-language-form").classList.remove("d-none");
+    document.getElementById("cancel-language-form").classList.add("d-none");
+  } //Checks if URL is in edit skill
+
+
+  if (location.href.indexOf('edit') != -1) {
+    document.getElementById("div-language-form").classList.remove("d-none");
+  } //Event Listeners:
+  //Event Listener for Add Skill Btn:
+
+
+  document.getElementById("btn-add-language").addEventListener("click", function () {
+    this.classList.add("d-none");
+    document.getElementById("div-language-form").classList.remove("d-none");
+  });
+  document.getElementById("cancel-language-form").addEventListener("click", function () {
+    location.replace("/handicapped/pwd-llfour");
+  }); //Event Listener for Delete Education Btn:
+
+  let delete_btn_array = document.getElementsByClassName("btn-delete-language");
+
+  for (let i = 0; i < delete_btn_array.length; i++) {
+    delete_btn_array[i].addEventListener("click", function () {
+      $("#modal-delete").modal("show");
+      document.getElementById("modal-title-delete").textContent = "Delete Language";
+      document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Language?";
+      let link_href = this.getAttribute("data-link");
+      document.getElementById("form-delete").setAttribute("action", link_href);
+    });
+  } //speech recognition
+  //Singleton Design Pattern
+
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'l name': 'id_language',
+      'proficiency': 'id_proficiency'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_1__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+}
+
+/***/ }),
+
+/***/ "./src/app_handicapped/pwd-sk.js":
+/*!***************************************!*\
+  !*** ./src/app_handicapped/pwd-sk.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
+
+
+if (location.href.indexOf('sltree') != -1) {
+  let skill_suggestion = null;
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_skill", skill_suggestion, "skill"); //Checks if the user has skills data. If none, the add language form will be hidden
+
+  if (document.getElementById("div-skill-list") == null) {
+    document.getElementById("div-skill-form").classList.remove("d-none");
+    document.getElementById("cancel-skill-form").classList.add("d-none");
+  } //Checks if URL is in edit skill
+
+
+  if (location.href.indexOf('edit') != -1) {
+    document.getElementById("div-skill-form").classList.remove("d-none");
+  } //Event Listeners:
+  //Event Listener for Add Skill Btn:
+
+
+  document.getElementById("btn-add-skill").addEventListener("click", function () {
+    this.classList.add("d-none");
+    document.getElementById("div-skill-form").classList.remove("d-none");
+  });
+  document.getElementById("cancel-skill-form").addEventListener("click", function () {
+    location.replace("/handicapped/pwd-sltree");
+  }); //Event Listener for Delete Skill Btn:
+
+  let delete_btn_skill = document.getElementsByClassName("btn-delete-skill");
+
+  for (let i = 0; i < delete_btn_skill.length; i++) {
+    delete_btn_skill[i].addEventListener("click", function () {
+      $("#modal-delete").modal("show");
+      document.getElementById("modal-title-delete").textContent = "Delete Skill";
+      document.getElementById("modal-body-delete").textContent = "Are You Sure You Want To Delete This Skill?";
+      let link_href = this.getAttribute("data-link");
+      document.getElementById("form-delete").setAttribute("action", link_href);
+    });
+  } //speech recognition
+  //Singleton Design Pattern
+
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      's name': 'id_skill',
+      'proficiency': 'id_proficiency'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
 }
 
 /***/ }),
@@ -1040,8 +1618,7 @@ if (location.href.indexOf('education') != -1) {
 
   if (location.href.indexOf('edit') != -1) {
     document.getElementById("div-education-form").classList.remove("d-none");
-    document.getElementById("div-education-list").classLis;
-    t.add("d-none");
+    document.getElementById("div-education-list").classList.add("d-none");
   } //Event Listener for Delete Education Btn:
 
 
@@ -1066,6 +1643,11 @@ if (location.href.indexOf('education') != -1) {
 
 
   document.getElementById("education-img-header").classList.remove("d-none");
+  let mods = document.getElementsByClassName("requiredField");
+
+  for (let i = 0; i < mods.length; i++) {
+    mods[i].classList.remove("text-white");
+  }
 }
 
 /***/ }),
@@ -1318,34 +1900,10 @@ if (location.href.indexOf('experience') != -1) {
     ex_textarea[i].classList.add("date_Input");
   }
 
-  let ex_start = document.getElementsByClassName("experience-startdate");
+  let edu_input = document.getElementsByClassName("form-control");
 
-  for (let i = 0; i < ex_start.length; i++) {
-    ex_start[i].classList.add("applicant-text-color");
-  }
-
-  let ex_end = document.getElementsByClassName("experience-enddate");
-
-  for (let i = 0; i < ex_end.length; i++) {
-    ex_end[i].classList.add("applicant-text-color");
-  }
-
-  let ex_info = document.getElementsByClassName("col-8");
-
-  for (let i = 0; i < ex_info.length; i++) {
-    ex_info[i].classList.add("ex-info");
-  }
-
-  let ex_level = document.getElementsByClassName("col-3");
-
-  for (let i = 0; i < ex_level.length; i++) {
-    ex_level[i].classList.add("applicant-text-color");
-  }
-
-  let ex_info_label = document.getElementsByClassName("col-4");
-
-  for (let i = 0; i < ex_info_label.length; i++) {
-    ex_info_label[i].classList.add("applicant-text-color");
+  for (let i = 0; i < edu_input.length; i++) {
+    edu_input[i].classList.add("blank");
   }
 }
 
@@ -1364,7 +1922,11 @@ for (var i = 0; i < nav_portfolio.length; i++) {
     link = this.getAttribute("href");
     window.location.replace(link);
   });
-}
+} //let mods = document.getElementsByClassName("card-header")
+//for(let i=0; i<mods.length; i++)
+//{
+//  mods[i].classList.remove("cardss")
+//}
 
 /***/ }),
 
@@ -1439,6 +2001,34 @@ if (location.href.indexOf('languages') != -1) {
 
   for (let i = 0; i < lang_input.length; i++) {
     lang_input[i].classList.add("lang-in");
+  }
+}
+
+/***/ }),
+
+/***/ "./src/applicant_portfolio/personalinfo.js":
+/*!*************************************************!*\
+  !*** ./src/applicant_portfolio/personalinfo.js ***!
+  \*************************************************/
+/***/ (() => {
+
+if (location.href.indexOf('personal_info') != -1) {
+  if (document.getElementById("div-personal-info-list") == null) {
+    document.getElementById("div-personal-info-form").classList.remove("d-none");
+  } else {
+    document.getElementById("div-personal-info-form").classList.add("d-none");
+  }
+
+  let mods = document.getElementsByClassName("requiredField");
+
+  for (let i = 0; i < mods.length; i++) {
+    mods[i].classList.remove("text-white");
+  }
+
+  let edu_input = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < edu_input.length; i++) {
+    edu_input[i].classList.add("blank");
   }
 }
 
@@ -1966,6 +2556,11 @@ if (location.href.indexOf('employer/addjob') != -1) {
   })();
 
   let addJob_instance = AddJob.getInstance();
+  let input = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < input.length; i++) {
+    input[i].classList.add("black");
+  }
 }
 
 /***/ }),
@@ -26851,6 +27446,29 @@ const {
 
 
 
+const {
+  jobs_search
+} = __webpack_require__(/*! ./job_search_engine/jobsearch */ "./src/job_search_engine/jobsearch.js");
+
+const {
+  personal_info
+} = __webpack_require__(/*! ./applicant_portfolio/personalinfo */ "./src/applicant_portfolio/personalinfo.js");
+
+const {
+  pwd_exp
+} = __webpack_require__(/*! ./app_handicapped/pwd-exp */ "./src/app_handicapped/pwd-exp.js");
+
+const {
+  pwd_edu
+} = __webpack_require__(/*! ./app_handicapped/pwd-edu */ "./src/app_handicapped/pwd-edu.js");
+
+const {
+  pwd_sk
+} = __webpack_require__(/*! ./app_handicapped/pwd-sk */ "./src/app_handicapped/pwd-sk.js");
+
+const {
+  pwd_lang
+} = __webpack_require__(/*! ./app_handicapped/pwd-lang */ "./src/app_handicapped/pwd-lang.js");
 })();
 
 /******/ })()

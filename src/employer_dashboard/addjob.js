@@ -460,4 +460,12 @@ if(location.href.indexOf('employer/addjob') != -1){
         }
     })()
     let addJob_instance = AddJob.getInstance()
+
+    
+
+    let input = document.getElementsByClassName("form-control")
+    for(let i=0; i<input.length; i++)  
+    {
+        input[i].classList.add("black")
+    }
 }

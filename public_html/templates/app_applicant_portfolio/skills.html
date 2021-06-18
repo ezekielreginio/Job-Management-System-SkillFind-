@@ -4,14 +4,13 @@
 {% load crispy_forms_tags %}
 
 {% block header %}
-<div  class="card bg-dark mb-3">
+<div  class="card bg-dark-green mb-3">
     <div class="container mt-2">
-        <div class="row mb-5">
-            <div class="col-7 vertical-center">
-                <i class="icon-briefcase fs-25 applicant-text-color"></i>
-                <h4 class="d-inline-block text-white">Skills</h4>    
+        <div class="row">
+            <div class="col-8 card-height d-flex justify-content-center">
+                <img src="{% static 'media/images/skill-header.png' %}" class="img-applicant-portfolio" alt="">   
             </div>
-            <div class="col-4">
+            <div class="col-4 card-height d-flex justify-content-center">
                 <img src="{% static 'media/images/applicant_skill.png' %}" class="img-applicant-portfolio" alt="">
             </div> 
         </div>  
@@ -29,7 +28,7 @@
     <div class="mh-300" id="div-skill-list">
         <div class="row">
             <div class="col-6">
-                <h3 class="text-white">My Skillset</h3>
+                <h3 class="">My Skillset</h3>
             </div>
             <div class="col-xs-6 ml-auto mr-2">
                 <a href="#" class="btn btn-applicant" id="btn-add-skill"><i class="icon-plus-sign"></i> Add Skill</a>
@@ -46,10 +45,10 @@
         {% for skill in skill_list %}
             <div class="row pb-1">
                 <div class="col-4">
-                    <h5 class="text-white">{{skill.skill}}</h5>
+                    <h5 class="">{{skill.skill}}</h5>
                 </div>
                 <div class="col-2">
-                    <h5 class="text-white">{{skill.proficiency}}</h5>
+                    <h5 class="">{{skill.proficiency}}</h5>
                 </div>
                 <div class="col-2">
                     <a href="{% url 'skills_update' skill.id%}" class="update-skill applicant-text-color"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>

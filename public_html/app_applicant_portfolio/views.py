@@ -5,7 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormView
 
 from . import forms as portfolio_forms
-from .models import Experience, ExperienceLevel, Education, Skill, Language, Resume
+from .models import Experience, ExperienceLevel, Education, Personalinfo, Skill, Language, Resume, Personalinfo
+from django.contrib.auth.models import User
 
 import datetime
 
@@ -203,3 +204,45 @@ def applicant_resume(request,op=None, pk=None):
 
     context = {'resume_form': resume_form}
     return render(request, 'app_applicant_portfolio/resume.html', context)
+
+
+
+
+
+
+
+
+
+
+
+@login_required(login_url='/login/applicant')
+@user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
+def applicant_personal_info(request, pk=None):
+   
+    personal_info_form = portfolio_forms.ApplicantPersonalInfo
+    personal_info = None
+    if not pk is None:
+        personal_info = Personalinfo.objects.get(id=pk)
+        personal_info_form =portfolio_forms.ApplicantPersonalInfo(instance = personal_info)
+
+        
+    personal_info_list = None
+    if request.method == 'POST':
+        personal_info_form = portfolio_forms.ApplicantPersonalInfo(request.POST, instance=personal_info)
+        if personal_info_form.is_valid():
+            per_form = personal_info_form.save(commit=False)
+            per_form.applicant = request.user
+            per_form.save()
+            return redirect('applicant_personal_info')
+    else:
+        try:
+            personal_info_list = Personalinfo.objects.all().filter(applicant_id=request.user.id)
+            #user=User.objects.all().filter(id=request.user.id)
+           
+        except ObjectDoesNotExist:
+            personal_info_list = None
+            user = None
+
+    context = {'form': personal_info_form, 'personal_info_list' : personal_info_list} #'user': user
+    return render(request, 'app_applicant_portfolio/personal_info.html', context)
+

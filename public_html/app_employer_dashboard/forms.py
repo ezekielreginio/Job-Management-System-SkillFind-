@@ -192,12 +192,30 @@ class EmployerAddJobListing(forms.ModelForm):
             Fieldset(
                 '',
                 Div( #Page 1
-                    'job_title',
-                    'location',
-                    'remote',
+                     Div(                      
+                           Div(
+                             'job_title',
+                              css_class='col-6',
+                              ),
+                           Div(
+                             'location',
+                              css_class='col-6',
+                              ),
+                    css_class='row d-flex justify-conent-center'
+                    ),
+                    Div(                      
+                           Div(
+                             'remote',
+                              css_class='col-6',
+                              ),
+                           Div(
+                             'hires_needed',
+                              css_class='col-6',
+                              ),
+                    css_class='row d-flex justify-conent-center'
+                    ),
                     'accept_handicapped',
-                    'accepted_handicapped_types',
-                    'hires_needed',
+                    'accepted_handicapped_types',  
                     HTML(""" <button type="button" name="" id="" class="btn btn-applicant btn-move-page pull-right" data-target-page="p2-add-job">Next Page</button> """),
                     css_class='pages-add-job',
                     css_id='p1-add-job',

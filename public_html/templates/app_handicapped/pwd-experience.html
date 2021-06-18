@@ -1,211 +1,158 @@
-{% extends "./pwd-portfolio.html" %} 
+{% extends "../base.html" %}
 {% load static %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
 
-{% block portfolio %}
-
-<div class="card bg-gradient margin-pwd">
-    <div class="container mt-2">
-        <div class="row mb-5">
-            <div class="col-12">
-                <img src="{% static 'media/images/pwd-header-1.png' %}" class="img-applicant-portfolio" alt="">
-            </div> 
-        </div>  
-    </div>
-</div>
-<div class="card card-pwd margin-pwd2"> 
-    <div class="container card-pwd">
-        <div class="row">
-            <div class="col-12">
-             <div class="form-group">
-                 <h1 class="text-center m-1 text-white">ADD Experience</h1>
-              </div>
-            </div> 
-         </div>
-    </div>
-</div>
-
-
-<div class="card margin-pwd3">
-    <div class="card-body">
-        <form>
-            <div class="comtainer">
-                <div class="row">
-                   <div class="col-6">
-                    <div class="form-group">
-                        <label class="label-pwd">Position Title</label>
-                        <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                     </div>
-                   </div>
-                   <div class="col-6">
-                    <div class="form-group">
-                        <label class="label-pwd">Company Name</label>
-                        <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                      </div>
-                   </div>
+<div class="container-fluid">
+	<div class="card">
+		<div class="container-fluid">
+			<div class="row d-flex justify-content-center">
+			  <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+				
+					<svg version="1.1" viewBox="0 0 1222 65">
+						<a href="/handicapped/index">
+						<rect width="258" height="65" rx="25" x="400" y="0" class="home-btn"/>
+						<text class="home-btn-text" x="490" y="40">HOME</text>
+					    </a>
+					</svg>
+				
+			   </div>
+			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+				<svg version="1.1" viewBox="0 0 1200 120">
+					<rect width="1200" height="120" x="0" y="0" rx="50" ry="50" class="navigation"/>
+					<text x="100" y="70" class="navigation-text-active">Experience</text>
+					<rect width="163" height="19" x="125" y="80" rx="10" ry="10" class="navigation-active"/>
+					<a href="/handicapped/pwd-2">
+						<text x="400" y="70" class="navigation-text">Education</text>
+					</a>
+					<a href="/handicapped/pwd-3">
+						<text x="700" y="70" class="navigation-text">Skills</text>
+					</a>
+					<a href="/handicapped/pwd-4">
+						<text x="900" y="70" class="navigation-text">Language</text>
+					</a>
+				</svg>
+			   </div>
+		{%if experience_list %}
+              <div class="col-12" id="div-experience-list">
+				<div class="col-xs-12 ml-auto mr-2">
+                    <a href="#" class="btn btn-applicant"  id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                     <div class="form-group">
-                        <label class="label-pwd">Start Date</label>
-                         <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                    </div>
-                    </div>
-                    <div class="col-6">
-                     <div class="form-group">
-                        <label class="label-pwd">End Date</label>
-                        <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                    </div>
-                    </div>
-                 </div>
-                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="label-pwd">Specialization</label>
-                            <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="label-pwd">Role</label>
-                            <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                        </div>
-                    </div>
-                 </div>
-                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="label-pwd">Country</label>
-                            <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="label-pwd">Industry</label>
-                            <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                        </div>
-                    </div>
-                 </div>
-                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="label-pwd">Position Level</label>
-                            <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="label-pwd">Salary Currency</label>
-                            <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                        </div>
-                    </div>
-                 </div>
-                 <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label class="label-pwd">Salary</label>
-                            <input type="text" class="form-control form-control-lg" id="" placeholder="">
-                        </div>
-                    </div>
-                   
-                 </div>
-                
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <button class="btn btn-handicapped">SAVE</button>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <button class="btn btn-handicapped-danger">CANCEL</button>
-                        </div>
-                    </div>
-                 </div>
-            </div>
-            
-          </form>
-    </div>
+				{% for experience in experience_list %}
+			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+               <div class="card container-fluid card-bg">
+				   <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+								<div class="col-12">
+                                    <h1 class="text-white">{{experience.position_title}}
+										<a href="{% url 'pwd_experience_update' experience.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
+                                        <a data-link="{% url 'pwd_experience_delete' experience.id %}" class="delete-experience text-danger-dark" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block" ></i></a>
+									</h1>
+								</div>
+							</div>
+							<div class="row">
+                                <div class="col-12">
+                                    <h4 class="text-white text-right">{{experience.company_name}}</h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+                                    <h5 class="text-white text-right">{{experience.start_date|date:'M Y'}}-{{experience.end_date|date:'M Y'}}</h5>
+								</div>
+							</div>
+
+							<hr>
+
+							<div class="row">
+								<div class="col-12">
+                                    <h5 class="text-white">Details:</h5>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card-body">
+									<div class="container">
+										<div class="row">
+											<div class="col-4">
+												<h6>Industry:</h6>
+											</div>
+											<div class="col-8">
+												<h6>{{experience.industry}}</h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-4">
+												<h6>Specialization:</h6>
+											</div>
+											<div class="col-8">
+												<h6>{{experience.specialization}}</h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-4">
+												<h6>Role:</h6>
+											</div>
+											<div class="col-8">
+												<h6>{{experience.role}}</h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-4">
+												<h6>Position Level:</h6>
+											</div>
+											<div class="col-8">
+												<h6>{{experience.position_level}}</h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-4">
+												<h6>Salary:</h6>
+											</div>
+											<div class="col-8">
+												<h6>{{experience.salary}}</h6>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+				   </div>
+			   </div>
+				  
+			   </div>
+			   {% endfor %}
+			  </div>
+		{% endif %}	  
+			  
+			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+				   <div class="container-fluid d-none" id="experience-level-form">
+					{%crispy experience_level_form%}   
+				   </div>
+					<div class="row" id="experience-level">
+						<div class="col-3 text-black">
+							Experience Level
+						</div>
+						<div class="col-6">
+							<span class="" id="experience-level-desc">{{experience_level_desc}}</span>
+						</div>
+						<div class="col-3">
+							<a href="#" class=""id="edit-experience-level"><i class="icon-edit d-inline-block"></i> Edit</a>
+						</div>
+					</div>
+			   </div>
+			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+				<div class="container d-none" id="div-experience-form">
+					{% crispy form %}
+				</div>
+			   </div>
+			</div>
+		</div>
+	</div>
 </div>
-
-
-<div class="card card-pwd margin-pwd2"> 
-    <div class="container card-pwd">
-        <div class="row">
-            <div class="col-12">
-             <div class="form-group">
-                 <h1 class="m-1 text-white">Experience List</h1>
-              </div>
-            </div> 
-         </div>
-    </div>
-</div>
-<div class="card margin-pwd3">
-    <div class="card-deck">
-        <div class="card">
-          
-          <div class="card-body">
-            <h5 class="card-title card-icon-text">Position Title</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-briefcase"></i>   Company</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-clock-o"style="font-size:20px;"></i>   Duration</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-map-marker"style="font-size:20px;"></i>   Specialization</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Role</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Country</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Industry</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Position Level</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Salary Currency</li>
-              <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Salary</li>
-            </ul>
-            
-          </div>
-          
-        </div>
-        <div class="card">
-          
-            <div class="card-body">
-              <h5 class="card-title card-icon-text">Position Title</h5>
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-briefcase"></i>   Company</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-clock-o"style="font-size:20px;"></i>   Duration</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-map-marker"style="font-size:20px;"></i>   Specialization</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Role</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Country</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Industry</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Position Level</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Salary Currency</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Salary</li>
-              </ul>
-              
-            </div>
-            
-          </div>
-          <div class="card">
-          
-            <div class="card-body">
-              <h5 class="card-title card-icon-text">Position Title</h5>
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-briefcase"></i>   Company</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-clock-o"style="font-size:20px;"></i>   Duration</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-map-marker"style="font-size:20px;"></i>   Specialization</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Role</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Country</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Industry</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Position Level</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Salary Currency</li>
-                <li class="list-group-item list-group-item-success card-icon-text"><i class="fa fa-user"style="font-size:20px;"></i>   Salary</li>
-              </ul>
-              
-            </div>
-            
-          </div>
-        
-        
-    </div>
-
-</div>
-
-
 
 
 {% endblock %}
+

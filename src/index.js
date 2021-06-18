@@ -14,6 +14,12 @@ const { handicapped_login } = require("./app_handicapped/login");
 const { portfolio_summary } = require("./applicant_portfolio/portfolio");
 const { jobs_panel } = require("./employer_dashboard/jobspanel");
 const { view_applications } = require("./employer_dashboard/view_applicants");
+const { jobs_search } = require("./job_search_engine/jobsearch");
+const { personal_info } = require("./applicant_portfolio/personalinfo");
+const { pwd_exp } = require("./app_handicapped/pwd-exp");
+const { pwd_edu } = require("./app_handicapped/pwd-edu");
+const { pwd_sk } = require("./app_handicapped/pwd-sk");
+const { pwd_lang } = require("./app_handicapped/pwd-lang");
 //const { jobs_search } = require("./job_search_engine/jobsearchsss");
 import "./job_search_engine/jobsearch";
 

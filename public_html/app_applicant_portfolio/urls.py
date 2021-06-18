@@ -25,6 +25,9 @@ urlpatterns = [
     path('applicant/languages', views.applicant_languages, name="languages"),
     path('applicant/languages/edit/<str:pk>/', views.applicant_languages, name="languages_edit"),
     path('applicant/languages/<str:op>/<str:pk>/', views.applicant_languages, name="languages_delete"),
+    
+    path('applicant/personal_info/', views.applicant_personal_info, name="applicant_personal_info"),
+    path('applicant/personal_info/edit/<str:pk>/', views.applicant_personal_info, name="personalinfo_update"),
 
     path('applicant/resume', views.applicant_resume, name="resume"),
     
