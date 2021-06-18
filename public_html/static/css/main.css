@@ -1283,3 +1283,11 @@ section.input-container .pwd-label .pwd-span {
   outline: none;
 }
 
+.card-bg{
+  background-color: #0F2B5B;
+}
+
+hr{
+  border-top: 1px solid white;
+}
+

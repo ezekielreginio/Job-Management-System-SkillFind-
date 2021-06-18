@@ -28,7 +28,7 @@
     <div class="mh-300" id="div-language-list">
         <div class="row">
             <div class="col-6">
-                <h3 class="text-white">My Languages</h3>
+                <h3 class="">My Languages</h3>
             </div>
             <div class="col-xs-6 ml-auto mr-2">
                 <a href="#" class="btn btn-applicant" id="btn-add-language"><i class="icon-plus-sign"></i> Add Language</a>
@@ -45,10 +45,10 @@
         {% for language in language_list %}
             <div class="row pb-1">
                 <div class="col-4">
-                    <h5 class="text-white">{{language.language}}</h5>
+                    <h5 class="">{{language.language}}</h5>
                 </div>
                 <div class="col-2">
-                    <h5 class="text-white">{{language.proficiency}}</h5>
+                    <h5 class="">{{language.proficiency}}</h5>
                 </div>
                 <div class="col-2">
                     <a href="{% url 'languages_edit' language.id %}" class="update-skill applicant-text-color"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>

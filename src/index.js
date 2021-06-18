@@ -14,7 +14,9 @@ const { portfolio_summary } = require("./applicant_portfolio/portfolio");
 const { jobs_panel } = require("./employer_dashboard/jobspanel");
 const { jobs_search } = require("./job_search_engine/jobsearch");
 const { personal_info } = require("./applicant_portfolio/personalinfo");
-
-
+const { pwd_exp } = require("./app_handicapped/pwd-exp");
+const { pwd_edu } = require("./app_handicapped/pwd-edu");
+const { pwd_sk } = require("./app_handicapped/pwd-sk");
+const { pwd_lang } = require("./app_handicapped/pwd-lang");
 
 

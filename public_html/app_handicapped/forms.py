@@ -26,7 +26,7 @@ class PwdSigninForm(LoginForm):
                 Field('password', css_class='form-control-lg'),
             ),
             ButtonHolder(
-                Submit('submit', 'Login', css_class='btn btn-pwd')
+                Submit('Submit', 'Login', css_class='btn btn-pwd')
             )
         )
         
@@ -53,7 +53,7 @@ class PwdSignupForm(SignupForm):
                 Field('user_group', type='hidden', value='pwd'),
             ),
             ButtonHolder(
-                Submit('submit', 'Sign Up', css_class='btn btn-pwd')
+                Submit('save', 'Sign Up', css_class='btn btn-pwd')
             )
         )
 
@@ -98,8 +98,9 @@ class PWDPortfolioExperience(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_id = 'id_pwd_exp'
         self.helper.form_show_labels = False
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn-primary btn-applicant'))
+        self.helper.add_input(Submit('Submit', 'Save', css_class='btn-primary btn-applicant'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-experience-form"))
         self.helper.layout = Layout(
             Fieldset(
@@ -173,7 +174,9 @@ class PWDExperienceLevel(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_id = 'experiencelevel-form'
         self.helper.form_show_labels = False
-        self.helper.form_action = '/handicapped/pwd-experience'
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-3 text-right'
+        self.helper.form_action = '/handicapped/pwd-exp'
         self.fields['experience_level'].widget.attrs.update({
             'class': 'option-input radio'
         })
@@ -183,52 +186,24 @@ class PWDExperienceLevel(forms.ModelForm):
             Fieldset(
                 '',
                 Div(
-                    Div(HTML(""" <label class="title">Experience Level*</label> """), 
-                    css_class='col-3'
-                    ),
-                    Div( HTML(""" 
-                          <label>
-							<input type="radio" class="option-input radio" name="experience_level" id="id_experience_level_3" value="3" />
-								I am a fresh graduate seeking my first job
-						  </label>
-                          <label>
-							<input type="radio" class="option-input radio" name="experience_level" id="id_experience_level_2" value="2" />
-								I am a student seeking internship or part-time jobs
-						  </label>
-                          <label>
-							<input type="radio" class="option-input radio" name="experience_level" id="id_experience_level_1" value="1" />
-								I have been working since
-						  </label>
-                          """),
-                    Div(
-                    Div(
-                    Div(
-                    HTML(""" <section class="input-container">
-                                <label class="pwd-label">
-                                <input class="pwd-in" type="text" placeholder="year" name="duration_year">
-                                <span class="pwd-span">year</span>
-                                </label>
-                             </section> """),
-                    css_class='col'    
-                    ),
-                    Div(
-                    HTML(""" <section class="input-container">
-                                <label class="pwd-label">
-                                <input class="pwd-in" type="text" placeholder="month" name="duration_month">
-                                <span class="pwd-span">month</span>
-                                </label>
-                             </section> """),
-                    css_class='col'    
-                    ),
-                    css_class='row'    
-                    ),
-                    css_class='container'    
-                    ),
-                    css_class='col-9'
-                    ),
-                 css_class='row d-flex justify-content-center'
+                    Div(HTML(""" <label for="id_experience_level_0" class="text-right requiredField">
+                Experience level<span class="asteriskField">*</span> </label> """), css_class='col-3'),
+                    Div('experience_level', css_class='col-8'),
+                    css_class='row',
                 ),
-               
+                Div(
+                    Div(
+                        css_class="col-3"
+                    ),
+                    Div(
+                        'duration_year', css_class="col-2 mr-2",
+                    ),
+                    Div(
+                        'duration_month', css_class="col-2",
+                    ),
+                    css_class='row d-none',
+                    css_id='experience-duration',
+                ),
             ),
         )
         
@@ -250,35 +225,73 @@ class PWDEducation(forms.ModelForm):
     def __init__(self, *args, **kwargs): #constructor
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_action = '/handicapped/pwd-education'
+        self.helper.form_id = 'id_pwd_edu'
+        self.helper.form_action = '/handicapped/pwd-edu'
         self.helper.form_show_labels = False
         self.helper.add_input(Submit('save', 'Save', css_class='btn-applicant'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-education-form"))
+
+
+class PWDSkill(forms.ModelForm):
+    skill = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Skill Name'}))
+    proficiency = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Proficiency'}))
+
+    class Meta:
+        model = models.Skill
+        exclude = ('applicant', )
+
+    def __init__(self, *args, **kwargs): #constructor
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_id = 'id_pwd_sk'
+        self.helper.form_show_labels = False
+        self.helper.add_input(Submit('Submit', 'Save', css_class='btn-applicant'))
+        self.helper.add_input(Button('/handicapped/pwd-sk', 'Cancel', css_class='btn-danger-dark', css_id="cancel-skill-form"))
         self.helper.layout = Layout(
             Fieldset(
                 '',
                 Div(
-                    Div( 
-                    Field('graduation_date', css_class='pwd-input', placeholder="Graduation Date"),
-                    Field('university', css_class='pwd-input', placeholder="University"),
-                    css_class='col container-fluid d-flex justify-content-center'
+                    Div(HTML(''' <h5>Add Skill</h5> '''), css_class="col-12 pl-0"),
+                    Div(
+                        'skill', css_class="col-3 mr-2",
                     ),
-                    Div( 
-                    Field('qualification', css_class='pwd-input', placeholder="Qualification"),
-                    Field('university_location', css_class='pwd-input', placeholder="University Location"),
-                    css_class='col container-fluid d-flex justify-content-center'
+                    Div(
+                        'proficiency', css_class="col-3",
                     ),
-                    Div( 
-                    Field('field_of_study', css_class='pwd-input', placeholder="Field of Study"),
-                    Field('major', css_class='pwd-input', placeholder="Major"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ),
-                    Div( 
-                    Field('grade', css_class='pwd-input', placeholder="Grade"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ),
-                 css_class='row d-flex justify-content-center'
+                    css_class='row',
                 ),
-               
+            ),
+        )
+
+class PWDLanguage(forms.ModelForm):
+    language = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Language'}))
+    proficiency = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Proficiency'}))
+
+    class Meta:
+        model = models.Language
+        exclude = ('applicant', )
+
+    def __init__(self, *args, **kwargs): #constructor
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id_pwd_lang'
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_show_labels = False
+        self.helper.add_input(Submit('Submit', 'Save', css_class='btn-applicant'))
+        self.helper.add_input(Button('/handicapped/pwd-lang', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-language-form"))
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                Div(
+                    Div(HTML(''' <h5 class="text-white">Add Language</h5> '''), css_class="col-12 pl-0"),
+                    Div(
+                        'language', css_class="col-3 mr-2",
+                    ),
+                    Div(
+                        'proficiency', css_class="col-3",
+                    ),
+                    css_class='row',
+                ),
             ),
         )
