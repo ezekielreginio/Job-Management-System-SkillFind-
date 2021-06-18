@@ -18,5 +18,9 @@ const { pwd_exp } = require("./app_handicapped/pwd-exp");
 const { pwd_edu } = require("./app_handicapped/pwd-edu");
 const { pwd_sk } = require("./app_handicapped/pwd-sk");
 const { pwd_lang } = require("./app_handicapped/pwd-lang");
+//const { jobs_search } = require("./job_search_engine/jobsearchsss");
+import "./job_search_engine/jobsearch";
+
+
 
 

@@ -15,7 +15,7 @@ import json
 # Create your views here.
 def searchjob(request):
     query = request.GET.get('q')
-    queryset = JobListing.objects.filter(job_title__contains = query).select_related().values('job_title', 'location', 'job_description', 'id', 'employer__company_name')
+    queryset = JobListing.objects.filter(job_title__icontains = query).order_by('-id').select_related().values('job_title', 'location', 'job_description', 'id','date_posted', 'employer__company_name')
     context = {'queryset': queryset}
     return render(request, "./app_findjob/search.html", context)
 

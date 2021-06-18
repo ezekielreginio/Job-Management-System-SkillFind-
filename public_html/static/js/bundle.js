@@ -2874,7 +2874,10 @@ if (location.href.indexOf('employer/addjob') != -1) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+
 
 document.getElementById("searchbar").addEventListener("submit", e => {
   e.preventDefault();
@@ -2889,8 +2892,8 @@ if (location.href.indexOf('jobs') != -1) {
       document.querySelectorAll(".card-results").forEach(job_card => {
         job_card.addEventListener("click", async e => {
           let job_id = job_card.getAttribute("data-job-id");
-          const request = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__.RequestFactory)("./ajax/jobquery?id=" + job_id);
-          const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_0__.RequestBodyFactory)({
+          const request = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestFactory)("./ajax/jobquery?id=" + job_id);
+          const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestBodyFactory)({
             "method": "GET"
           });
           const response = await fetch(request, body);
@@ -3027,12 +3030,21 @@ if (location.href.indexOf('jobs') != -1) {
           }
         });
       });
+    }
+
+    function set_time_posted() {
+      let time_posted = document.getElementsByClassName("date-posted");
+
+      for (let i = 0; i < time_posted.length; i++) {
+        time_posted[i].innerHTML = moment__WEBPACK_IMPORTED_MODULE_0___default()(time_posted[i].getAttribute("data-date"), "MMM DD, YYYY, h:mm a").fromNow();
+      }
     } //public members:
 
 
     return {
       getInstance: () => {
         EventBubble();
+        set_time_posted();
       }
     };
   })();
@@ -27287,11 +27299,14 @@ const dataToTable = function (data) {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
+"use strict";
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _job_search_engine_jobsearch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./job_search_engine/jobsearch */ "./src/job_search_engine/jobsearch.js");
 const {
   login
 } = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
@@ -27346,7 +27361,9 @@ const {
 
 const {
   jobs_panel
-} = __webpack_require__(/*! ./employer_dashboard/jobspanel */ "./src/employer_dashboard/jobspanel.js");
+} = __webpack_require__(/*! ./employer_dashboard/jobspanel */ "./src/employer_dashboard/jobspanel.js"); //const { jobs_search } = require("./job_search_engine/jobsearchsss");
+
+
 
 const {
   jobs_search

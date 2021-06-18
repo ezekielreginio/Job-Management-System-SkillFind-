@@ -1,3 +1,4 @@
+import moment from "moment"
 import { RequestBodyFactory, RequestFactory } from "../_factories/ajax_requests"
 
 document.getElementById("searchbar").addEventListener("submit", (e)=>{
@@ -161,10 +162,19 @@ if(location.href.indexOf('jobs') != -1){
             })
         }
 
+        function set_time_posted(){
+            let time_posted = document.getElementsByClassName("date-posted")
+
+            for(let i=0; i<time_posted.length; i++){
+                time_posted[i].innerHTML = moment(time_posted[i].getAttribute("data-date"), "MMM DD, YYYY, h:mm a").fromNow();
+            }
+        }
+
         //public members:
         return{
             getInstance: ()=>{
                 EventBubble()
+                set_time_posted()
             }
         }
     })()
