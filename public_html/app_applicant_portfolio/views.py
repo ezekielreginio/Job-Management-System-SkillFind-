@@ -101,7 +101,7 @@ def applicant_experience_level(request):
 
 @login_required(login_url='/login/applicant')
 @user_passes_test(lambda u: u.groups.filter(name='applicant').exists())
-def applicant_education(request,op=None, pk=None):
+def applicant_education(request, op=None, pk=None):
     education_list = Education.objects.all().filter(applicant_id=request.user.id) # "SELECT * FROM Education WHERE applicant_id = ?"
     
     try:
@@ -117,7 +117,6 @@ def applicant_education(request,op=None, pk=None):
             education.delete()
             return redirect('education')
         else:    
-            education_list = None
             education_form = portfolio_forms.ApplicantEducation(request.POST, instance=education_instance)
             if education_form.is_valid():
                 educ_form = education_form.save(commit=False)
@@ -134,7 +133,6 @@ def applicant_education(request,op=None, pk=None):
 def applicant_skills(request,op=None, pk=None):
     skill_list = Skill.objects.all().filter(applicant_id=request.user.id)
     
-
     try:
         skill_instance = Skill.objects.get(id=pk) #SELECT * FROM Education where id=pk
     except Skill.DoesNotExist:

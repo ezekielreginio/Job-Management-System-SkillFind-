@@ -12,6 +12,11 @@ if(location.href.indexOf('employer/jobspanel') != -1){
     var dataTable = new DataTable(myTable);
 }
 
+if(location.href.indexOf('employer/viewapplicants') != -1){
+    var myTable = document.querySelector("#table-job-applicants");
+    var dataTable = new DataTable(myTable);
+}
+
 
 //Functions
 function adjust_logo(){

@@ -7,5 +7,7 @@ from . import views
 
 urlpatterns = [
     #path('jobs', views.SearchJob.as_view(), name="search_job"),
-    path('jobs', views.searchjob, name="search_job"),
+    path('findjob', views.searchjob, name="search_job"),
+    path('applyjob/<str:job_id>/', views.applyjob, name="apply_job"),
+    path('applications', views.view_applications, name="view_applciations")
 ]

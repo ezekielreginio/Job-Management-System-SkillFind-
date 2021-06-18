@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.core import serializers
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from . import forms as employer_forms
 
 from .models import JobListing
 from app_accounts.models import Employer
+from app_findjob.models import JobApplication
+from app_applicant_portfolio.models import Resume
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -15,6 +17,7 @@ from rest_framework.generics import ListAPIView
 from .serializers import JobListingSerializer
 
 import json
+import dropbox
 
 # Create your views here.
 @login_required(login_url='/login/employer')
@@ -90,6 +93,40 @@ def update_jobstatus(request, pk=None):
         job_info.is_active = "Inactive"
     job_info.save()
     response = {'status': status}
+    return JsonResponse(response, status=200)
+
+@login_required(login_url='/login/employer')
+@user_passes_test(lambda u: u.groups.filter(name='employer').exists())
+def view_applicants(request,pk):
+    job_list = JobListing.objects.get(id=pk)
+    queryset = JobApplication.objects.filter(joblisting_id=job_list).order_by('-id').select_related().values('applicant__first_name', 'applicant__last_name', 'status', 'applicant__resume__resume', 'applicant_id', 'joblisting_id')
+    context = {'queryset': queryset, 'job_title': job_list.job_title}
+    print(context)
+    return render(request, "app_employer_dashboard/applicantslist.html", context)
+
+@login_required(login_url='/login/employer')
+@user_passes_test(lambda u: u.groups.filter(name='employer').exists())
+def get_resume(request, pk):
+    resume = Resume.objects.get(applicant_id=pk)
+    print(str(resume.resume))
+    dbx = dropbox.Dropbox('L-u71KTIt0UAAAAAAAAAAWTj6W9E7Ko7RUTerWQLxQv3r7JMy_NhnebvStvkS3Nr')
+
+    
+    meta,res = dbx.files_download(str(resume.resume))   
+    print(res)
+    response =  HttpResponse(res.content, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename='+str(resume.resume)
+    return response
+
+@login_required(login_url='/login/employer')
+@user_passes_test(lambda u: u.groups.filter(name='employer').exists())
+def update_application_status(request):
+    data = json.load(request)
+    
+    job_application = JobApplication.objects.get(applicant_id=data['applicant_id'], joblisting_id=data['joblisting_id'])
+    job_application.status = data['status']
+    job_application.save()
+    response = {'status': data['status']}
     return JsonResponse(response, status=200)
 
 #REST APIs
