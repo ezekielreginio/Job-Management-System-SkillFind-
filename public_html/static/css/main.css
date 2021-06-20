@@ -3,7 +3,7 @@
 }
 
 .card-primary-theme{
-    background-color: white;
+    background-color: #283f2b;
     
 }
 
@@ -1201,9 +1201,7 @@ img{
 	border-radius: 50%;
   }
 
-  label{
-	  font-size: 33px;
-  }
+  
 
   .title{
 	font-size: 40px;
@@ -1289,5 +1287,9 @@ section.input-container .pwd-label .pwd-span {
 
 hr{
   border-top: 1px solid white;
+}
+
+.pwd-text{
+  color: #F77F00;
 }
 

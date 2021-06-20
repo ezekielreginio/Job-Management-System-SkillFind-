@@ -5,7 +5,8 @@ const autocomplete = require('autocompleter');
 const { isinvalid } = require("../_global/validation");
 
 if(location.href.indexOf('eeone') != -1){
-
+    document.getElementById("pwdinput-searchbar").classList.remove("d-none")
+    document.getElementById("input-searchbar").classList.add("d-none")
     let position_title_suggestion = null
     autoComplete("id_position_title", position_title_suggestion, "position_title")
 

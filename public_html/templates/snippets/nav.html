@@ -21,6 +21,11 @@
                         {% csrf_token%}
                         <input class="form-control mr-sm-2" type="text" name="search" id="input-searchbar" placeholder="Search Job/Company....."> 
                     </form>
+
+                    <form class="form-inline my-2 my-lg-0" action="/jobs" method="GET" id="pwdsearchbar">
+                        {% csrf_token%}
+                        <input class="form-control mr-sm-2 d-none" type="text" name="search" id="pwdinput-searchbar" placeholder="Search Job/Company....."> 
+                    </form>
             </li>
         </ul>
     

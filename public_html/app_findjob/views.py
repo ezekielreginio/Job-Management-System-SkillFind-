@@ -25,6 +25,12 @@ def searchjob(request):
     context = {'queryset': queryset}
     return render(request, "./app_findjob/search.html", context)
 
+def pwdsearchjob(request):
+    query = request.GET.get('q')
+    queryset = JobListing.objects.filter(job_title__icontains = query, accept_handicapped='true').order_by('-id').select_related().values('job_title', 'location', 'job_description', 'id','date_posted', 'employer__company_name')
+    context = {'queryset': queryset}
+    return render(request, "./app_findjob/pwdsearch.html", context)
+
 @login_required(login_url='/login/applicant')
 @api_view(['GET', ])
 def applyjob(request, job_id):
@@ -36,6 +42,17 @@ def applyjob(request, job_id):
         print("Already Exist")
     return redirect('view_applciations')
 
+@login_required(login_url='/login/pwd')
+@api_view(['GET', ])
+def pwdapplyjob(request, job_id):
+    try:
+        job_listing = JobListing.objects.get(pk=job_id)
+        job_application = JobApplication.objects.create(applicant_id=request.user.id, joblisting=job_listing)
+        job_application.save()
+    except IntegrityError:
+        print("Already Exist")
+    return redirect('pwdview_applications')
+
 
 @login_required(login_url='/login/applicant')
 def view_applications(request):
@@ -43,6 +60,11 @@ def view_applications(request):
     context = {'queryset': queryset}
     return render(request, "./app_applicant_portfolio/job_application.html", context)
 
+@login_required(login_url='/login/pwd')
+def pwdview_applications(request):
+    queryset = JobApplication.objects.filter(applicant_id = request.user.id).order_by('-id').select_related().values('joblisting__job_title', 'joblisting__employer__company_name', 'status')
+    context = {'queryset': queryset}
+    return render(request, "./app_applicant_portfolio/pwdjob_application.html", context)
 # @api_view(['GET', ])
 # def searchjob(request):
 #     paginator = PageNumberPagination()

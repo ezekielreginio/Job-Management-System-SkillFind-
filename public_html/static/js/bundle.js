@@ -484,13 +484,144 @@ let speech_ai = (() => {
       tts.speak(speech);
     },
     "open login page": () => {
+      let command = "opening login page";
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
       window.location.replace('http://127.0.0.1:8000/handicapped/login');
     },
-    "open signup page": () => {
+    "open sign up page": () => {
+      let command = "opening signup page";
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
       window.location.replace('http://127.0.0.1:8000/handicapped/signup');
     },
-    "open sign up page": () => {
-      window.location.replace('http://127.0.0.1:8000/handicapped/signup');
+    "log in": () => {
+      let command = "Loging in";
+      let login_form = document.getElementById("id_pwd_login");
+      login_form.submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "sign up": () => {
+      let command = "Signing in";
+      let login_form = document.getElementById("id_pwd_signup");
+      login_form.submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "submit experience": () => {
+      let command = "adding experience";
+      let login_form = document.getElementById("id_pwd_exp");
+      login_form.submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "submit education": () => {
+      let command = "adding education";
+      let login_form = document.getElementById("id_pwd_edu");
+      login_form.submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "submit skill": () => {
+      let command = "adding skill";
+      document.getElementById("id_pwd_sk").submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "submit language": () => {
+      let command = "adding language";
+      document.getElementById("id_pwd_lang").submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "edit portfolio": () => {
+      let command = "Opening portfolio";
+      location.replace("/handicapped/pwd-eeone");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "experience": () => {
+      let command = "Opening experience page";
+      location.replace("/handicapped/pwd-eeone");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "education": () => {
+      let command = "Opening education page";
+      location.replace("/handicapped/pwd-edtwo");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "education": () => {
+      let command = "Opening education page";
+      location.replace("/handicapped/pwd-edtwo");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "skill": () => {
+      let command = "Opening skill page";
+      location.replace("/handicapped/pwd-sltree");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "language": () => {
+      let command = "Opening language page";
+      location.replace("/handicapped/pwd-llfour");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "add experience": () => {
+      let command = "experience form is visible";
+      document.getElementById("btn-add-experience").classList.add('d-none');
+      document.getElementById("div-experience-form").classList.remove("d-none");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "add education": () => {
+      let command = "education form is visible";
+      document.getElementById("btn-add-education").classList.add('d-none');
+      document.getElementById("div-education-form").classList.remove("d-none");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "add skill": () => {
+      let command = "skill form is visible";
+      document.getElementById("btn-add-skill").classList.add('d-none');
+      document.getElementById("div-skill-form").classList.remove("d-none");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "add language": () => {
+      let command = "language form is visible";
+      document.getElementById("btn-add-language").classList.add('d-none');
+      document.getElementById("div-language-form").classList.remove("d-none");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "cancel experience": () => {
+      let command = "canceling add experience";
+      location.replace("/handicapped/pwd-eeone");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "cancel education": () => {
+      let command = "canceling add education";
+      location.replace("/handicapped/pwd-edtwo");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "cancel skill": () => {
+      let command = "canceling add skill";
+      location.replace("/handicapped/pwd-sltree");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "cancel language": () => {
+      let command = "canceling add language";
+      location.replace("/handicapped/pwd-llfour");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
     }
   }; //private members
 
@@ -502,8 +633,9 @@ let speech_ai = (() => {
 
       if (Object.keys(fields).includes(text_command.toLowerCase())) {
         document.getElementById(fields[text_command.toLowerCase()]).focus();
+        let input = document.activeElement.getAttribute("placeholder");
         document.activeElement.value = "";
-        let command = "you're in " + text + " field";
+        let command = "you're in " + input + " field";
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
       } else if (document.activeElement.tagName == "INPUT") {
@@ -520,164 +652,22 @@ let speech_ai = (() => {
           let command = "you entered" + text;
           let speech = new SpeechSynthesisUtterance(command);
           tts.speak(speech);
+
+          if (document.activeElement.getAttribute("id") == "id_password" || document.activeElement.getAttribute("id") == "id_password2") {
+            document.activeElement.blur();
+          }
         }
 
-        document.activeElement.blur();
-        let command = "field unselected";
+        let active = document.activeElement.getAttribute("id");
+        document.getElementById(active).parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild.focus();
+        let input = document.activeElement.getAttribute("placeholder");
+        let command = "your in" + input + "field";
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
       }
 
       let command = commands[text_command.toLowerCase()];
-      command(); // if(text_command.toLowerCase() == "help"){
-      //     let command = "Hello. welcome to skillfind, I am your virtual assistant. commands for signing in, email login for email field, and password login for password field"
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("clear") != -1){
-      //     document.activeElement.value = ""
-      //     let command = "Field Cleared"
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("open sign up page") != -1){
-      //     let command = "Opening signup page"
-      //     window.location.replace('http://127.0.0.1:8000/handicapped/signup')
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("open login page") != -1){
-      //     let command = "Opening login page"
-      //     window.location.replace('http://127.0.0.1:8000/handicapped/login')
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // //submit
-      // if(text_command.toLowerCase().indexOf("submit login") != -1){
-      //     let command = "Loging in"
-      //     let login_form = document.getElementById("id_pwd_login")
-      //     login_form.submit()
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("submit sign up") != -1){
-      //     let command = "Signing in"
-      //     let login_form = document.getElementById("id_pwd_signup")
-      //     login_form.submit()
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("submit experience") != -1){
-      //     let command = "adding experience"
-      //     let login_form = document.getElementById("id_pwd_exp")
-      //     login_form.submit()
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("submit form edu") != -1){
-      //     let command = "adding education"
-      //     let login_form = document.getElementById("id_pwd_edu")
-      //     login_form.submit()
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("submit form sk") != -1){
-      //     let command = "adding skill"
-      //     document.getElementById("id_pwd_sk").submit()
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("submit form lg") != -1){
-      //     let command = "adding language"
-      //     document.getElementById("id_pwd_lang").submit()
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // //open page
-      // if(text_command.toLowerCase().indexOf("edit portfolio") != -1){
-      //     let command = "Opening portfolio"
-      //     location.replace("/handicapped/pwd-eeone")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("experience") != -1){
-      //     let command = "Opening experience page"
-      //     location.replace("/handicapped/pwd-eeone")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("education") != -1){
-      //     let command = "Opening education page"
-      //     location.replace("/handicapped/pwd-edtwo")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("skill") != -1){
-      //     let command = "Opening skill page"
-      //     location.replace("/handicapped/pwd-sltree")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("language") != -1){
-      //     let command = "Opening language page"
-      //     location.replace("/handicapped/pwd-llfour")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // //add
-      // if(text_command.toLowerCase().indexOf("add exp") != -1){
-      //     let command = "experience form is visible"
-      //     document.getElementById("btn-add-experience").classList.add('d-none')
-      //     document.getElementById("div-experience-form").classList.remove("d-none")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("add edu") != -1){
-      //     let command = "education form is visible"
-      //     document.getElementById("btn-add-education").classList.add('d-none')
-      //     document.getElementById("div-education-form").classList.remove("d-none")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("add sk") != -1){
-      //     let command = "skill form is visible"
-      //     document.getElementById("btn-add-skill").classList.add('d-none')
-      //     document.getElementById("div-skill-form").classList.remove("d-none")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("add lg") != -1){
-      //     let command = "language form is visible"
-      //     document.getElementById("btn-add-language").classList.add('d-none')
-      //     document.getElementById("div-language-form").classList.remove("d-none")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // //cancel
-      // if(text_command.toLowerCase().indexOf("cancel exp") != -1){
-      //     let command = "canceling add experience"
-      //     location.replace("/handicapped/pwd-eeone")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("cancel edu") != -1){
-      //     let command = "canceling add education"
-      //     location.replace("/handicapped/pwd-edtwo")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("cancel sk") != -1){
-      //     let command = "canceling add skill"
-      //     location.replace("/handicapped/pwd-sltree")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
-      // if(text_command.toLowerCase().indexOf("cancel lg") != -1){
-      //     let command = "canceling add language"
-      //     location.replace("/handicapped/pwd-llfour")
-      //     let speech = new SpeechSynthesisUtterance(command)  
-      //     tts.speak(speech)
-      // }
+      command();
     });
   } //public Members
 
@@ -1072,7 +1062,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('handicapped/index') != -1) {
-  //Singleton Design Pattern
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none"); //Singleton Design Pattern
+
   let login_handicapped_singleton = (() => {
     //Private Members:
     let fields = {
@@ -1112,8 +1104,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
 
 
-if (location.href.indexOf('handicapped/login') != -1 || location.href.indexOf('handicapped/signup') != -1) {
-  //Singleton Design Pattern
+if (location.href.indexOf('handicapped/login') != -1) {
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
+  $(document).ready(function () {
+    $("#id_login").focus();
+  });
+  let tts = window.speechSynthesis;
+  let command = "Hello. welcome to skill find login page, the fields that are available is email login, and password login, your currently in email login field. just say your eamil to input its value. And it will automaticaly navigate to the next field. If you want to navigate to the fields individualy, just say the commands, email login, or password login, Then, you can say the command login for you to login";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech); //Singleton Design Pattern
+
   let login_handicapped_singleton = (() => {
     //Private Members:
     let fields = {
@@ -1123,7 +1124,8 @@ if (location.href.indexOf('handicapped/login') != -1 || location.href.indexOf('h
       'last name': 'id_last_name',
       'email': 'id_email',
       'password': 'id_password1',
-      'password again': 'id_password2'
+      'password again': 'id_password2',
+      'search': 'pwdinput-searchbar'
     };
 
     function EventBubble() {} //Public Members
@@ -1156,6 +1158,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('edtwo') != -1) {
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
   let qualification_suggestion = null;
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_qualification", qualification_suggestion, "qualification");
   let fieldofstudy_suggestion = null;
@@ -1258,6 +1262,8 @@ const {
 } = __webpack_require__(/*! ../_global/validation */ "./src/_global/validation.js");
 
 if (location.href.indexOf('eeone') != -1) {
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
   let position_title_suggestion = null;
   autoComplete("id_position_title", position_title_suggestion, "position_title");
   let company_name_suggestion = null;
@@ -1437,6 +1443,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('llfour') != -1) {
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
   let language_suggestion = null;
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_language", language_suggestion, "language");
   let proficiency_suggestion = null;
@@ -1513,6 +1521,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('sltree') != -1) {
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
   let skill_suggestion = null;
   (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_skill", skill_suggestion, "skill"); //Checks if the user has skills data. If none, the add language form will be hidden
 
@@ -1555,6 +1565,56 @@ if (location.href.indexOf('sltree') != -1) {
     let fields = {
       's name': 'id_skill',
       'proficiency': 'id_proficiency'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+}
+
+/***/ }),
+
+/***/ "./src/app_handicapped/signup.js":
+/*!***************************************!*\
+  !*** ./src/app_handicapped/signup.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+
+if (location.href.indexOf('handicapped/signup') != -1) {
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
+  $(document).ready(function () {
+    $("#id_first_name").focus();
+  });
+  let tts = window.speechSynthesis;
+  let command = "Hello. wellcome to skill find signup page. The available fields are first name. last name. email. password, password again. Currently your in first name field, just say your first name to input its value, after that it will automaticaly navigate to the next field. If you want to navigate to the fields individualy you can say the commands. first name. last name. email. password. password again. Then you can say the command sign up for you to sign up";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech); //Singleton Design Pattern
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'email login': 'id_login',
+      'password login': 'id_password',
+      'first name': 'id_first_name',
+      'last name': 'id_last_name',
+      'email': 'id_email',
+      'password': 'id_password1',
+      'password again': 'id_password2'
     };
 
     function EventBubble() {} //Public Members
@@ -1941,6 +2001,17 @@ if (location.href.indexOf('applyjob') != -1 || location.href.indexOf('applicatio
   var myTable = document.querySelector("#table-job-applications");
   var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(myTable);
   myTable.addEventListener("click", e => {});
+  let datatablefooter = document.getElementsByClassName('dataTable-info');
+
+  for (let i = 0; i < datatablefooter.length; i++) {
+    datatablefooter[i].classList.add("text-white");
+  }
+
+  let datatableheader = document.getElementsByClassName('dataTable-dropdown');
+
+  for (let i = 0; i < datatableheader.length; i++) {
+    datatableheader[i].classList.add("text-white");
+  }
 }
 
 /***/ }),
@@ -2101,6 +2172,36 @@ if (location.href.indexOf('portfolio') != -1) {
       }
     }
   });
+}
+
+/***/ }),
+
+/***/ "./src/applicant_portfolio/pwdjob_applications.js":
+/*!********************************************************!*\
+  !*** ./src/applicant_portfolio/pwdjob_applications.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var simple_datatables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-datatables */ "./node_modules/simple-datatables/src/index.js");
+
+
+if (location.href.indexOf('pwdapplyjob') != -1 || location.href.indexOf('pwdapplications') != -1) {
+  var myTable = document.querySelector("#table-job-applications");
+  var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(myTable);
+  myTable.addEventListener("click", e => {});
+  let datatablefooter = document.getElementsByClassName('dataTable-info');
+
+  for (let i = 0; i < datatablefooter.length; i++) {
+    datatablefooter[i].classList.add("text-white");
+  }
+
+  let datatableheader = document.getElementsByClassName('dataTable-dropdown');
+
+  for (let i = 0; i < datatableheader.length; i++) {
+    datatableheader[i].classList.add("text-white");
+  }
 }
 
 /***/ }),
@@ -2975,6 +3076,199 @@ if (location.href.indexOf('findjob') != -1) {
             console.log(data);
             document.getElementById("job-info").innerHTML = `
                             <div class="abstract text-white">
+                                <h5>` + data['job_title'] + `</h5>
+                                <h6>` + data['employer']['company_name'] + ` - ` + data['location'] + `</h6>
+                                <h6>PHP ` + parseFloat(data['initial_salary']).toLocaleString() + ` - Fulltime, Permanent - Remote</h6>
+                                <button class="btn btn-apply" id="btn-apply" data-id="` + data['id'] + `">Apply Now</button>
+                                <button class="btn btn-secondary"><i class="fas fa-heart"></i></button>
+                                <hr class="bg-white">
+                                <div class="search-job-info" id="job-description">
+                                    ` + data['job_description'] + `
+                                </div>
+                                
+                            </div>
+                            `;
+
+            if (data['benefits'][0] != "None") {
+              let benefits = data['benefits'];
+              document.getElementById("job-description").innerHTML += `
+                                    <p>Benefits: </p>
+                                    <ul id="benefits">
+                                    </ul>
+                                `;
+
+              for (let i = 0; i < benefits.length; i++) {
+                document.getElementById("benefits").innerHTML += `
+                                        <li>` + benefits[i] + `</li>
+                                    `;
+              }
+            }
+
+            let schedules = data['job_schedules'];
+            document.getElementById("job-description").innerHTML += `
+                                <p>Schedule: </p>
+                                <ul id="schedule">
+                                </ul>
+                            `;
+
+            for (let i = 0; i < schedules.length; i++) {
+              document.getElementById("schedule").innerHTML += `
+                                    <li>` + schedules[i] + `</li>
+                                `;
+            }
+
+            let supplemental_pay = data['supplemental_pay'];
+
+            if (supplemental_pay[0] != "None") {
+              document.getElementById("job-description").innerHTML += `
+                                    <p>Supplemental Pay: </p>
+                                    <ul id="pay">
+                                    </ul>
+                                `;
+
+              for (let i = 0; i < supplemental_pay.length; i++) {
+                document.getElementById("pay").innerHTML += `
+                                        <li>` + supplemental_pay[i] + `</li>
+                                    `;
+              }
+            }
+
+            if (qualifications['qualification_education'][0] != undefined) {
+              document.getElementById("job-description").innerHTML += `
+                                    <p>Education: </p>
+                                    <ul id="education">
+                                    </ul>
+                                `;
+
+              for (let i in qualifications['qualification_education']) {
+                let value = qualifications['qualification_education'][i];
+                let info = "";
+                if (value['major'] != null) info = value['level'] + " Major in " + value['major'];else info = value['level'];
+                document.getElementById("education").innerHTML += `
+                                        <li>` + info + ` (` + required_preferred(value['required']) + `)</li>
+                                    `;
+              }
+            }
+
+            if (qualifications['qualification_experience'][0] != undefined) {
+              document.getElementById("job-description").innerHTML += `
+                                    <p>Experience: </p>
+                                    <ul id="experience">
+                                    </ul>
+                                `;
+
+              for (let i in qualifications['qualification_experience']) {
+                let data = qualifications['qualification_experience'][i];
+                document.getElementById("experience").innerHTML += `
+                                        <li>` + data['name'] + `: ` + data['year'] + ` (` + required_preferred(data['required']) + `)</li>
+                                    `;
+              }
+            }
+
+            if (qualifications['qualification_licenses'][0] != undefined) {
+              document.getElementById("job-description").innerHTML += `
+                                    <p>License: </p>
+                                    <ul id="license">
+                                    </ul>
+                                `;
+
+              for (let i in qualifications['qualification_licenses']) {
+                let data = qualifications['qualification_licenses'][i];
+                document.getElementById("license").innerHTML += `
+                                        <li>` + data['license'] + ` (` + required_preferred(data['required']) + `)</li>
+                                    `;
+              }
+            }
+
+            if (qualifications['qualification_languages'][0] != undefined) {
+              document.getElementById("job-description").innerHTML += `
+                                    <p>Language: </p>
+                                    <ul id="languages">
+                                    </ul>
+                                `;
+
+              for (let i in qualifications['qualification_languages']) {
+                let data = qualifications['qualification_languages'][i];
+                document.getElementById("languages").innerHTML += `
+                                        <li>` + data['language'] + ` (` + required_preferred(data['required']) + `)</li>
+                                    `;
+              }
+            }
+          }
+
+          function required_preferred(bool) {
+            if (bool == "true") return "Required";else return "Preferred";
+          }
+        });
+      });
+    }
+
+    function set_time_posted() {
+      let time_posted = document.getElementsByClassName("date-posted");
+
+      for (let i = 0; i < time_posted.length; i++) {
+        time_posted[i].innerHTML = moment__WEBPACK_IMPORTED_MODULE_0___default()(time_posted[i].getAttribute("data-date"), "MMM DD, YYYY, h:mm a").fromNow();
+      }
+    } //public members:
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        set_time_posted();
+      }
+    };
+  })();
+
+  let jobsearch_instance = jobsearch.getInstance();
+}
+
+/***/ }),
+
+/***/ "./src/job_search_engine/pwdjobsearch.js":
+/*!***********************************************!*\
+  !*** ./src/job_search_engine/pwdjobsearch.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+
+
+document.getElementById("pwdsearchbar").addEventListener("submit", e => {
+  e.preventDefault();
+  let query = document.getElementById("pwdinput-searchbar").value;
+  location.replace("/pwdfindjob?q=" + query);
+});
+
+if (location.href.indexOf('pwdfindjob') != -1) {
+  let jobsearch = (() => {
+    //private members:
+    function EventBubble() {
+      document.getElementById("searchjob-bubble").addEventListener("click", e => {
+        if (e.target.getAttribute("id") == "btn-apply") {
+          window.location.replace("./pwdapplyjob/" + e.target.getAttribute("data-id") + "/");
+        }
+      });
+      document.querySelectorAll(".card-results").forEach(job_card => {
+        job_card.addEventListener("click", async e => {
+          let job_id = job_card.getAttribute("data-job-id");
+          const request = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestFactory)("./ajax/jobquery?id=" + job_id);
+          const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestBodyFactory)({
+            "method": "GET"
+          });
+          const response = await fetch(request, body);
+
+          if (response.status == 200) {
+            let data = await response.json();
+            data = data[0];
+            let qualifications = data['qualifications'];
+            console.log(data);
+            document.getElementById("job-info").innerHTML = `
+                            <div class="abstract text-white card-bg">
                                 <h5>` + data['job_title'] + `</h5>
                                 <h6>` + data['employer']['company_name'] + ` - ` + data['location'] + `</h6>
                                 <h6>PHP ` + parseFloat(data['initial_salary']).toLocaleString() + ` - Fulltime, Permanent - Remote</h6>
@@ -27377,6 +27671,7 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _job_search_engine_jobsearch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./job_search_engine/jobsearch */ "./src/job_search_engine/jobsearch.js");
+/* harmony import */ var _job_search_engine_pwdjobsearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./job_search_engine/pwdjobsearch */ "./src/job_search_engine/pwdjobsearch.js");
 const {
   login
 } = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
@@ -27406,6 +27701,10 @@ const {
 } = __webpack_require__(/*! ./applicant_portfolio/job_applications */ "./src/applicant_portfolio/job_applications.js");
 
 const {
+  pwdjob_applications
+} = __webpack_require__(/*! ./applicant_portfolio/pwdjob_applications */ "./src/applicant_portfolio/pwdjob_applications.js");
+
+const {
   employer_dashboard
 } = __webpack_require__(/*! ./employer_dashboard/index */ "./src/employer_dashboard/index.js");
 
@@ -27428,6 +27727,10 @@ const {
 const {
   handicapped_login
 } = __webpack_require__(/*! ./app_handicapped/login */ "./src/app_handicapped/login.js");
+
+const {
+  handicapped_signup
+} = __webpack_require__(/*! ./app_handicapped/signup */ "./src/app_handicapped/signup.js");
 
 const {
   portfolio_summary
@@ -27464,6 +27767,7 @@ const {
 const {
   pwd_lang
 } = __webpack_require__(/*! ./app_handicapped/pwd-lang */ "./src/app_handicapped/pwd-lang.js"); //const { jobs_search } = require("./job_search_engine/jobsearchsss");
+
 
 
 

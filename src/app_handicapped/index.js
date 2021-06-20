@@ -1,6 +1,7 @@
 import { speech_ai } from "./../_factories/speech_ai"
 if(location.href.indexOf('handicapped/index') != -1 ){
-    
+    document.getElementById("pwdinput-searchbar").classList.remove("d-none")
+    document.getElementById("input-searchbar").classList.add("d-none")
     //Singleton Design Pattern
     let login_handicapped_singleton = (()=>{
         //Private Members:

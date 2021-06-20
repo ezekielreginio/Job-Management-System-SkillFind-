@@ -1,0 +1,37 @@
+{% extends "../index.html" %} 
+{% load static %}
+{% load widget_tweaks %}
+{% block content%}
+    <div class="container">
+        <div class="card card-bg mt-3">
+            <div class="card-body p-0 py-3">
+                <div class="row mb-4">
+                    <div class="col-12 pt-1">
+                        <i class="icon-dashboard d-inline-block fs-25 ml-2 pwd-text">  <h1 class="d-inline-block pwd-text"> Jobs Applications</h1></i>
+                    </div>
+                </div>
+                
+                <table class="" id="table-job-applications">
+                    <thead class="pwd-text">
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-white">
+                        {% for application in queryset%}
+                            <tr>
+                                <td>{{application.joblisting__job_title}}</td>
+                                <td>{{application.joblisting__employer__company_name}}</td>
+                                <td>{{application.status}}</td>
+                                <td><button class="btn btn-secondary">Withdraw</button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content%}

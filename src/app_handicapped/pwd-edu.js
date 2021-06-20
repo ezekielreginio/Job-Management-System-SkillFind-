@@ -2,8 +2,8 @@ import { autoComplete } from "../_global/global"
 import { speech_ai } from "./../_factories/speech_ai"
 
 if(location.href.indexOf('edtwo') != -1){
-
-
+    document.getElementById("pwdinput-searchbar").classList.remove("d-none")
+    document.getElementById("input-searchbar").classList.add("d-none")
 
      let qualification_suggestion = null
      autoComplete("id_qualification", qualification_suggestion, "qualification")

@@ -7,4 +7,17 @@ if(location.href.indexOf('applyjob') != -1 || location.href.indexOf('application
     myTable.addEventListener("click", (e)=>{
         
     })
+ 
+    let datatablefooter=document.getElementsByClassName('dataTable-info')
+    for(let i = 0; i<datatablefooter.length; i++ ){
+        datatablefooter[i].classList.add("text-white")
+    }
+
+    let datatableheader=document.getElementsByClassName('dataTable-dropdown')
+    for(let i = 0; i<datatableheader.length; i++ ){
+        datatableheader[i].classList.add("text-white")
+    }
+    
+   
+
 }

@@ -2,7 +2,8 @@ import { speech_ai } from "./../_factories/speech_ai"
 import { autoComplete } from "../_global/global"
 
 if(location.href.indexOf('sltree') != -1){
-
+    document.getElementById("pwdinput-searchbar").classList.remove("d-none")
+    document.getElementById("input-searchbar").classList.add("d-none")
     let skill_suggestion = null
     autoComplete("id_skill", skill_suggestion, "skill")
 
