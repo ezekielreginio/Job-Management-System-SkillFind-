@@ -1995,12 +1995,35 @@ for (var i = 0; i < nav_portfolio.length; i++) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var simple_datatables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-datatables */ "./node_modules/simple-datatables/src/index.js");
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+
 
 
 if (location.href.indexOf('applyjob') != -1 || location.href.indexOf('applications') != -1) {
   var myTable = document.querySelector("#table-job-applications");
   var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(myTable);
-  myTable.addEventListener("click", e => {});
+  myTable.addEventListener("click", e => {
+    if (e.target.classList.contains("btn-withdraw")) {
+      let id = e.target.getAttribute("data-id");
+      document.getElementById("btn-withdraw-submit").setAttribute("data-id", id);
+    }
+  });
+  document.getElementById("btn-withdraw-submit").addEventListener("click", function () {
+    let json_body = {
+      "status": "Withdrawn",
+      "applicant_id": this.getAttribute("data-user"),
+      "joblisting_id": this.getAttribute("data-id")
+    };
+    console.log(json_body);
+    const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_1__.RequestBodyFactory)({
+      "method": "POST",
+      "type": "application/json",
+      "body": JSON.stringify(json_body)
+    });
+    const response = fetch("/updateapplication/", body).then(response => response.json()).then(data => {
+      location.reload();
+    });
+  });
   let datatablefooter = document.getElementsByClassName('dataTable-info');
 
   for (let i = 0; i < datatablefooter.length; i++) {

@@ -118,11 +118,10 @@ def get_resume(request, pk):
     response['Content-Disposition'] = 'attachment; filename='+str(resume.resume)
     return response
 
-@login_required(login_url='/login/employer')
-@user_passes_test(lambda u: u.groups.filter(name='employer').exists())
+
 def update_application_status(request):
     data = json.load(request)
-    
+    print(data);
     job_application = JobApplication.objects.get(applicant_id=data['applicant_id'], joblisting_id=data['joblisting_id'])
     job_application.status = data['status']
     job_application.save()
