@@ -2,6 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block content%}
+{% include "../modals/withdraw.html" %}
     <div class="container">
         <div class="card card-bg mt-3">
             <div class="card-body p-0 py-3">
@@ -26,7 +27,7 @@
                                 <td>{{application.joblisting__job_title}}</td>
                                 <td>{{application.joblisting__employer__company_name}}</td>
                                 <td>{{application.status}}</td>
-                                <td><button class="btn btn-secondary">Withdraw</button></td>
+                                <td><button class="btn btn-secondary btn-withdraw" id="btn-withdraw-submit" data-toggle="modal" data-target="#modal-withdraw"  data-id="{{application.joblisting_id}}">Withdraw</button></td>
                             </tr>
                         {% endfor %}
                     </tbody>

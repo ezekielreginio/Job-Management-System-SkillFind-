@@ -128,6 +128,15 @@ def update_application_status(request):
     response = {'status': data['status']}
     return JsonResponse(response, status=200)
 
+def pwdupdate_application_status(request):
+    data = json.load(request)
+    print(data);
+    job_application = JobApplication.objects.get(applicant_id=data['applicant_id'], joblisting_id=data['joblisting_id'])
+    job_application.status = data['status']
+    job_application.save()
+    response = {'status': data['status']}
+    return JsonResponse(response, status=200)
+
 #REST APIs
 @api_view(['GET', ])
 def api_view_joblisting(request):

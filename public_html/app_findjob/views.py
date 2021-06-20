@@ -62,7 +62,7 @@ def view_applications(request):
 
 @login_required(login_url='/login/pwd')
 def pwdview_applications(request):
-    queryset = JobApplication.objects.filter(applicant_id = request.user.id).order_by('-id').select_related().values('joblisting__job_title', 'joblisting__employer__company_name', 'status')
+    queryset = JobApplication.objects.filter(applicant_id = request.user.id).order_by('-id').select_related().values('id','joblisting_id','joblisting__job_title', 'joblisting__employer__company_name', 'status')
     context = {'queryset': queryset}
     return render(request, "./app_applicant_portfolio/pwdjob_application.html", context)
 # @api_view(['GET', ])
