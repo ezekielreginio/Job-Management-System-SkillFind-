@@ -25,7 +25,7 @@ if(location.href.indexOf('employer/jobspanel') != -1){
                 "type": "application/json",
                 "body": JSON.stringify(json_body)
 
-            })
+            }) 
             const response = await fetch(request, body)
     
             return await response.json()
