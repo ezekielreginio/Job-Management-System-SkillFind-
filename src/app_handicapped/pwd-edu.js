@@ -2,8 +2,20 @@ import { autoComplete } from "../_global/global"
 import { speech_ai } from "./../_factories/speech_ai"
 
 if(location.href.indexOf('edtwo') != -1){
+    let home= document.getElementById("nav-home")
+   home.getAttribute("href")
+   home.setAttribute("href", "/handicapped/index")
+   let logo= document.getElementById("skillfind-logo")
+   logo.getAttribute("href")
+   logo.setAttribute("href", "/handicapped/index")
     document.getElementById("pwdinput-searchbar").classList.remove("d-none")
     document.getElementById("input-searchbar").classList.add("d-none")
+
+    let tts = window.speechSynthesis
+
+    let command = "Hello. your in education page, the commands that are available are, add education, submit education, and cancel education. say add education, for you to add education. say submit education, for you to submit your education form. say cancel education for you to cancel adding education"
+    let speech = new SpeechSynthesisUtterance(command)  
+    tts.speak(speech)
 
      let qualification_suggestion = null
      autoComplete("id_qualification", qualification_suggestion, "qualification")
@@ -98,4 +110,10 @@ if(location.href.indexOf('edtwo') != -1){
 
     let login_handicapped_instance = login_handicapped_singleton.getInstance()
    
+    let expin = document.getElementsByClassName("form-control")
+    for(let i=0; i<expin.length; i++){
+         expin[i].classList.add("pwd-input")
+
+    }
+    document.getElementById("pwdinput-searchbar").classList.remove("pwd-input")
 }

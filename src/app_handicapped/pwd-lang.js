@@ -2,6 +2,12 @@ import { autoComplete } from "../_global/global"
 import { speech_ai } from "./../_factories/speech_ai"
 
 if(location.href.indexOf('llfour') != -1){
+    let home= document.getElementById("nav-home")
+   home.getAttribute("href")
+   home.setAttribute("href", "/handicapped/index")
+   let logo= document.getElementById("skillfind-logo")
+   logo.getAttribute("href")
+   logo.setAttribute("href", "/handicapped/index")
     document.getElementById("pwdinput-searchbar").classList.remove("d-none")
     document.getElementById("input-searchbar").classList.add("d-none")
     let language_suggestion = null
@@ -9,6 +15,11 @@ if(location.href.indexOf('llfour') != -1){
 
     let proficiency_suggestion = null
     autoComplete("id_proficiency", proficiency_suggestion, "proficiency")
+
+    let tts = window.speechSynthesis
+    let command = "Hello. your in language page, the commands that are available are, add language, submit language, and cancel language. say add language, for you to add language. say submit language, for you to submit your language form. say cancel language for you to cancel adding language"
+    let speech = new SpeechSynthesisUtterance(command)  
+    tts.speak(speech)
     
 
     //Checks if the user has languages data. If none, the add language form will be hidden
@@ -54,7 +65,7 @@ if(location.href.indexOf('llfour') != -1){
      let login_handicapped_singleton = (()=>{
         //Private Members:
         let fields = {
-            'l name': 'id_language',
+            'language name': 'id_language',
             'proficiency': 'id_proficiency',
         }
 

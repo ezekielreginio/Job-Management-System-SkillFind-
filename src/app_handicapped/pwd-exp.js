@@ -5,6 +5,21 @@ const autocomplete = require('autocompleter');
 const { isinvalid } = require("../_global/validation");
 
 if(location.href.indexOf('eeone') != -1){
+
+    let tts = window.speechSynthesis
+
+    let command = "Hello. your in experience page, the commands that are available are, add experience, submit experience, and cancel experience. say add experience, for you to add experience. say submit experience, for you to submit your experience form. say cancel experience for you to cancel adding experience"
+    let speech = new SpeechSynthesisUtterance(command)  
+    tts.speak(speech)
+
+   
+
+   let home= document.getElementById("nav-home")
+   home.getAttribute("href")
+   home.setAttribute("href", "/handicapped/index")
+   let logo= document.getElementById("skillfind-logo")
+   logo.getAttribute("href")
+   logo.setAttribute("href", "/handicapped/index")
     document.getElementById("pwdinput-searchbar").classList.remove("d-none")
     document.getElementById("input-searchbar").classList.add("d-none")
     let position_title_suggestion = null
@@ -33,64 +48,17 @@ if(location.href.indexOf('eeone') != -1){
     
     
 
-    //radio button 3
-    if(document.getElementById("id_experience_level_3").checked){
-        document.getElementById("experience-duration").classList.remove("d-none")
-    }
-    
-    function radiobutton_listener(){
-        document.querySelectorAll('.custom-control-input').forEach(function(x){
-            x.addEventListener("change", function(){
-                if(document.getElementById("id_experience_level_3").checked){
-                    document.getElementById("experience-duration").classList.remove("d-none")
-                }
-                else{
-                    document.getElementById("experience-duration").classList.add("d-none")
-                    document.getElementById("id_duration_year").value = ''
-                    document.getElementById("id_duration_month").value = ''
-                }   
-            })
-        })
-        document.getElementById("submit-id-save").addEventListener("click", (e)=>{
-            if(document.getElementById("id_experience_level_3").checked){
-                e.preventDefault()
-                let flag = true
-
-                if(document.getElementById("id_duration_year").value == ""){
-                    flag = false
-                    field_year = document.getElementById("id_duration_year")
-                    field_year.classList.add("is-invalid")
-                    isinvalid(field_year, "Invalid Input")
-                }
-                if(document.getElementById("id_duration_month").value == ""){
-                    flag = false
-                    field_month = document.getElementById("id_duration_month")
-                    field_month.classList.add("is-invalid")
-                    isinvalid(field_month, "Invalid Input")
-                }
-
-                if(flag){
-                    document.getElementById("experiencelevel-form").submit()
-                }
-            }
-        }) 
-    }
+   
     
       
     //Event Listener for Cancel Experience Btn:
     document.getElementById("cancel-experience-form").addEventListener("click", function(){
         location.replace("/handicapped/pwd-1")
     })
-    //Event Listener for Cancel Experience level Btn:
-    document.getElementById("cancel-experiencelevel-form").addEventListener("click", function(){
-        location.replace("/handicapped/pwd-eeone")
-    })
+    
+   
 
-    //Experience Level Validator:
-    if(document.getElementById("experience-level-desc").textContent == 'None'){
-        document.getElementById("experience-level").classList.add("d-none")
-        document.getElementById("experience-level-form").classList.remove("d-none")
-    }
+ 
 
  
 
@@ -150,12 +118,7 @@ if(location.href.indexOf('eeone') != -1){
          }
     }
 
-    document.getElementById("edit-experience-level").addEventListener("click", function(){
-        document.getElementById("experience-level").classList.add("d-none")
-        document.getElementById("experience-level-form").classList.remove("d-none")
-
-        radiobutton_listener()
-    })
+   
 
     
 
@@ -214,5 +177,11 @@ if(location.href.indexOf('eeone') != -1){
     let login_handicapped_instance = login_handicapped_singleton.getInstance()
 
     
+    let expin = document.getElementsByClassName("form-control")
+    for(let i=0; i<expin.length; i++){
+         expin[i].classList.add("pwd-input")
+
+    }
+    document.getElementById("pwdinput-searchbar").classList.remove("pwd-input")
     
 }

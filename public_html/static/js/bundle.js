@@ -489,6 +489,18 @@ let speech_ai = (() => {
       tts.speak(speech);
       window.location.replace('http://127.0.0.1:8000/handicapped/login');
     },
+    "resume": () => {
+      let command = "Opening resume page";
+      location.replace("/handicapped/resume");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "application status": () => {
+      let command = "Opening application page";
+      location.replace("/pwdapplications");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
     "open sign up page": () => {
       let command = "opening signup page";
       let speech = new SpeechSynthesisUtterance(command);
@@ -553,12 +565,6 @@ let speech_ai = (() => {
       let speech = new SpeechSynthesisUtterance(command);
       tts.speak(speech);
     },
-    "education": () => {
-      let command = "Opening education page";
-      location.replace("/handicapped/pwd-edtwo");
-      let speech = new SpeechSynthesisUtterance(command);
-      tts.speak(speech);
-    },
     "skill": () => {
       let command = "Opening skill page";
       location.replace("/handicapped/pwd-sltree");
@@ -572,28 +578,28 @@ let speech_ai = (() => {
       tts.speak(speech);
     },
     "add experience": () => {
-      let command = "experience form is visible";
+      let command = "experience form is visible. the available fields are position title, company name, start date, end date, specialization, role, country, industry, position level, salary currency, salary, and experience description";
       document.getElementById("btn-add-experience").classList.add('d-none');
       document.getElementById("div-experience-form").classList.remove("d-none");
       let speech = new SpeechSynthesisUtterance(command);
       tts.speak(speech);
     },
     "add education": () => {
-      let command = "education form is visible";
+      let command = "education form is visible. the available fields are university, date graduated, qualification, university location, field of study, major, grade, and additional information";
       document.getElementById("btn-add-education").classList.add('d-none');
       document.getElementById("div-education-form").classList.remove("d-none");
       let speech = new SpeechSynthesisUtterance(command);
       tts.speak(speech);
     },
     "add skill": () => {
-      let command = "skill form is visible";
+      let command = "skill form is visible. the available fields are skill name and proficiency";
       document.getElementById("btn-add-skill").classList.add('d-none');
       document.getElementById("div-skill-form").classList.remove("d-none");
       let speech = new SpeechSynthesisUtterance(command);
       tts.speak(speech);
     },
     "add language": () => {
-      let command = "language form is visible";
+      let command = "language form is visible. the available fields are language name and proficiencey";
       document.getElementById("btn-add-language").classList.add('d-none');
       document.getElementById("div-language-form").classList.remove("d-none");
       let speech = new SpeechSynthesisUtterance(command);
@@ -622,6 +628,38 @@ let speech_ai = (() => {
       location.replace("/handicapped/pwd-llfour");
       let speech = new SpeechSynthesisUtterance(command);
       tts.speak(speech);
+    },
+    "find job": () => {
+      document.activeElement.blur();
+      let command = "Searching Job";
+      let search_form = document.getElementById("pwdsearchbar");
+      search_form.submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "forgot password?": () => {
+      let command = "opening reset password page";
+      location.replace("/login/handicapped/password_reset/");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "submit email": () => {
+      let command = "Your Email has been submmited. Please check your email to continue";
+      document.getElementById("form-reset-password").submit();
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "home": () => {
+      let command = "Opening Home Page";
+      location.replace("/handicapped/index");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
+    },
+    "command list": () => {
+      let command = "Opening command list Page";
+      location.replace("/handicapped/commands");
+      let speech = new SpeechSynthesisUtterance(command);
+      tts.speak(speech);
     }
   }; //private members
 
@@ -635,6 +673,7 @@ let speech_ai = (() => {
         document.getElementById(fields[text_command.toLowerCase()]).focus();
         let input = document.activeElement.getAttribute("placeholder");
         document.activeElement.value = "";
+        console.log(activein);
         let command = "you're in " + input + " field";
         let speech = new SpeechSynthesisUtterance(command);
         tts.speak(speech);
@@ -652,14 +691,23 @@ let speech_ai = (() => {
           let command = "you entered" + text;
           let speech = new SpeechSynthesisUtterance(command);
           tts.speak(speech);
-
-          if (document.activeElement.getAttribute("id") == "id_password" || document.activeElement.getAttribute("id") == "id_password2") {
-            document.activeElement.blur();
-          }
         }
 
         let active = document.activeElement.getAttribute("id");
-        document.getElementById(active).parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild.focus();
+        let next = null;
+
+        try {
+          next = document.getElementById(active).parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild;
+        } catch (e) {
+          next = null;
+        }
+
+        if (next != null) {
+          next.focus();
+        } else {
+          document.activeElement.blur();
+        }
+
         let input = document.activeElement.getAttribute("placeholder");
         let command = "your in" + input + "field";
         let speech = new SpeechSynthesisUtterance(command);
@@ -1062,8 +1110,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('handicapped/index') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
   document.getElementById("pwdinput-searchbar").classList.remove("d-none");
-  document.getElementById("input-searchbar").classList.add("d-none"); //Singleton Design Pattern
+  document.getElementById("input-searchbar").classList.add("d-none");
+  let tts = window.speechSynthesis;
+  let command = "Hello. your in home page, the commands are available is edit portfolio, resume, command list, and application status. say edit portfolio, for you to open your portfolio page. say resume, for you to upload your resume. say command list, to view list of commands. say application status for you to view your application status";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech); //Singleton Design Pattern
 
   let login_handicapped_singleton = (() => {
     //Private Members:
@@ -1105,13 +1163,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('handicapped/login') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/");
   document.getElementById("pwdinput-searchbar").classList.remove("d-none");
   document.getElementById("input-searchbar").classList.add("d-none");
   $(document).ready(function () {
     $("#id_login").focus();
   });
   let tts = window.speechSynthesis;
-  let command = "Hello. welcome to skill find login page, the fields that are available is email login, and password login, your currently in email login field. just say your eamil to input its value. And it will automaticaly navigate to the next field. If you want to navigate to the fields individualy, just say the commands, email login, or password login, Then, you can say the command login for you to login";
+  let command = "Hello. welcome to skill find login page, the fields that are available is email login, and password login, your currently in email login field. just say your eamil to input its value. And it will automaticaly navigate to the next field. If you want to navigate to the fields individualy, just say the commands, email login, or password login, Then, you can say the command login for you to login. If you forgot your password. just say the command forgot password to reset your password. If you are new member, then you can say the command open signup page";
   let speech = new SpeechSynthesisUtterance(command);
   tts.speak(speech); //Singleton Design Pattern
 
@@ -1144,6 +1208,62 @@ if (location.href.indexOf('handicapped/login') != -1) {
 
 /***/ }),
 
+/***/ "./src/app_handicapped/pwd-command-list.js":
+/*!*************************************************!*\
+  !*** ./src/app_handicapped/pwd-command-list.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+
+const moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+const {
+  create_input,
+  AJAX,
+  csrftoken,
+  autoComplete
+} = __webpack_require__(/*! ../_global/global */ "./src/_global/global.js");
+
+const autocomplete = __webpack_require__(/*! autocompleter */ "./node_modules/autocompleter/autocomplete.js");
+
+const {
+  isinvalid
+} = __webpack_require__(/*! ../_global/validation */ "./src/_global/validation.js");
+
+if (location.href.indexOf('commands') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {};
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+}
+
+/***/ }),
+
 /***/ "./src/app_handicapped/pwd-edu.js":
 /*!****************************************!*\
   !*** ./src/app_handicapped/pwd-edu.js ***!
@@ -1158,8 +1278,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('edtwo') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
   document.getElementById("pwdinput-searchbar").classList.remove("d-none");
   document.getElementById("input-searchbar").classList.add("d-none");
+  let tts = window.speechSynthesis;
+  let command = "Hello. your in education page, the commands that are available are, add education, submit education, and cancel education. say add education, for you to add education. say submit education, for you to submit your education form. say cancel education for you to cancel adding education";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech);
   let qualification_suggestion = null;
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_qualification", qualification_suggestion, "qualification");
   let fieldofstudy_suggestion = null;
@@ -1231,6 +1361,13 @@ if (location.href.indexOf('edtwo') != -1) {
   })();
 
   let login_handicapped_instance = login_handicapped_singleton.getInstance();
+  let expin = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < expin.length; i++) {
+    expin[i].classList.add("pwd-input");
+  }
+
+  document.getElementById("pwdinput-searchbar").classList.remove("pwd-input");
 }
 
 /***/ }),
@@ -1262,6 +1399,16 @@ const {
 } = __webpack_require__(/*! ../_global/validation */ "./src/_global/validation.js");
 
 if (location.href.indexOf('eeone') != -1) {
+  let tts = window.speechSynthesis;
+  let command = "Hello. your in experience page, the commands that are available are, add experience, submit experience, and cancel experience. say add experience, for you to add experience. say submit experience, for you to submit your experience form. say cancel experience for you to cancel adding experience";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech);
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
   document.getElementById("pwdinput-searchbar").classList.remove("d-none");
   document.getElementById("input-searchbar").classList.add("d-none");
   let position_title_suggestion = null;
@@ -1278,64 +1425,11 @@ if (location.href.indexOf('eeone') != -1) {
   autoComplete("id_position_level", position_level_suggestion, "position_level");
   let salary_currency_suggestion = null;
   autoComplete("id_salary_currency", salary_currency_suggestion, "salary_currency"); //show portfolio button
-  //radio button 3
-
-  if (document.getElementById("id_experience_level_3").checked) {
-    document.getElementById("experience-duration").classList.remove("d-none");
-  }
-
-  function radiobutton_listener() {
-    document.querySelectorAll('.custom-control-input').forEach(function (x) {
-      x.addEventListener("change", function () {
-        if (document.getElementById("id_experience_level_3").checked) {
-          document.getElementById("experience-duration").classList.remove("d-none");
-        } else {
-          document.getElementById("experience-duration").classList.add("d-none");
-          document.getElementById("id_duration_year").value = '';
-          document.getElementById("id_duration_month").value = '';
-        }
-      });
-    });
-    document.getElementById("submit-id-save").addEventListener("click", e => {
-      if (document.getElementById("id_experience_level_3").checked) {
-        e.preventDefault();
-        let flag = true;
-
-        if (document.getElementById("id_duration_year").value == "") {
-          flag = false;
-          field_year = document.getElementById("id_duration_year");
-          field_year.classList.add("is-invalid");
-          isinvalid(field_year, "Invalid Input");
-        }
-
-        if (document.getElementById("id_duration_month").value == "") {
-          flag = false;
-          field_month = document.getElementById("id_duration_month");
-          field_month.classList.add("is-invalid");
-          isinvalid(field_month, "Invalid Input");
-        }
-
-        if (flag) {
-          document.getElementById("experiencelevel-form").submit();
-        }
-      }
-    });
-  } //Event Listener for Cancel Experience Btn:
-
+  //Event Listener for Cancel Experience Btn:
 
   document.getElementById("cancel-experience-form").addEventListener("click", function () {
     location.replace("/handicapped/pwd-1");
-  }); //Event Listener for Cancel Experience level Btn:
-
-  document.getElementById("cancel-experiencelevel-form").addEventListener("click", function () {
-    location.replace("/handicapped/pwd-eeone");
-  }); //Experience Level Validator:
-
-  if (document.getElementById("experience-level-desc").textContent == 'None') {
-    document.getElementById("experience-level").classList.add("d-none");
-    document.getElementById("experience-level-form").classList.remove("d-none");
-  } //Edit Experience Indicator
-
+  }); //Edit Experience Indicator
 
   if (location.href.indexOf('edit') != -1) {
     document.getElementById("div-experience-form").classList.remove("d-none");
@@ -1374,13 +1468,8 @@ if (location.href.indexOf('eeone') != -1) {
       console.log(y_str + m_str);
       document.getElementsByClassName("experience-span")[i].textContent = y_str + m_str;
     }
-  }
+  } //Event Listeners for Delete Experience Buttons
 
-  document.getElementById("edit-experience-level").addEventListener("click", function () {
-    document.getElementById("experience-level").classList.add("d-none");
-    document.getElementById("experience-level-form").classList.remove("d-none");
-    radiobutton_listener();
-  }); //Event Listeners for Delete Experience Buttons
 
   let delete_btn_array = document.getElementsByClassName("delete-experience");
 
@@ -1425,6 +1514,13 @@ if (location.href.indexOf('eeone') != -1) {
   })();
 
   let login_handicapped_instance = login_handicapped_singleton.getInstance();
+  let expin = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < expin.length; i++) {
+    expin[i].classList.add("pwd-input");
+  }
+
+  document.getElementById("pwdinput-searchbar").classList.remove("pwd-input");
 }
 
 /***/ }),
@@ -1443,12 +1539,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('llfour') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
   document.getElementById("pwdinput-searchbar").classList.remove("d-none");
   document.getElementById("input-searchbar").classList.add("d-none");
   let language_suggestion = null;
   (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_language", language_suggestion, "language");
   let proficiency_suggestion = null;
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_proficiency", proficiency_suggestion, "proficiency"); //Checks if the user has languages data. If none, the add language form will be hidden
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_0__.autoComplete)("id_proficiency", proficiency_suggestion, "proficiency");
+  let tts = window.speechSynthesis;
+  let command = "Hello. your in language page, the commands that are available are, add language, submit language, and cancel language. say add language, for you to add language. say submit language, for you to submit your language form. say cancel language for you to cancel adding language";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech); //Checks if the user has languages data. If none, the add language form will be hidden
 
   if (document.getElementById("div-language-list") == null) {
     document.getElementById("div-language-form").classList.remove("d-none");
@@ -1487,7 +1593,7 @@ if (location.href.indexOf('llfour') != -1) {
   let login_handicapped_singleton = (() => {
     //Private Members:
     let fields = {
-      'l name': 'id_language',
+      'language name': 'id_language',
       'proficiency': 'id_proficiency'
     };
 
@@ -1507,6 +1613,54 @@ if (location.href.indexOf('llfour') != -1) {
 
 /***/ }),
 
+/***/ "./src/app_handicapped/pwd-resume.js":
+/*!*******************************************!*\
+  !*** ./src/app_handicapped/pwd-resume.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+
+if (location.href.indexOf('handicapped/resume') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {};
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+  let expin = document.getElementsByClassName("form-control");
+
+  for (let i = 0; i < expin.length; i++) {
+    expin[i].classList.add("pwd-input");
+  }
+
+  document.getElementById("pwdinput-searchbar").classList.remove("pwd-input");
+}
+
+/***/ }),
+
 /***/ "./src/app_handicapped/pwd-sk.js":
 /*!***************************************!*\
   !*** ./src/app_handicapped/pwd-sk.js ***!
@@ -1521,10 +1675,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (location.href.indexOf('sltree') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
   document.getElementById("pwdinput-searchbar").classList.remove("d-none");
   document.getElementById("input-searchbar").classList.add("d-none");
   let skill_suggestion = null;
-  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_skill", skill_suggestion, "skill"); //Checks if the user has skills data. If none, the add language form will be hidden
+  (0,_global_global__WEBPACK_IMPORTED_MODULE_1__.autoComplete)("id_skill", skill_suggestion, "skill");
+  let tts = window.speechSynthesis;
+  let command = "Hello. your in skill page, the commands that are available are, add skill, submit skill, and cancel skill. say add skill, for you to add skill. say submit skill, for you to submit your skill form. say cancel skill for you to cancel adding skill";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech); //Checks if the user has skills data. If none, the add language form will be hidden
 
   if (document.getElementById("div-skill-list") == null) {
     document.getElementById("div-skill-form").classList.remove("d-none");
@@ -1563,7 +1727,7 @@ if (location.href.indexOf('sltree') != -1) {
   let login_handicapped_singleton = (() => {
     //Private Members:
     let fields = {
-      's name': 'id_skill',
+      'skill name': 'id_skill',
       'proficiency': 'id_proficiency'
     };
 
@@ -2207,13 +2371,46 @@ if (location.href.indexOf('portfolio') != -1) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var simple_datatables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-datatables */ "./node_modules/simple-datatables/src/index.js");
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+/* harmony import */ var simple_datatables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! simple-datatables */ "./node_modules/simple-datatables/src/index.js");
+/* harmony import */ var _factories_ajax_requests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_factories/ajax_requests */ "./src/_factories/ajax_requests.js");
+
+
 
 
 if (location.href.indexOf('pwdapplyjob') != -1 || location.href.indexOf('pwdapplications') != -1) {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicapped/index");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/index");
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
   var myTable = document.querySelector("#table-job-applications");
-  var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(myTable);
-  myTable.addEventListener("click", e => {});
+  var dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_1__.DataTable(myTable);
+  myTable.addEventListener("click", e => {
+    if (e.target.classList.contains("btn-withdraw")) {
+      let id = e.target.getAttribute("data-id");
+      document.getElementById("btn-withdraw-submit").setAttribute("data-id", id);
+    }
+  });
+  document.getElementById("btn-withdraw-submit").addEventListener("click", function () {
+    let json_body = {
+      "status": "Withdrawn",
+      "applicant_id": this.getAttribute("data-user"),
+      "joblisting_id": this.getAttribute("data-id")
+    };
+    console.log(json_body);
+    const body = (0,_factories_ajax_requests__WEBPACK_IMPORTED_MODULE_2__.RequestBodyFactory)({
+      "method": "POST",
+      "type": "application/json",
+      "body": JSON.stringify(json_body)
+    });
+    const response = fetch("/pwdupdateapplication/", body).then(response => response.json()).then(data => {
+      location.reload();
+    });
+  });
   let datatablefooter = document.getElementsByClassName('dataTable-info');
 
   for (let i = 0; i < datatablefooter.length; i++) {
@@ -2225,6 +2422,23 @@ if (location.href.indexOf('pwdapplyjob') != -1 || location.href.indexOf('pwdappl
   for (let i = 0; i < datatableheader.length; i++) {
     datatableheader[i].classList.add("text-white");
   }
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {};
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
 }
 
 /***/ }),
@@ -3478,6 +3692,84 @@ if (location.href == "http://127.0.0.1:8000/login/applicant/password_reset/" || 
   document.getElementById("id_new_password1").classList.add("pass-reset-input");
   document.getElementById("id_new_password2").classList.add("form-control");
   document.getElementById("id_new_password2").classList.add("pass-reset-input");
+}
+
+/***/ }),
+
+/***/ "./src/login/pwdpassword_reset.js":
+/*!****************************************!*\
+  !*** ./src/login/pwdpassword_reset.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_factories/speech_ai */ "./src/_factories/speech_ai.js");
+
+let tts = window.speechSynthesis;
+
+if (location.href == "http://127.0.0.1:8000/login/handicapped/password_reset/") {
+  let home = document.getElementById("nav-home");
+  home.getAttribute("href");
+  home.setAttribute("href", "/handicappe/login");
+  let logo = document.getElementById("skillfind-logo");
+  logo.getAttribute("href");
+  logo.setAttribute("href", "/handicapped/login");
+  document.getElementById("pwdinput-searchbar").classList.remove("d-none");
+  document.getElementById("input-searchbar").classList.add("d-none");
+  document.getElementById("id_email").classList.add("form-control");
+  document.getElementById("id_email").classList.add("pass-reset-input");
+  document.getElementById("id_email").focus();
+  let command = "your in password reset page. currently your in eamil field, just say your email to input its value. Then you can say the command, submit email to continue";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech);
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'email': 'id_email'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
+} else if (location.href.indexOf('password_reset_confirm') != -1) {
+  document.getElementById("id_new_password1").classList.add("form-control");
+  document.getElementById("id_new_password1").classList.add("pass-reset-input");
+  document.getElementById("id_new_password2").classList.add("form-control");
+  document.getElementById("id_new_password2").classList.add("pass-reset-input");
+  let command = "your in password confirm page. currently your in first password field, just say your desired new password to input its value. Then it will authomaticaly navigate to the password repeat field. you can say the command, submit new password to continue";
+  let speech = new SpeechSynthesisUtterance(command);
+  tts.speak(speech);
+
+  let login_handicapped_singleton = (() => {
+    //Private Members:
+    let fields = {
+      'new password': 'id_new_password1',
+      'repeat password': 'id_new_password2'
+    };
+
+    function EventBubble() {} //Public Members
+
+
+    return {
+      getInstance: () => {
+        EventBubble();
+        let speech_ai_instance = _factories_speech_ai__WEBPACK_IMPORTED_MODULE_0__.speech_ai.getInstance(fields);
+      }
+    };
+  })();
+
+  let login_handicapped_instance = login_handicapped_singleton.getInstance();
 }
 
 /***/ }),
@@ -27744,6 +28036,10 @@ const {
 } = __webpack_require__(/*! ./login/password_reset */ "./src/login/password_reset.js");
 
 const {
+  pwdpassword_reset
+} = __webpack_require__(/*! ./login/pwdpassword_reset */ "./src/login/pwdpassword_reset.js");
+
+const {
   handicapped_index
 } = __webpack_require__(/*! ./app_handicapped/index */ "./src/app_handicapped/index.js");
 
@@ -27789,7 +28085,15 @@ const {
 
 const {
   pwd_lang
-} = __webpack_require__(/*! ./app_handicapped/pwd-lang */ "./src/app_handicapped/pwd-lang.js"); //const { jobs_search } = require("./job_search_engine/jobsearchsss");
+} = __webpack_require__(/*! ./app_handicapped/pwd-lang */ "./src/app_handicapped/pwd-lang.js");
+
+const {
+  pwd_resume
+} = __webpack_require__(/*! ./app_handicapped/pwd-resume */ "./src/app_handicapped/pwd-resume.js");
+
+const {
+  pwd_commands
+} = __webpack_require__(/*! ./app_handicapped/pwd-command-list */ "./src/app_handicapped/pwd-command-list.js"); //const { jobs_search } = require("./job_search_engine/jobsearchsss");
 
 
 

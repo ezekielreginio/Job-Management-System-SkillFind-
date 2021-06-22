@@ -1,0 +1,38 @@
+{% extends "../base.html" %} 
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-5 card-bg">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <h1 class="d-inline-block text-white">
+                                    <i class="icon-book d-inline-block fs-25 applicant-text-color"></i> 
+                                    My Resume
+                                </h1>    
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="container pb-3 " id="div-language-form">
+                                    {% crispy resume_form %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+{% endblock %}

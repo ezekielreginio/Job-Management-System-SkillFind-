@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from app_applicant_portfolio.models import Experience, ExperienceLevel, Education, Skill, Language
+from app_applicant_portfolio.models import Experience, ExperienceLevel, Education, Skill, Language, Resume
 from allauth.account.views import SignupView,LoginView
 from django.contrib.auth.decorators import login_required, user_passes_test
 from . import forms as portfolio_forms
@@ -11,6 +11,8 @@ from django.contrib.auth import login, authenticate
 
 
 # Create your views here.
+@login_required(login_url='/handicapped/login')
+@user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
 def handicapped_index(request):
     context ={}
     return render(request, "app_handicapped/index.html", context)
@@ -55,7 +57,7 @@ handicapped_signup = PwdSignupForm.as_view()
 handicapped_login = PwdSigninForm.as_view()
 
 
-@login_required(login_url='/login/pwd')
+@login_required(login_url='/handicapped/login')
 @user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
 def pwd_experience(request, pk=None):
     experience_form = portfolio_forms.PWDPortfolioExperience
@@ -99,7 +101,7 @@ def pwd_experience(request, pk=None):
     context = {'form': experience_form, 'experience_list' : experience_list, 'experience_level_desc': experience_level_desc, 'experience_level_form': experience_level_form}
     return render(request, 'app_handicapped/pwd-experience.html', context)
 
-@login_required(login_url='/login/pwd')
+@login_required(login_url='/handicapped/login')
 @user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
 def pwd_experience_delete(request, pk=None):
     if request.method == "POST":
@@ -107,7 +109,7 @@ def pwd_experience_delete(request, pk=None):
         experience.delete()
     return redirect('/handicapped/pwd-eeone')
 
-@login_required(login_url='/login/pwd')
+@login_required(login_url='/handicapped/login')
 @user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
 def pwd_experience_level(request):
     try:
@@ -125,7 +127,7 @@ def pwd_experience_level(request):
     else:
         print("Invalid Access")
 
-@login_required(login_url='/login/pwd')
+@login_required(login_url='/handicapped/login')
 @user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
 def pwd_education(request,op=None, pk=None):
     education_list = Education.objects.all().filter(applicant_id=request.user.id) # "SELECT * FROM Education WHERE applicant_id = ?"
@@ -155,7 +157,7 @@ def pwd_education(request,op=None, pk=None):
     context = {'education_form': education_form,'education_list': education_list}
     return render(request, 'app_handicapped/pwd-education.html', context)
 
-@login_required(login_url='/login/pwd')
+@login_required(login_url='/handicapped/login')
 @user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
 def pwd_skill(request,op=None, pk=None):
     skill_list = Skill.objects.all().filter(applicant_id=request.user.id)
@@ -185,7 +187,7 @@ def pwd_skill(request,op=None, pk=None):
     return render(request, 'app_handicapped/pwd-skill.html', context)
 
 
-@login_required(login_url='/login/pwd')
+@login_required(login_url='/handicapped/login')
 @user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
 def pwd_language(request,op=None, pk=None):
     language_list = Language.objects.all().filter(applicant_id=request.user.id)
@@ -212,3 +214,29 @@ def pwd_language(request,op=None, pk=None):
 
     context = {'language_form': language_form, 'language_list': language_list}
     return render(request, 'app_handicapped/pwd-language.html', context)
+
+@login_required(login_url='/handicapped/login')
+@user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
+def pwdapplicant_resume(request,op=None, pk=None):
+    try:
+        resume_file = Resume.objects.get(applicant_id=request.user.id)
+    except Resume.DoesNotExist:
+        resume_file = None
+
+    resume_form = portfolio_forms.PWDApplicantResume(instance=resume_file)
+    if request.method == "POST":
+        resume_form = portfolio_forms.PWDApplicantResume(request.POST, request.FILES, instance=resume_file)
+        if resume_form.is_valid():
+            res_form = resume_form.save(commit=False)
+            res_form.applicant = request.user
+            res_form.save()
+            return redirect('/handicapped/resume')
+
+    context = {'resume_form': resume_form}
+    return render(request, 'app_handicapped/pwd-resume.html', context)
+
+@login_required(login_url='/handicapped/login')
+@user_passes_test(lambda u: u.groups.filter(name='pwd').exists())
+def pwd_commandlist(request):
+    context = {}
+    return render(request,'app_handicapped/pwd-command-list.html', context)

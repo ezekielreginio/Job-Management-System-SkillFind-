@@ -78,18 +78,18 @@ class DateInput(forms.DateInput):
 
 
 class PWDPortfolioExperience(forms.ModelForm):
-    position_title = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    company_name = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
+    position_title = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Position Title'}))
+    company_name = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Company Name'}))
     start_date = forms.DateField(required=True, widget=DateInput)
     end_date = forms.DateField(required=True, widget=DateInput)
-    specialization = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    role = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    country = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    industry = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    position_level = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    salary_currency = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ])
-    salary = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_money ])
-    experience_description = forms.CharField(max_length=3500, widget=forms.Textarea)
+    specialization = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Specialization'}))
+    role = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Role'}))
+    country = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Country'}))
+    industry = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Industry'}))
+    position_level = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Position Level'}))
+    salary_currency = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_alphanumeric ], widget=forms.TextInput(attrs={'placeholder': 'Salary Currency'}))
+    salary = forms.CharField(max_length=50, required=True, strip=True, validators=[validators.validate_money ], widget=forms.TextInput(attrs={'placeholder': 'Salary'}))
+    experience_description = forms.CharField(max_length=3500, widget=forms.Textarea(attrs={'placeholder': 'Experience'}))
 
     class Meta:
         model = models.Experience
@@ -102,45 +102,6 @@ class PWDPortfolioExperience(forms.ModelForm):
         self.helper.form_show_labels = False
         self.helper.add_input(Submit('Submit', 'Save', css_class='btn-primary btn-applicant'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-experience-form"))
-        self.helper.layout = Layout(
-            Fieldset(
-                '',
-                Div(
-                    Div( 
-                    Field('position_title', css_class='pwd-input', placeholder="Position Title"),
-                    Field('company_name', css_class='pwd-input', placeholder="Company Name"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ),
-                    Div( 
-                    Field('start_date', css_class='pwd-input', placeholder="Start Date"),
-                    Field('end_date', css_class='pwd-input', placeholder="End Date"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ),
-                    Div( 
-                    Field('specialization', css_class='pwd-input', placeholder="Specialization"),
-                    Field('role', css_class='pwd-input', placeholder="Role"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ),
-                    Div( 
-                    Field('country', css_class='pwd-input', placeholder="Country"),
-                    Field('industry', css_class='pwd-input', placeholder="Industry"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ),
-                    Div( 
-                    Field('position_level', css_class='pwd-input', placeholder="Position Level"),
-                    Field('salary_currency', css_class='pwd-input', placeholder="Salary Currency"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ),
-                    Div( 
-                    Field('salary', css_class='pwd-input', placeholder="Salary"),
-                    Field('experience_description', css_class='pwd-input', placeholder="Experience Description"),
-                    css_class='col container-fluid d-flex justify-content-center'
-                    ), 
-                 css_class='row d-flex justify-content-center'
-                ),
-               
-            ),
-        )
 
     def clean_end_date(self):
         cleaned_data = super().clean()
@@ -209,13 +170,13 @@ class PWDExperienceLevel(forms.ModelForm):
         
 class PWDEducation(forms.ModelForm):
     graduation_date = forms.DateField(widget=DateInput)
-    university = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
-    qualification = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
-    university_location = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
-    field_of_study = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
-    major = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric])
-    grade = forms.DecimalField(required=True)
-
+    university = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'University'}))
+    qualification = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Qualification'}))
+    university_location = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'University Location'}))
+    field_of_study = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Field of Study'}))
+    major = forms.CharField(max_length=50, required=True, validators=[validators.validate_alphanumeric], widget=forms.TextInput(attrs={'placeholder': 'Major'}))
+    grade = forms.DecimalField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Grade'}))
+    additional_information = forms.CharField(max_length=3500, widget=forms.Textarea(attrs={'placeholder': 'Addition Information'}))
     class Meta:
         model = models.Education
         #fields = '__all__'
@@ -290,6 +251,30 @@ class PWDLanguage(forms.ModelForm):
                     ),
                     Div(
                         'proficiency', css_class="col-3",
+                    ),
+                    css_class='row',
+                ),
+            ),
+        )
+
+class PWDApplicantResume(forms.ModelForm):
+    class Meta:
+        model = models.Resume
+        exclude = ('applicant', )
+
+    def __init__(self, *args, **kwargs): #constructor
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_show_labels = False
+        self.helper.add_input(Submit('submit', 'Upload Now', css_class='btn-applicant'))
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                Div(
+                    Div(HTML(''' <h5 class="text-white">Upload Your Resume</h5> '''), css_class="col-12 pl-0"),
+                    Div(
+                        'resume', css_class="col-6 mr-2",
                     ),
                     css_class='row',
                 ),

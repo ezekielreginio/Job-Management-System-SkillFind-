@@ -2,10 +2,21 @@ import { speech_ai } from "./../_factories/speech_ai"
 import { autoComplete } from "../_global/global"
 
 if(location.href.indexOf('sltree') != -1){
+    let home= document.getElementById("nav-home")
+   home.getAttribute("href")
+   home.setAttribute("href", "/handicapped/index")
+   let logo= document.getElementById("skillfind-logo")
+   logo.getAttribute("href")
+   logo.setAttribute("href", "/handicapped/index")
     document.getElementById("pwdinput-searchbar").classList.remove("d-none")
     document.getElementById("input-searchbar").classList.add("d-none")
     let skill_suggestion = null
     autoComplete("id_skill", skill_suggestion, "skill")
+
+    let tts = window.speechSynthesis
+    let command = "Hello. your in skill page, the commands that are available are, add skill, submit skill, and cancel skill. say add skill, for you to add skill. say submit skill, for you to submit your skill form. say cancel skill for you to cancel adding skill"
+    let speech = new SpeechSynthesisUtterance(command)  
+    tts.speak(speech)
 
     //Checks if the user has skills data. If none, the add language form will be hidden
     if(document.getElementById("div-skill-list") == null){
@@ -52,7 +63,7 @@ if(location.href.indexOf('sltree') != -1){
      let login_handicapped_singleton = (()=>{
         //Private Members:
         let fields = {
-            's name': 'id_skill',
+            'skill name': 'id_skill',
             'proficiency': 'id_proficiency',
         }
 

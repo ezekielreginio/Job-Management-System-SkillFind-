@@ -1,7 +1,17 @@
+import { speech_ai } from "./../_factories/speech_ai"
 import {DataTable} from "simple-datatables"
 import { RequestBodyFactory } from "../_factories/ajax_requests";
 
 if(location.href.indexOf('pwdapplyjob') != -1 || location.href.indexOf('pwdapplications') != -1){
+    let home= document.getElementById("nav-home")
+    home.getAttribute("href")
+    home.setAttribute("href", "/handicapped/index")
+    let logo= document.getElementById("skillfind-logo")
+    logo.getAttribute("href")
+    logo.setAttribute("href", "/handicapped/index")
+     document.getElementById("pwdinput-searchbar").classList.remove("d-none")
+     document.getElementById("input-searchbar").classList.add("d-none")
+   
     var myTable = document.querySelector("#table-job-applications");
     var dataTable = new DataTable(myTable);
 
@@ -45,5 +55,31 @@ if(location.href.indexOf('pwdapplyjob') != -1 || location.href.indexOf('pwdappli
     for(let i = 0; i<datatableheader.length; i++ ){
         datatableheader[i].classList.add("text-white")
     }
+
+    let login_handicapped_singleton = (()=>{
+        //Private Members:
+        let fields = {
+            
+        }
+
+        
+
+        function EventBubble(){
+           
+        }
+
+        
+
+        //Public Members
+        return{
+            getInstance: ()=>{
+                EventBubble()
+                let speech_ai_instance = speech_ai.getInstance(fields)
+            }
+            
+        }
+    })()
+
+    let login_handicapped_instance = login_handicapped_singleton.getInstance()
    
 }

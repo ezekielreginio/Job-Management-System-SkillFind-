@@ -1,0 +1,362 @@
+{% extends "../base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container-fluid">
+	<div class="card-deck mt-5  mb-5 text-white">
+        <div class="card card-bg">
+          <div class="card-body">
+            <div class="container">   
+                <h3 class="card-title pwd-text">For Experience Form Fields</h3>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Posittion Title"</h5>
+                    </div>
+                    <div class="col-8">
+                        For position title field
+                    </div>
+                </div> 
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Company Name"</h5>
+                    </div>
+                    <div class="col-8">
+                        For company name field
+                    </div>
+                </div> 
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Company Name"</h5>
+                    </div>
+                    <div class="col-8">
+                        For company name field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Specialization"</h5>
+                    </div>
+                    <div class="col-8">
+                        For specialization  field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Role"</h5>
+                    </div>
+                    <div class="col-8">
+                        For role  field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Country"</h5>
+                    </div>
+                    <div class="col-8">
+                        For country  field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Industry"</h5>
+                    </div>
+                    <div class="col-8">
+                        For industry  field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Position Level"</h5>
+                    </div>
+                    <div class="col-8">
+                        For position level field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Salary Currency"</h5>
+                    </div>
+                    <div class="col-8">
+                        For salary currency field
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Salary"</h5>
+                    </div>
+                    <div class="col-8">
+                        For salary field
+                    </div>
+                </div>
+                <hr>
+                <h3 class="card-title pwd-text">For Education Form Fields</h3>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"University"</h5>
+                    </div>
+                    <div class="col-8">
+                        For university field
+                    </div>
+                </div> 
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Qualification"</h5>
+                    </div>
+                    <div class="col-8">
+                        For qualification field
+                    </div>
+                </div> 
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"University Location"</h5>
+                    </div>
+                    <div class="col-8">
+                        For university location field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Field of Study"</h5>
+                    </div>
+                    <div class="col-8">
+                        For field of study field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Major"</h5>
+                    </div>
+                    <div class="col-8">
+                        For major field
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Grade"</h5>
+                    </div>
+                    <div class="col-8">
+                        For grade field
+                    </div>
+                </div>
+                <hr>
+                <h3 class="card-title pwd-text">For Skill Form Fields</h3>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Skill Name"</h5>
+                    </div>
+                    <div class="col-8">
+                        For skill name field
+                    </div>
+                </div> 
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Proficiency"</h5>
+                    </div>
+                    <div class="col-8">
+                        For proficiency field
+                    </div>
+                </div> 
+                <hr>
+                <h3 class="card-title pwd-text">For Language Form Fields</h3>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Language Name"</h5>
+                    </div>
+                    <div class="col-8">
+                        For Language name field
+                    </div>
+                </div> 
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Proficiency"</h5>
+                    </div>
+                    <div class="col-8">
+                        For proficiency field
+                    </div>
+                </div>    
+            </div>
+          </div>
+        </div>
+        <div class="card card-bg">
+          <div class="card-body">
+            <div class="container">
+                <h3 class="card-title pwd-text">For Opening Pages</h3>
+                <div class="row">
+                    <div class="col-4">
+                       <h5>"Home"</h5> 
+                    </div>
+                    <div class="col-8">                   
+                     For opening home page
+                    </div>
+                 </div>
+                 <hr>
+                 <div class="row">
+                     <div class="col-4">
+                         <h5>"Resume"</h5> 
+                         
+                     </div>
+                     <div class="col-8">
+                         For opening upload resume page
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                     <div class="col-4">
+                         <h5>"Application Status"</h5> 
+                         
+                     </div>
+                     <div class="col-8">
+                         For opening aplication status
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                     <div class="col-4">
+                         <h5>"Command List"</h5> 
+                     </div>
+                     <div class="col-8">
+                         For opening command list
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                     <div class="col-4">
+                         <h5>"Experience"</h5>
+                     </div>
+                     <div class="col-8">
+                         For opening experience page
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                     <div class="col-4">
+                         <h5>"Education"</h5>
+                         
+                     </div>
+                     <div class="col-8">
+                         For opening education page
+                     </div>
+                  </div>
+                  <hr>
+                 <div class="row">
+                     <div class="col-4">
+                         <h5>"Skill"</h5>
+                     </div>
+                     <div class="col-8">
+                         For opening skill page
+                     </div>
+                 </div> 
+                 <hr>
+                 <div class="row">
+                     <div class="col-4">
+                         <h5>"Language"</h5>
+                     </div>
+                     <div class="col-8">
+                         For opening language page
+                     </div>
+                 </div> 
+                 <hr>
+                <h3 class="card-title pwd-text">For Submitting Forms</h3>
+                <div class="row">
+                   <div class="col-4">
+                    <h5>"Submit Experience"</h5>
+                   </div>
+                   <div class="col-8">
+                    For submitting experience
+                   </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Submit Education"</h5>
+                    </div>
+                    <div class="col-8">
+                     For submitting education
+                    </div>
+                 </div>
+                 <hr>
+                 <div class="row">
+                    <div class="col-4">
+                        <h5>"Submit Skill"</h5>
+                    </div>
+                    <div class="col-8">
+                     For submitting skill
+                    </div>
+                 </div>
+                 <hr>
+                 <div class="row">
+                    <div class="col-4">
+                        <h5>"Submit Language"</h5>
+                    </div>
+                    <div class="col-8">
+                     For submitting language
+                    </div>
+                 </div>
+            </div>
+            <hr>
+            <h3 class="card-title pwd-text">For Canceling Forms</h3>
+            <div class="container">
+                <div class="row">
+                   <div class="col-4">
+                    <h5>"Cancel Experience"</h5>
+                   </div>
+                   <div class="col-8">
+                    For cancelling experience
+                   </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h5>"Cancel Education"</h5>
+                        
+                    </div>
+                    <div class="col-8">
+                     For cancelling education
+                    </div>
+                 </div>
+                 <hr>
+                 <div class="row">
+                    <div class="col-4">
+                        <h5>"Cancel Skill"</h5>
+                        
+                    </div>
+                    <div class="col-8">
+                     For cancelling skill
+                    </div>
+                 </div>
+                 <hr>
+                 <div class="row">
+                    <div class="col-4">
+                        <h5>"Cancel Language"</h5>
+                        
+                    </div>
+                    <div class="col-8">
+                     For cancelling language
+                    </div>
+                 </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+{% endblock %}
+
