@@ -35,7 +35,7 @@
 }
 
 .btn-primary{
-    background-color: #55f1fc;
+    background-color: #daad12;
 }
 
 
@@ -534,7 +534,7 @@
 /*CSS for PWD LOGIN*/
 
 .login-pwd {
-  background: rgba(234, 233, 236, 0.9);
+  background: rgba(15, 43, 91, 0.9);
   padding: 40px;
   max-width: 600px;
   margin: 40px auto;
@@ -573,7 +573,7 @@
     box-shadow: 0px 7px 10px 10px rgba(0,0,0,0.2);
 }
 .btn-pwd{
-    background-color:  #BB86FC;
+    background-color:  #F77F00;;
     width: 100%;
     border: none;
     color: white;
@@ -1283,7 +1283,7 @@ section.input-container .pwd-label .pwd-span {
 }
 
 .card-bg{
-  background-color: #0F2B5B;
+  background-color: #0f2b5b;
 }
 
 hr{

@@ -16,7 +16,7 @@ export let speech_ai = (()=>{
             let command = "opening login page"
             let speech = new SpeechSynthesisUtterance(command)  
             tts.speak(speech)
-            window.location.replace('http://127.0.0.1:8000/handicapped/login')
+            window.location.replace('/handicapped/login')
         },
 
         "resume":()=>{
@@ -37,7 +37,7 @@ export let speech_ai = (()=>{
             let command = "opening signup page"
             let speech = new SpeechSynthesisUtterance(command)  
             tts.speak(speech)
-            window.location.replace('http://127.0.0.1:8000/handicapped/signup')
+            window.location.replace('/handicapped/signup')
         },
 
         "log in":()=>{

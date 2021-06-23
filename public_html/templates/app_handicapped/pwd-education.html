@@ -8,7 +8,7 @@
 	<div class="card">
 		<div class="container-fluid">
 			<div class="row d-flex justify-content-center">
-			  <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+			  <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-5 container-fluid d-flex justify-content-center">
 				
 					<svg version="1.1" viewBox="0 0 1222 65">
 						<a href="/handicapped/index">
@@ -18,7 +18,7 @@
 					</svg>
 				
 			   </div>
-			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+			   <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-5 container-fluid d-flex justify-content-center">
 				<svg version="1.1" viewBox="0 0 1200 120">
 					<rect width="1200" height="120" x="0" y="0" rx="50" ry="50" class="navigation"/>
 					<a href="/handicapped/pwd-eeone">
@@ -35,16 +35,16 @@
 				</svg>
 			   </div>
 			   
-				<div class="col-12 mr-2">
+				<div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 mr-2">
 					<a href="#" class="btn btn-applicant" id="btn-add-education"><i class="icon-plus-sign"></i> Add Education Info</a>
 				</div>
 			  {% for education in education_list %}
-			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+			   <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-5 container-fluid d-flex justify-content-center">
 				<div class="card container-fluid card-bg"  id="div-education-list">
 					<div class="card-body">
 						 <div class="container-fluid">
 							 <div class="row">
-								 <div class="col-12">
+								 <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
 									 <h1 class="text-white">{{education.university}}
 										<a href="{% url 'pwd_education_update' education.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
 										<a data-link="{% url 'pwd_education_delete' 'delete' education.id %}" class="btn-delete-education text-danger-dark" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block"></i></a>
@@ -52,12 +52,12 @@
 								 </div>
 							 </div>
 							 <div class="row">
-								 <div class="col-12">
+								 <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
 									 <h4 class="text-white text-right">{{ education.qualification }} in {{ education.field_of_study }}</h4>
 								 </div>
 							 </div>
 							 <div class="row">
-								 <div class="col-12">
+								 <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
 									 <h5 class="text-white text-right">{{education.graduation_date}}</h5>
 								 </div>
 							 </div>
@@ -65,7 +65,7 @@
 							 <hr>
  
 							 <div class="row">
-								 <div class="col-12">
+								 <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
 									 <h5 class="text-white">Details:</h5>
 								 </div>
 							 </div>
@@ -74,18 +74,18 @@
 								 <div class="card-body">
 									 <div class="container">
 										 <div class="row">
-											 <div class="col-4">
+											 <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
 												 <h6>Major in:</h6>
 											 </div>
-											 <div class="col-8">
+											 <div class="col-sm-8 col-md-8 col-xl-8 col-lg-8">
 												 <h6>{{education.major}}</h6>
 											 </div>
 										 </div>
 										 <div class="row">
-											 <div class="col-4">
+											 <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
 												 <h6>GPA:</h6>
 											 </div>
-											 <div class="col-8">
+											 <div class="col-sm-8 col-md-8 col-xl-8 col-lg-8">
 												 <h6>{{education.grade}}</h6>
 											 </div>
 										 </div>
