@@ -4,39 +4,44 @@
 {% block content%}
 {% include "../modals/withdraw.html" %}
     <div class="container">
-        <div class="card card-primary-theme mt-3">
-            <div class="card-body p-0 py-3" id="application-bubble">
-                <div class="row mb-4">
-                    <div class="col-12 pt-1">
-                        <i class="icon-dashboard d-inline-block fs-25 m-2 applicant-text-color"></i>
-                        <h4 class="d-inline-block applicant-text-color">Jobs Applications</h4>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <div class="card card-primary-theme mt-3">
+                    <div class="card-body p-0 py-3" id="application-bubble">
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 pt-1">
+                                <i class="icon-dashboard d-inline-block fs-25 m-2 applicant-text-color"></i>
+                                <h4 class="d-inline-block applicant-text-color">Jobs Applications</h4>
+                            </div>
+                        </div>
+                       
+                        
+                            <table class="" id="table-job-applications">
+                                <thead class="">
+                                    <tr class="applicant-text-color">
+                                        <th>Job Title</th>
+                                        <th>Company</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                 <tbody class="">
+                                    {% for application in queryset%}
+                                        <tr class="text-white">
+                                            <td>{{application.joblisting__job_title}}</td>
+                                            <td>{{application.joblisting__employer__company_name}}</td>
+                                            <td>{{application.status}}</td>
+                                            <td><button class="btn btn-secondary btn-withdraw" data-toggle="modal" data-target="#modal-withdraw"  data-id="{{application.joblisting_id}}">Withdraw</button></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        
+                        
                     </div>
                 </div>
-                
-                <table class="" id="table-job-applications">
-                    <thead class="applicant-text-color">
-                        <tr>
-                         
-                            <th>Job Title</th>
-                            <th>Company</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-white">
-                        {% for application in queryset%}
-                            <tr>
-                                
-                                
-                                <td>{{application.joblisting__job_title}}</td>
-                                <td>{{application.joblisting__employer__company_name}}</td>
-                                <td>{{application.status}}</td>
-                                <td><button class="btn btn-secondary btn-withdraw" data-toggle="modal" data-target="#modal-withdraw"  data-id="{{application.joblisting_id}}">Withdraw</button></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
             </div>
         </div>
+        
     </div>
 {% endblock content%}

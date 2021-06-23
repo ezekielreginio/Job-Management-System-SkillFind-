@@ -8,7 +8,7 @@
 	<div class="card">
 		<div class="container-fluid">
 			<div class="row d-flex justify-content-center">
-			  <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+			  <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-5 container-fluid d-flex justify-content-center">
 				
 					<svg version="1.1" viewBox="0 0 1222 65">
 						<a href="/handicapped/index">
@@ -18,7 +18,7 @@
 					</svg>
 				
 			   </div>
-			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+			   <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-5 container-fluid d-flex justify-content-center">
 				<svg version="1.1" viewBox="0 0 1200 120">
 					<rect width="1200" height="120" x="0" y="0" rx="50" ry="50" class="navigation"/>
 					<text x="100" y="70" class="navigation-text-active">Experience</text>
@@ -35,17 +35,17 @@
 				</svg>
 			   </div>
 		{%if experience_list %}
-              <div class="col-12" id="div-experience-list">
+              <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12" id="div-experience-list">
 				<div class="col-xs-12 ml-auto mr-2">
                     <a href="#" class="btn btn-applicant"  id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
                 </div>
 				{% for experience in experience_list %}
-			   <div class="col-12 mt-5 container-fluid d-flex justify-content-center">
+			   <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-5 container-fluid d-flex justify-content-center">
                <div class="card container-fluid card-bg">
 				   <div class="card-body">
                         <div class="container-fluid">
                             <div class="row">
-								<div class="col-12">
+								<div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
                                     <h1 class="text-white">{{experience.position_title}}
 										<a href="{% url 'pwd_experience_update' experience.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
                                         <a data-link="{% url 'pwd_experience_delete' experience.id %}" class="delete-experience text-danger-dark" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block" ></i></a>
@@ -53,12 +53,12 @@
 								</div>
 							</div>
 							<div class="row">
-                                <div class="col-12">
+                                <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
                                     <h4 class="text-white text-right">{{experience.company_name}}</h4>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-12">
+								<div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
                                     <h5 class="text-white text-right">{{experience.start_date|date:'M Y'}}-{{experience.end_date|date:'M Y'}}</h5>
 								</div>
 							</div>
@@ -66,7 +66,7 @@
 							<hr>
 
 							<div class="row">
-								<div class="col-12">
+								<div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
                                     <h5 class="text-white">Details:</h5>
 								</div>
 							</div>
@@ -75,42 +75,42 @@
 								<div class="card-body">
 									<div class="container">
 										<div class="row">
-											<div class="col-4">
+											<div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
 												<h6>Industry:</h6>
 											</div>
-											<div class="col-8">
+											<div class="col-sm-8 col-md-8 col-xl-8 col-lg-8">
 												<h6>{{experience.industry}}</h6>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-4">
+											<div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
 												<h6>Specialization:</h6>
 											</div>
-											<div class="col-8">
+											<div class="col-sm-8 col-md-8 col-xl-8 col-lg-8">
 												<h6>{{experience.specialization}}</h6>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-4">
+											<div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
 												<h6>Role:</h6>
 											</div>
-											<div class="col-8">
+											<div class="col-sm-8 col-md-8 col-xl-8 col-lg-8">
 												<h6>{{experience.role}}</h6>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-4">
+											<div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
 												<h6>Position Level:</h6>
 											</div>
-											<div class="col-8">
+											<div class="col-sm-8 col-md-8 col-xl-8 col-lg-8">
 												<h6>{{experience.position_level}}</h6>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-4">
+											<div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
 												<h6>Salary:</h6>
 											</div>
-											<div class="col-8">
+											<div class="col-sm-8 col-md-8 col-xl-8 col-lg-8">
 												<h6>{{experience.salary}}</h6>
 											</div>
 										</div>

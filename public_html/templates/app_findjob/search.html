@@ -3,7 +3,7 @@
 {% block content %} 
     <div class="container text-white mt-3" id="searchjob-bubble">
         <div class="row">
-            <div class="col-4">
+            <div class="col-sm-4 col-xl-4 col-md-4 col-lg-4 ">
                 {% for job in queryset%}
                     <div class="job-card card-results" data-job-id="{{job.id}}">
                         <div class="abstract text-white">
@@ -22,7 +22,7 @@
                 {% endfor %}
                 
             </div>
-            <div class="col-8">
+            <div class="col-sm-8 col-xl-8 col-md-8 col-lg-8">
                 <div class="job-card job-card-sticky" id="job-info">
                     <!-- <div class="abstract text-white">
                         <h5>IT Support Engineer</h5>

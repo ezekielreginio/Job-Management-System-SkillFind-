@@ -487,7 +487,7 @@ let speech_ai = (() => {
       let command = "opening login page";
       let speech = new SpeechSynthesisUtterance(command);
       tts.speak(speech);
-      window.location.replace('http://127.0.0.1:8000/handicapped/login');
+      window.location.replace('/handicapped/login');
     },
     "resume": () => {
       let command = "Opening resume page";
@@ -505,7 +505,7 @@ let speech_ai = (() => {
       let command = "opening signup page";
       let speech = new SpeechSynthesisUtterance(command);
       tts.speak(speech);
-      window.location.replace('http://127.0.0.1:8000/handicapped/signup');
+      window.location.replace('/handicapped/signup');
     },
     "log in": () => {
       let command = "Loging in";
@@ -1761,6 +1761,7 @@ __webpack_require__.r(__webpack_exports__);
 if (location.href.indexOf('handicapped/signup') != -1) {
   document.getElementById("pwdinput-searchbar").classList.remove("d-none");
   document.getElementById("input-searchbar").classList.add("d-none");
+  document.getElementById("login-title").innerHTML = "Welcome!";
   $(document).ready(function () {
     $("#id_first_name").focus();
   });

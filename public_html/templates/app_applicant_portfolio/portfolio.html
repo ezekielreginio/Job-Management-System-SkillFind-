@@ -8,11 +8,11 @@
 
 
 <div class="row mb-5">
-    <div class="col-9 pt-1">
+    <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 pt-1">
         <i class="icon-briefcase d-inline-block fs-25 applicant-text-color"></i>
         <h3 class="d-inline-block">Portfolio</h3>
     </div>
-    <div class="col-3 pt-1">
+    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-1">
       <button class="btn btn-applicant" id="show-portfolio">Show All</button>
       <button class="btn btn-applicant d-none" id="show-portfolio2">Hide All</button>
       
@@ -30,13 +30,13 @@
     <div class="task portfolio_detail" id="portfolio_detail">
        <div class="abstract">
          <div class="row">
-          <div class="col-8 mb-0">
+          <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mb-0">
             <h4>{{experience.position_title}}</h4>
           </div>
-          <div class="col-4 mb-0 text-right">
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 mb-0 text-right">
             <i class="fa fa-eye fs-25 text-right eye"></i>
           </div>
-          <div class="col-12 text-right">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
             <h5>{{experience.company_name}}</h5>
             <p>{{experience.start_date|date:'M Y'}}-{{experience.end_date|date:'M Y'}}</p>
           </div>
@@ -46,16 +46,16 @@
           <div class="details__inner">
             <h4>Details</h4>
             <div class="row">
-              <div class="col-4">Industry</div>
-              <div class="col-8">{{experience.industry}}</div>
-              <div class="col-4">Specialization</div>
-              <div class="col-8">{{experience.specialization}}</div>
-              <div class="col-4">Role</div>
-              <div class="col-8">{{experience.role}}</div>
-              <div class="col-4">Position Level</div>
-              <div class="col-8">{{experience.position_level}}</div>
-              <div class="col-4">Salary</div>
-              <div class="col-8">{{experience.salary}}</div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Industry</div>
+              <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{experience.industry}}</div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Specialization</div>
+              <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{experience.specialization}}</div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Role</div>
+              <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{experience.role}}</div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Position Level</div>
+              <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{experience.position_level}}</div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Salary</div>
+              <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{experience.salary}}</div>
             </div>
           </div>
         </div>
@@ -73,14 +73,14 @@
     <div class="task portfolio_detail">
        <div class="abstract">
          <div class="row">
-            <div class="col-8">
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
               <h4>{{education.university}}</h4>
             </div>
-            <div class="col-4 mb-0 text-right">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 mb-0 text-right">
               <i class="fa fa-eye fs-25 text-right eye"></i>
             </div>
             <hr>
-            <div class="col-12 text-right">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
                 <h5>{{ education.qualification }} in {{ education.field_of_study }}</h5>
                 <p>{{education.graduation_date|date:'M Y'}}</p>
             </div>
@@ -90,10 +90,10 @@
           <div class="details__inner">
             <h4>Details</h4>
             <div class="row">
-              <div class="col-4">Major in</div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Major in</div>
               <div class="col-8">{{ education.major }}</div>
-              <div class="col-4">GPA</div>
-              <div class="col-8">{{ education.grade }}</div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">GPA</div>
+              <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{ education.grade }}</div>
             </div>
           </div>
         </div>

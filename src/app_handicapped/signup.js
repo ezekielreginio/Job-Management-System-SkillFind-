@@ -2,6 +2,8 @@ import { speech_ai } from "./../_factories/speech_ai"
 if(location.href.indexOf('handicapped/signup') != -1 ){
     document.getElementById("pwdinput-searchbar").classList.remove("d-none")
     document.getElementById("input-searchbar").classList.add("d-none")
+
+    document.getElementById("login-title").innerHTML = "Welcome!"
     
     $(document).ready(function() {
        

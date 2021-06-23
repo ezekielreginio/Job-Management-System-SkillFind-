@@ -7,10 +7,10 @@
 <div id="education-img-header" class="card bg-dark-green mb-3">
     <div class="container mt-2">
         <div class="row">
-            <div class="col-8 card-height d-flex justify-content-center">
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 card-height d-flex justify-content-center">
                 <img src="{% static 'media/images/education-header.png' %}" class="img-applicant-portfolio" alt="">    
             </div>
-            <div class="col-4 card-height d-flex justify-content-center">
+            <div class="col-sm-4 col-md-4 col-lg-84 col-xl-4 card-height d-flex justify-content-center">
                 <img src="{% static 'media/images/applicant_education.png' %}" class="img-applicant-portfolio" alt="">
             </div> 
         </div>  
@@ -30,8 +30,8 @@
     {% if education_list %}
     <div id="div-education-list">
         <div class="row">
-            <div class="col-xs-12 ml-auto mr-2">
-                <a href="#" class="btn btn-applicant" id="btn-add-education"><i class="icon-plus-sign"></i> Add Education Info</a>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-auto mr-2 d-flex justify-content-end">
+                <a href="#" class="btn btn-primary" id="btn-add-education"><i class="icon-plus-sign"></i> Add Education Info</a>
             </div>
         </div>
         {% for education in education_list %}
@@ -41,20 +41,20 @@
                     <br>
                     <span class="experience-span text-secondary"></span>
                 </div>
-                <div class="col-7">
+                <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
                     <h5 class="">{{ education.university }}</h5>
                     <h6 class="">{{ education.qualification }} in {{ education.field_of_study }}</h6>
                     <div class="row">
-                        <div class="col-4 applicant-text-color">Major in</div>
-                        <div class="col-8">{{ education.major }}</div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 applicant-text-color">Major in</div>
+                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{ education.major }}</div>
 
-                        <div class="col-4 applicant-text-color">GPA</div>
-                        <div class="col-8">{{ education.grade }}</div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 applicant-text-color">GPA</div>
+                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">{{ education.grade }}</div>
                     </div>
                     <br>
                     <p class="">{{ education.additional_information }}</p>
                 </div>
-                <div class="col-2">
+                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <a href="{% url 'education_update' education.id %}" class="update-experience applicant-text-color"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
                     <a data-link="{% url 'education_delete' 'delete' education.id %}" class="btn-delete-education text-danger-dark" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block"></i></a>
                 </div>

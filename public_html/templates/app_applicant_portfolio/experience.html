@@ -7,10 +7,10 @@
 <div  class="card bg-dark-green mb-3">
     <div class="container mt-2">
         <div class="row">
-            <div class="col-8 card-height d-flex justify-content-center"> 
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 card-height d-flex justify-content-center"> 
                 <img src="{% static 'media/images/experience-header.png' %}" class="img-applicant-portfolio" alt="">    
             </div>
-            <div class="col-4 card-height d-flex justify-content-center">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 card-height d-flex justify-content-center">
                 <img src="{% static 'media/images/applicant_experience.png' %}" class="img-applicant-portfolio" alt="">
             </div> 
         </div>  
@@ -21,13 +21,13 @@
 {% block portfolio-content %}
     
     <div class="row" id="experience-level">
-        <div class="col-3 text-black">
+        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 applicant-text-color">
             Experience Level
         </div>
-        <div class="col-6">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
             <span class="" id="experience-level-desc">{{experience_level_desc}}</span>
         </div>
-        <div class="col-3">
+        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
             <a href="#" class=""id="edit-experience-level"><i class="icon-edit d-inline-block"></i> Edit</a>
         </div>
     </div>
@@ -39,7 +39,7 @@
     <hr>
     
     <div class="d-none" id="div-experience-form">
-        <p class="">Experience Information : Kindly fill up the form that contains the information regarding your job experience/s</p>
+        <p class="text-applicant">Experience Information : Kindly fill up the form that contains the information regarding your job experience/s</p>
         <div class="container">
             {% crispy form %}
         </div>
@@ -48,54 +48,54 @@
     {%if experience_list %}
         <div id="div-experience-list">
             <div class="row">
-                <div class="col-xs-12 ml-auto mr-2">
-                    <a href="#" class="btn btn-applicant"  id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-auto mr-2 d-flex justify-content-end">
+                    <a href="#" class="btn btn-primary"  id="btn-add-experience"><i class="icon-plus-sign"></i> Add Experience</a>
                 </div>
             </div>
             {% for experience in experience_list %}
                 <div class="row p-2 experience-record">
                     <div class="col-3">
-                        <span><span class="experience-startdate" value="{{experience.start_date|date:'Y-m-d'}}">{{experience.start_date|date:'M Y'}}</span> - <span class="experience-enddate" value="{{experience.end_date|date:'Y-m-d'}}">{{experience.end_date|date:'M Y'}}</span></span>
+                        <span><span class="experience-startdate applicant-text-color" value="{{experience.start_date|date:'Y-m-d'}}">{{experience.start_date|date:'M Y'}}</span> - <span class="experience-enddate applicant-text-color" value="{{experience.end_date|date:'Y-m-d'}}">{{experience.end_date|date:'M Y'}}</span></span>
                         <br>
                         <span class="experience-span applicant-text-color"></span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
                         <h3 class="">{{experience.position_title}}</h3>
                         <h5 class="">{{experience.company_name}} | {{experience.country}}</h5>
                         <br>
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 applicant-text-color">
                                 <span>Industry</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                 <span>{{experience.industry}}</span>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 applicant-text-color">
                                 <span>Specialization</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                 <span>{{experience.specialization}}</span>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 applicant-text-color">
                                 <span>Role</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                 <span>{{experience.role}}</span>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 applicant-text-color">
                                 <span>Position Level</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                 <span>{{experience.position_level}}</span>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 applicant-text-color">
                                 <span>Salary</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                 <span>{{experience.currency}} {{experience.salary}}</span>
                             </div>
                             
@@ -104,7 +104,7 @@
                         <br>
                         <p class="text-black">{{experience.experience_description}}</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                         <a href="{% url 'experience_update' experience.id %}" class="update-experience"><i class="icon-edit fs-25 d-inline-block pr-3"></i></a>
                         <a data-link="{% url 'experience_delete' experience.id %}" class="delete-experience text-danger-dark" id="btn-delete-experience"><i class="icon-trash fs-25 d-inline-block" ></i></a>
                     </div>
