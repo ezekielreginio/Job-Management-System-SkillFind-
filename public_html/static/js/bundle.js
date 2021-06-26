@@ -683,7 +683,7 @@ let speech_ai = (() => {
             let text_pass = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(" ").join("");
             document.activeElement.value = text_pass.toLowerCase();
           } else if (document.activeElement.getAttribute("id") == "id_login" || document.activeElement.getAttribute("id") == "id_email") {
-            document.activeElement.value = text.toLowerCase();
+            document.activeElement.value = text.toLowerCase().split(" ").join("");
           } else {
             document.activeElement.value = text_command;
           }

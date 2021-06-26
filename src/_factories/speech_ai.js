@@ -263,7 +263,7 @@ export let speech_ai = (()=>{
                         document.activeElement.value = text_pass.toLowerCase()                     
                     }
                     else if((document.activeElement.getAttribute("id")=="id_login" || document.activeElement.getAttribute("id")=="id_email")){
-                        document.activeElement.value = text.toLowerCase()
+                        document.activeElement.value = text.toLowerCase().split(" ").join("")
                     }
                    
                     else{    
