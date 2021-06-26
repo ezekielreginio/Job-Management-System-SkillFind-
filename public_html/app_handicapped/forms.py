@@ -187,7 +187,7 @@ class PWDEducation(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_id = 'id_pwd_edu'
-        self.helper.form_action = '/handicapped/pwd-edu'
+        self.helper.form_action = '/handicapped/pwd-edtwo'
         self.helper.form_show_labels = False
         self.helper.add_input(Submit('save', 'Save', css_class='btn-applicant'))
         self.helper.add_input(Button('cancel', 'Cancel', css_class='btn-primary btn-danger-dark', css_id="cancel-education-form"))
